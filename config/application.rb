@@ -26,5 +26,11 @@ module HmrcManualsApi
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    # We need to put this middleware back, after "rails-api" strips it out.
+    # This middleware must be present, otherwise the "request_store" gem, which
+    # is a dependency of "logstasher", falls over. It's not clear whether "request_store"
+    # actually uses this middleware itself, but it references it in the railtie.
+    config.middleware.insert_after(Rack::Runtime, Rack::MethodOverride)
   end
 end
