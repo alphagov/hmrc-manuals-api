@@ -32,5 +32,8 @@ module HmrcManualsApi
     # is a dependency of "logstasher", falls over. It's not clear whether "request_store"
     # actually uses this middleware itself, but it references it in the railtie.
     config.middleware.insert_after(Rack::Runtime, Rack::MethodOverride)
+
+    # Disable Rack::Cache
+    config.action_dispatch.rack_cache = nil
   end
 end
