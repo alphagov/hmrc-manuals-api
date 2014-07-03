@@ -5,4 +5,4 @@ set -e
 export RAILS_ENV=test
 git clean -fdx
 bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
-bundle exec rake --trace
+bundle exec rake ci:setup:rspec default --trace
