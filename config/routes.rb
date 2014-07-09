@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   with_options :format => false do |r|
     r.get '/healthcheck', :to => proc { [200, {}, ['OK']] }
 
-    r.put '/hmrc-manuals/:manual_slug', :to => proc { [200, {'Content-Type' => 'application/json'}, ['{ "status": "ok" }']] }
+    # We need to override the controller and url helper here because rails is unhappy
+    # with the dash in 'hmrc-manuals'.
+    r.resources "hmrc-manuals", only: :update, controller: "manuals", as: "manuals"
   end
 end
