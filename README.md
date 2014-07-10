@@ -2,36 +2,17 @@
 
 This app provides URLs for pushing HMRC manuals into the content store.
 
-## Creating a new manual
+## Adding or updating a manual
 
 ### Request
 
-`POST /hmrc-manuals` with `Content-Type: application/vnd.govuk.hmrc-manual+json`.
+`PUT /hmrc-manuals/<slug>` with `Content-Type: application/vnd.govuk.hmrc-manual+json`.
 
-### Success response
+### Possible responses
 
-Status code: `201`.
-`Location` header: `/hmrc-manuals/<slug>`
-
-The API will generate the slug from the title of the manual.
-
-### If the generated slug already exists on GOV.UK
-
-* `302`: the slug is taken by an existing HMRC manual (possibly the one you're posting).
-
-    The `Location` header points to the existing manual.
-
+* `200`: updated successfully
+* `201`: created successfully
 * `409`: the slug is taken by content that is managed by another publishing tool.
-
-## Updating an existing manual
-
-### Request
-
-`PUT /hmrc-manuals/<manual-slug>` with `Content-Type: application/vnd.govuk.hmrc-manual+json`.
-
-### Success response
-
-Status code: `200`.
 
 ## Adding or updating a manual section
 
