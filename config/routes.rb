@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
     # We need to override the controller and url helper here because rails is unhappy
     # with the dash in 'hmrc-manuals'.
-    r.resources "hmrc-manuals", only: :update, controller: "manuals", as: "manuals"
+    r.resources "hmrc-manuals", only: :update, controller: "manuals", as: "manuals" do
+      r.resources "sections", only: :update
+    end
   end
 end
