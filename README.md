@@ -8,11 +8,7 @@ This app provides URLs for pushing HMRC manuals into the content store.
 
 `PUT /hmrc-manuals/<slug>` with `Content-Type: application/vnd.govuk.hmrc-manual+json`.
 
-### Possible responses
-
-* `200`: updated successfully
-* `201`: created successfully
-* `409`: the slug is taken by content that is managed by another publishing tool.
+Request body to be confirmed.
 
 ## Adding or updating a manual section
 
@@ -20,15 +16,15 @@ This app provides URLs for pushing HMRC manuals into the content store.
 
 `PUT /hmrc-manuals/<manual-slug>/sections/<section_id>` with `Content-Type: application/vnd.govuk.hmrc-manual-section+json`.
 
-### Success response
+Request body to be confirmed.
 
-* Status code: `201` if created.
-* Status code: `200` if updated.
+## Possible responses to PUT requests
 
-## Possible error responses
-
+* `200`: updated successfully
+* `201`: created successfully
 * `400`: the request JSON isn't well-formed.
-* `422`: there's a validation error.
+* `409`: the slug is taken by content that is managed by another publishing tool.
+* `422`: there's a validation error. A response body would detail the errors:
 
     ```json
     {
