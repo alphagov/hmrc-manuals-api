@@ -1,11 +1,10 @@
 require 'rails_helper'
 
 describe 'manual sections resource' do
-  let(:headers) { { 'Content-Type' => 'application/json' } }
-  let(:data) { { foo: 'bar' }.to_json }
+  let(:data) { { foo: 'bar' } }
 
   it 'confirms update of the manual section' do
-    put '/hmrc-manuals/imaginary-slug/sections/EIM12345', data, headers
+    put_json '/hmrc-manuals/imaginary-slug/sections/EIM12345', data
 
     expect(response.status).to eq(200)
     expect(response.headers['Content-Type']).to include('application/json')
