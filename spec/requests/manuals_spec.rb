@@ -1,11 +1,10 @@
 require 'rails_helper'
 
 describe 'manuals resource' do
-  let(:headers) { { 'Content-Type' => 'application/json' } }
-  let(:data) { { foo: 'bar' }.to_json }
+  let(:data) { { foo: 'bar' } }
 
   it 'confirms update of the manual' do
-    put '/hmrc-manuals/imaginary-slug', data, headers
+    put_json '/hmrc-manuals/imaginary-slug', data
 
     expect(response.status).to eq(200)
     expect(response.headers['Content-Type']).to include('application/json')
