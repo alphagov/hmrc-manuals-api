@@ -15,7 +15,7 @@ describe "validation" do
 
   context "for manual sections" do
     it "detects malformed JSON" do
-      expect { put '/hmrc-manuals/imaginary-slug/imaginary-section', malformed_json, headers }.to raise_exception(
+      expect { put '/hmrc-manuals/imaginary-slug/sections/imaginary-section', malformed_json, headers }.to raise_exception(
         # This exception will translate to a 400 status code.
         ActionDispatch::ParamsParser::ParseError
       )
