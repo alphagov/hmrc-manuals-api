@@ -5,176 +5,176 @@
   "updated_at": "2014-01-23T00:00:00+01:00",
   "details": {
     "body": null,
-    "child_manual_section_groups": [
+    "child_section_groups": [
       {
         "title": null,
-        "child_manual_sections": [
+        "child_sections": [
           {
-            "manual_section_id": "EIM00100",
+            "section_id": "EIM00100",
             "title": "About this manual"
           },
           {
-            "manual_section_id": "EIM00500",
+            "section_id": "EIM00500",
             "title": "Employment income"
           },
           {
-            "manual_section_id": "EIM11200",
+            "section_id": "EIM11200",
             "title": "Incentive award schemes: what are they?"
           },
           {
-            "manual_section_id": "EIM11300",
+            "section_id": "EIM11300",
             "title": "Accommodation provided by reason of employment"
           },
           {
-            "manual_section_id": "EIM11800",
+            "section_id": "EIM11800",
             "title": "PAYE: special types of payment"
           },
           {
-            "manual_section_id": "EIM12800",
+            "section_id": "EIM12800",
             "title": "Termination payments and benefits"
           },
           {
-            "manual_section_id": "EIM15000",
+            "section_id": "EIM15000",
             "title": "Non-approved retirement benefits schemes"
           },
           {
-            "manual_section_id": "EIM15500",
+            "section_id": "EIM15500",
             "title": "Value Added Tax: inter-relation with earnings and expenses"
           },
           {
-            "manual_section_id": "EIM16000",
+            "section_id": "EIM16000",
             "title": "Vouchers and credit-tokens"
           },
           {
-            "manual_section_id": "EIM20000",
+            "section_id": "EIM20000",
             "title": "The benefits code: benefits and expenses payments"
           },
           {
-            "manual_section_id": "EIM22700",
+            "section_id": "EIM22700",
             "title": "The benefits code: van and van fuel benefit from 2005/06"
           },
           {
-            "manual_section_id": "EIM23000",
+            "section_id": "EIM23000",
             "title": "The benefits code: car and car fuel benefit"
           },
           {
-            "manual_section_id": "EIM26100",
+            "section_id": "EIM26100",
             "title": "The benefits code: beneficial loans"
           },
           {
-            "manual_section_id": "EIM30000",
+            "section_id": "EIM30000",
             "title": "The benefits code; scholarships provided for members of the family or household of a director or employee"
           },
           {
-            "manual_section_id": "EIM30050",
+            "section_id": "EIM30050",
             "title": "Dispensations"
           },
           {
-            "manual_section_id": "EIM30500",
+            "section_id": "EIM30500",
             "title": "Deductions: directors&#x2019; and officers&#x2019; liabilities"
           },
           {
-            "manual_section_id": "EIM31200",
+            "section_id": "EIM31200",
             "title": "Employees using their own vehicles for work"
           },
           {
-            "manual_section_id": "EIM31500",
+            "section_id": "EIM31500",
             "title": "Employee Car Ownership Schemes (ECOS)"
           },
           {
-            "manual_section_id": "EIM31600",
+            "section_id": "EIM31600",
             "title": "Deductions from general earnings"
           },
           {
-            "manual_section_id": "EIM31800",
+            "section_id": "EIM31800",
             "title": "Deductions: travel expenses"
           },
           {
-            "manual_section_id": "EIM32400",
+            "section_id": "EIM32400",
             "title": "Deductions: expenses other than travel"
           },
           {
-            "manual_section_id": "EIM33000",
+            "section_id": "EIM33000",
             "title": "The Seafarers&#x2019; Earnings Deduction"
           },
           {
-            "manual_section_id": "EIM34000",
+            "section_id": "EIM34000",
             "title": "Special rules for employees travelling to work outside the United Kingdom"
           },
           {
-            "manual_section_id": "EIM35000",
+            "section_id": "EIM35000",
             "title": "Travelling expenses: employees working but not domiciled in the United Kingdom"
           },
           {
-            "manual_section_id": "EIM36500",
+            "section_id": "EIM36500",
             "title": "Deductions: capital allowances"
           },
           {
-            "manual_section_id": "EIM40000",
+            "section_id": "EIM40000",
             "title": "The scope of the charge to tax on general earnings"
           },
           {
-            "manual_section_id": "EIM42200",
+            "section_id": "EIM42200",
             "title": "Employment income: basis of assessment for general earnings"
           },
           {
-            "manual_section_id": "EIM42700",
+            "section_id": "EIM42700",
             "title": "Waivers of remuneration and salary sacrifice"
           },
           {
-            "manual_section_id": "EIM42800",
+            "section_id": "EIM42800",
             "title": "Residence and domicile"
           },
           {
-            "manual_section_id": "EIM45000",
+            "section_id": "EIM45000",
             "title": "Employment income provided through third parties"
           },
           {
-            "manual_section_id": "EIM50000",
+            "section_id": "EIM50000",
             "title": "Tax treatment of particular occupations: A to Ce"
           },
           {
-            "manual_section_id": "EIM60000",
+            "section_id": "EIM60000",
             "title": "Tax treatment of particular occupations: Cl to J"
           },
           {
-            "manual_section_id": "EIM65799",
+            "section_id": "EIM65799",
             "title": "Tax treatment of particular occupations: L to R"
           },
           {
-            "manual_section_id": "EIM70199",
+            "section_id": "EIM70199",
             "title": "Tax treatment of particular occupations: S to Z"
           },
           {
-            "manual_section_id": "EIM71400",
+            "section_id": "EIM71400",
             "title": "Assessments, appeals and other procedures"
           },
           {
-            "manual_section_id": "EIM74000",
+            "section_id": "EIM74000",
             "title": "The taxation of pension income"
           },
           {
-            "manual_section_id": "EIM76000",
+            "section_id": "EIM76000",
             "title": "Social security benefits"
           },
           {
-            "manual_section_id": "EIM77000",
+            "section_id": "EIM77000",
             "title": "Appendices: contents page"
           },
           {
-            "manual_section_id": "EIM77010",
+            "section_id": "EIM77010",
             "title": "Appendix 1: Employees on secondment to the UK"
           },
           {
-            "manual_section_id": "EIM77020",
+            "section_id": "EIM77020",
             "title": "Appendix 2: General earnings in respect of duties performed in the UK"
           },
           {
-            "manual_section_id": "EIM77030",
+            "section_id": "EIM77030",
             "title": "Appendix 3: Non domiciled employees: dual contract arrangements"
           },
           {
-            "manual_section_id": "EIM77040",
+            "section_id": "EIM77040",
             "title": "Appendix 4: Not ordinarily resident employees: tax equalisation"
           }
         ]

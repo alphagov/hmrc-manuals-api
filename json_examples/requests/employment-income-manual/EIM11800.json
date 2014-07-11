@@ -1,396 +1,396 @@
 {
   // First-level child section with multiple
-  // child_manual_section_groups
+  // child_section_groups
   "title": "PAYE special types of payment: contents",
   "updated_at": "2014-01-23T00:00:00+01:00",
   "details": {
-    "manual_section_id": "EIM11800",
+    "section_id": "EIM11800",
     "body": null,
-    "parent_manual_section_ids": [],
-    "child_manual_section_groups": [
+    "parent_section_ids": [],
+    "child_section_groups": [
       {
         "title": " PAYE: background",
-        "child_manual_sections": [
+        "child_sections": [
           {
-            "manual_section_id": "EIM11801",
+            "section_id": "EIM11801",
             "title": "Background to PAYE on special types of payment: introduction"
           },
           {
-            "manual_section_id": "EIM11802",
+            "section_id": "EIM11802",
             "title": "Special type of payer or payee: background"
           },
           {
-            "manual_section_id": "EIM11803",
+            "section_id": "EIM11803",
             "title": "Special type of income: background"
           }
         ]
       },
       {
         "title": " PAYE: special type of payment",
-        "child_manual_sections": [
+        "child_sections": [
           {
-            "manual_section_id": "EIM11804",
+            "section_id": "EIM11804",
             "title": "Meaning of employee"
           },
           {
-            "manual_section_id": "EIM11805",
+            "section_id": "EIM11805",
             "title": "Meaning of employer"
           }
         ]
       },
       {
         "title": " PAYE: special type of payer or payee",
-        "child_manual_sections": [
+        "child_sections": [
           {
-            "manual_section_id": "EIM11810",
+            "section_id": "EIM11810",
             "title": "Payments by intermediary"
           },
           {
-            "manual_section_id": "EIM11811",
+            "section_id": "EIM11811",
             "title": "Payments by intermediary: example"
           },
           {
-            "manual_section_id": "EIM11812",
+            "section_id": "EIM11812",
             "title": "Special type of payer or payee: payments by payroll agent"
           },
           {
-            "manual_section_id": "EIM11813",
+            "section_id": "EIM11813",
             "title": "PAYE: Employment Income provided through third parties"
           },
           {
-            "manual_section_id": "EIM11815",
+            "section_id": "EIM11815",
             "title": "Agency workers"
           },
           {
-            "manual_section_id": "EIM11816",
+            "section_id": "EIM11816",
             "title": "Agency workers: who has to operate PAYE: payment in cash"
           },
           {
-            "manual_section_id": "EIM11817",
+            "section_id": "EIM11817",
             "title": "Agency workers: who has to operate PAYE: payment in readily convertible assets"
           },
           {
-            "manual_section_id": "EIM11818",
+            "section_id": "EIM11818",
             "title": "Agency workers: example"
           },
           {
-            "manual_section_id": "EIM11819",
+            "section_id": "EIM11819",
             "title": "Agency workers: further examples"
           },
           {
-            "manual_section_id": "EIM11820",
+            "section_id": "EIM11820",
             "title": "Employee of a non-UK employer"
           },
           {
-            "manual_section_id": "EIM11825",
+            "section_id": "EIM11825",
             "title": "Non-resident employee"
           },
           {
-            "manual_section_id": "EIM11835",
+            "section_id": "EIM11835",
             "title": "Organised arrangements for sharing tips"
           }
         ]
       },
       {
         "title": " PAYE: special type of income",
-        "child_manual_sections": [
+        "child_sections": [
           {
-            "manual_section_id": "EIM11840",
+            "section_id": "EIM11840",
             "title": "Cash vouchers"
           },
           {
-            "manual_section_id": "EIM11845",
+            "section_id": "EIM11845",
             "title": "Non-cash vouchers"
           },
           {
-            "manual_section_id": "EIM11850",
+            "section_id": "EIM11850",
             "title": "Credit-tokens"
           },
           {
-            "manual_section_id": "EIM11855",
+            "section_id": "EIM11855",
             "title": "Readily convertible assets"
           },
           {
-            "manual_section_id": "EIM11860",
+            "section_id": "EIM11860",
             "title": "A payment that enhances the value of an existing asset"
           },
           {
-            "manual_section_id": "EIM11861",
+            "section_id": "EIM11861",
             "title": "A payment that enhances the value of an asset: premium paid to an existing life assurance policy: example"
           },
           {
-            "manual_section_id": "EIM11865",
+            "section_id": "EIM11865",
             "title": "Shares ceasing to be only conditional or being disposed of"
           },
           {
-            "manual_section_id": "EIM11866",
+            "section_id": "EIM11866",
             "title": "Shares ceasing to be only conditional or being disposed of: example"
           },
           {
-            "manual_section_id": "EIM11870",
+            "section_id": "EIM11870",
             "title": "Conversion of shares"
           },
           {
-            "manual_section_id": "EIM11875",
+            "section_id": "EIM11875",
             "title": "Gains from share options"
           },
           {
-            "manual_section_id": "EIM11876",
+            "section_id": "EIM11876",
             "title": "Gains from share options: approved share option schemes and options granted before 27 November 1996"
           },
           {
-            "manual_section_id": "EIM11877",
+            "section_id": "EIM11877",
             "title": "Gains from share options: exercise of an option in an unapproved share option scheme: example"
           },
           {
-            "manual_section_id": "EIM11878",
+            "section_id": "EIM11878",
             "title": "Gains from share options: exercise of an option in an unapproved share option scheme prior to flotation: example"
           },
           {
-            "manual_section_id": "EIM11879",
+            "section_id": "EIM11879",
             "title": "Gains from share options: option cancelled in return for payment: example"
           },
           {
-            "manual_section_id": "EIM11890",
+            "section_id": "EIM11890",
             "title": "The amount on which to operate PAYE"
           },
           {
-            "manual_section_id": "EIM11891",
+            "section_id": "EIM11891",
             "title": "The amount on which to operate PAYE: the amount chargeable to tax as employment income"
           },
           {
-            "manual_section_id": "EIM11892",
+            "section_id": "EIM11892",
             "title": "Estimating the amount on which to operate PAYE"
           }
         ]
       },
       {
         "title": " PAYE: readily convertible assets",
-        "child_manual_sections": [
+        "child_sections": [
           {
-            "manual_section_id": "EIM11900",
+            "section_id": "EIM11900",
             "title": "Meaning of readily convertible assets"
           },
           {
-            "manual_section_id": "EIM11901",
+            "section_id": "EIM11901",
             "title": "Meaning of readily convertible assets: asset capable of being sold on a recognised investment exchange"
           },
           {
-            "manual_section_id": "EIM11902",
+            "section_id": "EIM11902",
             "title": "Meaning of readily convertible assets: asset capable of being sold on the London Bullion Market"
           },
           {
-            "manual_section_id": "EIM11903",
+            "section_id": "EIM11903",
             "title": "Meaning of readily convertible assets: asset capable of being sold on the New York Stock Exchange"
           },
           {
-            "manual_section_id": "EIM11904",
+            "section_id": "EIM11904",
             "title": "Meaning of readily convertible assets: asset capable of being sold on a specified market"
           },
           {
-            "manual_section_id": "EIM11905",
+            "section_id": "EIM11905",
             "title": "Meaning of readily convertible assets: money debt"
           },
           {
-            "manual_section_id": "EIM11906",
+            "section_id": "EIM11906",
             "title": "Meaning of readily convertible assets: property subject to a warehousing regime"
           },
           {
-            "manual_section_id": "EIM11907",
+            "section_id": "EIM11907",
             "title": "Meaning of readily convertible assets: an asset likely to provide cash without action by the owner"
           },
           {
-            "manual_section_id": "EIM11908",
+            "section_id": "EIM11908",
             "title": "Meaning of readily convertible assets: trading arrangements"
           },
           {
-            "manual_section_id": "EIM11910",
+            "section_id": "EIM11910",
             "title": "Meaning of readily convertible assets: trading arrangements: definition"
           },
           {
-            "manual_section_id": "EIM11911",
+            "section_id": "EIM11911",
             "title": "Meaning of readily convertible assets: trading arrangements: employer's arguments"
           },
           {
-            "manual_section_id": "EIM11912",
+            "section_id": "EIM11912",
             "title": "Meaning of readily convertible assets: trading arrangements: judicial guidance"
           },
           {
-            "manual_section_id": "EIM11913",
+            "section_id": "EIM11913",
             "title": "Meaning of readily convertible assets: no trading arrangements"
           },
           {
-            "manual_section_id": "EIM11920",
+            "section_id": "EIM11920",
             "title": "Readily convertible assets: examples: introduction"
           },
           {
-            "manual_section_id": "EIM11921",
+            "section_id": "EIM11921",
             "title": "Readily convertible assets: examples: asset listed on a recognised investment exchange"
           },
           {
-            "manual_section_id": "EIM11922",
+            "section_id": "EIM11922",
             "title": "Readily convertible assets: examples: asset listed on the New York Stock Exchange"
           },
           {
-            "manual_section_id": "EIM11923",
+            "section_id": "EIM11923",
             "title": "Readily convertible assets: examples: trade debts"
           },
           {
-            "manual_section_id": "EIM11924",
+            "section_id": "EIM11924",
             "title": "Readily convertible assets: examples: property subject to a warehousing regime"
           },
           {
-            "manual_section_id": "EIM11925",
+            "section_id": "EIM11925",
             "title": "Readily convertible assets: examples: an asset likely to provide cash without action by the owner"
           },
           {
-            "manual_section_id": "EIM11926",
+            "section_id": "EIM11926",
             "title": "Readily convertible assets: examples: asset not tradeable on the London Bullion Market"
           },
           {
-            "manual_section_id": "EIM11927",
+            "section_id": "EIM11927",
             "title": "Readily convertible assets: examples: no trading arrangements"
           }
         ]
       },
       {
         "title": " PAYE: special types of payment",
-        "child_manual_sections": [
+        "child_sections": [
           {
-            "manual_section_id": "EIM11930",
+            "section_id": "EIM11930",
             "title": "Awards of shares"
           },
           {
-            "manual_section_id": "EIM11931",
+            "section_id": "EIM11931",
             "title": "Awards of shares: shares excluded from being assets"
           },
           {
-            "manual_section_id": "EIM11932",
+            "section_id": "EIM11932",
             "title": "Shares ceasing to be only conditional or being disposed of: share incentive plans and restricted share schemes"
           },
           {
-            "manual_section_id": "EIM11950",
+            "section_id": "EIM11950",
             "title": "Employee fails to make good PAYE: employer's requirement: notional payments"
           },
           {
-            "manual_section_id": "EIM11951",
+            "section_id": "EIM11951",
             "title": "Employee fails to make good PAYE: employee's requirement"
           },
           {
-            "manual_section_id": "EIM11952",
+            "section_id": "EIM11952",
             "title": "Employee fails to make good PAYE: meaning of make good"
           }
         ]
       },
       {
         "title": " PAYE avoidance",
-        "child_manual_sections": [
+        "child_sections": [
           {
-            "manual_section_id": "EIM12000",
+            "section_id": "EIM12000",
             "title": "Background"
           },
           {
-            "manual_section_id": "EIM12001",
+            "section_id": "EIM12001",
             "title": "Non-cash remuneration before 25 May 1994: meaning of payment"
           },
           {
-            "manual_section_id": "EIM12002",
+            "section_id": "EIM12002",
             "title": "Pre-existing entitlement to a monetary amount"
           },
           {
-            "manual_section_id": "EIM12003",
+            "section_id": "EIM12003",
             "title": "Pre-existing entitlement to a monetary amount: Paul Dunstall Organisation Ltd v Hedges"
           },
           {
-            "manual_section_id": "EIM12010",
+            "section_id": "EIM12010",
             "title": "Application of the Ramsay principle"
           },
           {
-            "manual_section_id": "EIM12030",
+            "section_id": "EIM12030",
             "title": "Non-cash remuneration: handling of PAYE/NICs avoidance cases"
           }
         ]
       },
       {
         "title": " Non-cash remuneration: NICs avoidance",
-        "child_manual_sections": [
+        "child_sections": [
           {
-            "manual_section_id": "EIM12100",
+            "section_id": "EIM12100",
             "title": "Non-cash remuneration: NICs avoidance"
           }
         ]
       },
       {
         "title": " PAYE: employment-related securities",
-        "child_manual_sections": [
+        "child_sections": [
           {
-            "manual_section_id": "EIM12200",
+            "section_id": "EIM12200",
             "title": "Background"
           },
           {
-            "manual_section_id": "EIM12201",
+            "section_id": "EIM12201",
             "title": "Commencement"
           },
           {
-            "manual_section_id": "EIM12210",
+            "section_id": "EIM12210",
             "title": "Approved company share option plan (CSOP) schemes"
           },
           {
-            "manual_section_id": "EIM12220",
+            "section_id": "EIM12220",
             "title": "Restricted securities: background"
           },
           {
-            "manual_section_id": "EIM12221",
+            "section_id": "EIM12221",
             "title": "Restricted securities: conditional shares acquired before 16 April 2003"
           },
           {
-            "manual_section_id": "EIM12230",
+            "section_id": "EIM12230",
             "title": "Convertible securities"
           },
           {
-            "manual_section_id": "EIM12240",
+            "section_id": "EIM12240",
             "title": "Securities with artificially depressed market value"
           },
           {
-            "manual_section_id": "EIM12250",
+            "section_id": "EIM12250",
             "title": "Securities with artificially enhanced market value"
           },
           {
-            "manual_section_id": "EIM12260",
+            "section_id": "EIM12260",
             "title": "Securities acquired for less than market value"
           },
           {
-            "manual_section_id": "EIM12270",
+            "section_id": "EIM12270",
             "title": "Securities disposed of for more than market value"
           },
           {
-            "manual_section_id": "EIM12280",
+            "section_id": "EIM12280",
             "title": "Post-acquisition benefits from securities"
           }
         ]
       },
       {
         "title": " PAYE: employment-related securities: securities options",
-        "child_manual_sections": [
+        "child_sections": [
           {
-            "manual_section_id": "EIM12300",
+            "section_id": "EIM12300",
             "title": "Gains from securities options: background"
           },
           {
-            "manual_section_id": "EIM12310",
+            "section_id": "EIM12310",
             "title": "Securities options, share options"
           },
           {
-            "manual_section_id": "EIM12320",
+            "section_id": "EIM12320",
             "title": "Securities options, other securities options"
           }
         ]
       },
       {
         "title": " PAYE: securities as readily convertible assets",
-        "child_manual_sections": [
+        "child_sections": [
           {
-            "manual_section_id": "EIM12400",
+            "section_id": "EIM12400",
             "title": "Securities as readily convertible assets"
           }
         ]
