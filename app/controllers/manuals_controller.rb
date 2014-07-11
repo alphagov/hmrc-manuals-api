@@ -1,5 +1,3 @@
-require 'json'
-
 class ManualsController < ApplicationController
   def update
     validation_errors = JSON::Validator.fully_validate(
