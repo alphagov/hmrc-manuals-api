@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 describe 'manuals resource' do
-  let(:valid_manual) { { title: 'Employment Income Manual' } }
-
   it 'confirms update of the manual' do
     put_json '/hmrc-manuals/imaginary-slug', valid_manual
 
