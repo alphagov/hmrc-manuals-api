@@ -1,7 +1,7 @@
 class SectionsController < ApplicationController
   def update
     validation_errors = JSON::Validator.fully_validate(
-      MANUAL_SCHEMA,
+      SECTION_SCHEMA,
       section_params,
       validate_schema: true
     )
