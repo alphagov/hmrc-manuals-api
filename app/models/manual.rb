@@ -5,7 +5,7 @@ class Manual
   include ActiveModel::Validations
 
   attr_reader :manual_attributes, :slug
-  validates :manual_attributes, conforms_to_json_schema: { schema: MANUAL_SCHEMA }
+  validates :manual_attributes, no_html_in_text_fields: true, conforms_to_json_schema: { schema: MANUAL_SCHEMA }
 
   def initialize(slug, manual_attributes)
     @slug = slug
