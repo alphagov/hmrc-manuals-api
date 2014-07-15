@@ -7,10 +7,11 @@ describe "validation" do
 
   context "for manuals" do
     it "detects malformed JSON" do
-      expect { put '/hmrc-manuals/imaginary-slug', malformed_json, headers }.to raise_exception(
-        # This exception will translate to a 400 status code.
-        ActionDispatch::ParamsParser::ParseError
-      )
+      put '/hmrc-manuals/imaginary-slug', malformed_json, headers
+
+      expect(response.status).to eq(400)
+      expect(json_response).to include("status" => "error")
+      expect(json_response["errors"].first).to match(%r{Request JSON could not be parsed:})
     end
 
     it "validates for the presence of the title" do
@@ -24,10 +25,11 @@ describe "validation" do
 
   context "for manual sections" do
     it "detects malformed JSON" do
-      expect { put '/hmrc-manuals/imaginary-slug/sections/imaginary-section', malformed_json, headers }.to raise_exception(
-        # This exception will translate to a 400 status code.
-        ActionDispatch::ParamsParser::ParseError
-      )
+      put '/hmrc-manuals/imaginary-slug/sections/imaginary-section', malformed_json, headers
+
+      expect(response.status).to eq(400)
+      expect(json_response).to include("status" => "error")
+      expect(json_response["errors"].first).to match(%r{Request JSON could not be parsed:})
     end
 
     it "validates for the presence of the title" do

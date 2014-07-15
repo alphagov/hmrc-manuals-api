@@ -1,8 +1,10 @@
 class ManualsController < ApplicationController
+  before_filter :parse_request_body, only: [:update]
+
   def update
     validation_errors = JSON::Validator.fully_validate(
       MANUAL_SCHEMA,
-      manual_params,
+      @parsed_request_body,
       validate_schema: true
     )
     if validation_errors.empty?
@@ -10,10 +12,5 @@ class ManualsController < ApplicationController
     else
       render json: { status: "error", errors: validation_errors }, status: 422
     end
-  end
-
-  private
-  def manual_params
-    params.permit(:title)
   end
 end
