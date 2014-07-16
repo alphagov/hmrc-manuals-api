@@ -1,4 +1,70 @@
 {
   "type": "object",
-  "required": ["title"]
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "public_updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "An ISO 8601 datetime, eg 2014-01-23T00:00:00+01:00"
+    },
+    "details": {
+      "type": "object",
+      "properties": {
+        "child_section_groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "child_sections": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "section_id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "section_id",
+                    "title"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "child_sections"
+            ]
+          }
+        }
+      },
+      "required": [
+        "child_section_groups"
+      ]
+    },
+    "update_type": {
+      "type": "string",
+      "enum": ["major", "minor"]
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "public_updated_at",
+    "details",
+    "update_type"
+  ]
 }

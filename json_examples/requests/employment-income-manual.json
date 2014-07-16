@@ -36,15 +36,7 @@
           },
         ]
       }
-    ],
-    // Including change notes automatically makes a change 'major', else it is
-    // 'minor'.
-    //
-    // If manual control of major versus minor is required, this could
-    // potentially be changed.
-    //
-    // The intention is that in the future, change notes will be aggregated to
-    // provide users with a list of updates to a manual.
-    "change_notes": "Optional."
-  }
+    ]
+  },
+  "update_type": "major"
 }

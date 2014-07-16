@@ -24,7 +24,7 @@
         "title": "The immediate parent section."
       }
     ],
-    "child_section_groups": [],
-    "change_notes": "Optional."
-  }
+    "child_section_groups": []
+  },
+  "update_type": "major"
 }
