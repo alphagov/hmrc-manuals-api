@@ -4,6 +4,7 @@
   "title": "Employment Income Manual",
   "description": "A guide to the Income Tax (Earnings and Pensions) Act 2003",
   "public_updated_at": "2014-03-04T13:58:11+00:00",
+  "update_type": "major",
   "details": {
     "child_section_groups": [
       {
@@ -23,8 +24,7 @@
           }
         ]
       }
-    ],
-    "change_notes": "I made some changes" // or null
+    ]
   },
   "publishing_app": "hmrc-manuals-api",
   "rendering_app": "manuals-frontend",
@@ -33,6 +33,5 @@
       "path": "/guidance/employment-income-manual",
       "type": "exact"
     }
-  ],
-  "update_type": "major"
+  ]
 }

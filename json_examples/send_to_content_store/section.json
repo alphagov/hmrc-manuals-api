@@ -4,6 +4,7 @@
   "title": "About this manual",
   "description": null, // or string
   "public_updated_at": "2014-03-04T13:58:11+00:00",
+  "update_type": "major",
   "details": {
     "body": null, // or string
     "section_id": "EIM0000", // omitted for normal manuals
@@ -30,8 +31,7 @@
           }
         ]
       }
-    ],
-    "change_notes": "Including change notes makes a change 'major', else it is minor."
+    ]
   },
   "publishing_app": "hmrc-manuals-api",
   "rendering_app": "manuals-frontend",
@@ -40,6 +40,5 @@
       "path": "/guidance/employment-income-manual/EIM00100",
       "type": "exact"
     }
-  ],
-  "update_type": "major" // if details/change_notes are included it is 'major', else 'minor'
+  ]
 }

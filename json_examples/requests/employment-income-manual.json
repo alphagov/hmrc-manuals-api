@@ -1,0 +1,50 @@
+{
+  // Manual
+  "title": "Employment Income Manual",
+  "description": "A guide to the Income Tax (Earnings and Pensions) Act 2003",
+  // public_updated_at should be updated on the manual whenever a change to a
+  // part of the manual is made, but can be done once for a batch of changes.
+  //
+  // Ideally, it should be when the content was last changed, which will often
+  // be when this request is made, but it might be in the past for content
+  // being migrated from a legacy system.
+  "public_updated_at": "2014-01-23T00:00:00+01:00",
+  "details": {
+    "child_section_groups": [
+      {
+        "title": "Optional",
+        "child_sections": [
+          {
+            "section_id": "EIM00100",
+            "title": "About this manual",
+            "description": "Optional"
+          },
+          {
+            "section_id": "EIM11800",
+            "title": "PAYE: special types of payment",
+            "description": "Optional"
+          },
+          {
+            "section_id": "EIM23000",
+            "title": "The benefits code: car and car fuel benefit",
+            "description": "Optional"
+          },
+          {
+            "section_id": "EIM77010",
+            "title": "Appendix 1: Employees on secondment to the UK",
+            "description": "Optional"
+          },
+        ]
+      }
+    ],
+    // Including change notes automatically makes a change 'major', else it is
+    // 'minor'.
+    //
+    // If manual control of major versus minor is required, this could
+    // potentially be changed.
+    //
+    // The intention is that in the future, change notes will be aggregated to
+    // provide users with a list of updates to a manual.
+    "change_notes": "Optional."
+  }
+}
