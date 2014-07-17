@@ -10,7 +10,7 @@
     "section_id": "EIM25525",
     "manual": {
       "title": "Employment Income Manual",
-      "base_path": "/guidance/employment-income-manual",
+      "slug": "employment-income-manual"
     },
     // breadcrumbs never include the manual, or this section. They are made up
     // of the sections in between, from left to right.
