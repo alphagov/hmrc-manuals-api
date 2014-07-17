@@ -1,0 +1,55 @@
+{
+  "title": "PAYE special types of payment: contents",
+  "description": "Optional",
+  // Ideally, it should be when the content was last changed, which will often
+  // be when this request is made, but it might be in the past for content
+  // being migrated from a legacy system.
+  "public_updated_at": "2014-01-23T00:00:00+01:00",
+  "details": {
+    "body": "Optional",
+    "section_id": "EIM11800",
+    "manual": {
+      "title": "Employment Income Manual",
+      "slug": "employment-income-manual"
+    },
+    "breadcrumbs": [],
+    "child_section_groups": [
+      {
+        "title": " PAYE: background",
+        "child_sections": [
+          {
+            "section_id": "EIM11801",
+            "title": "Background to PAYE on special types of payment: introduction",
+            "description": "Optional"
+          },
+          {
+            "section_id": "EIM11802",
+            "title": "Special type of payer or payee: background",
+            "description": "Optional"
+          },
+          {
+            "section_id": "EIM11803",
+            "title": "Special type of income: background",
+            "description": "Optional"
+          }
+        ]
+      },
+      {
+        "title": "PAYE: special type of payment",
+        "child_sections": [
+          {
+            "section_id": "EIM11804",
+            "title": "Meaning of employee",
+            "description": "Optional"
+          },
+          {
+            "section_id": "EIM11805",
+            "title": "Meaning of employer",
+            "description": "Optional"
+          }
+        ]
+      }
+    ],
+    "change_notes": "Optional."
+  }
+}

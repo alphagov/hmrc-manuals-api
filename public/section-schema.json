@@ -1,4 +1,106 @@
 {
   "type": "object",
-  "required": ["title"]
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "public_updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "details": {
+      "type": "object",
+      "properties": {
+        "body": {
+          "type": "string"
+        },
+        "section_id": {
+          "type": "string"
+        },
+        "manual": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "slug": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "title",
+            "slug"
+          ]
+        },
+        "breadcrumbs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "section_id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "section_id",
+              "title"
+            ]
+          }
+        },
+        "child_section_groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "child_sections": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "section_id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "section_id",
+                    "title"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "child_sections"
+            ]
+          }
+        },
+        "change_notes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "section_id",
+        "manual"
+      ]
+    }
+  },
+  "required": [
+    "title",
+    "public_updated_at",
+    "details"
+  ]
 }
