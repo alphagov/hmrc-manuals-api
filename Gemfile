@@ -5,7 +5,7 @@ gem 'rails-api', '0.2.1'
 gem 'logstasher', '0.5.3'
 gem 'unicorn', '4.8.3'
 gem 'airbrake', '3.1.15'
-gem 'json-schema', '2.2.2'
+gem 'json-schema', '2.2.3'
 
 group :development, :test do
   gem 'rspec-rails', '3.0.1'
