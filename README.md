@@ -8,7 +8,14 @@ This app provides URLs for pushing HMRC manuals into the content store.
 
 `PUT /hmrc-manuals/<slug>` with `Content-Type: application/vnd.govuk.hmrc-manual+json`.
 
-Request body to be confirmed.
+### Example JSON
+
+[See an example manual](json_examples/requests/employment-income-manual.json)
+
+
+### JSON Schema
+
+[JSON Schema for manuals](public/manual-schema.json)
 
 ## Adding or updating a manual section
 
@@ -16,7 +23,15 @@ Request body to be confirmed.
 
 `PUT /hmrc-manuals/<manual-slug>/sections/<section_id>` with `Content-Type: application/vnd.govuk.hmrc-manual-section+json`.
 
-Request body to be confirmed.
+### Example JSON
+
+1. [An example first-level section, with children](json_examples/requests/employment-income-manual/EIM11800.json)
+1. [An example third-level section](json_examples/requests/employment-income-manual/EIM25525.json)
+
+
+### JSON Schema
+
+[JSON Schema for sections](public/section-schema.json)
 
 ## Possible responses to PUT requests
 
