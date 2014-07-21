@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
+  "additionalProperties": false,
   "properties": {
     "title": {
       "type": "string"
@@ -15,11 +16,13 @@
     },
     "details": {
       "type": "object",
+      "additionalProperties": false,
       "properties": {
         "child_section_groups": {
           "type": "array",
           "items": {
             "type": "object",
+            "additionalProperties": false,
             "properties": {
               "title": {
                 "type": "string"
@@ -28,6 +31,7 @@
                 "type": "array",
                 "items": {
                   "type": "object",
+                  "additionalProperties": false,
                   "properties": {
                     "section_id": {
                       "type": "string"
