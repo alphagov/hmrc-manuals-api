@@ -1,4 +1,118 @@
 {
+  "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
-  "required": ["title"]
+  "additionalProperties": false,
+  "required": [
+    "title",
+    "public_updated_at",
+    "details",
+    "update_type"
+  ],
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "public_updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "update_type": {
+      "type": "string",
+      "enum": [
+        "major",
+        "minor"
+      ]
+    },
+    "details": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "section_id",
+        "manual"
+      ],
+      "properties": {
+        "body": {
+          "type": "string"
+        },
+        "section_id": {
+          "type": "string"
+        },
+        "manual": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "title",
+            "slug"
+          ],
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "slug": {
+              "type": "string"
+            }
+          }
+        },
+        "breadcrumbs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "section_id",
+              "title"
+            ],
+            "properties": {
+              "section_id": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "child_section_groups": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "child_sections"
+            ],
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "child_sections": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "section_id",
+                    "title"
+                  ],
+                  "properties": {
+                    "section_id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "description": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

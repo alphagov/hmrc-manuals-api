@@ -1,0 +1,37 @@
+{
+  "base_path": "/guidance/employment-income-manual",
+  "format": "hmrc-manual",
+  "title": "Employment Income Manual",
+  "description": "A guide to the Income Tax (Earnings and Pensions) Act 2003",
+  "public_updated_at": "2014-03-04T13:58:11+00:00",
+  "update_type": "major",
+  "details": {
+    "child_section_groups": [
+      {
+        "title": null, // or string
+        "child_sections": [
+          {
+            "base_path": "/guidance/employment-income-manual/EIM00100",
+            "title": "About this manual",
+            "section_id": "EIM00100", // omitted for normal manuals
+            "description": null // or string
+          },
+          {
+            "base_path": "/guidance/employment-income-manual/EIM11800",
+            "title": "PAYE: Special types of payment",
+            "section_id": "EIM11800", // omitted for normal manuals
+            "description": null // or string
+          }
+        ]
+      }
+    ]
+  },
+  "publishing_app": "hmrc-manuals-api",
+  "rendering_app": "manuals-frontend",
+  "routes": [
+    {
+      "path": "/guidance/employment-income-manual",
+      "type": "exact"
+    }
+  ]
+}
