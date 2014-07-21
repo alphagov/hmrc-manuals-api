@@ -2,6 +2,13 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "additionalProperties": false,
+  "required": [
+    "title",
+    "description",
+    "public_updated_at",
+    "details",
+    "update_type"
+  ],
   "properties": {
     "title": {
       "type": "string"
@@ -14,15 +21,28 @@
       "format": "date-time",
       "description": "An ISO 8601 datetime, eg 2014-01-23T00:00:00+01:00"
     },
+    "update_type": {
+      "type": "string",
+      "enum": [
+        "major",
+        "minor"
+      ]
+    },
     "details": {
       "type": "object",
       "additionalProperties": false,
+      "required": [
+        "child_section_groups"
+      ],
       "properties": {
         "child_section_groups": {
           "type": "array",
           "items": {
             "type": "object",
             "additionalProperties": false,
+            "required": [
+              "child_sections"
+            ],
             "properties": {
               "title": {
                 "type": "string"
@@ -32,6 +52,10 @@
                 "items": {
                   "type": "object",
                   "additionalProperties": false,
+                  "required": [
+                    "section_id",
+                    "title"
+                  ],
                   "properties": {
                     "section_id": {
                       "type": "string"
@@ -42,34 +66,13 @@
                     "description": {
                       "type": "string"
                     }
-                  },
-                  "required": [
-                    "section_id",
-                    "title"
-                  ]
+                  }
                 }
               }
-            },
-            "required": [
-              "child_sections"
-            ]
+            }
           }
         }
-      },
-      "required": [
-        "child_section_groups"
-      ]
-    },
-    "update_type": {
-      "type": "string",
-      "enum": ["major", "minor"]
+      }
     }
-  },
-  "required": [
-    "title",
-    "description",
-    "public_updated_at",
-    "details",
-    "update_type"
-  ]
+  }
 }
