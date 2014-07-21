@@ -21,6 +21,10 @@ describe 'JSON examples for requests' do
     # Validate all example sections in this directory
     let(:section_filepaths) { Dir[File.join(requests_dir, 'employment-income-manual', '**', '*.json')] }
 
+    specify 'data under test is present' do
+      expect(section_filepaths).not_to be_empty
+    end
+
     specify 'all section examples should be valid JSON' do
       section_filepaths.each do |filename|
         expect { JSON.parse(File.read(filename)) }.not_to raise_error
