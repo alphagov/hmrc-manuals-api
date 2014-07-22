@@ -27,6 +27,7 @@ This app provides URLs for pushing HMRC manuals into the content store.
 
 1. [An example first-level section, with children](json_examples/requests/employment-income-manual/EIM11800.json)
 1. [An example third-level section](json_examples/requests/employment-income-manual/EIM25525.json)
+1. [An example section with ungrouped children](json_examples/requests/employment-income-manual/EIM11200.json) (the group title is omitted and only one group included)
 
 
 ### JSON Schema

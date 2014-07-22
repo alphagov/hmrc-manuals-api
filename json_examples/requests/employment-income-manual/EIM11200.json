@@ -1,0 +1,31 @@
+{
+  "title": "EIM11200 - Incentive award schemes: what are they?",
+  "description": "",
+  "public_updated_at": "2014-01-23T00:00:00+01:00",
+  "update_type": "major",
+  "details": {
+    "body": "Incentive awards are a way of rewarding employees and others\nwith cash, goods or holidays rather than increases in pay. Schemes\ncan vary from national promotions to a prize raffle held by a small\nfirm. Rewards of goods or holidays will usually involve the use of\na voucher.\n[EIM16040](/guidance/employment-income-manual/EIM16000#EIM16040) explains the meaning of\n'voucher' for tax purposes.\n\nAwards may be linked to sales performance, good timekeeping,\nsafety or production records, or may involve participation in a\nlottery or prize draw. Schemes may be intended to benefit employees\nor the self-employed, or both.\n\nAwards may be made by the employee's direct employer or by a\nthird party with an interest in the performance of the employee.\nFor example, a car manufacturer is more likely to give an incentive\naward to a person employed by a dealership than the direct\nemployer.\n\nSometimes employers or third parties may buy ready-made\nincentive schemes from a promoter of such schemes, instead of\ndevising their own arrangements. Where this is done, the promoter\nwill generally be responsible for organising the incentive scheme\nand providing the awards to the employees, but will have no\nresponsibility for any tax due on the awards. See\n[EIM11220](/guidance/employment-income-manual/EIM11200#EIM11220) about promoters and tax on\nawards.\n\nFurther guidance is set out at the references listed\nbelow:\n\n",
+    "section_id": "EIM11200",
+    "manual": {
+      "title": "Employment Income Manual",
+      "slug": "employment-income-manual"
+    },
+    "breadcrumbs": [],
+    "child_section_groups": [
+      {
+        "child_sections": [
+          {
+            "section_id": "EIM11205",
+            "title": "Incentive award schemes:\n\ntax liability on incentive awards",
+            "description": "### General\n\nWhere an employer meets the tax payable on a non-cash incentive\naward given to a direct employee by entering into a PAYE settlement\nagreement (PSA), the award is not chargeable to tax on the\nemployee. PSAs cannot be used to pay the tax on cash incentive\nawards. PSAs are covered at\n[EIM11270](/guidance/employment-income-manual/EIM11200#EIM11270).\n\nApart from non-cash awards covered by a PSA, all incentive\nawards made to employees are chargeable on them as employment\nincome.\n\n### Cash awards\n\nIn the case of cash awards the amount chargeable as earnings is\nthe amount of the award.\n\n### Non-cash awards\n\nIn the case of non-cash awards the amount chargeable depends\nupon the nature of the award:\n\n*   where awards are obtained through the use of\nvouchers, the charge for all employees is the full cost to the\nprovider of making the award (see[EIM16140](/guidance/employment-income-manual/EIM16140))\n\n*   for directors and employees within the benefits\n\n    code (see\n    [EIM20100](/guidance/employment-income-manual/EIM20001#EIM20100) to EIM20102) the charge is the\n\n    full cost to the provider of making the award\n*   for employees who are in an excluded employment (\n\n    [EIM20007](/guidance/employment-income-manual/EIM20001#EIM20007)) the charge is the second-hand\n\n    value of the award if it can be converted into money (see\n    [EIM00540](/guidance/employment-income-manual/EIM00505#EIM00540) to EIM00560)."
+          },
+          {
+            "section_id": "EIM11210",
+            "title": "Incentive award schemes:\n\nawards to an employee's family or dependants",
+            "description": "Awards are treated as made to the employee if they are received\nby members of the employee's family or household. There are\ndifferent definitions of the family circle depending upon whether\nvouchers are used, or awards are obtained in some other way and are\nchargeable under the benefits code."
+          }
+        ]
+      }
+    ]
+  }
+}
