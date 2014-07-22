@@ -46,9 +46,9 @@ This app provides URLs for pushing HMRC manuals into the content store.
     {
       "status": "error",
       "errors": [
-        {
-          "key": "error_message"
-        },...
+        "error_message_1",
+        "error_message_2",
+        ...
       ]
     }
     ```
