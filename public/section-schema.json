@@ -62,14 +62,10 @@
             "type": "object",
             "additionalProperties": false,
             "required": [
-              "section_id",
-              "title"
+              "section_id"
             ],
             "properties": {
               "section_id": {
-                "type": "string"
-              },
-              "title": {
                 "type": "string"
               }
             }
