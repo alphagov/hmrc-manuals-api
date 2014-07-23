@@ -64,8 +64,7 @@ module TestDataHelpers
         },
         breadcrumbs: [
           {
-            section_id: '1234',
-            title: 'A section higher up the tree'
+            section_id: '1234'
           }
         ],
         child_section_groups: [

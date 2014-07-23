@@ -15,8 +15,7 @@
     "breadcrumbs": [
       {
         "base_path": "/guidance/employment-income-manual/EIM0000",
-        "title": "Something something",
-        "section_id": "EIM0000" // omitted for normal manuals
+        "section_id": "EIM0000" // a normal manual would have a title instead
       }
     ],
     "child_section_groups": [

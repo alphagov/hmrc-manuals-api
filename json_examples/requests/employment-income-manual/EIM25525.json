@@ -16,12 +16,10 @@
     // of the sections in between, from left to right.
     "breadcrumbs": [
       {
-        "section_id": "EIM23000",
-        "title": "The grandparent section. Child to the manual."
+        "section_id": "EIM23000" // The grandparent section. Child to the manual.
       },
       {
-        "section_id": "EIM25500",
-        "title": "The immediate parent section."
+        "section_id": "EIM25500" // The immediate parent section.
       }
     ],
     "child_section_groups": []
