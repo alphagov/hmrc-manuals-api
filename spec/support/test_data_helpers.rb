@@ -46,7 +46,7 @@ module TestDataHelpers
           slug: 'employment-income-manual',
         }
       }
-    }
+    }.merge(options)
   end
 
   def maximal_section(options = {})
@@ -78,7 +78,7 @@ module TestDataHelpers
           ]
         ]
       }
-    }
+    }.merge(options)
   end
 end
 
