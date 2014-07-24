@@ -42,7 +42,6 @@ module TestDataHelpers
       details: {
         section_id: "12345",
         manual: {
-          title: 'Employment Income Manual',
           slug: 'employment-income-manual',
         }
       }
@@ -59,7 +58,6 @@ module TestDataHelpers
         body: 'I need somebody to love',
         section_id: '12345',
         manual: {
-          title: 'Employment Income Manual',
           slug: 'employment-income-manual',
         },
         breadcrumbs: [
