@@ -7,10 +7,10 @@ describe 'manuals resource' do
   it 'confirms update of the manual' do
     stub_default_content_store_put
 
-    put_json '/hmrc-manuals/employment-income-manual', valid_manual
+    put_json '/hmrc-manuals/employment-income-manual', maximal_manual
 
     expect(response.status).to eq(200)
     expect(response.headers['Content-Type']).to include('application/json')
-    assert_content_store_put_item('/guidance/employment-income-manual', valid_manual_for_content_store)
+    assert_content_store_put_item('/guidance/employment-income-manual', maximal_manual_for_content_store)
   end
 end
