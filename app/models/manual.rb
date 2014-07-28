@@ -12,12 +12,9 @@ class Manual
     @manual_attributes = manual_attributes
   end
 
-  def manual_base_path
-    "/guidance/#{@slug}"
-  end
-
   def save!
     api = GdsApi::ContentStore.new(Plek.current.find('content-store'))
-    api.put_content_item(manual_base_path, ContentStoreManual.new(self).to_h)
+    api.put_content_item(ContentStoreManual.manual_base_path(@slug),
+                         ContentStoreManual.new(self).to_h)
   end
 end
