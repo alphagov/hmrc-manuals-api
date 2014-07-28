@@ -6,6 +6,8 @@ gem 'logstasher', '0.5.3'
 gem 'unicorn', '4.8.3'
 gem 'airbrake', '3.1.15'
 gem 'json-schema', '2.2.3'
+gem 'gds-sso', '9.3.0'
+gem 'plek', '1.8.1'
 
 group :development, :test do
   gem 'rspec-rails', '3.0.1'

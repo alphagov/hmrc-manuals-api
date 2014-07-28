@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe "validation" do
   let(:malformed_json) { "[" }
-  let(:headers) { { 'Content-Type' => 'application/json' } }
+  let(:headers) { { 'Content-Type' => 'application/json', 'HTTP_AUTHORIZATION' => 'Bearer 12345678' } }
   let(:manual_without_title)  { valid_manual.tap {|m| m.delete(:title) } }
   let(:section_without_title) { valid_section.tap {|m| m.delete(:title) } }
 
