@@ -14,7 +14,7 @@ class Manual
 
   def save!
     api = GdsApi::ContentStore.new(Plek.current.find('content-store'))
-    api.put_content_item(ContentStoreManual.manual_base_path(@slug),
+    api.put_content_item(ContentStoreManual.base_path(@slug),
                          ContentStoreManual.new(self).to_h)
   end
 end
