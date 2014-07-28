@@ -1,6 +1,11 @@
 module JSONRequestHelper
   def put_json(path, attrs, headers = {})
-    put path, attrs.to_json, {"CONTENT_TYPE" => "application/json"}.merge(headers)
+    default_headers = {
+      "CONTENT_TYPE" => "application/json",
+      'HTTP_ACCEPT' => 'application/json',
+      'HTTP_AUTHORIZATION' => 'Bearer 12345678'
+    }
+    put path, attrs.to_json, default_headers.merge(headers)
   end
 
   def json_response

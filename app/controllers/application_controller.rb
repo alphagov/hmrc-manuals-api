@@ -1,4 +1,7 @@
 class ApplicationController < ActionController::API
+  include GDS::SSO::ControllerMethods
+
+  before_filter :require_signin_permission!
 
 private
   def parse_request_body
