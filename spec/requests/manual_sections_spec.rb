@@ -21,4 +21,29 @@ describe 'manual sections resource' do
 
     expect(response.status).to eq(503)
   end
+
+  it 'handles the content store request timing out' do
+    content_store_times_out
+
+    put_json '/hmrc-manuals/employment-income-manual/sections/12345', maximal_section
+
+    expect(response.status).to eq(503)
+  end
+
+  it 'handles some other error with the content store' do
+    content_store_validation_error
+
+    put_json '/hmrc-manuals/employment-income-manual/sections/12345', maximal_section
+
+    expect(response.status).to eq(500)
+  end
+
+private
+  def content_store_times_out
+    stub_request(:any, /#{GdsApi::TestHelpers::ContentStore::CONTENT_STORE_ENDPOINT}\/.*/).to_timeout
+  end
+
+  def content_store_validation_error
+    stub_request(:any, /#{GdsApi::TestHelpers::ContentStore::CONTENT_STORE_ENDPOINT}\/.*/).to_return(:status => 422)
+  end
 end
