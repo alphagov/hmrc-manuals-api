@@ -4,8 +4,8 @@ class ManualsController < ApplicationController
   def update
     manual = Manual.new(params[:id], @parsed_request_body)
     if manual.valid?
-      manual.save!
-      render nothing: true, content_type: "application/json", status: 200
+      content_store_response = manual.save!
+      render nothing: true, content_type: "application/json", status: content_store_response.code
     else
       render json: { status: "error", errors: manual.errors.full_messages }, status: 422
     end
