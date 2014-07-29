@@ -13,4 +13,12 @@ describe 'manual sections resource' do
     expect(response.headers['Content-Type']).to include('application/json')
     assert_content_store_put_item('/guidance/employment-income-manual/12345', maximal_section_for_content_store)
   end
+
+  it 'handles the content store being unavailable' do
+    content_store_isnt_available
+
+    put_json '/hmrc-manuals/employment-income-manual/sections/12345', maximal_section
+
+    expect(response.status).to eq(503)
+  end
 end

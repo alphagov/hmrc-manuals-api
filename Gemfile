@@ -8,7 +8,11 @@ gem 'airbrake', '3.1.15'
 gem 'json-schema', '2.2.3'
 gem 'gds-sso', '9.3.0'
 gem 'plek', '1.8.1'
-gem 'gds-api-adapters', '12.4.1'
+if ENV['api_dev']
+  gem 'gds-api-adapters', path: '../gds-api-adapters'
+else
+  gem 'gds-api-adapters', '12.5.0'
+end
 
 group :development, :test do
   gem 'rspec-rails', '3.0.1'
