@@ -9,7 +9,6 @@
     "body": null, // or string
     "section_id": "EIM0000", // omitted for normal manuals
     "manual": {
-      "title": "Employment Income Manual",
       "base_path": "/guidance/employment-income-manual",
     },
     "breadcrumbs": [
