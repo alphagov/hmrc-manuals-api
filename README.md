@@ -2,11 +2,28 @@
 
 This app provides URLs for pushing HMRC manuals into the content store.
 
+## Connecting to the API
+
+The base path for the preview environment is:
+https://hmrc-manuals-api.preview.alphagov.co.uk
+
+Authentication is done with a token, which needs to be supplied in the Authorization HTTP header, like this:
+
+```Authorization: Bearer your_token```
+
+You also need to supply an accept header:
+
+```Accept: application/json```
+
+Please note that:
+* Tokens are environment specific, so preview and production will have different tokens.
+* The data on preview is overwritten every night with data from production
+
 ## Adding or updating a manual
 
 ### Request
 
-`PUT /hmrc-manuals/<slug>` with `Content-Type: application/vnd.govuk.hmrc-manual+json`.
+`PUT /hmrc-manuals/<slug>`.
 
 ### Example JSON
 
@@ -21,7 +38,7 @@ This app provides URLs for pushing HMRC manuals into the content store.
 
 ### Request
 
-`PUT /hmrc-manuals/<manual-slug>/sections/<section_id>` with `Content-Type: application/vnd.govuk.hmrc-manual-section+json`.
+`PUT /hmrc-manuals/<manual-slug>/sections/<section_id>`.
 
 ### Example JSON
 
