@@ -6,7 +6,7 @@ This app provides URLs for pushing HMRC manuals into the content store.
 
 ### Request
 
-`PUT /hmrc-manuals/<slug>` with `Content-Type: application/vnd.govuk.hmrc-manual+json`.
+`PUT /hmrc-manuals/<slug>`.
 
 ### Example JSON
 
@@ -21,7 +21,7 @@ This app provides URLs for pushing HMRC manuals into the content store.
 
 ### Request
 
-`PUT /hmrc-manuals/<manual-slug>/sections/<section_id>` with `Content-Type: application/vnd.govuk.hmrc-manual-section+json`.
+`PUT /hmrc-manuals/<manual-slug>/sections/<section_id>`.
 
 ### Example JSON
 
