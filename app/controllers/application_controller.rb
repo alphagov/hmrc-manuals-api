@@ -1,3 +1,5 @@
+require 'gds_api/exceptions'
+
 class ApplicationController < ActionController::API
   include GDS::SSO::ControllerMethods
 
