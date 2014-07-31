@@ -14,7 +14,8 @@ class ContentStoreSection
       routes: [{ path: ContentStoreSection.base_path(@manual_slug, @section_id), type: :exact }]
       })
     enriched_data = add_base_path_to_child_section_groups(enriched_data)
-    add_base_path_to_breadcrumbs(enriched_data)
+    enriched_data = add_base_path_to_breadcrumbs(enriched_data)
+    add_base_path_to_manual(enriched_data)
   end
 
   def self.base_path(manual_slug, section_id)
@@ -37,6 +38,12 @@ private
     (attributes["details"]["breadcrumbs"] || []).each do |section|
       section['base_path'] = ContentStoreSection.base_path(@manual_slug, section['section_id'])
     end
+    attributes
+  end
+
+  def add_base_path_to_manual(attributes)
+    attributes["details"]["manual"].delete("slug")
+    attributes["details"]["manual"]["base_path"] = ContentStoreManual.base_path(@manual_slug)
     attributes
   end
 end
