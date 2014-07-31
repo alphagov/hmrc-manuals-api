@@ -45,8 +45,7 @@ module ContentStoreDataHelpers
         "body" => "I need somebody to love",
         "section_id" => "12345",
         "manual" => {
-          "title" => "Employment Income Manual",
-          "slug" => "employment-income-manual"
+          "base_path" => "/guidance/employment-income-manual"
         },
         "breadcrumbs" => [
           {
