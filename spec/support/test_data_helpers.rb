@@ -69,8 +69,8 @@ module TestDataHelpers
           title: 'A group of sections',
           child_sections: [
             {
-              title: 'About 12345',
-              section_id: '12345',
+              title: 'About 123456',
+              section_id: '123456',
               description: 'A short description of the section'
             }
           ]
