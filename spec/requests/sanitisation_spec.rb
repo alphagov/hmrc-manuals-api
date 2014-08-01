@@ -26,4 +26,18 @@ describe "Dangerous markup" do
       end
     end
   end
+
+  context "in sections" do
+    context "(disallowed HTML tags)" do
+      let(:section_with_disallowed_html_tag_in_title) { valid_section(title: '<script>text</script>') }
+
+      it "is invalid in free-text fields" do
+        put_json '/hmrc-manuals/imaginary-slug/sections/ABC', section_with_disallowed_html_tag_in_title
+
+        expect(response.status).to eq(422)
+        expect(json_response).to include("status" => "error")
+        expect(json_response["errors"].first).to match(%r{'#/title' contains disallowed HTML})
+      end
+    end
+  end
 end

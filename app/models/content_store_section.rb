@@ -1,6 +1,10 @@
 require 'struct_with_rendered_markdown'
 
 class ContentStoreSection
+  include ActiveModel::Validations
+
+  validates :to_h, no_dangerous_html_in_text_fields: true
+  
   def initialize(section)
     @manual_slug = section.manual_slug
     @section_id = section.section_id
