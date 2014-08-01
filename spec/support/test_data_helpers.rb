@@ -1,3 +1,5 @@
+require 'active_support'
+
 module TestDataHelpers
   def valid_manual(options = {})
     {
@@ -8,7 +10,7 @@ module TestDataHelpers
       details: {
         child_section_groups: []
       }
-    }.merge(options)
+    }.merge(options).deep_stringify_keys
   end
 
   def maximal_manual(options = {})
@@ -31,7 +33,7 @@ module TestDataHelpers
           }
         ]
       }
-    }.merge(options)
+    }.merge(options).deep_stringify_keys
   end
 
   def valid_section(options = {})
@@ -45,7 +47,7 @@ module TestDataHelpers
           slug: 'employment-income-manual',
         }
       }
-    }.merge(options)
+    }.merge(options).deep_stringify_keys
   end
 
   def maximal_section(options = {})
@@ -76,7 +78,7 @@ module TestDataHelpers
           ]
         ]
       }
-    }.merge(options)
+    }.merge(options).deep_stringify_keys
   end
 end
 

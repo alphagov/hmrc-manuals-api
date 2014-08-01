@@ -71,3 +71,7 @@ Please note that:
     ```
 
 * `503`: the request could not be completed because the API or the content store is unavailable.
+
+## Content validation
+
+If a manual or a section contains any HTML tags in any field, the request is rejected with a status `422` validation error.
