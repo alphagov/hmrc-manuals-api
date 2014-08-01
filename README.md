@@ -77,3 +77,16 @@ Please note that:
 All `description` and `body` attributes in manuals or manual sections may contain
 [markdown](http://daringfireball.net/projects/markdown/syntax). The markdown in those attributes
 is converted to HTML before the document is sent to the content store.
+
+There is a whitelist of allowed HTML tags and attributes. If a manual or a section
+contains any disallowed HTML in any field, the request is rejected with a validation error (status code `422`).
+
+The following tags are allowed:
+```
+a, abbr, b, bdo, blockquote, br, caption, cite, code, col, colgroup, dd, del, dfn, div, dl, dt, em, figcaption, figure, h1, h2, h3, h4, h5, h6, hgroup, hr, i, img, ins, kbd, li, mark, ol, p, pre, q, rp, rt, ruby, s, samp, small, strike, strong, sub, sup, table, tbody, td, tfoot, th, thead, time, tr, u, ul, var, wbr.
+```
+
+The following tag attributes are allowed:
+```
+{:all=>["dir", "lang", "title", "id", "class"], "a"=>["href", "rel"], "blockquote"=>["cite"], "col"=>["span", "width"], "colgroup"=>["span", "width"], "del"=>["cite", "datetime"], "img"=>["align", "alt", "height", "src", "width"], "ins"=>["cite", "datetime"], "ol"=>["start", "reversed", "type"], "q"=>["cite"], "table"=>["summary", "width"], "td"=>["abbr", "axis", "colspan", "rowspan", "width"], "th"=>["abbr", "axis", "colspan", "rowspan", "scope", "width"], "time"=>["datetime", "pubdate"], "ul"=>["type"]}
+```
