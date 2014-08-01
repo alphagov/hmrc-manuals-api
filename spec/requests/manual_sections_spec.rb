@@ -1,21 +1,21 @@
 require 'rails_helper'
-require 'gds_api/test_helpers/content_store'
+require 'gds_api/test_helpers/publishing_api'
 
 describe 'manual sections resource' do
-  include GdsApi::TestHelpers::ContentStore
+  include GdsApi::TestHelpers::PublishingApi
 
   it 'confirms update of the manual section' do
-    stub_default_content_store_put
+    stub_default_publishing_api_put
 
     put_json '/hmrc-manuals/employment-income-manual/sections/12345', maximal_section
 
     expect(response.status).to eq(200)
     expect(response.headers['Content-Type']).to include('application/json')
-    assert_content_store_put_item('/guidance/employment-income-manual/12345', maximal_section_for_content_store)
+    assert_publishing_api_put_item('/guidance/employment-income-manual/12345', maximal_section_for_publishing_api)
   end
 
   it 'handles the content store being unavailable' do
-    content_store_isnt_available
+    publishing_api_isnt_available
 
     put_json '/hmrc-manuals/employment-income-manual/sections/12345', maximal_section
 
@@ -23,7 +23,7 @@ describe 'manual sections resource' do
   end
 
   it 'handles the content store request timing out' do
-    content_store_times_out
+    publishing_api_times_out
 
     put_json '/hmrc-manuals/employment-income-manual/sections/12345', maximal_section
 
@@ -31,7 +31,7 @@ describe 'manual sections resource' do
   end
 
   it 'handles some other error with the content store' do
-    content_store_validation_error
+    publishing_api_validation_error
 
     put_json '/hmrc-manuals/employment-income-manual/sections/12345', maximal_section
 
@@ -39,11 +39,11 @@ describe 'manual sections resource' do
   end
 
 private
-  def content_store_times_out
-    stub_request(:any, /#{GdsApi::TestHelpers::ContentStore::CONTENT_STORE_ENDPOINT}\/.*/).to_timeout
+  def publishing_api_times_out
+    stub_request(:any, /#{GdsApi::TestHelpers::PublishingApi::PUBLISHING_API_ENDPOINT}\/.*/).to_timeout
   end
 
-  def content_store_validation_error
-    stub_request(:any, /#{GdsApi::TestHelpers::ContentStore::CONTENT_STORE_ENDPOINT}\/.*/).to_return(:status => 422)
+  def publishing_api_validation_error
+    stub_request(:any, /#{GdsApi::TestHelpers::PublishingApi::PUBLISHING_API_ENDPOINT}\/.*/).to_return(:status => 422)
   end
 end

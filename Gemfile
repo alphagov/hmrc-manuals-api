@@ -11,7 +11,7 @@ gem 'plek', '1.8.1'
 if ENV['api_dev']
   gem 'gds-api-adapters', path: '../gds-api-adapters'
 else
-  gem 'gds-api-adapters', '12.5.0'
+  gem 'gds-api-adapters', '14.0.0'
 end
 gem 'govspeak', '2.0.0'
 

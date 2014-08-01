@@ -1,6 +1,6 @@
 # HMRC Manuals API
 
-This app provides URLs for pushing HMRC manuals into the content store.
+This app provides URLs for pushing HMRC manuals to the GOV.UK Publishing API.
 
 ## Connecting to the API
 
@@ -70,13 +70,13 @@ Please note that:
     }
     ```
 
-* `503`: the request could not be completed because the API or the content store is unavailable.
+* `503`: the request could not be completed because the API or the Publishing API is unavailable.
 
 ## Content post-processing
 
 All `description` and `body` attributes in manuals or manual sections may contain
 [markdown](http://daringfireball.net/projects/markdown/syntax). The markdown in those attributes
-is converted to HTML before the document is sent to the content store.
+is converted to HTML before the document is sent to the Publishing API.
 
 There is a whitelist of allowed HTML tags and attributes. If a manual or a section
 contains any disallowed HTML in any field, the request is rejected with a validation error (status code `422`).
