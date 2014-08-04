@@ -71,3 +71,9 @@ Please note that:
     ```
 
 * `503`: the request could not be completed because the API or the content store is unavailable.
+
+## Content post-processing
+
+All `description` and `body` attributes in manuals or manual sections may contain
+[markdown](http://daringfireball.net/projects/markdown/syntax). The markdown in those attributes
+is converted to HTML before the document is sent to the content store.

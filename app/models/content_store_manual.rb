@@ -1,3 +1,5 @@
+require 'struct_with_rendered_markdown'
+
 class ContentStoreManual
   def initialize(manual)
     @slug = manual.slug
@@ -12,6 +14,7 @@ class ContentStoreManual
       rendering_app: 'manuals-frontend',
       routes: [{ path: ContentStoreManual.base_path(@slug), type: :exact }]
       })
+    enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
     add_base_path_to_child_section_groups(enriched_data)
   end
 

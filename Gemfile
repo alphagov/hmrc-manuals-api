@@ -13,6 +13,7 @@ if ENV['api_dev']
 else
   gem 'gds-api-adapters', '12.5.0'
 end
+gem 'govspeak', '1.6.2'
 
 group :development, :test do
   gem 'rspec-rails', '3.0.1'

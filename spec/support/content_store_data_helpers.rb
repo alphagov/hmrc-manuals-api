@@ -4,7 +4,7 @@ module ContentStoreDataHelpers
       "base_path" => "/guidance/employment-income-manual",
       "format" => "hmrc-manual",
       "title" => "Employment Income Manual",
-      "description" => "A manual about incoming employment",
+      "description" => "<p>A manual about incoming employment</p>\n",
       "public_updated_at" => "2014-01-23T00:00:00+01:00",
       "update_type" => "major",
       "details" => {
@@ -15,7 +15,7 @@ module ContentStoreDataHelpers
               {
                 "title" => "About 12345",
                 "section_id" => "12345",
-                "description" => "A short description of the section",
+                "description" => "<p>A short description of the section</p>\n",
                 "base_path" => "/guidance/employment-income-manual/12345"
               }
             ]
@@ -38,11 +38,11 @@ module ContentStoreDataHelpers
       "base_path" => "/guidance/employment-income-manual/12345",
       "format" => "hmrc-manual-section",
       "title" => "A section on a part of employment income",
-      "description" => "Some description",
+      "description" => "<p>Some description</p>\n",
       "public_updated_at" => "2014-01-23T00:00:00+01:00",
       "update_type" => "minor",
       "details" => {
-        "body" => "I need somebody to love",
+        "body" => "<p>I need <strong>somebody</strong> to love</p>\n",
         "section_id" => "12345",
         "manual" => {
           "base_path" => "/guidance/employment-income-manual"
@@ -60,7 +60,7 @@ module ContentStoreDataHelpers
               {
                 "title" => "About 123456",
                 "section_id" => "123456",
-                "description" => "A short description of the section",
+                "description" => "<p>A short description of the section</p>\n",
                 "base_path" => "/guidance/employment-income-manual/123456"
               }
             ]

@@ -55,7 +55,7 @@ module TestDataHelpers
       public_updated_at: '2014-01-23T00:00:00+01:00',
       update_type: 'minor',
       details: {
-        body: 'I need somebody to love',
+        body: 'I need **somebody** to love',
         section_id: '12345',
         manual: {
           slug: 'employment-income-manual',
