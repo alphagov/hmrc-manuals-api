@@ -5,8 +5,8 @@ class SectionsController < ApplicationController
     section = Section.new(params[:manual_id], params[:id], @parsed_request_body)
 
     if section.valid?
-      content_store_response = section.save!
-      render nothing: true, content_type: "application/json", status: content_store_response.code
+      publishing_api_response = section.save!
+      render nothing: true, content_type: "application/json", status: publishing_api_response.code
     else
       render json: { status: "error", errors: section.errors.full_messages }, status: 422
     end

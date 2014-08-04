@@ -1,5 +1,5 @@
-module ContentStoreDataHelpers
-  def maximal_manual_for_content_store(options = {})
+module PublishingApiDataHelpers
+  def maximal_manual_for_publishing_api(options = {})
     {
       "base_path" => "/guidance/employment-income-manual",
       "format" => "hmrc-manual",
@@ -33,7 +33,7 @@ module ContentStoreDataHelpers
     }.merge(options)
   end
 
-  def maximal_section_for_content_store(options = {})
+  def maximal_section_for_publishing_api(options = {})
     {
       "base_path" => "/guidance/employment-income-manual/12345",
       "format" => "hmrc-manual-section",
@@ -79,4 +79,4 @@ module ContentStoreDataHelpers
   end
 end
 
-RSpec.configuration.include ContentStoreDataHelpers
+RSpec.configuration.include PublishingApiDataHelpers
