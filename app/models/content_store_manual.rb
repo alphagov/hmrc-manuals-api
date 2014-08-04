@@ -1,6 +1,11 @@
+require 'active_model'
 require 'struct_with_rendered_markdown'
 
 class ContentStoreManual
+  include ActiveModel::Validations
+
+  validates :to_h, no_dangerous_html_in_text_fields: true
+
   def initialize(manual)
     @slug = manual.slug
     @manual_attributes = manual.manual_attributes
