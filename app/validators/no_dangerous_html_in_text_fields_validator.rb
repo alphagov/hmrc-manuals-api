@@ -19,7 +19,7 @@ private
   end
 
   def allowed_html_tags
-    sanitiser_config[:elements].uniq.sort
+    sanitiser_config[:elements].sort
   end
 
   def allowed_html_attributes
