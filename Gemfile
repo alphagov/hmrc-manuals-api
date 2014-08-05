@@ -18,6 +18,9 @@ gem 'govspeak', '2.0.0'
 group :development, :test do
   gem 'rspec-rails', '3.0.1'
   gem 'rspec-collection_matchers', '1.0.0'
+end
+
+group :test do
   gem 'simplecov', '0.8.2', require: false
   gem 'simplecov-rcov', '0.2.3', require: false
   gem 'ci_reporter', '2.0.0.alpha2'
