@@ -25,6 +25,10 @@ class PublishingAPISection
     add_base_path_to_manual(enriched_data)
   end
 
+  def govuk_url
+    Plek.current.find('www') + PublishingAPISection.base_path(@manual_slug, @section_id)
+  end
+
   def self.base_path(manual_slug, section_id)
     File.join(PublishingAPIManual.base_path(manual_slug), section_id)
   end

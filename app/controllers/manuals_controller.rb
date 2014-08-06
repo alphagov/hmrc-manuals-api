@@ -5,7 +5,8 @@ class ManualsController < ApplicationController
     manual = Manual.new(params[:id], @parsed_request_body)
     if manual.valid?
       publishing_api_response = manual.save!
-      render nothing: true, content_type: "application/json", status: publishing_api_response.code
+      render json: { govuk_url: manual.publishing_api_manual.govuk_url },
+                    content_type: "application/json", status: publishing_api_response.code
     else
       render json: { status: "error", errors: manual.errors.full_messages }, status: 422
     end
