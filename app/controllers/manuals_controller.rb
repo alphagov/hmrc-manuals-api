@@ -6,7 +6,8 @@ class ManualsController < ApplicationController
     if manual.valid?
       publishing_api_response = manual.save!
       render json: { govuk_url: manual.publishing_api_manual.govuk_url },
-                    content_type: "application/json", status: publishing_api_response.code
+                    content_type: "application/json", status: publishing_api_response.code,
+                    location: manual.publishing_api_manual.govuk_url
     else
       render json: { status: "error", errors: manual.errors.full_messages }, status: 422
     end

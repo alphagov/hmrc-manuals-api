@@ -12,6 +12,7 @@ describe 'manuals resource' do
     expect(response.status).to eq(200)
     expect(response.headers['Content-Type']).to include('application/json')
     assert_publishing_api_put_item('/guidance/employment-income-manual', maximal_manual_for_publishing_api)
+    expect(response.headers['Location']).to include('/guidance/employment-income-manual')
     expect(response.body).to include('/guidance/employment-income-manual')
   end
 
