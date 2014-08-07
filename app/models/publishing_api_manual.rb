@@ -5,8 +5,6 @@ require 'gds_api/publishing_api'
 class PublishingAPIManual
   include ActiveModel::Validations
 
-  class ValidationError < StandardError; end
-
   validates :to_h, no_dangerous_html_in_text_fields: true, if: -> { manual.valid? }
   validate :incoming_manual_is_valid
 

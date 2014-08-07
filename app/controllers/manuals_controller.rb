@@ -8,7 +8,7 @@ class ManualsController < ApplicationController
       render json: { govuk_url: manual.govuk_url },
                     status: publishing_api_response.code,
                     location: manual.govuk_url
-    rescue PublishingAPIManual::ValidationError
+    rescue ValidationError
       render json: { status: "error", errors: manual.errors.full_messages }, status: 422
     end
   end
