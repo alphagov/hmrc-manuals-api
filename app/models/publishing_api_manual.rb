@@ -24,7 +24,7 @@ class PublishingAPIManual
   end
 
   def govuk_url
-    Plek.current.find('www') + PublishingAPIManual.base_path(@slug)
+    Plek.current.website_root + PublishingAPIManual.base_path(@slug)
   end
 
   def self.base_path(manual_slug)
