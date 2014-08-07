@@ -1,5 +1,4 @@
 require 'active_model'
-require 'gds_api/publishing_api'
 
 class Section
   include ActiveModel::Validations
@@ -19,9 +18,10 @@ class Section
   end
 
   def save!
-    api = GdsApi::PublishingApi.new(Plek.current.find('publishing-api'))
-    api.put_content_item(PublishingAPISection.base_path(@manual_slug, @section_id),
-                         publishing_api_section.to_h)
+    HmrcManualsApi.publishing_api.put_content_item(
+      PublishingAPISection.base_path(@manual_slug, @section_id),
+      publishing_api_section.to_h
+    )
   end
 
 private

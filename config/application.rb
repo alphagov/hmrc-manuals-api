@@ -14,6 +14,8 @@ require "action_view/railtie"
 Bundler.require(*Rails.groups)
 
 module HmrcManualsApi
+  mattr_accessor :publishing_api
+
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
