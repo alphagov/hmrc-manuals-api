@@ -18,7 +18,7 @@ class Section
   end
 
   def save!
-    HmrcManualsApi.publishing_api.put_content_item(
+    HMRCManualsAPI.publishing_api.put_content_item(
       PublishingAPISection.base_path(@manual_slug, @section_id),
       publishing_api_section.to_h
     )

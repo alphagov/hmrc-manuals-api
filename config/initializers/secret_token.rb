@@ -16,4 +16,4 @@
 # Using secret_token for rails3 compatibility. Change to secret_key_base
 # to avoid deprecation warning.
 # Can be safely removed in a rails3 api-only application.
-HmrcManualsApi::Application.config.secret_token = '24333fe7d21a3ee6ea95ef3f2797242c6c846058cdef38a030c4c73672f34456457c62cbe98484293c18a2c7fdb912b5ca3c336c636c66e42df8db8e3d04dd82'
+HMRCManualsAPI::Application.config.secret_token = '24333fe7d21a3ee6ea95ef3f2797242c6c846058cdef38a030c4c73672f34456457c62cbe98484293c18a2c7fdb912b5ca3c336c636c66e42df8db8e3d04dd82'
