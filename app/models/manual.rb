@@ -14,7 +14,7 @@ class Manual
   end
 
   def publishing_api_manual
-    PublishingAPIManual.new(self)
+    @_publishing_api_manual ||= PublishingAPIManual.new(self)
   end
 
   def save!

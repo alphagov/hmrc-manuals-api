@@ -23,6 +23,10 @@ class PublishingAPIManual
     add_base_path_to_child_section_groups(enriched_data)
   end
 
+  def govuk_url
+    Plek.current.website_root + PublishingAPIManual.base_path(@slug)
+  end
+
   def self.base_path(manual_slug)
     "/guidance/#{manual_slug}"
   end

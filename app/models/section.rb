@@ -15,7 +15,7 @@ class Section
   end
 
   def publishing_api_section
-    PublishingAPISection.new(self)
+    @_publishing_api_section ||= PublishingAPISection.new(self)
   end
 
   def save!

@@ -56,6 +56,14 @@ Please note that:
 
 * `200`: updated successfully
 * `201`: created successfully
+  * Both `200`s and `201`s return a location header and a response body containing the GOV.UK URL of the manual:
+
+    `Location: https://www.gov.uk/guidance/MANUAL_SLUG/SECTION_ID`
+    ```json
+    {
+      "govuk_url": "https://www.gov.uk/guidance/MANUAL_SLUG/SECTION_ID"
+    }
+    ```
 * `400`: the request JSON isn't well-formed.
 * `409`: the slug is taken by content that is managed by another publishing tool.
 * `422`: there's a validation error. A response body would detail the errors:

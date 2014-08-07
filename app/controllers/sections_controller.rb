@@ -6,7 +6,9 @@ class SectionsController < ApplicationController
 
     if section.valid?
       publishing_api_response = section.save!
-      render nothing: true, content_type: "application/json", status: publishing_api_response.code
+      render json: { govuk_url: section.publishing_api_section.govuk_url },
+                    status: publishing_api_response.code,
+                    location: section.publishing_api_section.govuk_url
     else
       render json: { status: "error", errors: section.errors.full_messages }, status: 422
     end
