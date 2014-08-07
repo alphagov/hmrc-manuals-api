@@ -15,6 +15,12 @@ describe "validation" do
       expect(json_response["errors"].first).to match(%r{Request JSON could not be parsed:})
     end
 
+    it "detects invalid payloads" do
+      put_json '/hmrc-manuals/imaginary-slug', []
+
+      expect(response.status).to eq(422)
+    end
+
     it "validates for the presence of the title" do
       put_json '/hmrc-manuals/imaginary-slug', manual_without_title
 
@@ -31,6 +37,12 @@ describe "validation" do
       expect(response.status).to eq(400)
       expect(json_response).to include("status" => "error")
       expect(json_response["errors"].first).to match(%r{Request JSON could not be parsed:})
+    end
+
+    it "detects invalid payloads" do
+      put_json '/hmrc-manuals/imaginary-slug/sections/imaginary-section', []
+
+      expect(response.status).to eq(422)
     end
 
     it "validates for the presence of the title" do

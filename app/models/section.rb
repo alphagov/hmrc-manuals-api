@@ -5,8 +5,8 @@ class Section
   include ActiveModel::Validations
 
   attr_reader :section_attributes, :manual_slug, :section_id
-  validates :section_attributes, conforms_to_json_schema: { schema: SECTION_SCHEMA }
-  validate :publishing_api_section_is_valid
+  validates :json_schema_validation_errors, no_errors: true
+  validate :publishing_api_section_is_valid, if: -> { json_schema_validation_errors.empty? }
 
   def initialize(manual_slug, section_id, section_attributes)
     @manual_slug = manual_slug
@@ -22,6 +22,10 @@ class Section
     api = GdsApi::PublishingApi.new(Plek.current.find('publishing-api'))
     api.put_content_item(PublishingApiSection.base_path(@manual_slug, @section_id),
                          publishing_api_section.to_h)
+  end
+
+  def json_schema_validation_errors
+    JSON::Validator.fully_validate(SECTION_SCHEMA, section_attributes, validate_schema: true)
   end
 
 private

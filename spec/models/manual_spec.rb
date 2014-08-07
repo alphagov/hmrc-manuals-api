@@ -24,4 +24,12 @@ describe Manual do
         %r{'#/details/child_section_groups\[1\]/title' contains disallowed HTML})
     end
   end
+
+  context "with an empty payload" do
+    subject { Manual.new("some-slug", {}) }
+
+    it "is invalid" do
+      expect(subject).to_not be_valid
+    end
+  end
 end
