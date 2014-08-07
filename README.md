@@ -85,7 +85,27 @@ The `<manual-slug>` and `<section_slug>` will be used as part of the GOV.UK URL 
 
 * `503`: the request could not be completed because the API or the Publishing API is unavailable.
 
-## Content post-processing
+## Slugs, section IDs and URLs
+
+GOV.UK has URL standards to ensure that the URLs are SEO and user friendly. You
+can read about them here: https://insidegovuk.blog.gov.uk/url-standards-for-gov-uk/
+
+This API constructs the GOV.UK URLs based upon the slugs and section IDs supplied to it.
+
+Slugs are validated to ensure that they fit the GOV.UK styleguide according to these rules:
+* only lowercase letters, numbers and dashes are allowed
+* no leading or trailing dashes
+
+Additionally, users of the API are required to follow the styleguide for slugs:
+* slugs should not contain acronyms wherever possible
+* dashes should be used to separate words
+* articles (a, an, the) and other superfluous words should not be used
+* URLs should use the verb stem where possible: eg `apply` instead of `applying`
+* no multiple consecutive dashes
+
+Section IDs are validated to ensure that they can be converted to slugs by simply making them lowercase.
+
+## Markup
 
 All `description` and `body` attributes in manuals or manual sections may contain
 [markdown](http://daringfireball.net/projects/markdown/syntax). The markdown in those attributes
