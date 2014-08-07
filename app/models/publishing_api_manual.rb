@@ -1,18 +1,25 @@
 require 'active_model'
 require 'struct_with_rendered_markdown'
+require 'gds_api/publishing_api'
 
 class PublishingAPIManual
   include ActiveModel::Validations
 
-  validates :to_h, no_dangerous_html_in_text_fields: true
+  class ValidationError < StandardError; end
 
-  def initialize(manual)
-    @slug = manual.slug
-    @manual_attributes = manual.manual_attributes
+  validates :to_h, no_dangerous_html_in_text_fields: true, if: -> { manual.valid? }
+  validate :incoming_manual_is_valid
+
+  attr_reader :manual
+
+  def initialize(slug, manual_attributes)
+    @slug = slug
+    @manual_attributes = manual_attributes
+    @manual = Manual.new(@manual_attributes)
   end
 
   def to_h
-    enriched_data = @manual_attributes.clone.merge({
+    enriched_data = @manual_attributes.deep_dup.merge({
       base_path: PublishingAPIManual.base_path(@slug),
       format: 'hmrc-manual',
       publishing_app: 'hmrc-manuals-api',
@@ -31,6 +38,11 @@ class PublishingAPIManual
     "/guidance/#{manual_slug}"
   end
 
+  def save!
+    raise ValidationError, "manual is invalid" unless valid?
+    HMRCManualsAPI.publishing_api.put_content_item(PublishingAPIManual.base_path(@slug), to_h)
+  end
+
 private
   def add_base_path_to_child_section_groups(attributes)
     attributes["details"]["child_section_groups"].each do |section_group|
@@ -39,5 +51,11 @@ private
       end
     end
     attributes
+  end
+
+  def incoming_manual_is_valid
+    unless @manual.valid?
+      @manual.errors.full_messages.each {|message| self.errors[:base] << message }
+    end
   end
 end
