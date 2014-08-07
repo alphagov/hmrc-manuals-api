@@ -10,6 +10,16 @@ describe PublishingAPIManual do
 
   subject { PublishingAPIManual.new("some-slug", attributes) }
 
+  context "with an empty payload" do
+    let(:attributes) { {} }
+    it { should_not be_valid }
+  end
+
+  context "with an invalid payload" do
+    let(:attributes) { [] }
+    it { should_not be_valid }
+  end
+
   context "with an invalid title" do
     let(:attributes) { valid_manual(title: "title <script></script>") }
 
