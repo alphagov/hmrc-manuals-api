@@ -11,7 +11,7 @@ Authentication is done with a token, which needs to be supplied in the Authoriza
 
 ```Authorization: Bearer your_token```
 
-You also need to supply an accept header and a content-type header:
+You also need to supply an accept header and a Content-Type header:
 
     Accept: application/json
     Content-Type: application/json
