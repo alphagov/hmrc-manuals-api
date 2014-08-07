@@ -17,7 +17,7 @@ class Manual
   end
 
   def save!
-    HmrcManualsApi.publishing_api.put_content_item(
+    HMRCManualsAPI.publishing_api.put_content_item(
       PublishingAPIManual.base_path(@slug),
       publishing_api_manual.to_h
     )

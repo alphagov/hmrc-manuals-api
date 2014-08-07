@@ -13,7 +13,7 @@ require "action_view/railtie"
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module HmrcManualsApi
+module HMRCManualsAPI
   mattr_accessor :publishing_api
 
   class Application < Rails::Application
