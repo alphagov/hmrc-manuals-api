@@ -15,12 +15,12 @@ class Section
   end
 
   def publishing_api_section
-    PublishingApiSection.new(self)
+    PublishingAPISection.new(self)
   end
 
   def save!
     api = GdsApi::PublishingApi.new(Plek.current.find('publishing-api'))
-    api.put_content_item(PublishingApiSection.base_path(@manual_slug, @section_id),
+    api.put_content_item(PublishingAPISection.base_path(@manual_slug, @section_id),
                          publishing_api_section.to_h)
   end
 

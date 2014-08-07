@@ -14,12 +14,12 @@ class Manual
   end
 
   def publishing_api_manual
-    PublishingApiManual.new(self)
+    PublishingAPIManual.new(self)
   end
 
   def save!
     api = GdsApi::PublishingApi.new(Plek.current.find('publishing-api'))
-    api.put_content_item(PublishingApiManual.base_path(@slug),
+    api.put_content_item(PublishingAPIManual.base_path(@slug),
                          publishing_api_manual.to_h)
   end
 
