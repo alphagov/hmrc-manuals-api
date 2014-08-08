@@ -43,9 +43,6 @@ module TestDataHelpers
       update_type: 'major',
       details: {
         section_id: "12345",
-        manual: {
-          slug: 'employment-income-manual',
-        }
       }
     }.merge(options).deep_stringify_keys
   end
@@ -59,9 +56,6 @@ module TestDataHelpers
       details: {
         body: 'I need **somebody** to love',
         section_id: '12345',
-        manual: {
-          slug: 'employment-income-manual',
-        },
         breadcrumbs: [
           {
             section_id: '1234'

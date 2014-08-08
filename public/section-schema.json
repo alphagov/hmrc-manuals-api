@@ -30,8 +30,7 @@
       "type": "object",
       "additionalProperties": false,
       "required": [
-        "section_id",
-        "manual"
+        "section_id"
       ],
       "properties": {
         "body": {
@@ -39,18 +38,6 @@
         },
         "section_id": {
           "type": "string"
-        },
-        "manual": {
-          "type": "object",
-          "additionalProperties": false,
-          "required": [
-            "slug"
-          ],
-          "properties": {
-            "slug": {
-              "type": "string"
-            }
-          }
         },
         "breadcrumbs": {
           "type": "array",
