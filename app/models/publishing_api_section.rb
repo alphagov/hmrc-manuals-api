@@ -1,12 +1,16 @@
 require 'active_model'
 require 'gds_api/publishing_api'
 require 'struct_with_rendered_markdown'
+require 'valid_slug/pattern'
 
 class PublishingAPISection
   include ActiveModel::Validations
 
   validates :to_h, no_dangerous_html_in_text_fields: true, if: -> { @section.valid? }
+  validates :manual_slug, :section_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
   validate :incoming_section_is_valid
+
+  attr_reader :manual_slug, :section_slug
 
   def initialize(manual_slug, section_slug, section_attributes)
     @manual_slug = manual_slug

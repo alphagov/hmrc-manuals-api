@@ -23,4 +23,11 @@ describe 'manuals resource' do
 
     expect(response.status).to eq(503)
   end
+
+  it 'rejects invalid manual slugs' do
+    put_json '/hmrc-manuals/BREAK_THE_RULEZ', valid_manual
+
+    expect(response.status).to eq(422)
+    expect(json_response['errors'].first).to eq("Slug should match the pattern: (?-mix:\\A[a-z\\d][a-z\\d-]*[a-z\\d]\\z)")
+  end
 end

@@ -26,6 +26,8 @@ Please note that:
 
 `PUT /hmrc-manuals/<slug>`.
 
+The `<slug>` is used as part of the GOV.UK URL for the document.
+
 ### Example JSON
 
 [See an example manual](json_examples/requests/employment-income-manual.json)
@@ -39,13 +41,15 @@ Please note that:
 
 ### Request
 
-`PUT /hmrc-manuals/<manual-slug>/sections/<section_id>`.
+`PUT /hmrc-manuals/<manual-slug>/sections/<section_slug>`.
+
+The `<manual-slug>` and `<section_slug>` will be used as part of the GOV.UK URL for the document. The `<section_slug>` will be the section ID converted to lowercase.
 
 ### Example JSON
 
-1. [An example first-level section, with children](json_examples/requests/employment-income-manual/EIM11800.json)
-1. [An example third-level section](json_examples/requests/employment-income-manual/EIM25525.json)
-1. [An example section with ungrouped children](json_examples/requests/employment-income-manual/EIM11200.json) (the group title is omitted and only one group included)
+1. [An example first-level section, with children](json_examples/requests/employment-income-manual/eim11800.json)
+1. [An example third-level section](json_examples/requests/employment-income-manual/eim25525.json)
+1. [An example section with ungrouped children](json_examples/requests/employment-income-manual/eim11200.json) (the group title is omitted and only one group included)
 
 
 ### JSON Schema
@@ -58,10 +62,10 @@ Please note that:
 * `201`: created successfully
   * Both `200`s and `201`s return a location header and a response body containing the GOV.UK URL of the manual:
 
-    `Location: https://www.gov.uk/guidance/MANUAL_SLUG/SECTION_ID`
+    `Location: https://www.gov.uk/guidance/<manual_slug>/<section_slug>`
     ```json
     {
-      "govuk_url": "https://www.gov.uk/guidance/MANUAL_SLUG/SECTION_ID"
+      "govuk_url": "https://www.gov.uk/guidance/<manual_slug>/<section_slug>"
     }
     ```
 * `400`: the request JSON isn't well-formed.
