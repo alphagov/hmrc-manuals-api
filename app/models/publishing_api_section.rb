@@ -1,18 +1,22 @@
+require 'active_model'
+require 'gds_api/publishing_api'
 require 'struct_with_rendered_markdown'
 
 class PublishingAPISection
   include ActiveModel::Validations
 
-  validates :to_h, no_dangerous_html_in_text_fields: true
+  validates :to_h, no_dangerous_html_in_text_fields: true, if: -> { @section.valid? }
+  validate :incoming_section_is_valid
 
-  def initialize(section)
-    @manual_slug = section.manual_slug
-    @section_id = section.section_id
-    @section_attributes = section.section_attributes
+  def initialize(manual_slug, section_id, section_attributes)
+    @manual_slug = manual_slug
+    @section_id = section_id
+    @section_attributes = section_attributes
+    @section = Section.new(section_attributes)
   end
 
   def to_h
-    enriched_data = @section_attributes.clone.merge({
+    enriched_data = @section_attributes.deep_dup.merge({
       base_path: PublishingAPISection.base_path(@manual_slug, @section_id),
       format: 'hmrc-manual-section',
       publishing_app: 'hmrc-manuals-api',
@@ -31,6 +35,13 @@ class PublishingAPISection
 
   def self.base_path(manual_slug, section_id)
     File.join(PublishingAPIManual.base_path(manual_slug), section_id)
+  end
+
+  def save!
+    raise ValidationError, "section is invalid" unless valid?
+
+    HMRCManualsAPI.publishing_api.put_content_item(
+      PublishingAPISection.base_path(@manual_slug, @section_id), to_h)
   end
 
 private
@@ -56,5 +67,11 @@ private
     attributes["details"]["manual"].delete("slug")
     attributes["details"]["manual"]["base_path"] = PublishingAPIManual.base_path(@manual_slug)
     attributes
+  end
+
+  def incoming_section_is_valid
+    unless @section.valid?
+      @section.errors.full_messages.each {|message| self.errors[:base] << message }
+    end
   end
 end
