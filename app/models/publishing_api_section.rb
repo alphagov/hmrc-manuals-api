@@ -8,20 +8,20 @@ class PublishingAPISection
   validates :to_h, no_dangerous_html_in_text_fields: true, if: -> { @section.valid? }
   validate :incoming_section_is_valid
 
-  def initialize(manual_slug, section_id, section_attributes)
+  def initialize(manual_slug, section_slug, section_attributes)
     @manual_slug = manual_slug
-    @section_id = section_id
+    @section_slug = section_slug
     @section_attributes = section_attributes
     @section = Section.new(section_attributes)
   end
 
   def to_h
     enriched_data = @section_attributes.deep_dup.merge({
-      base_path: PublishingAPISection.base_path(@manual_slug, @section_id),
+      base_path: PublishingAPISection.base_path(@manual_slug, @section_slug),
       format: 'hmrc-manual-section',
       publishing_app: 'hmrc-manuals-api',
       rendering_app: 'manuals-frontend',
-      routes: [{ path: PublishingAPISection.base_path(@manual_slug, @section_id), type: :exact }]
+      routes: [{ path: PublishingAPISection.base_path(@manual_slug, @section_slug), type: :exact }]
       })
     enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
     enriched_data = add_base_path_to_child_section_groups(enriched_data)
@@ -30,18 +30,18 @@ class PublishingAPISection
   end
 
   def govuk_url
-    Plek.current.website_root + PublishingAPISection.base_path(@manual_slug, @section_id)
+    Plek.current.website_root + PublishingAPISection.base_path(@manual_slug, @section_slug)
   end
 
-  def self.base_path(manual_slug, section_id)
-    File.join(PublishingAPIManual.base_path(manual_slug), section_id)
+  def self.base_path(manual_slug, section_slug)
+    File.join(PublishingAPIManual.base_path(manual_slug), section_slug)
   end
 
   def save!
     raise ValidationError, "section is invalid" unless valid?
 
     HMRCManualsAPI.publishing_api.put_content_item(
-      PublishingAPISection.base_path(@manual_slug, @section_id), to_h)
+      PublishingAPISection.base_path(@manual_slug, @section_slug), to_h)
   end
 
 private
