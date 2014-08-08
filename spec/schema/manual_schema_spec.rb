@@ -21,4 +21,15 @@ describe 'manual schema' do
       expect(errors).to eql([])
     end
   end
+
+  describe 'validating section IDs in child_section_groups' do
+    let(:json_path) { '#/details/child_section_groups/0/child_sections/0/section_id' }
+    let(:manual) { maximal_manual }
+    let(:errors) do
+      manual["details"]["child_section_groups"][0]["child_sections"][0]["section_id"] = value
+      get_validation_errors(MANUAL_SCHEMA, manual)
+    end
+
+    it_behaves_like "it validates as a section ID"
+  end
 end

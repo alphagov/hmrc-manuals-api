@@ -58,7 +58,8 @@
                   ],
                   "properties": {
                     "section_id": {
-                      "type": "string"
+                      "type": "string",
+                      "pattern": "^[a-zA-Z0-9-]+$"
                     },
                     "title": {
                       "type": "string"
