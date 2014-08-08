@@ -38,7 +38,9 @@ class PublishingAPISection
   end
 
   def self.base_path(manual_slug, section_slug)
-    File.join(PublishingAPIManual.base_path(manual_slug), section_slug)
+    # The section_slug may not be lowercase - for example if it is extracted
+    # from a section_id field.
+    File.join(PublishingAPIManual.base_path(manual_slug.downcase), section_slug.downcase)
   end
 
   def save!

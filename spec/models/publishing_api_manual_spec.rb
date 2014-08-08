@@ -6,6 +6,11 @@ describe PublishingAPIManual do
       base_path = PublishingAPIManual.base_path('a-manual')
       expect(base_path).to eql('/guidance/a-manual')
     end
+
+    it 'ensures that it is lowercase' do
+      base_path = PublishingAPIManual.base_path('A-Manual')
+      expect(base_path).to eql('/guidance/a-manual')
+    end
   end
 
   subject { PublishingAPIManual.new("some-slug", attributes) }

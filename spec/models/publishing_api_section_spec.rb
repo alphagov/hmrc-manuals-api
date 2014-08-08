@@ -6,6 +6,11 @@ describe PublishingAPISection do
       base_path = PublishingAPISection.base_path('a-manual', 'a-section-id')
       expect(base_path).to eql('/guidance/a-manual/a-section-id')
     end
+
+    it 'ensures that it is lowercase' do
+      base_path = PublishingAPISection.base_path('A-Manual', 'A-Section-id')
+      expect(base_path).to eql('/guidance/a-manual/a-section-id')
+    end
   end
 
   subject { PublishingAPISection.new("some-slug", "some-id", attributes) }
