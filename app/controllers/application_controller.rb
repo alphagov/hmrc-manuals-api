@@ -2,8 +2,11 @@ require 'gds_api/exceptions'
 
 class ApplicationController < ActionController::API
   include GDS::SSO::ControllerMethods
+  include ActionController::MimeResponds
+  respond_to :json
 
   before_filter :require_signin_permission!
+  before_filter :check_content_type_header
 
   rescue_from GdsApi::BaseError do |exception|
     notify_airbrake(exception)
@@ -23,5 +26,11 @@ private
   rescue JSON::ParserError => e
     message = "Request JSON could not be parsed: #{e.message}"
     render json: { status: "error", errors: [message] }, status: 400
+  end
+
+  def check_content_type_header
+    if request.headers['Content-Type'] != 'application/json'
+      render json: { status: 'error', errors: 'Invalid headers' }, status: 415
+    end
   end
 end

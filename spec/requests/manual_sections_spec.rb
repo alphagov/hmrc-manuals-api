@@ -16,6 +16,14 @@ describe 'manual sections resource' do
     expect(response.body).to include("https://www.gov.uk/guidance/employment-income-manual/12345")
   end
 
+  it 'errors if the Accept header and/or the Content-Type header is/are not application/json' do
+    stub_default_publishing_api_put
+
+    put_json_with_invalid_headers '/hmrc-manuals/employment-income-manual/sections/12345', maximal_section
+
+    expect(response.status).to eq(415)
+  end
+
   it 'handles the content store being unavailable' do
     publishing_api_isnt_available
 

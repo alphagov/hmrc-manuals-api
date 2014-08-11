@@ -30,4 +30,12 @@ describe 'manuals resource' do
     expect(response.status).to eq(422)
     expect(json_response['errors'].first).to eq("Slug should match the pattern: (?-mix:\\A[a-z\\d][a-z\\d-]*[a-z\\d]\\z)")
   end
+  
+  it 'errors if the Accept header and/or the Content-Type header is/are not application/json' do
+    stub_default_publishing_api_put
+
+    put_json_with_invalid_headers '/hmrc-manuals/employment-income-manual/', maximal_manual
+
+    expect(response.status).to eq(415)
+  end
 end
