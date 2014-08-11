@@ -3,13 +3,13 @@ require 'rails_helper'
 describe PublishingAPIManual do
   describe 'base_path' do
     it 'returns the GOV.UK path for the manual' do
-      base_path = PublishingAPIManual.base_path('a-manual')
-      expect(base_path).to eql('/guidance/a-manual')
+      base_path = PublishingAPIManual.base_path('some-manual')
+      expect(base_path).to eql('/guidance/some-manual')
     end
 
     it 'ensures that it is lowercase' do
-      base_path = PublishingAPIManual.base_path('A-Manual')
-      expect(base_path).to eql('/guidance/a-manual')
+      base_path = PublishingAPIManual.base_path('Some-Manual')
+      expect(base_path).to eql('/guidance/some-manual')
     end
   end
 

@@ -41,14 +41,14 @@ describe 'manual sections resource' do
   end
 
   it 'rejects invalid manual slugs' do
-    put_json '/hmrc-manuals/BREAK_THE_RULEZ/sections/a-section', valid_section
+    put_json '/hmrc-manuals/BREAK_THE_RULEZ/sections/some-section', valid_section
 
     expect(response.status).to eq(422)
     expect(json_response['errors'].first).to eq("Manual slug should match the pattern: (?-mix:\\A[a-z\\d][a-z\\d-]*[a-z\\d]\\z)")
   end
 
   it 'rejects invalid section slugs' do
-    put_json '/hmrc-manuals/a-manual/sections/BREAK_THE_RULEZ', valid_section
+    put_json '/hmrc-manuals/some-manual/sections/BREAK_THE_RULEZ', valid_section
 
     expect(response.status).to eq(422)
     expect(json_response['errors'].first).to eq("Section slug should match the pattern: (?-mix:\\A[a-z\\d][a-z\\d-]*[a-z\\d]\\z)")
