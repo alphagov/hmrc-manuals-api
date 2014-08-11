@@ -30,7 +30,7 @@ private
 
   def check_content_type_header
     if request.headers['Content-Type'] != 'application/json'
-      render json: { status: 'error', errors: 'Invalid headers' }, status: 415
+      render json: { status: 'error', errors: 'Invalid Content-Type header' }, status: 415
     end
   end
 end

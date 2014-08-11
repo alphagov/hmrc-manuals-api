@@ -12,7 +12,7 @@ class SectionsController < ApplicationController
                     location: section.govuk_url }
       end
     rescue ActionController::UnknownFormat
-      render json: { status: "error", errors: "Invalid headers" }, status: 415
+      render json: { status: "error", errors: "Invalid Accept header" }, status: 406
     rescue ValidationError
       render json: { status: "error", errors: section.errors.full_messages }, status: 422
     end

@@ -16,12 +16,22 @@ describe 'manual sections resource' do
     expect(response.body).to include("https://www.gov.uk/guidance/employment-income-manual/12345")
   end
 
-  it 'errors if the Accept header and/or the Content-Type header is/are not application/json' do
+  it 'errors if the Accept header is not application/json' do
     stub_default_publishing_api_put
 
-    put '/hmrc-manuals/employment-income-manual/', maximal_section.to_json,
-        headers = {'CONTENT_TYPE' => 'text/plain',
+    put '/hmrc-manuals/employment-income-manual/sections/12345', maximal_section.to_json,
+        headers = {'CONTENT_TYPE' => 'application/json',
                    'HTTP_ACCEPT'  => 'text/plain',
+                   'HTTP_AUTHORIZATION' => 'Bearer 12345'}
+    expect(response.status).to eq(406)
+  end
+
+  it 'errors if the Content-Type header is not application/json' do
+    stub_default_publishing_api_put
+
+    put '/hmrc-manuals/employment-income-manual/sections/12345', maximal_section.to_json,
+        headers = {'CONTENT_TYPE' => 'text/plain',
+                   'HTTP_ACCEPT'  => 'application/json',
                    'HTTP_AUTHORIZATION' => 'Bearer 12345'}
     expect(response.status).to eq(415)
   end
