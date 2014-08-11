@@ -9,8 +9,9 @@ class PublishingAPISection
   validates :to_h, no_dangerous_html_in_text_fields: true, if: -> { @section.valid? }
   validates :manual_slug, :section_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
   validate :incoming_section_is_valid
+  validate :section_slug_matches_section_id, if: -> { @section.valid? }
 
-  attr_reader :manual_slug, :section_slug
+  attr_reader :manual_slug, :section_slug, :section_attributes
 
   def initialize(manual_slug, section_slug, section_attributes)
     @manual_slug = manual_slug
@@ -79,6 +80,12 @@ private
   def incoming_section_is_valid
     unless @section.valid?
       @section.errors.full_messages.each {|message| self.errors[:base] << message }
+    end
+  end
+
+  def section_slug_matches_section_id
+    if section_slug.downcase != section_attributes['details']['section_id'].downcase
+      errors[:base] << "Slug in URL and Section ID must match, ignoring case"
     end
   end
 end
