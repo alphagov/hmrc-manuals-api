@@ -26,6 +26,8 @@ Please note that:
 
 `PUT /hmrc-manuals/<slug>`.
 
+The `<slug>` is used as part of the GOV.UK URL for the document.
+
 ### Example JSON
 
 [See an example manual](json_examples/requests/employment-income-manual.json)
@@ -39,13 +41,15 @@ Please note that:
 
 ### Request
 
-`PUT /hmrc-manuals/<manual-slug>/sections/<section_id>`.
+`PUT /hmrc-manuals/<manual-slug>/sections/<section_slug>`.
+
+The `<manual-slug>` and `<section_slug>` will be used as part of the GOV.UK URL for the document. The `<section_slug>` will be the section ID converted to lowercase.
 
 ### Example JSON
 
-1. [An example first-level section, with children](json_examples/requests/employment-income-manual/EIM11800.json)
-1. [An example third-level section](json_examples/requests/employment-income-manual/EIM25525.json)
-1. [An example section with ungrouped children](json_examples/requests/employment-income-manual/EIM11200.json) (the group title is omitted and only one group included)
+1. [An example first-level section, with children](json_examples/requests/employment-income-manual/eim11800.json)
+1. [An example third-level section](json_examples/requests/employment-income-manual/eim25525.json)
+1. [An example section with ungrouped children](json_examples/requests/employment-income-manual/eim11200.json) (the group title is omitted and only one group included)
 
 
 ### JSON Schema
@@ -58,10 +62,10 @@ Please note that:
 * `201`: created successfully
   * Both `200`s and `201`s return a location header and a response body containing the GOV.UK URL of the manual:
 
-    `Location: https://www.gov.uk/guidance/MANUAL_SLUG/SECTION_ID`
+    `Location: https://www.gov.uk/guidance/<manual_slug>/<section_slug>`
     ```json
     {
-      "govuk_url": "https://www.gov.uk/guidance/MANUAL_SLUG/SECTION_ID"
+      "govuk_url": "https://www.gov.uk/guidance/<manual_slug>/<section_slug>"
     }
     ```
 * `400`: the request JSON isn't well-formed.
@@ -81,7 +85,27 @@ Please note that:
 
 * `503`: the request could not be completed because the API or the Publishing API is unavailable.
 
-## Content post-processing
+## Slugs, section IDs and URLs
+
+GOV.UK has URL standards to ensure that the URLs are SEO and user friendly. You
+can read about them here: https://insidegovuk.blog.gov.uk/url-standards-for-gov-uk/
+
+This API constructs the GOV.UK URLs based upon the slugs and section IDs supplied to it.
+
+Slugs are validated to ensure that they fit the GOV.UK styleguide according to these rules:
+* only lowercase letters, numbers and dashes are allowed
+* no leading or trailing dashes
+
+Additionally, users of the API are required to follow the styleguide for slugs:
+* slugs should not contain acronyms wherever possible
+* dashes should be used to separate words
+* articles (a, an, the) and other superfluous words should not be used
+* URLs should use the verb stem where possible: eg `apply` instead of `applying`
+* no multiple consecutive dashes
+
+Section IDs are validated to ensure that they can be converted to slugs by simply making them lowercase.
+
+## Markup
 
 All `description` and `body` attributes in manuals or manual sections may contain
 [markdown](http://daringfireball.net/projects/markdown/syntax). The markdown in those attributes

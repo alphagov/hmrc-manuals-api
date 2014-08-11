@@ -1,14 +1,16 @@
 require 'active_model'
 require 'struct_with_rendered_markdown'
 require 'gds_api/publishing_api'
+require 'valid_slug/pattern'
 
 class PublishingAPIManual
   include ActiveModel::Validations
 
   validates :to_h, no_dangerous_html_in_text_fields: true, if: -> { manual.valid? }
+  validates :slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
   validate :incoming_manual_is_valid
 
-  attr_reader :manual
+  attr_reader :slug, :manual
 
   def initialize(slug, manual_attributes)
     @slug = slug
@@ -33,7 +35,8 @@ class PublishingAPIManual
   end
 
   def self.base_path(manual_slug)
-    "/guidance/#{manual_slug}"
+    # The slug should be lowercase, but let's make sure
+    "/guidance/#{manual_slug.downcase}"
   end
 
   def save!

@@ -3,8 +3,13 @@ require 'rails_helper'
 describe PublishingAPISection do
   describe 'base_path' do
     it 'returns the GOV.UK path for the section' do
-      base_path = PublishingAPISection.base_path('a-manual', 'a-section-id')
-      expect(base_path).to eql('/guidance/a-manual/a-section-id')
+      base_path = PublishingAPISection.base_path('some-manual', 'some-section-id')
+      expect(base_path).to eql('/guidance/some-manual/some-section-id')
+    end
+
+    it 'ensures that it is lowercase' do
+      base_path = PublishingAPISection.base_path('Some-Manual', 'Some-Section-id')
+      expect(base_path).to eql('/guidance/some-manual/some-section-id')
     end
   end
 

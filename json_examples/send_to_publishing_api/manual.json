@@ -11,13 +11,13 @@
         "title": null, // or string
         "child_sections": [
           {
-            "base_path": "/guidance/employment-income-manual/EIM00100",
+            "base_path": "/guidance/employment-income-manual/eim00100",
             "title": "About this manual",
             "section_id": "EIM00100", // omitted for normal manuals
             "description": null // or string
           },
           {
-            "base_path": "/guidance/employment-income-manual/EIM11800",
+            "base_path": "/guidance/employment-income-manual/eim11800",
             "title": "PAYE: Special types of payment",
             "section_id": "EIM11800", // omitted for normal manuals
             "description": null // or string
