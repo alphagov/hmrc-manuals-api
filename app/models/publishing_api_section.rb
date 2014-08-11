@@ -5,6 +5,7 @@ require 'valid_slug/pattern'
 
 class PublishingAPISection
   include ActiveModel::Validations
+  include Helpers::PublishingAPIHelpers
 
   validates :to_h, no_dangerous_html_in_text_fields: true, if: -> { @section.valid? }
   validates :manual_slug, :section_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
@@ -30,7 +31,8 @@ class PublishingAPISection
     enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
     enriched_data = add_base_path_to_child_section_groups(enriched_data)
     enriched_data = add_base_path_to_breadcrumbs(enriched_data)
-    add_base_path_to_manual(enriched_data)
+    enriched_data = add_base_path_to_manual(enriched_data)
+    add_organisations_to_details(enriched_data)
   end
 
   def govuk_url

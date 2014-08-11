@@ -24,6 +24,13 @@
           }
         ]
       }
+    ],
+    "organisations": [
+      {
+        "title": "HM Revenue & Customs",
+        "abbreviation": "HMRC",
+        "web_url": "https://www.gov.uk/government/organisations/hm-revenue-customs"
+      }
     ]
   },
   "publishing_app": "hmrc-manuals-api",

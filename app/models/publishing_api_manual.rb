@@ -5,6 +5,7 @@ require 'valid_slug/pattern'
 
 class PublishingAPIManual
   include ActiveModel::Validations
+  include Helpers::PublishingAPIHelpers
 
   validates :to_h, no_dangerous_html_in_text_fields: true, if: -> { manual.valid? }
   validates :slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
@@ -27,7 +28,8 @@ class PublishingAPIManual
       routes: [{ path: PublishingAPIManual.base_path(@slug), type: :exact }]
       })
     enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
-    add_base_path_to_child_section_groups(enriched_data)
+    enriched_data = add_base_path_to_child_section_groups(enriched_data)
+    add_organisations_to_details(enriched_data)
   end
 
   def govuk_url
