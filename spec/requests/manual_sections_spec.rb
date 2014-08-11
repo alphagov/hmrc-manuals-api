@@ -19,8 +19,10 @@ describe 'manual sections resource' do
   it 'errors if the Accept header and/or the Content-Type header is/are not application/json' do
     stub_default_publishing_api_put
 
-    put_json_with_invalid_headers '/hmrc-manuals/employment-income-manual/sections/12345', maximal_section
-
+    put '/hmrc-manuals/employment-income-manual/', maximal_section.to_json,
+        headers = {'CONTENT_TYPE' => 'text/plain',
+                   'HTTP_ACCEPT'  => 'text/plain',
+                   'HTTP_AUTHORIZATION' => 'Bearer 12345'}
     expect(response.status).to eq(415)
   end
 
