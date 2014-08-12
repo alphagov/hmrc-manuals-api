@@ -30,7 +30,7 @@ The `<slug>` is used as part of the GOV.UK URL for the document.
 
 ### Example JSON
 
-[See an example manual](json_examples/requests/employment-income-manual.json)
+[See an example manual](/public/json_examples/requests/employment-income-manual.json)
 
 
 ### JSON Schema
@@ -47,9 +47,9 @@ The `<manual-slug>` and `<section_slug>` will be used as part of the GOV.UK URL 
 
 ### Example JSON
 
-1. [An example first-level section, with children](json_examples/requests/employment-income-manual/eim11800.json)
-1. [An example third-level section](json_examples/requests/employment-income-manual/eim25525.json)
-1. [An example section with ungrouped children](json_examples/requests/employment-income-manual/eim11200.json) (the group title is omitted and only one group included)
+1. [An example first-level section, with children](/public/json_examples/requests/employment-income-manual/eim11800.json)
+1. [An example third-level section](/public/json_examples/requests/employment-income-manual/eim25525.json)
+1. [An example section with ungrouped children](/public/json_examples/requests/employment-income-manual/eim11200.json) (the group title is omitted and only one group included)
 
 
 ### JSON Schema
