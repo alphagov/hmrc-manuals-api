@@ -3,7 +3,7 @@ require 'structured_data'
 require 'nokogiri'
 
 class NoDangerousHTMLInTextFieldsValidator < ActiveModel::EachValidator
-  ASSETS_DOMAIN = 'assets.digital.cabinet-office.gov.uk'
+  ALLOWED_IMAGE_HOSTS = ['www.gov.uk', 'assets.digital.cabinet-office.gov.uk']
 
   def validate_each(record, attribute, value)
     freetext_fields_with_paths = StructuredData.new(value).string_fields
@@ -14,7 +14,7 @@ class NoDangerousHTMLInTextFieldsValidator < ActiveModel::EachValidator
           "the following tag attributes are allowed: #{allowed_html_attributes.inspect}"
       end
       if disallowed_images?(field_with_path[:value])
-        record.errors[:base] << "Images can only be used if hosted on #{ASSETS_DOMAIN}."
+        record.errors[:base] << "Images can only be used if hosted on #{ALLOWED_IMAGE_HOSTS.first} or #{ALLOWED_IMAGE_HOSTS.last}."
       end
     end
   end
@@ -29,7 +29,7 @@ private
     Nokogiri::HTML.parse(html).css('img').any? do |img|
       uri = URI.parse(img.attributes['src'])
       next if uri.relative?
-      uri.host != ASSETS_DOMAIN
+      ALLOWED_IMAGE_HOSTS.exclude?(uri.host)
     end
   end
 
