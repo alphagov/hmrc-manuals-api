@@ -123,3 +123,7 @@ The following tag attributes are allowed:
 ```
 {:all=>["dir", "lang", "title", "id", "class"], "a"=>["href", "rel"], "blockquote"=>["cite"], "col"=>["span", "width"], "colgroup"=>["span", "width"], "del"=>["cite", "datetime"], "img"=>["align", "alt", "height", "src", "width"], "ins"=>["cite", "datetime"], "ol"=>["start", "reversed", "type"], "q"=>["cite"], "table"=>["summary", "width"], "td"=>["abbr", "axis", "colspan", "rowspan", "width"], "th"=>["abbr", "axis", "colspan", "rowspan", "scope", "width"], "time"=>["datetime", "pubdate"], "ul"=>["type"]}
 ```
+
+Images are only allowed if on a relative path (ie hosted on `www.gov.uk`) or on
+the GOV.UK assets domain: `assets.digital.cabinet-office.gov.uk`. Markup
+containing images hosted on other domains will be rejected with a 422 error code.
