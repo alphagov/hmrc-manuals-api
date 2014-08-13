@@ -25,30 +25,32 @@ describe "validation" do
       expect(json_response["errors"].first).to match(%r{The property '#/' did not contain a required property of 'title' in schema})
     end
 
-    it 'rejects manuals with Markdown images not on assets.digital.cabinet-office.gov.uk' do
-      manual = valid_manual
-      manual['description'] = '![Manual](http://upload.wikimedia.org/wikipedia/commons/e/ef/Icono_Normativa.png)'
-      put_json '/hmrc-manuals/imaginary-slug', manual, headers
+    context 'manuals with images' do
+      it 'rejects manuals with Markdown images not on assets.digital.cabinet-office.gov.uk' do
+        manual = valid_manual
+        manual['description'] = '![Manual](http://upload.wikimedia.org/wikipedia/commons/e/ef/Icono_Normativa.png)'
+        put_json '/hmrc-manuals/imaginary-slug', manual, headers
 
-      expect(response.status).to eq(422)
-    end
+        expect(response.status).to eq(422)
+      end
 
-    it 'rejects manuals with HTML images not on assets.digital.cabinet-office.gov.uk' do
-      manual = valid_manual
-      manual['description'] = '<img src="http://upload.wikimedia.org/wikipedia/commons/e/ef/Icono_Normativa.png" alt="Manual"/>'
-      put_json '/hmrc-manuals/imaginary-slug', manual, headers
+      it 'rejects manuals with HTML images not on assets.digital.cabinet-office.gov.uk' do
+        manual = valid_manual
+        manual['description'] = '<img src="http://upload.wikimedia.org/wikipedia/commons/e/ef/Icono_Normativa.png" alt="Manual"/>'
+        put_json '/hmrc-manuals/imaginary-slug', manual, headers
 
-      expect(response.status).to eq(422)
-    end
+        expect(response.status).to eq(422)
+      end
 
-    it 'allows images with a relative path' do
-      stub_default_publishing_api_put
+      it 'allows images with a relative path' do
+        stub_default_publishing_api_put
 
-      manual = valid_manual
-      manual['description'] = '![Manual](/path/to/image.png)'
-      put_json '/hmrc-manuals/imaginary-slug', manual, headers
+        manual = valid_manual
+        manual['description'] = '![Manual](/path/to/image.png)'
+        put_json '/hmrc-manuals/imaginary-slug', manual, headers
 
-      expect(response.status).to eq(200)
+        expect(response.status).to eq(200)
+      end
     end
   end
 
