@@ -21,7 +21,7 @@ class NoDangerousHTMLInTextFieldsValidator < ActiveModel::EachValidator
 
 private
   def dangerous?(value)
-    !Govspeak::HtmlValidator.new(value).valid?
+    Govspeak::HtmlValidator.new(value).invalid?
   end
 
   def disallowed_images?(value)
