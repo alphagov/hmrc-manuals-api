@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title><%= content_for?(:page_title) ? "#{yield(:page_title)} | " : nil %>GOV.UK HMRC Manuals API</title>
+    <%= yield :head %>
+  </head>
+  <body>
+    <header>
+      <div>
+        <%= link_to content_for?(:app_title) ? yield(:app_title) : "GOV.UK HMRC Manuals API", '/' %>
+      </div>
+    </header>
+    <section>
+      <main>
+        <%= content_for?(:content) ? yield(:content) : yield %>
+      </main>
+      <footer>
+        <span>Version:
+          <% if CURRENT_RELEASE_SHA == "development" %>
+            <%= CURRENT_RELEASE_SHA %>
+          <% else %>
+            <%= link_to CURRENT_RELEASE_SHA, "https://github.com/alphagov/commits/#{CURRENT_RELEASE_SHA}" %>
+          <% end %>
+        </span>
+      </footer>
+    </section>
+  </body>
+</html>

@@ -30,7 +30,7 @@ The `<slug>` is used as part of the GOV.UK URL for the document.
 
 ### Example JSON
 
-[See an example manual](json_examples/requests/employment-income-manual.json)
+[See an example manual](/public/json_examples/requests/employment-income-manual.json)
 
 
 ### JSON Schema
@@ -47,9 +47,9 @@ The `<manual-slug>` and `<section_slug>` will be used as part of the GOV.UK URL 
 
 ### Example JSON
 
-1. [An example first-level section, with children](json_examples/requests/employment-income-manual/eim11800.json)
-1. [An example third-level section](json_examples/requests/employment-income-manual/eim25525.json)
-1. [An example section with ungrouped children](json_examples/requests/employment-income-manual/eim11200.json) (the group title is omitted and only one group included)
+1. [An example first-level section, with children](/public/json_examples/requests/employment-income-manual/eim11800.json)
+1. [An example third-level section](/public/json_examples/requests/employment-income-manual/eim25525.json)
+1. [An example section with ungrouped children](/public/json_examples/requests/employment-income-manual/eim11200.json) (the group title is omitted and only one group included)
 
 
 ### JSON Schema
@@ -93,10 +93,12 @@ can read about them here: https://insidegovuk.blog.gov.uk/url-standards-for-gov-
 This API constructs the GOV.UK URLs based upon the slugs and section IDs supplied to it.
 
 Slugs are validated to ensure that they fit the GOV.UK styleguide according to these rules:
+
 * only lowercase letters, numbers and dashes are allowed
 * no leading or trailing dashes
 
 Additionally, users of the API are required to follow the styleguide for slugs:
+
 * slugs should not contain acronyms wherever possible
 * dashes should be used to separate words
 * articles (a, an, the) and other superfluous words should not be used
@@ -115,14 +117,28 @@ There is a whitelist of allowed HTML tags and attributes. If a manual or a secti
 contains any disallowed HTML in any field, the request is rejected with a validation error (status code `422`).
 
 The following tags are allowed:
+
 ```
 a, abbr, b, bdo, blockquote, br, caption, cite, code, col, colgroup, dd, del, dfn, div, dl, dt, em, figcaption, figure, h1, h2, h3, h4, h5, h6, hgroup, hr, i, img, ins, kbd, li, mark, ol, p, pre, q, rp, rt, ruby, s, samp, small, strike, strong, sub, sup, table, tbody, td, tfoot, th, thead, time, tr, u, ul, var, wbr.
 ```
 
-The following tag attributes are allowed:
-```
-{:all=>["dir", "lang", "title", "id", "class"], "a"=>["href", "rel"], "blockquote"=>["cite"], "col"=>["span", "width"], "colgroup"=>["span", "width"], "del"=>["cite", "datetime"], "img"=>["align", "alt", "height", "src", "width"], "ins"=>["cite", "datetime"], "ol"=>["start", "reversed", "type"], "q"=>["cite"], "table"=>["summary", "width"], "td"=>["abbr", "axis", "colspan", "rowspan", "width"], "th"=>["abbr", "axis", "colspan", "rowspan", "scope", "width"], "time"=>["datetime", "pubdate"], "ul"=>["type"]}
-```
+The following tag attributes are allowed, by tag:
+
+* `:all=>["dir", "lang", "title", "id", "class"]`
+* `"a"=>["href", "rel"]`
+* `"blockquote"=>["cite"]`
+* `"col"=>["span", "width"]`
+* `"colgroup"=>["span", "width"]`
+* `"del"=>["cite", "datetime"]`
+* `"img"=>["align", "alt", "height", "src", "width"]`
+* `"ins"=>["cite", "datetime"]`
+* `"ol"=>["start", "reversed", "type"]`
+* `"q"=>["cite"]`
+* `"table"=>["summary", "width"]`
+* `"td"=>["abbr", "axis", "colspan", "rowspan", "width"]`
+* `"th"=>["abbr", "axis", "colspan", "rowspan", "scope", "width"]`
+* `"time"=>["datetime", "pubdate"]`
+* `"ul"=>["type"]`
 
 Images are only allowed if on a relative path (ie hosted on `www.gov.uk`) or on
 the GOV.UK assets domain: `assets.digital.cabinet-office.gov.uk`. Markup

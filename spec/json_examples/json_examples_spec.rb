@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe 'JSON examples for requests' do
-  let(:requests_dir) { File.join(Rails.root, 'json_examples', 'requests') }
+  let(:requests_dir) { File.join(Rails.root, 'public', 'json_examples', 'requests') }
 
   describe 'Employment Income Manual' do
     let(:manual_filepath) { File.join(requests_dir, 'employment-income-manual.json') }

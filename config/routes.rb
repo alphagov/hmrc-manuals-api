@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # This strips out Rails' default .json/.xml format file extensions.
   with_options :format => false do |r|
+    r.get '/', controller: 'root', action: 'index'
+    r.get '/readme', controller: 'root', action: 'readme'
     r.get '/healthcheck', :to => proc { [200, {}, ['OK']] }
 
     # We need to override the controller and url helper here because rails is unhappy
