@@ -29,7 +29,8 @@ class PublishingAPIManual
       })
     enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
     enriched_data = add_base_path_to_child_section_groups(enriched_data)
-    add_organisations_to_details(enriched_data)
+    enriched_data = add_organisations_to_details(enriched_data)
+    add_base_path_to_change_notes(enriched_data)
   end
 
   def govuk_url
@@ -52,6 +53,13 @@ private
       section_group["child_sections"].each do |section|
         section['base_path'] = PublishingAPISection.base_path(@slug, section['section_id'])
       end
+    end
+    attributes
+  end
+
+  def add_base_path_to_change_notes(attributes)
+    attributes["details"]["change_notes"] && attributes["details"]["change_notes"].each do |change_note_object|
+      change_note_object['base_path'] = PublishingAPISection.base_path(@slug, change_note_object['section_id'])
     end
     attributes
   end

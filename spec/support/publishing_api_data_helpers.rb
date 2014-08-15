@@ -27,6 +27,15 @@ module PublishingApiDataHelpers
             "abbreviation" => "HMRC",
             "web_url" => "https://www.gov.uk/government/organisations/hm-revenue-customs"
           }
+        ],
+        "change_notes" => [
+          {
+            "base_path" => "/guidance/employment-income-manual/abc567",
+            "title" => 'Title of a Section that was changed',
+            "section_id" => 'ABC567',
+            "change_note" => 'Description of changes',
+            "published_at" => '2014-01-23T00:00:00+01:00'
+          }
         ]
       },
       "publishing_app" => "hmrc-manuals-api",

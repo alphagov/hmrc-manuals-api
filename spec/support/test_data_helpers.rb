@@ -31,6 +31,14 @@ module TestDataHelpers
               }
             ]
           }
+        ],
+        change_notes: [
+          {
+            title: 'Title of a Section that was changed',
+            section_id: 'ABC567',
+            change_note: 'Description of changes',
+            published_at: '2014-01-23T00:00:00+01:00'
+          }
         ]
       }
     }.merge(options).deep_stringify_keys
