@@ -72,6 +72,36 @@
               }
             }
           }
+        },
+        "change_notes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "title",
+              "section_id",
+              "change_note",
+              "published_at"
+            ],
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "section_id": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9-]+$"
+              },
+              "change_note": {
+                "type": "string"
+              },
+              "published_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "An ISO 8601 datetime, eg 2014-01-23T00:00:00+01:00"
+              }
+            }
+          }
         }
       }
     }
