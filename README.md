@@ -20,6 +20,10 @@ Please note that:
 * Tokens are environment specific, so preview and production will have different tokens.
 * The data on preview is overwritten every night with data from production
 
+### HTTP Verbs
+
+`PUT` is used for requests creating and modifying content. `POST` requests are also supported as a fallback if `PUT` requests are blocked by a firewall, for example. See the Service Manual for more detail: https://www.gov.uk/service-manual/making-software/apis.html#use-http-methods-as-tim-intended
+
 ## Adding or updating a manual
 
 ### Request
