@@ -140,6 +140,12 @@ The following tag attributes are allowed, by tag:
 * `"time"=>["datetime", "pubdate"]`
 * `"ul"=>["type"]`
 
+### Images
+
 Images are only allowed if on a relative path (ie hosted on `www.gov.uk`) or on
 the GOV.UK assets domain: `assets.digital.cabinet-office.gov.uk`. Markup
 containing images hosted on other domains will be rejected with a 422 error code.
+
+On preview, the allowed image domains are expanded to include the preview
+www.gov.uk domain `www.preview.alphagov.co.uk`) and the preview asset domain
+(`assets-origin.preview.alphagov.co.uk`).
