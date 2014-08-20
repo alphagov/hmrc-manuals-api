@@ -34,7 +34,7 @@ class PublishingAPIManual
   end
 
   def govuk_url
-    Plek.current.website_root + PublishingAPIManual.base_path(@slug)
+    FRONTEND_BASE_URL + PublishingAPIManual.base_path(@slug)
   end
 
   def self.base_path(manual_slug)
