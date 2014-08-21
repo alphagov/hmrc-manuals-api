@@ -109,7 +109,7 @@ Section IDs are validated to ensure that they can be converted to slugs by simpl
 
 ## Markup
 
-All `description` and `body` attributes in manuals or manual sections may contain
+All `body` attributes in manuals or manual sections may contain
 [markdown](http://daringfireball.net/projects/markdown/syntax). The markdown in those attributes
 is converted to HTML before the document is sent to the Publishing API.
 
