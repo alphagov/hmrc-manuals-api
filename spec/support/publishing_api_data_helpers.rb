@@ -4,7 +4,7 @@ module PublishingApiDataHelpers
       "base_path" => "/guidance/employment-income-manual",
       "format" => "hmrc-manual",
       "title" => "Employment Income Manual",
-      "description" => "<p>A manual about incoming employment</p>\n",
+      "description" => "A manual about incoming employment",
       "public_updated_at" => "2014-01-23T00:00:00+01:00",
       "update_type" => "major",
       "details" => {
@@ -15,7 +15,7 @@ module PublishingApiDataHelpers
               {
                 "title" => "About 12345",
                 "section_id" => "12345",
-                "description" => "<p>A short description of the section</p>\n",
+                "description" => "A short description of the section",
                 "base_path" => "/guidance/employment-income-manual/12345"
               }
             ]
@@ -54,7 +54,7 @@ module PublishingApiDataHelpers
       "base_path" => "/guidance/employment-income-manual/12345",
       "format" => "hmrc-manual-section",
       "title" => "A section on a part of employment income",
-      "description" => "<p>Some description</p>\n",
+      "description" => "Some description",
       "public_updated_at" => "2014-01-23T00:00:00+01:00",
       "update_type" => "minor",
       "details" => {
@@ -76,7 +76,7 @@ module PublishingApiDataHelpers
               {
                 "title" => "About 123456",
                 "section_id" => "123456",
-                "description" => "<p>A short description of the section</p>\n",
+                "description" => "A short description of the section",
                 "base_path" => "/guidance/employment-income-manual/123456"
               }
             ]
