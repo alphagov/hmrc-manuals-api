@@ -29,6 +29,11 @@ describe 'manuals resource' do
 
     expect(response.status).to eq(422)
     expect(json_response['errors'].first).to eq("Slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
+
+    put_json '/hmrc-manuals/double--dash', valid_manual
+
+    expect(response.status).to eq(422)
+    expect(json_response['errors'].first).to eq("Slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
   end
 
   it 'errors if the Accept header is not application/json' do
