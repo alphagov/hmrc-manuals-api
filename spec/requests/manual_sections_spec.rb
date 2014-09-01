@@ -65,20 +65,10 @@ describe 'manual sections resource' do
 
     expect(response.status).to eq(422)
     expect(json_response['errors'].first).to eq("Manual slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
-
-    put_json '/hmrc-manuals/double--dash/sections/some-section', valid_section
-
-    expect(response.status).to eq(422)
-    expect(json_response['errors'].first).to eq("Manual slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
   end
 
   it 'rejects invalid section slugs' do
     put_json '/hmrc-manuals/some-manual/sections/BREAK_THE_RULEZ', valid_section
-
-    expect(response.status).to eq(422)
-    expect(json_response['errors'].first).to eq("Section slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
-
-    put_json '/hmrc-manuals/some-manual/sections/double--dash', valid_section
 
     expect(response.status).to eq(422)
     expect(json_response['errors'].first).to eq("Section slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
