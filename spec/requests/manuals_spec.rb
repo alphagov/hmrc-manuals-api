@@ -50,4 +50,13 @@ describe 'manuals resource' do
                    'HTTP_AUTHORIZATION' => 'Bearer 12345'}
     expect(response.status).to eq(415)
   end
+
+  it 'handles POST requests as if they were PUTs' do
+    stub_default_publishing_api_put
+
+    post_json '/hmrc-manuals/employment-income-manual', maximal_manual
+
+    expect(response.status).to eq(200)
+    assert_publishing_api_put_item('/guidance/employment-income-manual', maximal_manual_for_publishing_api)
+  end
 end

@@ -74,6 +74,15 @@ describe 'manual sections resource' do
     expect(json_response['errors'].first).to eq("Section slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
   end
 
+  it 'handles POST requests as if they were PUTs' do
+    stub_default_publishing_api_put
+
+    post_json '/hmrc-manuals/employment-income-manual/sections/12345', maximal_section
+
+    expect(response.status).to eq(200)
+    assert_publishing_api_put_item('/guidance/employment-income-manual/12345', maximal_section_for_publishing_api)
+  end
+
 private
   def publishing_api_times_out
     stub_request(:any, /#{GdsApi::TestHelpers::PublishingApi::PUBLISHING_API_ENDPOINT}\/.*/).to_timeout
