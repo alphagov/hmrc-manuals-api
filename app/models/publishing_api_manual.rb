@@ -25,7 +25,10 @@ class PublishingAPIManual
       format: 'hmrc-manual',
       publishing_app: 'hmrc-manuals-api',
       rendering_app: 'manuals-frontend',
-      routes: [{ path: PublishingAPIManual.base_path(@slug), type: :exact }]
+      routes: [
+        { path: PublishingAPIManual.base_path(@slug), type: :exact },
+        { path: PublishingAPIManual.updates_path(@slug), type: :exact }
+      ]
       })
     enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
     enriched_data = add_base_path_to_child_section_groups(enriched_data)
@@ -40,6 +43,10 @@ class PublishingAPIManual
   def self.base_path(manual_slug)
     # The slug should be lowercase, but let's make sure
     "/guidance/#{manual_slug.downcase}"
+  end
+
+  def self.updates_path(manual_slug)
+    base_path(manual_slug) + '/updates'
   end
 
   def save!
