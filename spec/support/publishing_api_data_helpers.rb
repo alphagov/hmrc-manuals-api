@@ -44,6 +44,10 @@ module PublishingApiDataHelpers
         {
           "path" => "/guidance/employment-income-manual",
           "type" => "exact"
+        },
+        {
+          "path" => "/guidance/employment-income-manual/updates",
+          "type" => "exact"
         }
       ]
     }.merge(options)
