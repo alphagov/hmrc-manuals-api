@@ -22,20 +22,22 @@ class PublishingAPIManual
   end
 
   def to_h
-    enriched_data = @manual_attributes.deep_dup.merge({
-      base_path: base_path,
-      format: FORMAT,
-      publishing_app: 'hmrc-manuals-api',
-      rendering_app: 'manuals-frontend',
-      routes: [
-        { path: base_path, type: :exact },
-        { path: updates_path, type: :exact }
-      ]
-      })
-    enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
-    enriched_data = add_base_path_to_child_section_groups(enriched_data)
-    enriched_data = add_organisations_to_details(enriched_data)
-    add_base_path_to_change_notes(enriched_data)
+    @_to_h ||= begin
+      enriched_data = @manual_attributes.deep_dup.merge({
+        base_path: base_path,
+        format: FORMAT,
+        publishing_app: 'hmrc-manuals-api',
+        rendering_app: 'manuals-frontend',
+        routes: [
+          { path: base_path, type: :exact },
+          { path: updates_path, type: :exact }
+        ]
+        })
+      enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
+      enriched_data = add_base_path_to_child_section_groups(enriched_data)
+      enriched_data = add_organisations_to_details(enriched_data)
+      add_base_path_to_change_notes(enriched_data)
+    end
   end
 
   def govuk_url
