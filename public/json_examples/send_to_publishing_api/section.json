@@ -1,6 +1,6 @@
 {
   "base_path": "/guidance/employment-income-manual/eim00100",
-  "format": "hmrc-manual-section",
+  "format": "hmrc_manual_section",
   "title": "About this manual",
   "description": null, // or string
   "public_updated_at": "2014-03-04T13:58:11+00:00",

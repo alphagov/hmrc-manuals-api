@@ -24,7 +24,7 @@ class PublishingAPISection
   def to_h
     enriched_data = @section_attributes.deep_dup.merge({
       base_path: PublishingAPISection.base_path(@manual_slug, @section_slug),
-      format: 'hmrc-manual-section',
+      format: 'hmrc_manual_section',
       publishing_app: 'hmrc-manuals-api',
       rendering_app: 'manuals-frontend',
       routes: [{ path: PublishingAPISection.base_path(@manual_slug, @section_slug), type: :exact }]

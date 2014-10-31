@@ -22,7 +22,7 @@ class PublishingAPIManual
   def to_h
     enriched_data = @manual_attributes.deep_dup.merge({
       base_path: PublishingAPIManual.base_path(@slug),
-      format: 'hmrc-manual',
+      format: 'hmrc_manual',
       publishing_app: 'hmrc-manuals-api',
       rendering_app: 'manuals-frontend',
       routes: [

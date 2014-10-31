@@ -1,6 +1,6 @@
 {
   "base_path": "/guidance/employment-income-manual",
-  "format": "hmrc-manual",
+  "format": "hmrc_manual",
   "title": "Employment Income Manual",
   "description": "A guide to the Income Tax (Earnings and Pensions) Act 2003",
   "public_updated_at": "2014-03-04T13:58:11+00:00",

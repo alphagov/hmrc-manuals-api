@@ -2,7 +2,7 @@ module PublishingApiDataHelpers
   def maximal_manual_for_publishing_api(options = {})
     {
       "base_path" => "/guidance/employment-income-manual",
-      "format" => "hmrc-manual",
+      "format" => "hmrc_manual",
       "title" => "Employment Income Manual",
       "description" => "A manual about incoming employment",
       "public_updated_at" => "2014-01-23T00:00:00+01:00",
@@ -56,7 +56,7 @@ module PublishingApiDataHelpers
   def maximal_section_for_publishing_api(options = {})
     {
       "base_path" => "/guidance/employment-income-manual/12345",
-      "format" => "hmrc-manual-section",
+      "format" => "hmrc_manual_section",
       "title" => "A section on a part of employment income",
       "description" => "Some description",
       "public_updated_at" => "2014-01-23T00:00:00+01:00",
