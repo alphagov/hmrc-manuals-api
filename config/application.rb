@@ -15,6 +15,7 @@ Bundler.require(*Rails.groups)
 
 module HMRCManualsAPI
   mattr_accessor :publishing_api
+  mattr_accessor :rummager
 
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

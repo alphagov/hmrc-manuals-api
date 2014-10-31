@@ -44,6 +44,7 @@ describe "validation" do
 
       it 'allows images with a relative path' do
         stub_default_publishing_api_put
+        stub_any_rummager_post
 
         manual = valid_manual
         manual['description'] = '![Manual](/path/to/image.png)'
