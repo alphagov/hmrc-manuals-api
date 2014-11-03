@@ -7,6 +7,8 @@ class PublishingAPISection
   include ActiveModel::Validations
   include Helpers::PublishingAPIHelpers
 
+  FORMAT = 'hmrc_manual_section'
+
   validates :to_h, no_dangerous_html_in_text_fields: true, if: -> { @section.valid? }
   validates :manual_slug, :section_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
   validate :incoming_section_is_valid
@@ -24,7 +26,7 @@ class PublishingAPISection
   def to_h
     enriched_data = @section_attributes.deep_dup.merge({
       base_path: PublishingAPISection.base_path(@manual_slug, @section_slug),
-      format: 'hmrc_manual_section',
+      format: FORMAT,
       publishing_app: 'hmrc-manuals-api',
       rendering_app: 'manuals-frontend',
       routes: [{ path: PublishingAPISection.base_path(@manual_slug, @section_slug), type: :exact }]
@@ -37,7 +39,11 @@ class PublishingAPISection
   end
 
   def govuk_url
-    FRONTEND_BASE_URL + PublishingAPISection.base_path(@manual_slug, @section_slug)
+    FRONTEND_BASE_URL + base_path
+  end
+
+  def base_path
+    PublishingAPISection.base_path(@manual_slug, @section_slug)
   end
 
   def self.base_path(manual_slug, section_slug)
@@ -48,9 +54,10 @@ class PublishingAPISection
 
   def save!
     raise ValidationError, "section is invalid" unless valid?
+    HMRCManualsAPI.publishing_api.put_content_item(base_path, to_h)
 
-    HMRCManualsAPI.publishing_api.put_content_item(
-      PublishingAPISection.base_path(@manual_slug, @section_slug), to_h)
+    rummager_section = RummagerSection.new(to_h)
+    HMRCManualsAPI.rummager.add_document(FORMAT, rummager_section.id, rummager_section.to_h)
   end
 
 private

@@ -23,6 +23,18 @@ module RummagerHelpers
       'last_update'       => '2014-01-23T00:00:00+01:00',
     }
   end
+
+  def maximal_section_for_rummager
+    {
+      'title'                  => 'A section on a part of employment income',
+      'description'            => 'Some description',
+      'link'                   => 'guidance/employment-income-manual/12345',
+      'indexable_content'      => 'I need somebody to love', # Markdown/HTML has been stripped
+      'organisations'          => ['hm-revenue-customs'],
+      'last_update'            => '2014-01-23T00:00:00+01:00',
+      'hmrc_manual_section_id' => '12345'
+    }
+  end
 end
 
 RSpec.configuration.include(RummagerHelpers)
