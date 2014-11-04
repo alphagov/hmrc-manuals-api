@@ -1,13 +1,11 @@
-class RummagerManual
-  GOVUK_HMRC_SLUG = 'hm-revenue-customs'
-
+class RummagerManual < RummagerBase
   def initialize(publishing_api_manual_hash)
     @publishing_api_manual = publishing_api_manual_hash
   end
 
   def id
     # The id and link are the path without the leading slash
-    @publishing_api_manual['base_path'].gsub(%r{^/}, '')
+    strip_leading_slash(@publishing_api_manual['base_path'])
   end
 
   def to_h

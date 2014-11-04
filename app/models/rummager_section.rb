@@ -1,13 +1,11 @@
-class RummagerSection
-  GOVUK_HMRC_SLUG = 'hm-revenue-customs'
-
+class RummagerSection < RummagerBase
   def initialize(publishing_api_section_hash)
     @publishing_api_section = publishing_api_section_hash
   end
 
   def id
     # The id and link are the path without the leading slash
-    @publishing_api_section['base_path'].gsub(%r{^/}, '')
+    strip_leading_slash(@publishing_api_section['base_path'])
   end
 
   def body_without_html
@@ -23,6 +21,7 @@ class RummagerSection
       'organisations'           => [GOVUK_HMRC_SLUG],
       'last_update'             => @publishing_api_section['public_updated_at'],
       'hmrc_manual_section_id'  => @publishing_api_section['details']['section_id'],
+      'manual'                  => strip_leading_slash(@publishing_api_section['details']['manual']['base_path']),
     }
   end
 end
