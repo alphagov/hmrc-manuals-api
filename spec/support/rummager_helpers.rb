@@ -1,18 +1,4 @@
 module RummagerHelpers
-  def stub_any_rummager_post
-    stub_request(:post, %r{#{Plek.new.find('search')}/documents})
-  end
-
-  def assert_rummager_posted_item(attributes)
-    url = Plek.new.find('search') + "/documents"
-    assert_requested(:post, url) do |req|
-      data = JSON.parse(req.body)
-      attributes.to_a.all? do |key, value|
-        data[key.to_s] == value
-      end
-    end
-  end
-
   def maximal_manual_for_rummager
     {
       'title'             => 'Employment Income Manual',

@@ -1,8 +1,10 @@
 require 'rails_helper'
 require 'gds_api/test_helpers/publishing_api'
+require 'gds_api/test_helpers/rummager'
 
 describe 'manuals resource' do
   include GdsApi::TestHelpers::PublishingApi
+  include GdsApi::TestHelpers::Rummager
 
   it 'confirms update of the manual' do
     stub_default_publishing_api_put

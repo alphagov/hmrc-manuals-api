@@ -1,7 +1,10 @@
 require 'rails_helper'
+require 'gds_api/test_helpers/publishing_api'
+require 'gds_api/test_helpers/rummager'
 
 describe "validation" do
   include GdsApi::TestHelpers::PublishingApi
+  include GdsApi::TestHelpers::Rummager
 
   let(:malformed_json) { "[" }
   let(:headers) { { 'Content-Type' => 'application/json', 'HTTP_AUTHORIZATION' => 'Bearer 12345678' } }
