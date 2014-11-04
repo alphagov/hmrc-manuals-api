@@ -1,7 +1,10 @@
 require 'rails_helper'
+require 'gds_api/test_helpers/publishing_api'
+require 'gds_api/test_helpers/rummager'
 
 describe "validation" do
   include GdsApi::TestHelpers::PublishingApi
+  include GdsApi::TestHelpers::Rummager
 
   let(:malformed_json) { "[" }
   let(:headers) { { 'Content-Type' => 'application/json', 'HTTP_AUTHORIZATION' => 'Bearer 12345678' } }
@@ -44,6 +47,7 @@ describe "validation" do
 
       it 'allows images with a relative path' do
         stub_default_publishing_api_put
+        stub_any_rummager_post
 
         manual = valid_manual
         manual['description'] = '![Manual](/path/to/image.png)'
