@@ -14,10 +14,10 @@ describe 'manual sections resource' do
 
     expect(response.status).to eq(200)
     expect(response.headers['Content-Type']).to include('application/json')
-    assert_publishing_api_put_item('/guidance/employment-income-manual/12345', maximal_section_for_publishing_api)
+    assert_publishing_api_put_item('/hmrc-manuals/employment-income-manual/12345', maximal_section_for_publishing_api)
     assert_rummager_posted_item(maximal_section_for_rummager)
-    expect(response.headers['Location']).to include("https://www.gov.uk/guidance/employment-income-manual/12345")
-    expect(response.body).to include("https://www.gov.uk/guidance/employment-income-manual/12345")
+    expect(response.headers['Location']).to include("https://www.gov.uk/hmrc-manuals/employment-income-manual/12345")
+    expect(response.body).to include("https://www.gov.uk/hmrc-manuals/employment-income-manual/12345")
   end
 
   it 'errors if the Accept header is not application/json' do

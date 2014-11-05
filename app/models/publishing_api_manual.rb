@@ -50,7 +50,7 @@ class PublishingAPIManual
 
   def self.base_path(manual_slug)
     # The slug should be lowercase, but let's make sure
-    "/guidance/#{manual_slug.downcase}"
+    "/hmrc-manuals/#{manual_slug.downcase}"
   end
 
   def updates_path

@@ -1,5 +1,5 @@
 {
-  "base_path": "/guidance/employment-income-manual/eim00100",
+  "base_path": "/hmrc-manuals/employment-income-manual/eim00100",
   "format": "hmrc_manual_section",
   "title": "About this manual",
   "description": null, // or string
@@ -9,11 +9,11 @@
     "body": null, // or string
     "section_id": "EIM0000", // omitted for normal manuals
     "manual": {
-      "base_path": "/guidance/employment-income-manual",
+      "base_path": "/hmrc-manuals/employment-income-manual",
     },
     "breadcrumbs": [
       {
-        "base_path": "/guidance/employment-income-manual/eim0000",
+        "base_path": "/hmrc-manuals/employment-income-manual/eim0000",
         "section_id": "EIM0000" // a normal manual would have a title instead
       }
     ],
@@ -22,7 +22,7 @@
         "title": null, // or string
         "child_sections": [
           {
-            "base_path": "/guidance/employment-income-manual/eim00123",
+            "base_path": "/hmrc-manuals/employment-income-manual/eim00123",
             "title": "About this manual",
             "section_id": "EIM00123", // omitted for normal manuals
             "description": null // or string
@@ -42,7 +42,7 @@
   "rendering_app": "manuals-frontend",
   "routes": [
     {
-      "path": "/guidance/employment-income-manual/eim00100",
+      "path": "/hmrc-manuals/employment-income-manual/eim00100",
       "type": "exact"
     }
   ]

@@ -4,12 +4,12 @@ describe PublishingAPIManual do
   describe 'base_path' do
     it 'returns the GOV.UK path for the manual' do
       base_path = PublishingAPIManual.base_path('some-manual')
-      expect(base_path).to eql('/guidance/some-manual')
+      expect(base_path).to eql('/hmrc-manuals/some-manual')
     end
 
     it 'ensures that it is lowercase' do
       base_path = PublishingAPIManual.base_path('Some-Manual')
-      expect(base_path).to eql('/guidance/some-manual')
+      expect(base_path).to eql('/hmrc-manuals/some-manual')
     end
   end
 
