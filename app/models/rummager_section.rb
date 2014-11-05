@@ -8,19 +8,27 @@ class RummagerSection < RummagerBase
     strip_leading_slash(@publishing_api_section['base_path'])
   end
 
+  def section_id
+    @publishing_api_section['details']['section_id']
+  end
+
+  def title
+    "HMRC Manuals: #{section_id} - #{@publishing_api_section['title']}"
+  end
+
   def body_without_html
     Govspeak::Document.new(@publishing_api_section['details']['body']).to_text
   end
 
   def to_h
     {
-      'title'                   => @publishing_api_section['title'],
+      'title'                   => title,
       'description'             => @publishing_api_section['description'],
       'link'                    => id,
       'indexable_content'       => body_without_html,
       'organisations'           => [GOVUK_HMRC_SLUG],
       'last_update'             => @publishing_api_section['public_updated_at'],
-      'hmrc_manual_section_id'  => @publishing_api_section['details']['section_id'],
+      'hmrc_manual_section_id'  => section_id,
       'manual'                  => strip_leading_slash(@publishing_api_section['details']['manual']['base_path']),
     }
   end
