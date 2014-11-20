@@ -17,6 +17,7 @@ You also need to supply an accept header and a Content-Type header:
     Content-Type: application/json
 
 Please note that:
+
 * Tokens are environment specific, so preview and production will have different tokens.
 * The data on preview is overwritten every night with data from production
 
@@ -60,35 +61,33 @@ The `<manual-slug>` and `<section_slug>` will be used as part of the GOV.UK URL 
 
 * `200`: updated successfully
 * `201`: created successfully
-  * Both `200`s and `201`s return a location header and a response body containing the GOV.UK URL of the manual:
+  * Both `200`s and `201`s return a Location header and a response body containing the GOV.UK URL of the manual:
 
-    `Location: https://www.gov.uk/hmrc-manuals/<manual_slug>/<section_slug>`
-    ```json
-    {
-      "govuk_url": "https://www.gov.uk/hmrc-manuals/<manual_slug>/<section_slug>"
-    }
-    ```
+        Location: https://www.gov.uk/hmrc-manuals/<manual_slug>/<section_slug>
+
+        {
+          "govuk_url": "https://www.gov.uk/hmrc-manuals/<manual_slug>/<section_slug>"
+        }
+
 * `400`: the request JSON isn't well-formed.
 * `409`: the slug is taken by content that is managed by another publishing tool.
 * `422`: there's a validation error. A response body would detail the errors:
 
-    ```json
-    {
-      "status": "error",
-      "errors": [
-        "error_message_1",
-        "error_message_2",
-        ...
-      ]
-    }
-    ```
+        {
+          "status": "error",
+          "errors": [
+            "error_message_1",
+            "error_message_2",
+            ...
+          ]
+        }
 
 * `503`: the request could not be completed because the API or the Publishing API is unavailable.
 
 ## Slugs, section IDs and URLs
 
-GOV.UK has URL standards to ensure that the URLs are SEO and user friendly. You
-can read about them here: https://insidegovuk.blog.gov.uk/url-standards-for-gov-uk/
+GOV.UK has [URL standards](https://insidegovuk.blog.gov.uk/url-standards-for-gov-uk/)
+to ensure that the URLs are SEO and user friendly.
 
 This API constructs the GOV.UK URLs based upon the slugs and section IDs supplied to it.
 
@@ -110,7 +109,7 @@ Section IDs are validated to ensure that they can be converted to slugs by simpl
 ## Markup
 
 All `body` attributes in manuals or manual sections may contain
-[markdown](http://daringfireball.net/projects/markdown/syntax). The markdown in those attributes
+[Markdown](http://daringfireball.net/projects/markdown/syntax). The Markdown in those attributes
 is converted to HTML before the document is sent to the Publishing API.
 
 There is a whitelist of allowed HTML tags and attributes. If a manual or a section
