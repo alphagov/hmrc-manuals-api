@@ -7,7 +7,7 @@ This app provides URLs for pushing HMRC manuals to the GOV.UK Publishing API.
 The base path for the preview environment is:
 https://hmrc-manuals-api.preview.alphagov.co.uk
 
-Authentication is done with a token, which needs to be supplied in the Authorization HTTP header, like this:
+Authentication is done with a token, which needs to be supplied in the `Authorization` HTTP header, like this:
 
 ```Authorization: Bearer your_token```
 
@@ -61,7 +61,7 @@ The `<manual-slug>` and `<section_slug>` will be used as part of the GOV.UK URL 
 
 * `200`: updated successfully
 * `201`: created successfully
-  * Both `200`s and `201`s return a Location header and a response body containing the GOV.UK URL of the manual:
+  * Both `200`s and `201`s return a `Location` header and a response body containing the GOV.UK URL of the manual:
 
         Location: https://www.gov.uk/hmrc-manuals/<manual_slug>/<section_slug>
 
@@ -143,7 +143,7 @@ The following tag attributes are allowed, by tag:
 
 Images are only allowed if on a relative path (ie hosted on `www.gov.uk`) or on
 the GOV.UK assets domain: `assets.digital.cabinet-office.gov.uk`. Markup
-containing images hosted on other domains will be rejected with a 422 error code.
+containing images hosted on other domains will be rejected with a `422` error code.
 
 On preview, the allowed image domains are expanded to include the preview
 www.gov.uk domain `www.preview.alphagov.co.uk`) and the preview asset domain
