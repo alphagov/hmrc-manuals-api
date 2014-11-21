@@ -9,7 +9,7 @@ https://hmrc-manuals-api.preview.alphagov.co.uk
 
 Authentication is done with a token, which needs to be supplied in the `Authorization` HTTP header, like this:
 
-```Authorization: Bearer your_token```
+    Authorization: Bearer your_token
 
 You also need to supply an accept header and a Content-Type header:
 
@@ -25,7 +25,7 @@ Please note that:
 
 ### Request
 
-`PUT /hmrc-manuals/<slug>`.
+    PUT /hmrc-manuals/<slug>
 
 The `<slug>` is used as part of the GOV.UK URL for the document.
 
@@ -42,7 +42,7 @@ The `<slug>` is used as part of the GOV.UK URL for the document.
 
 ### Request
 
-`PUT /hmrc-manuals/<manual-slug>/sections/<section_slug>`.
+    PUT /hmrc-manuals/<manual-slug>/sections/<section_slug>
 
 The `<manual-slug>` and `<section_slug>` will be used as part of the GOV.UK URL for the document. The `<section_slug>` will be the section ID converted to lowercase.
 
