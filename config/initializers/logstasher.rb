@@ -4,6 +4,10 @@ if Object.const_defined?('LogStasher') && LogStasher.enabled
     fields[:request] = "#{request.request_method} #{request.fullpath} #{request.headers['SERVER_PROTOCOL']}"
     # Pass request Id to logging
     fields[:govuk_request_id] = request.headers['GOVUK-Request-Id']
-    fields[:request_body] = request.body
+    # request.body is a StringIO and may have already been read, so we need to
+    # rewind it to read it again (and again afterward reading it this time):
+    request.body.rewind
+    fields[:request_body] = request.body.read
+    request.body.rewind
   end
 end
