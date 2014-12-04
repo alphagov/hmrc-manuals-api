@@ -7,6 +7,7 @@ module RummagerHelpers
       'indexable_content' => nil,
       'organisations'     => ['hm-revenue-customs'],
       'last_update'       => '2014-01-23T00:00:00+01:00',
+      'format'            => 'hmrc_manual',
     }
   end
 
@@ -20,6 +21,7 @@ module RummagerHelpers
       'last_update'            => '2014-01-23T00:00:00+01:00',
       'hmrc_manual_section_id' => '12345',
       'manual'                 => 'hmrc-manuals/employment-income-manual',
+      'format'                 => 'hmrc_manual_section',
     }
   end
 end
