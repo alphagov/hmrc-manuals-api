@@ -30,6 +30,7 @@ class RummagerSection < RummagerBase
       'last_update'             => @publishing_api_section['public_updated_at'],
       'hmrc_manual_section_id'  => section_id,
       'manual'                  => strip_leading_slash(@publishing_api_section['details']['manual']['base_path']),
+      'format'                  => PublishingAPISection::FORMAT,
     }
   end
 end
