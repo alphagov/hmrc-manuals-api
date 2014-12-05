@@ -109,8 +109,8 @@ Section IDs are validated to ensure that they can be converted to slugs by simpl
 ## Markup
 
 All `body` attributes in manuals or manual sections may contain
-[Markdown](http://daringfireball.net/projects/markdown/syntax). The Markdown in those attributes
-is converted to HTML before the document is sent to the Publishing API.
+[Markdown in the Kramdown dialect](http://kramdown.gettalong.org/syntax.html).
+The Markdown in those attributes is converted to HTML before the document is sent to the Publishing API.
 
 There is a whitelist of allowed HTML tags and attributes. If a manual or a section
 contains any disallowed HTML in any field, the request is rejected with a validation error (status code `422`).
