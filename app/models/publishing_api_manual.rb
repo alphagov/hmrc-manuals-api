@@ -63,10 +63,12 @@ class PublishingAPIManual
 
   def save!
     raise ValidationError, "manual is invalid" unless valid?
-    HMRCManualsAPI.publishing_api.put_content_item(base_path, to_h)
+    publishing_api_response = HMRCManualsAPI.publishing_api.put_content_item(base_path, to_h)
 
     rummager_manual = RummagerManual.new(to_h)
     HMRCManualsAPI.rummager.add_document(FORMAT, rummager_manual.id, rummager_manual.to_h)
+
+    publishing_api_response
   end
 
 private

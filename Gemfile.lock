@@ -46,7 +46,7 @@ GEM
     erubis (2.7.0)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
-    gds-api-adapters (15.2.0)
+    gds-api-adapters (17.1.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -137,7 +137,7 @@ GEM
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
     rake (10.3.2)
-    rdoc (4.1.2)
+    rdoc (4.2.0)
       json (~> 1.4)
     request_store (1.0.6)
     rest-client (1.6.8)
@@ -208,7 +208,7 @@ DEPENDENCIES
   airbrake (= 3.1.15)
   ci_reporter (= 2.0.0.alpha2)
   ci_reporter_rspec (= 0.0.2)
-  gds-api-adapters (= 15.2.0)
+  gds-api-adapters (= 17.1.0)
   gds-sso (= 9.3.0)
   govspeak (= 3.0.0)
   json-schema (= 2.2.3)

@@ -56,10 +56,12 @@ class PublishingAPISection
 
   def save!
     raise ValidationError, "section is invalid" unless valid?
-    HMRCManualsAPI.publishing_api.put_content_item(base_path, to_h)
+    publishing_api_response = HMRCManualsAPI.publishing_api.put_content_item(base_path, to_h)
 
     rummager_section = RummagerSection.new(to_h)
     HMRCManualsAPI.rummager.add_document(FORMAT, rummager_section.id, rummager_section.to_h)
+
+    publishing_api_response
   end
 
 private

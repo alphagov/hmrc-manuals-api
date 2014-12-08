@@ -29,6 +29,15 @@ describe 'manuals resource' do
     expect(response.status).to eq(503)
   end
 
+  it 'returns the status code from the Publishing API response, not Rummager' do
+    stub_default_publishing_api_put  # This returns 200
+    stub_any_rummager_post_with_queueing_enabled  # This returns 202, as it does in Production
+
+    put_json '/hmrc-manuals/employment-income-manual', maximal_manual
+
+    expect(response.status).to eq(200)
+  end
+
   it 'rejects invalid manual slugs' do
     put_json '/hmrc-manuals/BREAK_THE_RULEZ', valid_manual
 
