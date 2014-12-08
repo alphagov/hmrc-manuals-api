@@ -14,10 +14,10 @@ describe 'manuals resource' do
 
     expect(response.status).to eq(200)
     expect(response.headers['Content-Type']).to include('application/json')
-    assert_publishing_api_put_item('/hmrc-manuals/employment-income-manual', maximal_manual_for_publishing_api)
+    assert_publishing_api_put_item('/hmrc-internal-manuals/employment-income-manual', maximal_manual_for_publishing_api)
     assert_rummager_posted_item(maximal_manual_for_rummager)
-    expect(response.headers['Location']).to include('https://www.gov.uk/hmrc-manuals/employment-income-manual')
-    expect(response.body).to include('https://www.gov.uk/hmrc-manuals/employment-income-manual')
+    expect(response.headers['Location']).to include('https://www.gov.uk/hmrc-internal-manuals/employment-income-manual')
+    expect(response.body).to include('https://www.gov.uk/hmrc-internal-manuals/employment-income-manual')
   end
 
   it 'handles the content store being unavailable' do

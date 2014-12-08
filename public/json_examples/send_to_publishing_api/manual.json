@@ -11,13 +11,13 @@
         "title": null, // or string
         "child_sections": [
           {
-            "base_path": "/hmrc-manuals/employment-income-manual/eim00100",
+            "base_path": "/hmrc-internal-manuals/employment-income-manual/eim00100",
             "title": "About this manual",
             "section_id": "EIM00100", // omitted for normal manuals
             "description": null // or string
           },
           {
-            "base_path": "/hmrc-manuals/employment-income-manual/eim11800",
+            "base_path": "/hmrc-internal-manuals/employment-income-manual/eim11800",
             "title": "PAYE: Special types of payment",
             "section_id": "EIM11800", // omitted for normal manuals
             "description": null // or string
@@ -34,7 +34,7 @@
     ],
     "change_notes": [
       {
-        "base_path": "/hmrc-manuals/employment-income-manual/adml1100",
+        "base_path": "/hmrc-internal-manuals/employment-income-manual/adml1100",
         "title": "The title of the section",
         "section_id": "ADML1100",
         "change_note": "Change of link “Customs and International” to “ECSM” Sep 2010",
@@ -46,7 +46,7 @@
   "rendering_app": "manuals-frontend",
   "routes": [
     {
-      "path": "/hmrc-manuals/employment-income-manual",
+      "path": "/hmrc-internal-manuals/employment-income-manual",
       "type": "exact"
     }
   ]
