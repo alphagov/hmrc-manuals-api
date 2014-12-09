@@ -1,7 +1,7 @@
 module PublishingApiDataHelpers
   def maximal_manual_for_publishing_api(options = {})
     {
-      "base_path" => "/hmrc-manuals/employment-income-manual",
+      "base_path" => "/hmrc-internal-manuals/employment-income-manual",
       "format" => "hmrc_manual",
       "title" => "Employment Income Manual",
       "description" => "A manual about incoming employment",
@@ -16,7 +16,7 @@ module PublishingApiDataHelpers
                 "title" => "About 12345",
                 "section_id" => "12345",
                 "description" => "A short description of the section",
-                "base_path" => "/hmrc-manuals/employment-income-manual/12345"
+                "base_path" => "/hmrc-internal-manuals/employment-income-manual/12345"
               }
             ]
           }
@@ -30,7 +30,7 @@ module PublishingApiDataHelpers
         ],
         "change_notes" => [
           {
-            "base_path" => "/hmrc-manuals/employment-income-manual/abc567",
+            "base_path" => "/hmrc-internal-manuals/employment-income-manual/abc567",
             "title" => 'Title of a Section that was changed',
             "section_id" => 'ABC567',
             "change_note" => 'Description of changes',
@@ -42,11 +42,11 @@ module PublishingApiDataHelpers
       "rendering_app" => "manuals-frontend",
       "routes" => [
         {
-          "path" => "/hmrc-manuals/employment-income-manual",
+          "path" => "/hmrc-internal-manuals/employment-income-manual",
           "type" => "exact"
         },
         {
-          "path" => "/hmrc-manuals/employment-income-manual/updates",
+          "path" => "/hmrc-internal-manuals/employment-income-manual/updates",
           "type" => "exact"
         }
       ]
@@ -55,7 +55,7 @@ module PublishingApiDataHelpers
 
   def maximal_section_for_publishing_api(options = {})
     {
-      "base_path" => "/hmrc-manuals/employment-income-manual/12345",
+      "base_path" => "/hmrc-internal-manuals/employment-income-manual/12345",
       "format" => "hmrc_manual_section",
       "title" => "A section on a part of employment income",
       "description" => "Some description",
@@ -65,12 +65,12 @@ module PublishingApiDataHelpers
         "body" => "<p>I need <strong>somebody</strong> to love</p>\n",
         "section_id" => "12345",
         "manual" => {
-          "base_path" => "/hmrc-manuals/employment-income-manual"
+          "base_path" => "/hmrc-internal-manuals/employment-income-manual"
         },
         "breadcrumbs" => [
           {
             "section_id" => "1234",
-            "base_path" => "/hmrc-manuals/employment-income-manual/1234"
+            "base_path" => "/hmrc-internal-manuals/employment-income-manual/1234"
           }
         ],
         "child_section_groups" => [
@@ -81,7 +81,7 @@ module PublishingApiDataHelpers
                 "title" => "About 123456",
                 "section_id" => "123456",
                 "description" => "A short description of the section",
-                "base_path" => "/hmrc-manuals/employment-income-manual/123456"
+                "base_path" => "/hmrc-internal-manuals/employment-income-manual/123456"
               }
             ]
           }
@@ -98,7 +98,7 @@ module PublishingApiDataHelpers
       "rendering_app" => "manuals-frontend",
       "routes" => [
         {
-          "path" => "/hmrc-manuals/employment-income-manual/12345",
+          "path" => "/hmrc-internal-manuals/employment-income-manual/12345",
           "type" => "exact"
         }
       ]
