@@ -19,7 +19,7 @@ You also need to supply an accept header and a Content-Type header:
 Please note that:
 
 * Tokens are environment specific, so preview and production will have different tokens.
-* The data on preview is overwritten every night with data from production
+* The data on preview is overwritten every night with data from production.
 
 ## Adding or updating a manual
 
