@@ -13,7 +13,7 @@ class RummagerSection < RummagerBase
   end
 
   def title
-    "HMRC Manuals: #{section_id} - #{@publishing_api_section['title']}"
+    "#{section_id} - #{@publishing_api_section['title']}"
   end
 
   def body_without_html
