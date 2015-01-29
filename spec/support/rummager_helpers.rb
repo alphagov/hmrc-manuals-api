@@ -13,7 +13,7 @@ module RummagerHelpers
 
   def maximal_section_for_rummager
     {
-      'title'                  => 'HMRC Manuals: 12345 - A section on a part of employment income',
+      'title'                  => '12345 - A section on a part of employment income',
       'description'            => 'Some description',
       'link'                   => 'hmrc-internal-manuals/employment-income-manual/12345',
       'indexable_content'      => 'I need somebody to love', # Markdown/HTML has been stripped
