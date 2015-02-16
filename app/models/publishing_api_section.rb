@@ -26,7 +26,6 @@ class PublishingAPISection
   def to_h
     @_to_h ||= begin
       enriched_data = @section_attributes.deep_dup.merge({
-        base_path: PublishingAPISection.base_path(@manual_slug, @section_slug),
         format: FORMAT,
         publishing_app: 'hmrc-manuals-api',
         rendering_app: 'manuals-frontend',
@@ -58,7 +57,7 @@ class PublishingAPISection
     raise ValidationError, "section is invalid" unless valid?
     publishing_api_response = HMRCManualsAPI.publishing_api.put_content_item(base_path, to_h)
 
-    rummager_section = RummagerSection.new(to_h)
+    rummager_section = RummagerSection.new(base_path, to_h)
     HMRCManualsAPI.rummager.add_document(FORMAT, rummager_section.id, rummager_section.to_h)
 
     publishing_api_response

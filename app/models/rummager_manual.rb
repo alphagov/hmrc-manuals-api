@@ -1,11 +1,12 @@
 class RummagerManual < RummagerBase
-  def initialize(publishing_api_manual_hash)
+  def initialize(base_path, publishing_api_manual_hash)
+    @base_path = base_path
     @publishing_api_manual = publishing_api_manual_hash
   end
 
   def id
     # The id and link are the path without the leading slash
-    strip_leading_slash(@publishing_api_manual['base_path'])
+    strip_leading_slash(@base_path)
   end
 
   def to_h

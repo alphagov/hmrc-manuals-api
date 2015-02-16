@@ -24,7 +24,6 @@ class PublishingAPIManual
   def to_h
     @_to_h ||= begin
       enriched_data = @manual_attributes.deep_dup.merge({
-        base_path: base_path,
         format: FORMAT,
         publishing_app: 'hmrc-manuals-api',
         rendering_app: 'manuals-frontend',
@@ -65,7 +64,7 @@ class PublishingAPIManual
     raise ValidationError, "manual is invalid" unless valid?
     publishing_api_response = HMRCManualsAPI.publishing_api.put_content_item(base_path, to_h)
 
-    rummager_manual = RummagerManual.new(to_h)
+    rummager_manual = RummagerManual.new(base_path, to_h)
     HMRCManualsAPI.rummager.add_document(FORMAT, rummager_manual.id, rummager_manual.to_h)
 
     publishing_api_response
