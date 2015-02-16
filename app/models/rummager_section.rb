@@ -1,11 +1,12 @@
 class RummagerSection < RummagerBase
-  def initialize(publishing_api_section_hash)
+  def initialize(base_path, publishing_api_section_hash)
+    @base_path = base_path
     @publishing_api_section = publishing_api_section_hash
   end
 
   def id
     # The id and link are the path without the leading slash
-    strip_leading_slash(@publishing_api_section['base_path'])
+    strip_leading_slash(@base_path)
   end
 
   def section_id
