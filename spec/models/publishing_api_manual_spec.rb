@@ -15,6 +15,24 @@ describe PublishingAPIManual do
 
   subject { PublishingAPIManual.new("some-slug", attributes) }
 
+  describe 'to_h' do
+    context 'valid_manual' do
+      let(:attributes) { valid_manual }
+
+      it 'should be valid against the govuk-content-schema' do
+        expect(subject.to_h).to be_valid_against_schema('hmrc_manual')
+      end
+    end
+
+    context 'maximal_manual' do
+      let(:attributes) { maximal_manual }
+
+      it 'should be valid against the govuk-content-schema' do
+        expect(subject.to_h).to be_valid_against_schema('hmrc_manual')
+      end
+    end
+  end
+
   context "with an empty payload" do
     let(:attributes) { {} }
     it { should_not be_valid }
