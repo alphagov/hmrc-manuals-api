@@ -25,6 +25,24 @@ describe PublishingAPISection do
 
   subject { PublishingAPISection.new("some-slug", "some-id", attributes) }
 
+  describe 'to_h' do
+    context 'valid_section' do
+      let(:attributes) { valid_section }
+
+      it 'should be valid against the govuk-content-schema' do
+        expect(subject.to_h).to be_valid_against_schema('hmrc_manual_section')
+      end
+    end
+
+    context 'maximal_section' do
+      let(:attributes) { maximal_section }
+
+      it 'should be valid against the govuk-content-schema' do
+        expect(subject.to_h).to be_valid_against_schema('hmrc_manual_section')
+      end
+    end
+  end
+
   context "with an empty payload" do
     let(:attributes) { {} }
     it { should_not be_valid }
