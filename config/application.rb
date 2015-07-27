@@ -14,6 +14,7 @@ require "action_view/railtie"
 Bundler.require(*Rails.groups)
 
 module HMRCManualsAPI
+  mattr_accessor :content_register
   mattr_accessor :publishing_api
   mattr_accessor :rummager
 
