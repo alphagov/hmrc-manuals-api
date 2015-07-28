@@ -7,8 +7,6 @@ class PublishingAPIManual
   include ActiveModel::Validations
   include Helpers::PublishingAPIHelpers
 
-  FORMAT = 'hmrc_manual'
-
   validates :to_h, no_dangerous_html_in_text_fields: true, if: -> { manual.valid? }
   validates :slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
   validate :incoming_manual_is_valid
@@ -24,7 +22,7 @@ class PublishingAPIManual
   def to_h
     @_to_h ||= begin
       enriched_data = @manual_attributes.deep_dup.merge({
-        format: FORMAT,
+        format: MANUAL_FORMAT,
         publishing_app: 'hmrc-manuals-api',
         rendering_app: 'manuals-frontend',
         routes: [
@@ -66,7 +64,7 @@ class PublishingAPIManual
     publishing_api_response = HMRCManualsAPI.publishing_api.put_content_item(base_path, to_h)
 
     rummager_manual = RummagerManual.new(base_path, to_h)
-    HMRCManualsAPI.rummager.add_document(FORMAT, rummager_manual.id, rummager_manual.to_h)
+    rummager_manual.save!
 
     publishing_api_response
   end
