@@ -148,3 +148,24 @@ containing images hosted on other domains will be rejected with a `422` error co
 On preview, the allowed image domains are expanded to include the preview
 www.gov.uk domain `www.preview.alphagov.co.uk`) and the preview asset domain
 (`assets-origin.preview.alphagov.co.uk`).
+
+# Manual tags
+
+Manuals can be tagged to topics on GOV.UK, so that they're easier for
+users to find.
+
+## How tagging works
+
+Tags are mapped by their content IDs to manual slugs based on the topics each
+manual refers to. This is done via the hardcoded CSV in
+`lib/topic_slugs_to_content_ids.csv`, from where the topic content IDs are sent
+to the Publishing API, and the topic slugs are sent to Rummager. The CSV
+contains three columns: `manual_slug`, `topic_slug`, `content_ids`. A manual
+can be tagged to multiple topics, and so the order of the content IDs has to
+match with the order in which the topic slugs are specified.
+
+There is a Rake task at `lib/tasks/manuals_to_topics.rake` to make the update
+process less manual, for the hopefully rare occurrence that we might change
+content IDs, or HMRC might change a manual's topics. It uses current data from
+the content-register to get the content IDs for topic slugs, and regenerates the
+entire CSV file with a `_regenerated` suffix for easy checking.
