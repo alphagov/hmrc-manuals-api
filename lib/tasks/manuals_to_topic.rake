@@ -4,9 +4,9 @@ desc "Map manual topic slugs to content IDs"
 task map_manual_topic_slugs_to_content_ids: :environment do
   topics = HMRCManualsAPI.content_register.entries('topic').to_a
 
-  csv = CSV.read("#{Rails.root}/lib/topic_slugs_to_content_ids.csv")
+  csv = CSV.read("#{Rails.root}/lib/manuals_to_topics.csv")
 
-  CSV.open("#{Rails.root}/lib/topic_slugs_to_content_ids_regenerated.csv", "w") do |new_csv|
+  CSV.open("#{Rails.root}/lib/manuals_to_topics_regenerated.csv", "w") do |new_csv|
     new_csv << csv.shift
     csv.each do |row|
       slugs = row[1].split(",")
@@ -22,5 +22,7 @@ task map_manual_topic_slugs_to_content_ids: :environment do
       new_csv << [row[0],row[1],content_ids.join(",")]
     end
   end
+
+  puts "Written the new file to lib/manuals_to_topics_regenerated.csv."
 end
 
