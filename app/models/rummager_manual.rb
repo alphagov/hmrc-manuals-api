@@ -1,4 +1,5 @@
 class RummagerManual < RummagerBase
+
   def initialize(base_path, publishing_api_manual_hash)
     @base_path = base_path
     @publishing_api_manual = publishing_api_manual_hash
@@ -17,7 +18,11 @@ class RummagerManual < RummagerBase
       'indexable_content' => nil,
       'organisations'     => [GOVUK_HMRC_SLUG],
       'last_update'       => @publishing_api_manual['public_updated_at'],
-      'format'            => PublishingAPIManual::FORMAT,
+      'format'            => MANUAL_FORMAT,
     }
+  end
+
+  def save!
+    SendToRummagerWorker.perform_async(MANUAL_FORMAT, self.id, self.to_h)
   end
 end

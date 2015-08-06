@@ -7,8 +7,6 @@ class PublishingAPISection
   include ActiveModel::Validations
   include Helpers::PublishingAPIHelpers
 
-  FORMAT = 'hmrc_manual_section'
-
   validates :to_h, no_dangerous_html_in_text_fields: true, if: -> { @section.valid? }
   validates :manual_slug, :section_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
   validate :incoming_section_is_valid
@@ -26,7 +24,7 @@ class PublishingAPISection
   def to_h
     @_to_h ||= begin
       enriched_data = @section_attributes.deep_dup.merge({
-        format: FORMAT,
+        format: SECTION_FORMAT,
         publishing_app: 'hmrc-manuals-api',
         rendering_app: 'manuals-frontend',
         routes: [{ path: PublishingAPISection.base_path(@manual_slug, @section_slug), type: :exact }],
@@ -59,7 +57,7 @@ class PublishingAPISection
     publishing_api_response = HMRCManualsAPI.publishing_api.put_content_item(base_path, to_h)
 
     rummager_section = RummagerSection.new(base_path, to_h)
-    HMRCManualsAPI.rummager.add_document(FORMAT, rummager_section.id, rummager_section.to_h)
+    rummager_section.save!
 
     publishing_api_response
   end
