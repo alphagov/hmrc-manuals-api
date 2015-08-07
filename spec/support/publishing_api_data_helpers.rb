@@ -34,6 +34,13 @@ module PublishingApiDataHelpers
             "section_id" => 'ABC567',
             "change_note" => 'Description of changes',
             "published_at" => '2014-01-23T00:00:00+01:00'
+          },
+          {
+            "base_path" => "/hmrc-internal-manuals/employment-income-manual/abc555",
+            "title" => "Title of the previous Section that was changed",
+            "section_id" => "ABC555",
+            "change_note" => "Description of changes",
+            "published_at" => "2013-12-23T00:00:00+01:00"
           }
         ]
       },

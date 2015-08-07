@@ -8,7 +8,8 @@ module TestDataHelpers
       public_updated_at: '2014-01-23T00:00:00+01:00',
       update_type: 'minor',
       details: {
-        child_section_groups: []
+        child_section_groups: [],
+        change_notes: [],
       }
     }.merge(options).deep_stringify_keys
   end
@@ -38,6 +39,12 @@ module TestDataHelpers
             section_id: 'ABC567',
             change_note: 'Description of changes',
             published_at: '2014-01-23T00:00:00+01:00'
+          },
+          {
+            title: 'Title of the previous Section that was changed',
+            section_id: 'ABC555',
+            change_note: 'Description of changes',
+            published_at: '2013-12-23T00:00:00+01:00'
           }
         ]
       }
