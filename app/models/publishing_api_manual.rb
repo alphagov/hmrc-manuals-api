@@ -13,10 +13,11 @@ class PublishingAPIManual
 
   attr_reader :slug, :manual
 
-  def initialize(slug, manual_attributes)
+  def initialize(slug, manual_attributes, options = {})
     @slug = slug
     @manual_attributes = manual_attributes
     @manual = Manual.new(@manual_attributes)
+    @manuals_topics_content_ids = options.fetch(:manuals_topics_content_ids, MANUALS_TOPICS_CONTENT_IDS)
   end
 
   def to_h
@@ -34,6 +35,7 @@ class PublishingAPIManual
       enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
       enriched_data = add_organisations_to_details(enriched_data)
+      enriched_data = add_topic_links(enriched_data)
       add_base_path_to_change_notes(enriched_data)
     end
   end
@@ -57,6 +59,10 @@ class PublishingAPIManual
 
   def self.updates_path(manual_slug)
     base_path(manual_slug) + '/updates'
+  end
+
+  def topic_content_ids
+    @manuals_topics_content_ids[@slug]
   end
 
   def save!
@@ -83,6 +89,16 @@ private
     attributes["details"]["change_notes"] && attributes["details"]["change_notes"].each do |change_note_object|
       change_note_object['base_path'] = PublishingAPISection.base_path(@slug, change_note_object['section_id'])
     end
+    attributes
+  end
+
+  def add_topic_links(attributes)
+    attributes['links'] ||= {}
+
+    if topic_content_ids.present?
+      attributes['links']['topics'] = topic_content_ids
+    end
+
     attributes
   end
 

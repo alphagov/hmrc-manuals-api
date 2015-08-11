@@ -13,7 +13,9 @@ describe PublishingAPIManual do
     end
   end
 
-  subject(:publishing_api_manual) { PublishingAPIManual.new("some-slug", attributes) }
+  subject(:publishing_api_manual) { PublishingAPIManual.new(slug, attributes, options) }
+  let(:slug) { 'some-slug' }
+  let(:options) { {} }
 
   describe '#to_h' do
     subject { publishing_api_manual.to_h }
@@ -26,6 +28,22 @@ describe PublishingAPIManual do
 
     context 'maximal_manual' do
       let(:attributes) { maximal_manual }
+
+      it { should be_valid_against_schema('hmrc_manual') }
+    end
+
+    context 'linked_manual' do
+      let(:attributes) { valid_manual }
+      let(:options) {
+        {
+          manuals_topics_content_ids: {
+            slug => [
+              'aaaa1111-1111-1aaa-aaaa-111111111111',
+              'bbbb2222-2222-2bbb-bbbb-222222222222',
+            ]
+          }
+        }
+      }
 
       it { should be_valid_against_schema('hmrc_manual') }
     end
