@@ -5,8 +5,7 @@ class RummagerSection < RummagerBase
   end
 
   def id
-    # The id and link are the path without the leading slash
-    strip_leading_slash(@base_path)
+    @base_path
   end
 
   def section_id
