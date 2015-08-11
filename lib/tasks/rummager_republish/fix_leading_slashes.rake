@@ -11,7 +11,7 @@ namespace :rummager_republish do
     manual_data = {
       'title'             => manual['title'],
       'description'       => manual['description'],
-      'public_updated_at' => manual['public_timestamp'],
+      'public_updated_at' => manual['last_update'],
     }
     RummagerManual.new(base_path.call(manual['link']), manual_data)
   }
@@ -26,7 +26,7 @@ namespace :rummager_republish do
     section_data = {
       'title'             => section['title'],
       'description'       => section['description'],
-      'public_updated_at' => section['public_timestamp'],
+      'public_updated_at' => section['last_update'],
       'details'           => details_hash,
     }
     RummagerSection.new(base_path.call(section['link']), section_data)
