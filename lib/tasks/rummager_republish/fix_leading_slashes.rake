@@ -20,7 +20,7 @@ namespace :rummager_republish do
     details_hash = {
       'section_id' => section['hmrc_manual_section_id'],
       'body'       => section['indexable_content'],
-      'manual'     => { base_path: base_path.call(section['manual']) },
+      'manual'     => { 'base_path' => base_path.call(section['manual']) },
     }
 
     section_data = {
