@@ -158,9 +158,9 @@ users to find.
 
 Tags are mapped by their content IDs to manual slugs based on the topics each
 manual refers to. This is done via the hardcoded CSV in
-`lib/topic_slugs_to_content_ids.csv`, from where the topic content IDs are sent
+`lib/manuals_to_topics.csv`, from where the topic content IDs are sent
 to the Publishing API, and the topic slugs are sent to Rummager. The CSV
-contains three columns: `manual_slug`, `topic_slug`, `content_ids`. A manual
+contains three columns: Manual Slug, Topic Slugs, Topic IDs. A manual
 can be tagged to multiple topics, and so the order of the content IDs has to
 match with the order in which the topic slugs are specified.
 
