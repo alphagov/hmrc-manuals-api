@@ -25,4 +25,3 @@ task map_manual_topic_slugs_to_content_ids: :environment do
 
   puts "Written the new file to lib/manuals_to_topics_regenerated.csv."
 end
-
