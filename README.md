@@ -169,3 +169,27 @@ process less manual, for the hopefully rare occurrence that we might change
 content IDs, or HMRC might change a manual's topics. It uses current data from
 the content-register to get the content IDs for topic slugs, and regenerates the
 entire CSV file with a `_regenerated` suffix for easy checking.
+
+## Testing publishing in the GOV.UK development VM
+
+You can use the JSON examples of requests for testing publishing in development,
+for example with cURL from the root directory of the repository:
+
+```
+curl -i -XPUT -H'Authorization: Bearer faketoken' -H'Accept: application/json' \
+  -H'Content-Type: application/json' --data-binary \
+  @public/json_examples/requests/employment-income-manual.json \
+  http://hmrc-manuals-api.dev.gov.uk/hmrc-manuals/test-manual
+```
+
+Or with [HTTPie](https://github.com/jkbrzt/httpie):
+
+```
+http PUT http://hmrc-manuals-api.dev.gov.uk/hmrc-manuals/test-manual \
+  Authorization:'Bearer faketoken' Accept:application/json Content-Type:application/json \
+  < public/json_examples/requests/employment-income-manual.json
+```
+
+In development mode the API doesn't require a valid bearer token; any value is
+accepted. To test publishing to our Preview or Staging environments you would
+need a real token for the right environment.
