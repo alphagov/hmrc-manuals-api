@@ -34,7 +34,7 @@ The `<slug>` is used as part of the GOV.UK URL for the document.
 [See an example manual](/public/json_examples/requests/employment-income-manual.json)
 
 
-### JSON Schema
+### JSON Schema
 
 [JSON Schema for manuals](public/manual-schema.json)
 
@@ -149,12 +149,12 @@ On preview, the allowed image domains are expanded to include the preview
 www.gov.uk domain `www.preview.alphagov.co.uk`) and the preview asset domain
 (`assets-origin.preview.alphagov.co.uk`).
 
-# Manual tags
+## Manual tags
 
 Manuals can be tagged to topics on GOV.UK, so that they're easier for
 users to find.
 
-## How tagging works
+### How tagging works
 
 Tags are mapped by their content IDs to manual slugs based on the topics each
 manual refers to. This is done via the hardcoded CSV in
