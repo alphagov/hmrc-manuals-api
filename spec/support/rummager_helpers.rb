@@ -8,13 +8,7 @@ module RummagerHelpers
       'organisations'      => ['hm-revenue-customs'],
       'last_update'        => '2014-01-23T00:00:00+01:00',
       'format'             => 'hmrc_manual',
-      'latest_change_note' => {
-        "title" => "Title of a Section that was changed",
-        "section_id" => "ABC567",
-        "change_note" => "Description of changes",
-        "published_at" => "2014-01-23T00:00:00+01:00",
-        "base_path" => "/hmrc-internal-manuals/employment-income-manual/abc567"
-      },
+      'latest_change_note' => 'Description of changes in Title of a Section that was changed',
     }
   end
 

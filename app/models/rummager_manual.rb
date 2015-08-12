@@ -18,11 +18,19 @@ class RummagerManual < RummagerBase
       'organisations'      => [GOVUK_HMRC_SLUG],
       'last_update'        => @publishing_api_manual['public_updated_at'],
       'format'             => MANUAL_FORMAT,
-      'latest_change_note' => @publishing_api_manual['details']['change_notes'].first,
+      'latest_change_note' => latest_change_note,
     }
   end
 
   def save!
     SendToRummagerWorker.perform_async(MANUAL_FORMAT, self.id, self.to_h)
+  end
+
+private
+
+  def latest_change_note
+    latest = @publishing_api_manual['details'].fetch('change_notes', []).first
+
+    "#{latest['change_note']} in #{latest['title']}" if latest
   end
 end
