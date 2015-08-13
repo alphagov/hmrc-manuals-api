@@ -12,6 +12,7 @@ namespace :rummager_republish do
       'title'             => manual['title'],
       'description'       => manual['description'],
       'public_updated_at' => manual['last_update'],
+      'details'           => {'change_notes' => []},
     }
     RummagerManual.new(base_path.call(manual['link']), manual_data)
   }
