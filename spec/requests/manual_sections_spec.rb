@@ -41,7 +41,7 @@ describe 'manual sections resource' do
     expect(response.status).to eq(415)
   end
 
-  it 'handles the content store being unavailable' do
+  it 'handles the Publishing API being unavailable' do
     publishing_api_isnt_available
 
     put_json '/hmrc-manuals/employment-income-manual/sections/12345', maximal_section
@@ -49,7 +49,7 @@ describe 'manual sections resource' do
     expect(response.status).to eq(503)
   end
 
-  it 'handles the content store request timing out' do
+  it 'handles the Publishing API request timing out' do
     publishing_api_times_out
 
     put_json '/hmrc-manuals/employment-income-manual/sections/12345', maximal_section
@@ -57,7 +57,7 @@ describe 'manual sections resource' do
     expect(response.status).to eq(503)
   end
 
-  it 'handles some other error with the content store' do
+  it 'handles some other error with the Publishing API' do
     publishing_api_validation_error
 
     put_json '/hmrc-manuals/employment-income-manual/sections/12345', maximal_section

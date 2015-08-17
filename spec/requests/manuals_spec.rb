@@ -21,7 +21,7 @@ describe 'manuals resource' do
     expect(response.body).to include('https://www.gov.uk/hmrc-internal-manuals/employment-income-manual')
   end
 
-  it 'handles the content store being unavailable' do
+  it 'handles the Publishing API being unavailable' do
     publishing_api_isnt_available
     stub_any_rummager_post
 
