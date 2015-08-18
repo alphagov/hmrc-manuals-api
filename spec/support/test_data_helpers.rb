@@ -1,6 +1,30 @@
 require 'active_support'
 
 module TestDataHelpers
+  def maximal_manual_slug
+    'employment-income-manual'
+  end
+
+  def maximal_manual_base_path
+    '/hmrc-internal-manuals/employment-income-manual'
+  end
+
+  def maximal_manual_url
+    'https://www.gov.uk/hmrc-internal-manuals/employment-income-manual'
+  end
+
+  def maximal_section_slug
+    '12345'
+  end
+
+  def maximal_section_base_path
+    '/hmrc-internal-manuals/employment-income-manual/12345'
+  end
+
+  def maximal_section_url
+    'https://www.gov.uk/hmrc-internal-manuals/employment-income-manual/12345'
+  end
+
   def valid_manual(options = {})
     {
       title: 'Employment Income Manual',
