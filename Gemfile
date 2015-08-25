@@ -7,11 +7,11 @@ gem 'unicorn', '4.8.3'
 gem 'airbrake', '3.1.15'
 gem 'json-schema', '2.5.1'
 gem 'gds-sso', '9.3.0'
-gem 'plek', '1.8.1'
+gem 'plek', '1.11.0'
 if ENV['api_dev']
   gem 'gds-api-adapters', path: '../gds-api-adapters'
 else
-  gem 'gds-api-adapters', '20.1.1'
+  gem 'gds-api-adapters', '24.1.0'
 end
 gem 'govspeak', '3.0.0'
 

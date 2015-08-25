@@ -2,6 +2,7 @@ require 'active_model'
 require 'struct_with_rendered_markdown'
 require 'gds_api/publishing_api'
 require 'valid_slug/pattern'
+require 'topics'
 
 class PublishingAPIManual
   include ActiveModel::Validations
@@ -13,10 +14,11 @@ class PublishingAPIManual
 
   attr_reader :slug, :manual
 
-  def initialize(slug, manual_attributes)
+  def initialize(slug, manual_attributes, options = {})
     @slug = slug
     @manual_attributes = manual_attributes
     @manual = Manual.new(@manual_attributes)
+    @topics = options.fetch(:topics, Topics.new(manual_slug: slug))
   end
 
   def to_h
@@ -57,6 +59,14 @@ class PublishingAPIManual
 
   def self.updates_path(manual_slug)
     base_path(manual_slug) + '/updates'
+  end
+
+  def topic_content_ids
+    @topics.content_ids
+  end
+
+  def topic_slugs
+    @topics.slugs
   end
 
   def save!
