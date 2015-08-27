@@ -6,7 +6,7 @@ module RummagerHelpers
       'link'               => '/hmrc-internal-manuals/employment-income-manual',
       'indexable_content'  => nil,
       'organisations'      => ['hm-revenue-customs'],
-      'last_update'        => '2014-01-23T00:00:00+01:00',
+      'public_timestamp'   => '2014-01-23T00:00:00+01:00',
       'format'             => 'hmrc_manual',
       'latest_change_note' => 'Description of changes in Title of a Section that was changed',
     }
@@ -19,7 +19,7 @@ module RummagerHelpers
       'link'                   => '/hmrc-internal-manuals/employment-income-manual/12345',
       'indexable_content'      => 'I need somebody to love', # Markdown/HTML has been stripped
       'organisations'          => ['hm-revenue-customs'],
-      'last_update'            => '2014-01-23T00:00:00+01:00',
+      'public_timestamp'       => '2014-01-23T00:00:00+01:00',
       'hmrc_manual_section_id' => '12345',
       'manual'                 => 'hmrc-internal-manuals/employment-income-manual',
       'format'                 => 'hmrc_manual_section',

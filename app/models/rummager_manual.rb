@@ -16,7 +16,7 @@ class RummagerManual < RummagerBase
       'link'               => id,
       'indexable_content'  => nil,
       'organisations'      => [GOVUK_HMRC_SLUG],
-      'last_update'        => @publishing_api_manual['public_updated_at'],
+      'public_timestamp'   => @publishing_api_manual['public_updated_at'],
       'format'             => MANUAL_FORMAT,
       'latest_change_note' => latest_change_note,
     }
