@@ -9,7 +9,6 @@ module RummagerHelpers
       'public_timestamp'   => '2014-01-23T00:00:00+01:00',
       'format'             => 'hmrc_manual',
       'latest_change_note' => 'Description of changes in Title of a Section that was changed',
-      'specialist_sectors' => maximal_manual_topic_slugs,
     }
   end
 

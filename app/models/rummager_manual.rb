@@ -10,7 +10,7 @@ class RummagerManual < RummagerBase
   end
 
   def to_h
-    data = {
+    {
       'title'              => @publishing_api_manual['title'],
       'description'        => @publishing_api_manual['description'],
       'link'               => id,
@@ -20,10 +20,6 @@ class RummagerManual < RummagerBase
       'format'             => MANUAL_FORMAT,
       'latest_change_note' => latest_change_note,
     }
-
-    data['specialist_sectors'] = topics unless topics.empty?
-
-    data
   end
 
   def save!
@@ -31,9 +27,6 @@ class RummagerManual < RummagerBase
   end
 
 private
-  def topics
-    @publishing_api_manual['details'].fetch('tags', {}).fetch('topics', [])
-  end
 
   def latest_change_note
     latest = @publishing_api_manual['details'].fetch('change_notes', []).first

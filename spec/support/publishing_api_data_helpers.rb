@@ -42,10 +42,7 @@ module PublishingApiDataHelpers
             "change_note" => "Description of changes",
             "published_at" => "2013-12-23T00:00:00+01:00"
           }
-        ],
-        "tags" => {
-          "topics" => maximal_manual_topic_slugs,
-        },
+        ]
       },
       "publishing_app" => "hmrc-manuals-api",
       "rendering_app" => "manuals-frontend",
@@ -57,11 +54,8 @@ module PublishingApiDataHelpers
         {
           "path" => "/hmrc-internal-manuals/employment-income-manual/updates",
           "type" => "exact"
-        },
-      ],
-      "links" => {
-        "topics" => maximal_manual_topic_content_ids,
-      },
+        }
+      ]
     }.merge(options)
   end
 
