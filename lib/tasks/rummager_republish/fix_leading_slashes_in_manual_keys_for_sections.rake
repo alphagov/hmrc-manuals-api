@@ -6,6 +6,7 @@ namespace :rummager_republish do
   # cause problems if anyone else were to write more Rake tasks in this
   # app.
   base_path = ->(path) { path.starts_with?('/') ? path : "/#{path}" }
+  title_without_section_ids = ->(title, section_id) { title.gsub("#{section_id} - ", "") }
 
   prepare_section_for_rummager = ->(section) {
     details_hash = {
@@ -15,7 +16,7 @@ namespace :rummager_republish do
     }
 
     section_data = {
-      'title'             => section['title'],
+      'title'             => title_without_section_ids.call(section['title'],section['hmrc_manual_section_id']),
       'description'       => section['description'],
       'public_updated_at' => section['public_timestamp'],
       'details'           => details_hash,
