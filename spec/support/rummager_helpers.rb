@@ -21,7 +21,7 @@ module RummagerHelpers
       'organisations'          => ['hm-revenue-customs'],
       'public_timestamp'       => '2014-01-23T00:00:00+01:00',
       'hmrc_manual_section_id' => '12345',
-      'manual'                 => 'hmrc-internal-manuals/employment-income-manual',
+      'manual'                 => '/hmrc-internal-manuals/employment-income-manual',
       'format'                 => 'hmrc_manual_section',
     }
   end
