@@ -1,6 +1,54 @@
 require 'active_support'
 
 module TestDataHelpers
+  def maximal_manual_slug
+    'employment-income-manual'
+  end
+
+  def maximal_manual_base_path
+    '/hmrc-internal-manuals/employment-income-manual'
+  end
+
+  def maximal_manual_url
+    'https://www.gov.uk/hmrc-internal-manuals/employment-income-manual'
+  end
+
+  def maximal_section_slug
+    '12345'
+  end
+
+  def maximal_section_base_path
+    '/hmrc-internal-manuals/employment-income-manual/12345'
+  end
+
+  def maximal_section_url
+    'https://www.gov.uk/hmrc-internal-manuals/employment-income-manual/12345'
+  end
+
+  def maximal_manual_topic_content_ids
+    # maximal_manual uses a Real World slug, so we make things easier for
+    # ourselves by using its Real World topic content_ids, too, and building
+    # the testable fake data around that
+    MANUALS_TO_TOPICS[maximal_manual_slug]
+  end
+
+  def maximal_manual_topic_slugs
+    maximal_manual_topics.map { |topic|
+      topic['base_path'].sub('/topic/', '')
+    }
+  end
+
+  def maximal_manual_topics
+    maximal_manual_topic_content_ids.map.with_index { |content_id, i|
+      {
+        'base_path' => "/topic/topic-slug-#{i}",
+        'content_id' => content_id,
+        'format' => 'topic',
+        'title' => "Topic Title #{i}",
+      }
+    }
+  end
+
   def valid_manual(options = {})
     {
       title: 'Employment Income Manual',
