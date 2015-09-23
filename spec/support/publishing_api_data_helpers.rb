@@ -65,6 +65,13 @@ module PublishingApiDataHelpers
     }.merge(options)
   end
 
+  def maximal_manual_without_topics_for_publishing_api(options = {})
+    manual = maximal_manual_for_publishing_api.deep_dup
+    manual["details"].delete("tags")
+    manual.delete("links")
+    manual.merge(options)
+  end
+
   def maximal_section_for_publishing_api(options = {})
     {
       "format" => "hmrc_manual_section",

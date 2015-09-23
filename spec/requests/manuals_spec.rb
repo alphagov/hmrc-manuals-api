@@ -24,6 +24,21 @@ describe 'manuals resource' do
     expect(response.body).to include(maximal_manual_url)
   end
 
+  context 'when topics are configured to not be published' do
+    it 'publishes the manual without topics' do
+      stub_default_publishing_api_put
+      stub_any_rummager_post
+      stub_content_register_entries('topic', maximal_manual_topics)
+      allow(HMRCManualsAPI::Application.config).to receive(:publish_topics).and_return(false)
+
+      put_json "/hmrc-manuals/#{maximal_manual_slug}", maximal_manual
+
+      expect(response.status).to eq(200)
+      assert_publishing_api_put_item(maximal_manual_base_path, maximal_manual_without_topics_for_publishing_api)
+      assert_rummager_posted_item(maximal_manual_without_topics_for_rummager)
+    end
+  end
+
   it 'handles Content Register being unavailable' do
     stub_default_publishing_api_put
     stub_any_rummager_post

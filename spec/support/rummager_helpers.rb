@@ -13,6 +13,12 @@ module RummagerHelpers
     }
   end
 
+  def maximal_manual_without_topics_for_rummager(options = {})
+    manual = maximal_manual_for_rummager.deep_dup
+    manual.delete("specialist_sectors")
+    manual.merge(options)
+  end
+
   def maximal_section_for_rummager
     {
       'title'                  => '12345 - A section on a part of employment income',

@@ -36,9 +36,14 @@ class PublishingAPIManual
       enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
       enriched_data = add_organisations_to_details(enriched_data)
-      enriched_data = add_topic_links(enriched_data)
-      enriched_data = add_topic_tags(enriched_data)
-      add_base_path_to_change_notes(enriched_data)
+      enriched_data = add_base_path_to_change_notes(enriched_data)
+
+      if HMRCManualsAPI::Application.config.publish_topics
+        enriched_data = add_topic_links(enriched_data)
+        enriched_data = add_topic_tags(enriched_data)
+      end
+
+      enriched_data
     end
   end
 
