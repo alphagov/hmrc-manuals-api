@@ -36,7 +36,14 @@ class PublishingAPIManual
       enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
       enriched_data = add_organisations_to_details(enriched_data)
-      add_base_path_to_change_notes(enriched_data)
+      enriched_data = add_base_path_to_change_notes(enriched_data)
+
+      if HMRCManualsAPI::Application.config.publish_topics
+        enriched_data = add_topic_links(enriched_data)
+        enriched_data = add_topic_tags(enriched_data)
+      end
+
+      enriched_data
     end
   end
 
@@ -93,6 +100,24 @@ private
     attributes["details"]["change_notes"] && attributes["details"]["change_notes"].each do |change_note_object|
       change_note_object['base_path'] = PublishingAPISection.base_path(@slug, change_note_object['section_id'])
     end
+    attributes
+  end
+
+  def add_topic_links(attributes)
+    if topic_content_ids.present?
+      attributes['links'] ||= {}
+      attributes['links']['topics'] = topic_content_ids
+    end
+
+    attributes
+  end
+
+  def add_topic_tags(attributes)
+    if topic_slugs.present?
+      attributes['details']['tags'] ||= {}
+      attributes['details']['tags']['topics'] = topic_slugs
+    end
+
     attributes
   end
 

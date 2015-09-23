@@ -9,7 +9,14 @@ module RummagerHelpers
       'public_timestamp'   => '2014-01-23T00:00:00+01:00',
       'format'             => 'hmrc_manual',
       'latest_change_note' => 'Description of changes in Title of a Section that was changed',
+      'specialist_sectors' => maximal_manual_topic_slugs,
     }
+  end
+
+  def maximal_manual_without_topics_for_rummager(options = {})
+    manual = maximal_manual_for_rummager.deep_dup
+    manual.delete("specialist_sectors")
+    manual.merge(options)
   end
 
   def maximal_section_for_rummager
