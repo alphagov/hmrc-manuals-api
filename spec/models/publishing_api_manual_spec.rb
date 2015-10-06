@@ -87,14 +87,36 @@ describe PublishingAPIManual do
       end
     end
 
-    context "with a manual slug name not in list of known slugs" do
-      let(:slug) { 'non-existent-slug' }
-      it { should_not be_valid }
+    context 'when app is configured to only allow known slugs' do
+      before do
+        allow(HMRCManualsAPI::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(false)
+      end
+
+      context "with a manual slug name not in list of known slugs" do
+        let(:slug) { 'non-existent-slug' }
+        it { should_not be_valid }
+      end
+
+      context "with a manual slug name in list of known slugs" do
+        let(:slug) { 'admin-law-manual' }
+        it { should be_valid }
+      end
     end
 
-    context "with a manual slug name in list of known slugs" do
-      let(:slug) { 'admin-law-manual' }
-      it { should be_valid }
+    context 'when app is configured to allow unknown slugs' do
+      before do
+        allow(HMRCManualsAPI::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(true)
+      end
+
+      context "with a manual slug name not in list of known slugs" do
+        let(:slug) { 'non-existent-slug' }
+        it { should be_valid }
+      end
+
+      context "with a manual slug name in list of known slugs" do
+        let(:slug) { 'admin-law-manual' }
+        it { should be_valid }
+      end
     end
   end
 end
