@@ -14,8 +14,10 @@ describe PublishingAPIManual do
   end
 
   subject(:publishing_api_manual) {
-    PublishingAPIManual.new('some-slug', attributes, options)
+    PublishingAPIManual.new(slug, attributes, options)
   }
+  let(:slug) { 'some-slug' }
+  let(:attributes) { valid_manual }
   let(:options) { { topics: topics } }
   let(:topics) { double(content_ids: [], slugs: []) }
 
@@ -23,8 +25,6 @@ describe PublishingAPIManual do
     subject { publishing_api_manual.to_h }
 
     context 'valid_manual' do
-      let(:attributes) { valid_manual }
-
       it { should be_valid_against_schema('hmrc_manual') }
     end
 
@@ -35,7 +35,6 @@ describe PublishingAPIManual do
     end
 
     context 'linked_manual' do
-      let(:attributes) { valid_manual }
       let(:topics) {
         double(
           content_ids: [
@@ -86,6 +85,16 @@ describe PublishingAPIManual do
         expect(subject.errors.full_messages[1]).to match(
           %r{'#/details/child_section_groups\[1\]/title' contains disallowed HTML})
       end
+    end
+
+    context "with a manual slug name not in list of known slugs" do
+      let(:slug) { 'non-existent-slug' }
+      it { should_not be_valid }
+    end
+
+    context "with a manual slug name in list of known slugs" do
+      let(:slug) { 'admin-law-manual' }
+      it { should be_valid }
     end
   end
 end
