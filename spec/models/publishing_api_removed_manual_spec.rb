@@ -58,7 +58,7 @@ describe PublishingAPIRemovedManual do
       it 'does not communicate with the publishing api' do
         publishing_api_stub = stub_default_publishing_api_put
 
-        ignoring(ValidationError) { subject.save! }
+        ignoring_error(ValidationError) { subject.save! }
 
         assert_not_requested publishing_api_stub
       end
@@ -80,11 +80,6 @@ describe PublishingAPIRemovedManual do
         #      once https://github.com/alphagov/gds-api-adapters/pull/362 has been merged
         assert_requested(:delete, %r{#{Plek.new.find('search')}/documents#{publishing_api_base_path}})
       end
-    end
-
-    def ignoring(error_class, &block)
-      block.call
-    rescue error_class
     end
   end
 end
