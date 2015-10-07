@@ -13,6 +13,18 @@ describe PublishingAPIManual do
     end
   end
 
+  describe '.update_path' do
+    it 'returns the GOV.UK path for the updates to the manual' do
+      update_path = PublishingAPIManual.update_path('some-manual')
+      expect(update_path).to eql('/hmrc-internal-manuals/some-manual/updates')
+    end
+
+    it 'ensures that it is lowercase' do
+      update_path = PublishingAPIManual.update_path('Some-Manual')
+      expect(update_path).to eql('/hmrc-internal-manuals/some-manual/updates')
+    end
+  end
+
   subject(:publishing_api_manual) {
     PublishingAPIManual.new(slug, attributes, options)
   }

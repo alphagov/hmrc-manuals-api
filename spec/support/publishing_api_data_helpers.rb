@@ -124,6 +124,24 @@ module PublishingApiDataHelpers
       ]
     }.merge(options)
   end
+
+  def gone_manual_for_publishing_api(slug: 'some-slug')
+    {
+      'format' => 'gone',
+      'publishing_app' => 'hmrc-manuals-api',
+      'update_type' => 'major',
+      'routes' => [
+        {
+          'path' => "/hmrc-internal-manuals/#{slug}",
+          'type' => 'exact',
+        },
+        {
+          'path' => "/hmrc-internal-manuals/#{slug}/updates",
+          'type' => 'exact',
+        },
+      ],
+    }
+  end
 end
 
 RSpec.configuration.include PublishingApiDataHelpers
