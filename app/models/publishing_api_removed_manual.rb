@@ -28,6 +28,10 @@ class PublishingAPIRemovedManual
     PublishingAPIManual.base_path(@slug)
   end
 
+  def base_path_for_rummager
+    base_path.sub(/\A\//,'')
+  end
+
   def updates_path
     PublishingAPIManual.updates_path(@slug)
   end
@@ -36,8 +40,7 @@ class PublishingAPIRemovedManual
     raise ValidationError, "manual to remove is invalid" unless valid?
     publishing_api_response = HMRCManualsAPI.publishing_api.put_content_item(base_path, to_h)
 
-    # rummager_manual = RummagerManual.new(base_path, to_h)
-    # rummager_manual.save!
+    HMRCManualsAPI.rummager.delete_document(MANUAL_FORMAT, base_path_for_rummager)
 
     publishing_api_response
   end
