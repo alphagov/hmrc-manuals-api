@@ -3,6 +3,7 @@ module PublishingApiDataHelpers
     {
       "format" => "hmrc_manual",
       "title" => "Employment Income Manual",
+      "content_id" => "913fd52f-072c-409e-88b2-ea0b7a8b6d9c",
       "description" => "A manual about incoming employment",
       "public_updated_at" => "2014-01-23T00:00:00+01:00",
       "update_type" => "major",
@@ -76,6 +77,7 @@ module PublishingApiDataHelpers
     {
       "format" => "hmrc_manual_section",
       "title" => "A section on a part of employment income",
+      "content_id" => "25e687b8-74da-4892-938d-7de82fa5df27",
       "description" => "Some description",
       "public_updated_at" => "2014-01-23T00:00:00+01:00",
       "update_type" => "minor",
