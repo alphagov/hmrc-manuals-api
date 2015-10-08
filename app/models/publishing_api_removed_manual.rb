@@ -12,6 +12,18 @@ class PublishingAPIRemovedManual
     @slug = slug
   end
 
+  def sections
+    sections_from_rummager.map do |section_json|
+      PublishingAPIRemovedSection.from_rummager_result(section_json)
+    end
+  end
+
+  def sections_from_rummager
+    query = RummagerSection.search_query(base_path)
+    HMRCManualsAPI.rummager.unified_search(query).results
+  end
+  private :sections_from_rummager
+
   def to_h
     @_to_h ||= {
       format: 'gone',
