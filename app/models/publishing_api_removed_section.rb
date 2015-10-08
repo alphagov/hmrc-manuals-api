@@ -8,6 +8,12 @@ class PublishingAPIRemovedSection
 
   attr_reader :manual_slug, :section_slug
 
+  def self.from_rummager_result(rummager_result)
+    raise InvalidJSONError if rummager_result.blank? || rummager_result['link'].blank?
+    slugs = PublishingAPISection.extract_slugs_from_path(rummager_result['link'])
+    new(slugs[:manual], slugs[:section])
+  end
+
   def initialize(manual_slug, section_slug)
     @manual_slug = manual_slug
     @section_slug = section_slug
