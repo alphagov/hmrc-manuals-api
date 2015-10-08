@@ -1,5 +1,6 @@
 require 'rails_helper'
 require 'gds_api/test_helpers/publishing_api'
+require 'gds_api/test_helpers/rummager'
 
 describe PublishingAPIRemovedSection do
   describe '.from_rummager_result' do
@@ -74,6 +75,7 @@ describe PublishingAPIRemovedSection do
 
   describe '#save!' do
     include GdsApi::TestHelpers::PublishingApi
+    include GdsApi::TestHelpers::Rummager
 
     describe 'for an invalid manual section' do
       subject(:removed_manual_section) { described_class.new('this_is_not_acc3ptABLE!', 'is it?') }
@@ -99,10 +101,14 @@ describe PublishingAPIRemovedSection do
 
       it 'issues a put_item request to the publishing api to mark the manual section as gone' do
         stub_default_publishing_api_put
+        stub_any_rummager_delete
 
         subject.save!
 
         assert_publishing_api_put_item(publishing_api_base_path, gone_manual_section_for_publishing_api)
+        # TODO: Update this with `assert_rummager_deleted_item(publishing_api_base_path[1..-1])`
+        #      once https://github.com/alphagov/gds-api-adapters/pull/362 has been merged
+        assert_requested(:delete, %r{#{Plek.new.find('search')}/documents#{publishing_api_base_path}})
       end
     end
   end
