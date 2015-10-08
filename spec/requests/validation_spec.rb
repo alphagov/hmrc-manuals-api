@@ -28,7 +28,7 @@ describe "validation" do
       expect(json_response["errors"].first).to match(%r{The property '#/' did not contain a required property of 'title' in schema})
     end
 
-    it "validates for known slug name in production environment" do
+    it "validates for known manual slug name in production environment" do
       allow(HMRCManualsAPI::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(false)
 
       put_json '/hmrc-manuals/unknown-slug', valid_manual
@@ -83,6 +83,16 @@ describe "validation" do
       expect(response.status).to eq(422)
       expect(json_response).to include("status" => "error")
       expect(json_response["errors"].first).to match(%r{The property '#/' did not contain a required property of 'title' in schema})
+    end
+
+    it "validates for known manual slug name in production environment" do
+      allow(HMRCManualsAPI::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(false)
+
+      put_json '/hmrc-manuals/imaginary-slug/sections/imaginary-section', valid_section
+
+      expect(response.status).to eq(422)
+      expect(json_response).to include("status" => "error")
+      expect(json_response["errors"].first).to match("does not match any of the following valid slugs: #{ MANUALS_TO_TOPICS.keys.join(" ") }")
     end
   end
 end
