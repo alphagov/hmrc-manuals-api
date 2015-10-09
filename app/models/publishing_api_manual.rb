@@ -10,16 +10,17 @@ class PublishingAPIManual
 
   validates :to_h, no_dangerous_html_in_text_fields: true, if: -> { manual.valid? }
   validates :slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
-  validates :slug, inclusion: { in: MANUALS_TO_TOPICS.keys, message: "does not match any of the following valid slugs: #{ MANUALS_TO_TOPICS.keys.join(" ") }" }, if: :only_known_hmrc_manual_slugs?
+  validates :slug, inclusion: { in: :known_manual_slugs, message: "does not match any of the following valid slugs: #{ MANUALS_TO_TOPICS.keys.join(" ") }" }, if: :only_known_hmrc_manual_slugs?
   validate :incoming_manual_is_valid
 
-  attr_reader :slug, :manual
+  attr_reader :slug, :manual, :known_manual_slugs
 
   def initialize(slug, manual_attributes, options = {})
     @slug = slug
     @manual_attributes = manual_attributes
     @manual = Manual.new(@manual_attributes)
     @topics = options.fetch(:topics, Topics.new(manual_slug: slug))
+    @known_manual_slugs = options.fetch(:known_manual_slugs, MANUALS_TO_TOPICS.keys)
   end
 
   def to_h
