@@ -10,7 +10,7 @@ class PublishingAPIManual
 
   validates :to_h, no_dangerous_html_in_text_fields: true, if: -> { manual.valid? }
   validates :slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
-  validates :slug, inclusion: { in: :known_manual_slugs, message: "does not match any of the following valid slugs: #{ MANUALS_TO_TOPICS.keys.join(" ") }" }, if: :only_known_hmrc_manual_slugs?
+  validates :slug, slug_in_known_manual_slugs: true, if: :only_known_hmrc_manual_slugs?
   validate :incoming_manual_is_valid
 
   attr_reader :slug, :manual, :known_manual_slugs
