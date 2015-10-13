@@ -14,17 +14,18 @@ describe PublishingAPIManual do
   end
 
   subject(:publishing_api_manual) {
-    PublishingAPIManual.new('some-slug', attributes, options)
+    PublishingAPIManual.new(slug, attributes, options)
   }
-  let(:options) { { topics: topics } }
+  let(:slug) { 'some-slug' }
+  let(:attributes) { valid_manual }
+  let(:options) { { topics: topics, known_manual_slugs: known_manual_slugs } }
   let(:topics) { double(content_ids: [], slugs: []) }
+  let(:known_manual_slugs) { [] }
 
   describe '#to_h' do
     subject { publishing_api_manual.to_h }
 
     context 'valid_manual' do
-      let(:attributes) { valid_manual }
-
       it { should be_valid_against_schema('hmrc_manual') }
     end
 
@@ -35,7 +36,6 @@ describe PublishingAPIManual do
     end
 
     context 'linked_manual' do
-      let(:attributes) { valid_manual }
       let(:topics) {
         double(
           content_ids: [
@@ -85,6 +85,42 @@ describe PublishingAPIManual do
           %r{'#/details/child_section_groups\[0\]/title' contains disallowed HTML})
         expect(subject.errors.full_messages[1]).to match(
           %r{'#/details/child_section_groups\[1\]/title' contains disallowed HTML})
+      end
+    end
+
+    context 'when app is configured to only allow known slugs' do
+      before do
+        allow(HMRCManualsAPI::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(false)
+      end
+
+      let(:known_manual_slugs) { ['known-manual-slug'] }
+
+      context "with a manual slug name not in list of known slugs" do
+        let(:slug) { 'non-existent-slug' }
+        it { should_not be_valid }
+      end
+
+      context "with a manual slug name in list of known slugs" do
+        let(:slug) { 'known-manual-slug' }
+        it { should be_valid }
+      end
+    end
+
+    context 'when app is configured to allow unknown slugs' do
+      before do
+        allow(HMRCManualsAPI::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(true)
+      end
+
+      let(:known_manual_slugs) { ['known-manual-slug'] }
+
+      context "with a manual slug name not in list of known slugs" do
+        let(:slug) { 'non-existent-slug' }
+        it { should be_valid }
+      end
+
+      context "with a manual slug name in list of known slugs" do
+        let(:slug) { 'known-manual-slug' }
+        it { should be_valid }
       end
     end
   end

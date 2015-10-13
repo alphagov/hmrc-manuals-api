@@ -13,7 +13,13 @@ describe PublishingAPISection do
     end
   end
 
-  subject(:publishing_api_section) { PublishingAPISection.new("some-slug", "some-id", attributes) }
+  subject(:publishing_api_section) {
+    PublishingAPISection.new(manual_slug, section_slug, attributes, options)
+  }
+  let(:manual_slug) { 'some-slug' }
+  let(:section_slug) { 'some_id' } 
+  let(:options) { { known_manual_slugs: known_manual_slugs } }
+  let(:known_manual_slugs) { [] }
 
   describe '#to_h' do
     let(:subject) { publishing_api_section.to_h }
@@ -51,6 +57,27 @@ describe PublishingAPISection do
     context "with an invalid payload" do
       let(:attributes) { [] }
       it { should_not be_valid }
+    end
+
+    context 'when app is configured to only allow known manual slugs' do
+      let(:attributes) { valid_section }
+      #section_slug and section_id have to match to pass `:section_slug_matches_section_id` validation
+      let(:section_slug) { valid_section['details']['section_id'] }
+      let(:known_manual_slugs) { ['known-manual-slug'] }
+
+      before do
+        allow(HMRCManualsAPI::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(false)
+      end
+
+      context "with a manual slug name not in list of known slugs" do
+        let(:manual_slug) { 'non-existent-slug' }
+        it { should_not be_valid }
+      end
+
+      context "with a manual slug name in list of known slugs" do
+        let(:manual_slug) { 'known-manual-slug' }
+        it { should be_valid }
+      end
     end
   end
 end

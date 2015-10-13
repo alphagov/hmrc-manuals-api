@@ -9,16 +9,18 @@ class PublishingAPISection
 
   validates :to_h, no_dangerous_html_in_text_fields: true, if: -> { @section.valid? }
   validates :manual_slug, :section_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
+  validates :manual_slug, slug_in_known_manual_slugs: true, if: :only_known_hmrc_manual_slugs?
   validate :incoming_section_is_valid
   validate :section_slug_matches_section_id, if: -> { @section.valid? }
 
-  attr_reader :manual_slug, :section_slug, :section_attributes
+  attr_reader :manual_slug, :section_slug, :section_attributes, :known_manual_slugs
 
-  def initialize(manual_slug, section_slug, section_attributes)
+  def initialize(manual_slug, section_slug, section_attributes, options = {})
     @manual_slug = manual_slug
     @section_slug = section_slug
     @section_attributes = section_attributes
     @section = Section.new(section_attributes)
+    @known_manual_slugs = options.fetch(:known_manual_slugs, MANUALS_TO_TOPICS.keys)
   end
 
   def to_h
@@ -98,5 +100,9 @@ private
     if section_slug.downcase != section_attributes['details']['section_id'].downcase
       errors[:base] << "Slug in URL and Section ID must match, ignoring case"
     end
+  end
+
+  def only_known_hmrc_manual_slugs?
+    !HMRCManualsAPI::Application.config.allow_unknown_hmrc_manual_slugs
   end
 end

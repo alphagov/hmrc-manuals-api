@@ -10,15 +10,17 @@ class PublishingAPIManual
 
   validates :to_h, no_dangerous_html_in_text_fields: true, if: -> { manual.valid? }
   validates :slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
+  validates :slug, slug_in_known_manual_slugs: true, if: :only_known_hmrc_manual_slugs?
   validate :incoming_manual_is_valid
 
-  attr_reader :slug, :manual
+  attr_reader :slug, :manual, :known_manual_slugs
 
   def initialize(slug, manual_attributes, options = {})
     @slug = slug
     @manual_attributes = manual_attributes
     @manual = Manual.new(@manual_attributes)
     @topics = options.fetch(:topics, Topics.new(manual_slug: slug))
+    @known_manual_slugs = options.fetch(:known_manual_slugs, MANUALS_TO_TOPICS.keys)
   end
 
   def to_h
@@ -125,5 +127,9 @@ private
     unless @manual.valid?
       @manual.errors.full_messages.each {|message| self.errors[:base] << message }
     end
+  end
+
+  def only_known_hmrc_manual_slugs?
+    !HMRCManualsAPI::Application.config.allow_unknown_hmrc_manual_slugs
   end
 end
