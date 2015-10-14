@@ -1,6 +1,7 @@
 require 'rails_helper'
 require 'gds_api/test_helpers/publishing_api'
 require 'gds_api/test_helpers/rummager'
+require 'gds_api/test_helpers/content_store'
 
 describe PublishingAPIRemovedManual do
   describe 'validations' do
@@ -10,6 +11,36 @@ describe PublishingAPIRemovedManual do
 
     it 'is invalid with a slug that does not match the valid_slug/pattern' do
       expect(described_class.new("1Som\nSłu9G!")).not_to be_valid
+    end
+
+    context 'checking that the manual exists already' do
+      include GdsApi::TestHelpers::ContentStore
+
+      let(:slug) { 'our-slug' }
+      let(:manual_path) { subject.base_path }
+      subject(:removed_manual) { described_class.new(slug) }
+
+      it 'is invalid if the slug does not represent a piece of content' do
+        content_store_does_not_have_item(manual_path)
+        expect(subject).not_to be_valid
+      end
+
+      it 'is invalid if the slug already represents a "gone" piece of content' do
+        content_item = content_item_for_base_path(manual_path).merge("format" => "gone")
+        content_store_has_item(manual_path, content_item)
+        expect(subject).not_to be_valid
+      end
+
+      it 'is valid when the slug represents an "hmrc-manual" piece of content' do
+        content_item = hmrc_manual_content_item_for_base_path(manual_path)
+        content_store_has_item(manual_path, content_item)
+        expect(subject).to be_valid
+      end
+
+      it 'is invalid when the slug represents any other format piece of content' do
+        content_store_has_item(manual_path)
+        expect(subject).not_to be_valid
+      end
     end
   end
 
@@ -84,6 +115,11 @@ describe PublishingAPIRemovedManual do
   describe '#save!' do
     include GdsApi::TestHelpers::PublishingApi
     include GdsApi::TestHelpers::Rummager
+    include GdsApi::TestHelpers::ContentStore
+    before do
+      content_item = hmrc_manual_content_item_for_base_path(subject.base_path)
+      content_store_has_item(subject.base_path, content_item)
+    end
 
     describe 'for an invalid manual' do
       subject(:removed_manual) { described_class.new('this_is_not_acc3ptABLE!') }
@@ -120,5 +156,9 @@ describe PublishingAPIRemovedManual do
         assert_requested(:delete, %r{#{Plek.new.find('search')}/documents#{publishing_api_base_path}})
       end
     end
+  end
+
+  def hmrc_manual_content_item_for_base_path(base_path)
+    content_item_for_base_path(base_path).merge("format" => MANUAL_FORMAT)
   end
 end

@@ -5,6 +5,10 @@ class PublishingAPIRemovedManual
   include ActiveModel::Validations
 
   validates :slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
+  validates_with InContentStoreValidator,
+    format: MANUAL_FORMAT,
+    content_store: HMRCManualsAPI.content_store,
+    unless: -> { errors[:slug].present? }
 
   attr_reader :slug
 
