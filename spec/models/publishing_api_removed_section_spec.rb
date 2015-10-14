@@ -1,6 +1,7 @@
 require 'rails_helper'
 require 'gds_api/test_helpers/publishing_api'
 require 'gds_api/test_helpers/rummager'
+require 'gds_api/test_helpers/content_store'
 
 describe PublishingAPIRemovedSection do
   describe '.from_rummager_result' do
@@ -46,6 +47,37 @@ describe PublishingAPIRemovedSection do
         expect(described_class.new("1Som\nSłu9G!", 'a-section-slug')).not_to be_valid
       end
     end
+
+    context 'checking that the manual section exists already' do
+      include GdsApi::TestHelpers::ContentStore
+
+      let(:manual_slug) { 'a-manual' }
+      let(:section_slug) { 'a-section' }
+      let(:section_path) { subject.base_path }
+      subject(:removed_manual) { described_class.new(manual_slug, section_slug) }
+
+      it 'is invalid if the slugs do not represent a piece of content' do
+        content_store_does_not_have_item(section_path)
+        expect(subject).not_to be_valid
+      end
+
+      it 'is invalid if the slugs already represent a "gone" piece of content' do
+        content_item = content_item_for_base_path(section_path).merge("format" => "gone")
+        content_store_has_item(section_path, content_item)
+        expect(subject).not_to be_valid
+      end
+
+      it 'is valid when the slugs represent an "hmrc-manual-section" piece of content' do
+        content_item = hmrc_manual_section_content_item_for_base_path(section_path)
+        content_store_has_item(section_path, content_item)
+        expect(subject).to be_valid
+      end
+
+      it 'is invalid when the slugs represent any other format piece of content' do
+        content_store_has_item(section_path)
+        expect(subject).not_to be_valid
+      end
+    end
   end
 
   describe '#to_h' do
@@ -76,6 +108,11 @@ describe PublishingAPIRemovedSection do
   describe '#save!' do
     include GdsApi::TestHelpers::PublishingApi
     include GdsApi::TestHelpers::Rummager
+    include GdsApi::TestHelpers::ContentStore
+    before do
+      content_item = hmrc_manual_section_content_item_for_base_path(subject.base_path)
+      content_store_has_item(subject.base_path, content_item)
+    end
 
     describe 'for an invalid manual section' do
       subject(:removed_manual_section) { described_class.new('this_is_not_acc3ptABLE!', 'is it?') }
@@ -111,5 +148,9 @@ describe PublishingAPIRemovedSection do
         assert_requested(:delete, %r{#{Plek.new.find('search')}/documents#{publishing_api_base_path}})
       end
     end
+  end
+
+  def hmrc_manual_section_content_item_for_base_path(base_path)
+    content_item_for_base_path(base_path).merge("format" => SECTION_FORMAT)
   end
 end

@@ -5,6 +5,10 @@ class PublishingAPIRemovedSection
   include ActiveModel::Validations
 
   validates :manual_slug, :section_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
+  validates_with InContentStoreValidator,
+    format: SECTION_FORMAT,
+    content_store: HMRCManualsAPI.content_store,
+    unless: -> { errors[:manual_slug].present? || errors[:section_slug].present? }
 
   attr_reader :manual_slug, :section_slug
 
