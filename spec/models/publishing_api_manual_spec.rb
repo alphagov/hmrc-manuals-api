@@ -13,6 +13,41 @@ describe PublishingAPIManual do
     end
   end
 
+  describe '.extract_slug_from_path' do
+    it 'finds the first path segment after the base path segment' do
+      extracted_slug = described_class.extract_slug_from_path('/hmrc-internal-manuals/what-a-slug')
+      expect(extracted_slug).to eq('what-a-slug')
+    end
+
+    it 'ignores trailing slashes' do
+      extracted_slug = described_class.extract_slug_from_path('/hmrc-internal-manuals/what-a-slug/')
+      expect(extracted_slug).to eq('what-a-slug')
+    end
+
+    it 'ignores path segments after the first one' do
+      extracted_slug = described_class.extract_slug_from_path('/hmrc-internal-manuals/what-a-slug/section-slug')
+      expect(extracted_slug).to eq('what-a-slug')
+    end
+
+    it 'raises an InvalidPathErrorInvalidPathError exception if the path is blank' do
+      expect {
+        described_class.extract_slug_from_path('')
+      }.to raise_error(InvalidPathError)
+    end
+
+    it 'raises an InvalidPathError exception if the path does not start with the base path segment' do
+      expect {
+        described_class.extract_slug_from_path('/fco-travel-advice/dont-go-back-to-rockville')
+      }.to raise_error(InvalidPathError)
+    end
+
+    it 'raises an InvalidPathError exception if the path does start with the base path segment, but has no 2nd path segment' do
+      expect {
+        described_class.extract_slug_from_path('/hmrc-internal-manuals/')
+      }.to raise_error(InvalidPathError)
+    end
+  end
+
   subject(:publishing_api_manual) {
     PublishingAPIManual.new(slug, attributes, options)
   }

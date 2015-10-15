@@ -1,0 +1,1 @@
+class InvalidPathError < StandardError; end

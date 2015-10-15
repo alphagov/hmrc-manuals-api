@@ -13,11 +13,57 @@ describe PublishingAPISection do
     end
   end
 
+  describe '.extract_slugs_from_path' do
+    it 'finds the first path segment after the base path segment as the manual slug' do
+      extracted_slugs = described_class.extract_slugs_from_path('/hmrc-internal-manuals/what-a-slug/for-a-section')
+      expect(extracted_slugs[:manual]).to eq('what-a-slug')
+    end
+
+    it 'finds the second path segment after the base path segment as the section slug' do
+      extracted_slugs = described_class.extract_slugs_from_path('/hmrc-internal-manuals/what-a-slug/for-a-section')
+      expect(extracted_slugs[:section]).to eq('for-a-section')
+    end
+
+    it 'ignores trailing slashes' do
+      extracted_slugs = described_class.extract_slugs_from_path('/hmrc-internal-manuals/what-a-slug/for-a-section/')
+      expect(extracted_slugs[:section]).to eq('for-a-section')
+    end
+
+    it 'ignores path segments after the second one' do
+      extracted_slugs = described_class.extract_slugs_from_path('/hmrc-internal-manuals/what-a-slug/for-a-section/and-another/thing')
+      expect(extracted_slugs[:section]).to eq('for-a-section')
+    end
+
+    it 'raises an InvalidPathErrorInvalidPathError exception if the path is blank' do
+      expect {
+        described_class.extract_slugs_from_path('')
+      }.to raise_error(InvalidPathError)
+    end
+
+    it 'raises an InvalidPathError exception if the link does not start with the base path segment' do
+      expect {
+        described_class.extract_slugs_from_path('/fco-travel-advice/dont-go-back-to-rockville')
+      }.to raise_error(InvalidPathError)
+    end
+
+    it 'raises an InvalidPathError exception if the link does start with the base path segment, but has no 2nd path segment' do
+      expect {
+        described_class.extract_slugs_from_path('/hmrc-internal-manuals/')
+      }.to raise_error(InvalidPathError)
+    end
+
+    it 'raises an InvalidPathError exception if the path does start with the base path segment, but has no 3rd path segment' do
+      expect {
+        described_class.extract_slugs_from_path('/hmrc-internal-manuals/what-a-slug')
+      }.to raise_error(InvalidPathError)
+    end
+  end
+
   subject(:publishing_api_section) {
     PublishingAPISection.new(manual_slug, section_slug, attributes, options)
   }
   let(:manual_slug) { 'some-slug' }
-  let(:section_slug) { 'some_id' } 
+  let(:section_slug) { 'some_id' }
   let(:options) { { known_manual_slugs: known_manual_slugs } }
   let(:known_manual_slugs) { [] }
 

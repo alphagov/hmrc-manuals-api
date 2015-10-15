@@ -1,0 +1,1 @@
+class InvalidJSONError < StandardError; end

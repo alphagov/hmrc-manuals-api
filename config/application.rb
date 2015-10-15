@@ -17,6 +17,7 @@ module HMRCManualsAPI
   mattr_accessor :content_register
   mattr_accessor :publishing_api
   mattr_accessor :rummager
+  mattr_accessor :content_store
 
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.

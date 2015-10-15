@@ -54,6 +54,14 @@ class PublishingAPISection
     File.join(PublishingAPIManual.base_path(manual_slug.downcase), section_slug.downcase)
   end
 
+  def self.extract_slugs_from_path(path)
+    slugs = {}
+    slugs[:manual] = PublishingAPIManual.extract_slug_from_path(path)
+    slugs[:section] = path.split('/', 5).fourth
+    raise InvalidPathError if slugs[:section].blank?
+    slugs
+  end
+
   def save!
     raise ValidationError, "section is invalid" unless valid?
     publishing_api_response = HMRCManualsAPI.publishing_api.put_content_item(base_path, to_h)

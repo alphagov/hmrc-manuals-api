@@ -57,9 +57,18 @@ class PublishingAPIManual
     PublishingAPIManual.base_path(@slug)
   end
 
+  BASE_PATH_SEGMENT = 'hmrc-internal-manuals'
+
   def self.base_path(manual_slug)
     # The slug should be lowercase, but let's make sure
-    "/hmrc-internal-manuals/#{manual_slug.downcase}"
+    "/#{BASE_PATH_SEGMENT}/#{manual_slug.downcase}"
+  end
+
+  def self.extract_slug_from_path(path)
+    raise InvalidPathError if path.blank? || path !~ %r{\A/#{BASE_PATH_SEGMENT}/}
+    slug = path.split('/',4).third
+    raise InvalidPathError if slug.blank?
+    slug
   end
 
   def updates_path

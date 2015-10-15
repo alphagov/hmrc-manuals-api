@@ -37,4 +37,12 @@ class RummagerSection < RummagerBase
   def save!
     SendToRummagerWorker.perform_async(SECTION_FORMAT, self.id, self.to_h)
   end
+
+  def self.search_query(manual_path)
+    {
+      'filter_format' => SECTION_FORMAT,
+      'filter_organisations' => [GOVUK_HMRC_SLUG],
+      'filter_manual' => manual_path
+    }
+  end
 end
