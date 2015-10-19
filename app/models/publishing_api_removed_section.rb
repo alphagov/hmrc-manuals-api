@@ -38,15 +38,11 @@ class PublishingAPIRemovedSection
     PublishingAPISection.base_path(@manual_slug, @section_slug)
   end
 
-  def base_path_for_rummager
-    base_path.sub(/\A\//,'')
-  end
-
   def save!
     raise ValidationError, "manual section to remove is invalid #{errors.full_messages.to_sentence}" unless valid?
     publishing_api_response = HMRCManualsAPI.publishing_api.put_content_item(base_path, to_h)
 
-    HMRCManualsAPI.rummager.delete_document(SECTION_FORMAT, base_path_for_rummager)
+    HMRCManualsAPI.rummager.delete_document(SECTION_FORMAT, base_path)
 
     publishing_api_response
   end
