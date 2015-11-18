@@ -1,5 +1,6 @@
 {
   "title": "Car fuel benefit: charge not related to cost of providing fuel",
+  "content_id": "e24dc96f-abc6-4f31-9a6b-8c277d3adbcf",
   "description": "Optional.",
   // Ideally, it should be when the content was last changed, which will often
   // be when this request is made, but it might be in the past for content
