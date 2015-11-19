@@ -86,6 +86,24 @@ describe PublishingAPIManual do
 
       it { should be_valid_against_schema('hmrc_manual') }
     end
+
+    context "when no content_id is present" do
+      it "should be generated from base_path" do
+        expect(publishing_api_manual.manual.manual_attributes["content_id"]).to be_nil
+
+        uuid = UUIDTools::UUID.sha1_create(UUIDTools::UUID_URL_NAMESPACE, publishing_api_manual.base_path).to_s
+        expect(publishing_api_manual.to_h["content_id"]).to eq(uuid)
+      end
+    end
+
+    context "when content_id is present" do
+      let(:content_id) { SecureRandom.uuid }
+      let(:attributes) { valid_manual.merge("content_id" => content_id) }
+
+      it "should be preserved" do
+        expect(publishing_api_manual.to_h["content_id"]).to eq(content_id)
+      end
+    end
   end
 
   describe 'validations' do
