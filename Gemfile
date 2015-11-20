@@ -17,6 +17,8 @@ gem 'govspeak', '3.0.0'
 
 gem 'sidekiq', '3.4.2'
 
+gem 'uuidtools', '2.1.5'
+
 group :development do
   gem "foreman", "0.78.0"
 end

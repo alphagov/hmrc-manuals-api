@@ -12,5 +12,19 @@ module Helpers
       )
       attributes
     end
+
+    def add_absent_content_id(attributes)
+      unless attributes["content_id"]
+        attributes["content_id"] = base_path_uuid
+      end
+
+      attributes
+    end
+
+    private
+
+    def base_path_uuid
+      UUIDTools::UUID.sha1_create(UUIDTools::UUID_URL_NAMESPACE, base_path).to_s
+    end
   end
 end

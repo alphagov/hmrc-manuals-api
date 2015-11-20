@@ -39,6 +39,7 @@ class PublishingAPIManual
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
       enriched_data = add_organisations_to_details(enriched_data)
       enriched_data = add_base_path_to_change_notes(enriched_data)
+      enriched_data = add_absent_content_id(enriched_data)
 
       if HMRCManualsAPI::Application.config.publish_topics
         enriched_data = add_topic_links(enriched_data)
