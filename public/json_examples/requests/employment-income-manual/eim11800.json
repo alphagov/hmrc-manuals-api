@@ -1,5 +1,6 @@
 {
   "title": "PAYE special types of payment: contents",
+  "content_id": "1da0cc3c-b039-4802-a951-b427bf5db619",
   "description": "Optional",
   // Ideally, it should be when the content was last changed, which will often
   // be when this request is made, but it might be in the past for content

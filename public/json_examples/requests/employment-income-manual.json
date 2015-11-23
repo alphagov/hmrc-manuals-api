@@ -1,6 +1,7 @@
 {
   // Manual
   "title": "Employment Income Manual",
+  "content_id": "c26389b9-6aaa-4821-be84-0141d2eb7225",
   "description": "A guide to the Income Tax (Earnings and Pensions) Act 2003",
   // public_updated_at should be updated on the manual whenever a change to a
   // part of the manual is made, but can be done once for a batch of changes.
