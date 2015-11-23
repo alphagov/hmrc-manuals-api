@@ -103,6 +103,11 @@ describe PublishingAPIRemovedSection do
     it 'includes the base_path of the manual section as an exact path in routes' do
       expect(subject[:routes]).to include({ path: removed_manual_section.base_path, type: :exact })
     end
+
+    it "generates a uuid from base_path" do
+      uuid = UUIDTools::UUID.sha1_create(UUIDTools::UUID_URL_NAMESPACE, removed_manual_section.base_path).to_s
+      expect(subject[:content_id]).to eq(uuid)
+    end
   end
 
   describe '#save!' do
