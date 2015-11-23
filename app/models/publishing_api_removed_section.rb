@@ -3,6 +3,7 @@ require 'valid_slug/pattern'
 
 class PublishingAPIRemovedSection
   include ActiveModel::Validations
+  include Helpers::PublishingAPIHelpers
 
   validates :manual_slug, :section_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
   validates_with InContentStoreValidator,
@@ -25,6 +26,7 @@ class PublishingAPIRemovedSection
 
   def to_h
     @_to_h ||= {
+      content_id: base_path_uuid,
       format: 'gone',
       publishing_app: 'hmrc-manuals-api',
       update_type: 'major',
