@@ -81,27 +81,27 @@ describe PublishingAPISection do
 
       it { should be_valid_against_schema('hmrc_manual_section') }
     end
+  end
 
-    context "when no content_id is present" do
-      let(:attributes) { valid_section }
+  describe 'content_id' do
+    context 'when content id is present' do
+      let(:content_id) { SecureRandom.uuid }
+      let(:attributes) {valid_section.merge("content_id" => content_id) }
 
-      it "should be generated from base_path" do
-        expect(publishing_api_section.section_attributes["content_id"]).to be_nil
-
-        uuid = UUIDTools::UUID.sha1_create(UUIDTools::UUID_URL_NAMESPACE, publishing_api_section.base_path).to_s
-        expect(publishing_api_section.to_h["content_id"]).to eq(uuid)
+      it 'returns the context id' do
+        expect(subject.content_id).to eq content_id
       end
     end
 
-    context "when content_id is present" do
-      let(:content_id) { SecureRandom.uuid }
-      let(:attributes) { valid_section.merge("content_id" => content_id) }
-
-      it "should be preserved" do
-        expect(publishing_api_section.to_h["content_id"]).to eq(content_id)
+    context 'when content id is absent' do
+      let(:attributes)  { valid_section }
+      it 'generates one from the base path' do
+        expect(attributes['content_id']).to be nil
+        expect(subject.content_id).to eq UUIDTools::UUID.sha1_create(UUIDTools::UUID_URL_NAMESPACE, subject.base_path).to_s
       end
     end
   end
+
 
   describe 'validations' do
     context 'mismatched section ID and slug' do

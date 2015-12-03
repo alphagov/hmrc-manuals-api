@@ -26,14 +26,22 @@ class PublishingAPIRemovedSection
 
   def to_h
     @_to_h ||= {
-      content_id: base_path_uuid,
+      base_path: base_path,
       format: 'gone',
       publishing_app: 'hmrc-manuals-api',
-      update_type: 'major',
+      update_type: update_type,
       routes: [
         { path: base_path, type: :exact },
       ],
     }
+  end
+
+  def content_id
+    base_path_uuid
+  end
+
+  def update_type
+    'major'
   end
 
   def base_path
@@ -42,11 +50,13 @@ class PublishingAPIRemovedSection
 
   def save!
     raise ValidationError, "manual section to remove is invalid #{errors.full_messages.to_sentence}" unless valid?
-    publishing_api_response = HMRCManualsAPI.publishing_api.put_content_item(base_path, to_h)
-
+    publishing_api_response = PublishingAPINotifier.new(self).notify
     HMRCManualsAPI.rummager.delete_document(SECTION_FORMAT, base_path)
-
     publishing_api_response
+  end
+
+  def send_topic_links?
+    false
   end
 
 end

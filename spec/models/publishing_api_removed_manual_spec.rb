@@ -1,5 +1,5 @@
 require 'rails_helper'
-require 'gds_api/test_helpers/publishing_api'
+require 'gds_api/test_helpers/publishing_api_v2'
 require 'gds_api/test_helpers/rummager'
 require 'gds_api/test_helpers/content_store'
 
@@ -48,16 +48,16 @@ describe PublishingAPIRemovedManual do
     let(:removed_manual) { described_class.new('some-slug') }
     subject(:removed_manual_as_hash) { removed_manual.to_h }
 
+    context 'valid schema' do
+      it { should be_valid_against_schema('gone') }
+    end
+
     it 'is a "gone" format object' do
       expect(subject[:format]).to eq('gone')
     end
 
     it 'is published by the "hmrc-manuals-api" app' do
       expect(subject[:publishing_app]).to eq('hmrc-manuals-api')
-    end
-
-    it 'is a major update' do
-      expect(subject[:update_type]).to eq('major')
     end
 
     it 'has two routes' do
@@ -72,10 +72,6 @@ describe PublishingAPIRemovedManual do
       expect(subject[:routes]).to include({ path: removed_manual.updates_path, type: :exact })
     end
 
-    it "generates a uuid from base_path" do
-      uuid = UUIDTools::UUID.sha1_create(UUIDTools::UUID_URL_NAMESPACE, removed_manual.base_path).to_s
-      expect(subject[:content_id]).to eq(uuid)
-    end
   end
 
   describe '#sections' do
@@ -118,7 +114,7 @@ describe PublishingAPIRemovedManual do
   end
 
   describe '#save!' do
-    include GdsApi::TestHelpers::PublishingApi
+    include GdsApi::TestHelpers::PublishingApiV2
     include GdsApi::TestHelpers::Rummager
     include GdsApi::TestHelpers::ContentStore
     before do
@@ -136,7 +132,7 @@ describe PublishingAPIRemovedManual do
       end
 
       it 'does not communicate with the publishing api' do
-        publishing_api_stub = stub_default_publishing_api_put
+        publishing_api_stub = stub_any_publishing_api_call
 
         ignoring_error(ValidationError) { subject.save! }
 
@@ -147,14 +143,17 @@ describe PublishingAPIRemovedManual do
     describe 'for a valid manual' do
       subject(:removed_manual) { described_class.new('some-slug') }
       let(:publishing_api_base_path) { '/hmrc-internal-manuals/some-slug' }
+      let(:gone_manual) { gone_manual_for_publishing_api(base_path: publishing_api_base_path) }
 
-      it 'issues a put_item request to the publishing api to mark the manual as gone' do
-        stub_default_publishing_api_put
+      it 'issues a put_content and publish requests to the publishing api to mark the manual as gone' do
+        stub_publishing_api_put_content(removed_manual.content_id, {}, {status: 201, body: {version: 4}.to_json})
+        stub_publishing_api_publish(removed_manual.content_id, { update_type: 'major', previous_version: 4}.to_json)
         stub_any_rummager_delete
 
         subject.save!
 
-        assert_publishing_api_put_item(publishing_api_base_path, gone_manual_for_publishing_api)
+        assert_publishing_api_put_content(removed_manual.content_id, gone_manual)
+        assert_publishing_api_publish(removed_manual.content_id, {update_type: 'major'})
 
         #TODO: Update this with `assert_rummager_deleted_item(publishing_api_base_path[1..-1])`
         #      once https://github.com/alphagov/gds-api-adapters/pull/362 has been merged

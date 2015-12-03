@@ -3,10 +3,8 @@ module PublishingApiDataHelpers
     {
       "format" => "hmrc_manual",
       "title" => "Employment Income Manual",
-      "content_id" => "913fd52f-072c-409e-88b2-ea0b7a8b6d9c",
       "description" => "A manual about incoming employment",
       "public_updated_at" => "2014-01-23T00:00:00+01:00",
-      "update_type" => "major",
       "details" => {
         "child_section_groups" => [
           {
@@ -60,10 +58,19 @@ module PublishingApiDataHelpers
           "type" => "exact"
         },
       ],
+    }.merge(options)
+  end
+
+  def maximal_manual_topic_links
+    {
       "links" => {
         "topics" => maximal_manual_topic_content_ids,
       },
-    }.merge(options)
+    }
+  end
+
+  def maximal_manual_update_type
+    'major'
   end
 
   def maximal_manual_without_topics_for_publishing_api(options = {})
@@ -77,10 +84,8 @@ module PublishingApiDataHelpers
     {
       "format" => "hmrc_manual_section",
       "title" => "A section on a part of employment income",
-      "content_id" => "25e687b8-74da-4892-938d-7de82fa5df27",
       "description" => "Some description",
       "public_updated_at" => "2014-01-23T00:00:00+01:00",
-      "update_type" => "minor",
       "details" => {
         "body" => "<p>I need <strong>somebody</strong> to love</p>\n",
         "section_id" => "12345",
@@ -125,18 +130,18 @@ module PublishingApiDataHelpers
     }.merge(options)
   end
 
-  def gone_manual_for_publishing_api(slug: 'some-slug')
+  def gone_manual_for_publishing_api(base_path: '/hmrc-internal-manuals/some-slug')
     {
+      'base_path' => base_path,
       'format' => 'gone',
       'publishing_app' => 'hmrc-manuals-api',
-      'update_type' => 'major',
       'routes' => [
         {
-          'path' => "/hmrc-internal-manuals/#{slug}",
+          'path' => base_path,
           'type' => 'exact',
         },
         {
-          'path' => "/hmrc-internal-manuals/#{slug}/updates",
+          'path' => "#{base_path}/updates",
           'type' => 'exact',
         },
       ],
@@ -147,7 +152,6 @@ module PublishingApiDataHelpers
     {
       'format' => 'gone',
       'publishing_app' => 'hmrc-manuals-api',
-      'update_type' => 'major',
       'routes' => [
         {
           'path' => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",

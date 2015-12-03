@@ -1,5 +1,4 @@
 require 'active_model'
-require 'gds_api/publishing_api'
 require 'struct_with_rendered_markdown'
 require 'valid_slug/pattern'
 
@@ -21,11 +20,13 @@ class PublishingAPISection
     @section_attributes = section_attributes
     @section = Section.new(section_attributes)
     @known_manual_slugs = options.fetch(:known_manual_slugs, MANUALS_TO_TOPICS.keys)
+    generate_content_id_if_absent
   end
 
   def to_h
     @_to_h ||= begin
-      enriched_data = @section_attributes.deep_dup.merge({
+      enriched_data = @section_attributes.except('content_id', 'update_type').deep_dup.merge({
+        base_path: base_path,
         format: SECTION_FORMAT,
         publishing_app: 'hmrc-manuals-api',
         rendering_app: 'manuals-frontend',
@@ -36,9 +37,16 @@ class PublishingAPISection
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
       enriched_data = add_base_path_to_breadcrumbs(enriched_data)
       enriched_data = add_base_path_to_manual(enriched_data)
-      enriched_data = add_absent_content_id(enriched_data)
       add_organisations_to_details(enriched_data)
     end
+  end
+
+  def content_id
+    @section_attributes["content_id"]
+  end
+
+  def update_type
+    section_attributes["update_type"]
   end
 
   def govuk_url
@@ -65,15 +73,24 @@ class PublishingAPISection
 
   def save!
     raise ValidationError, "section is invalid" unless valid?
-    publishing_api_response = HMRCManualsAPI.publishing_api.put_content_item(base_path, to_h)
-
+    publishing_api_response = PublishingAPINotifier.new(self).notify
     rummager_section = RummagerSection.new(base_path, to_h)
     rummager_section.save!
 
     publishing_api_response
   end
 
+  def send_topic_links?
+    false
+  end
+
 private
+  def generate_content_id_if_absent
+    if @section_attributes.is_a?(Hash)
+      @section_attributes["content_id"] = base_path_uuid unless @section_attributes["content_id"]
+    end
+  end
+
   def add_base_path_to_child_section_groups(attributes)
     # child_section_groups isn't required for sections, so might be nil:
     (attributes["details"]["child_section_groups"] || []).each do |section_group|
