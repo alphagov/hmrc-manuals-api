@@ -24,11 +24,11 @@ task :remove_hmrc_manuals, [] => :environment do |_task, args|
     slugs.each do |manual_slug|
       print "Removing manual '#{manual_slug}': "
       manual = PublishingAPIRemovedManual.new(manual_slug)
-      remove_and_output(manual)
       manual.sections.each do |section|
         print "  Removing section '#{manual_slug}/#{section.section_slug}'"
         remove_and_output(section)
       end
+      remove_and_output(manual)
     end
   end
 end
