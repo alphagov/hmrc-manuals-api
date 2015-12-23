@@ -8,11 +8,7 @@ gem 'airbrake', '3.1.15'
 gem 'json-schema', '2.5.1'
 gem 'gds-sso', '9.3.0'
 gem 'plek', '1.11.0'
-if ENV['api_dev']
-  gem 'gds-api-adapters', path: '../gds-api-adapters'
-else
-  gem 'gds-api-adapters', '24.1.0'
-end
+gem 'gds-api-adapters', '~> 26.5'
 gem 'govspeak', '3.0.0'
 
 gem 'sidekiq', '3.4.2'
@@ -21,11 +17,13 @@ gem 'uuidtools', '2.1.5'
 
 group :development do
   gem "foreman", "0.78.0"
+  gem "govuk-lint"
 end
 
 group :development, :test do
   gem 'rspec-rails', '3.2.1'
   gem 'rspec-collection_matchers', '1.0.0'
+  gem 'byebug'
 end
 
 group :test do

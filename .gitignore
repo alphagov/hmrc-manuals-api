@@ -17,3 +17,7 @@
 
 /coverage
 /spec/reports
+
+
+# Ignore OS-generated files
+.DS_Store

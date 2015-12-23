@@ -1,6 +1,5 @@
 require 'active_model'
 require 'struct_with_rendered_markdown'
-require 'gds_api/publishing_api'
 require 'valid_slug/pattern'
 require 'topics'
 
@@ -21,11 +20,13 @@ class PublishingAPIManual
     @manual = Manual.new(@manual_attributes)
     @topics = options.fetch(:topics, Topics.new(manual_slug: slug))
     @known_manual_slugs = options.fetch(:known_manual_slugs, MANUALS_TO_TOPICS.keys)
+    generate_content_id_if_absent
   end
 
   def to_h
     @_to_h ||= begin
-      enriched_data = @manual_attributes.deep_dup.merge({
+      enriched_data = @manual_attributes.except('content_id', 'update_type').deep_dup.merge({
+        base_path: base_path,
         format: MANUAL_FORMAT,
         publishing_app: 'hmrc-manuals-api',
         rendering_app: 'manuals-frontend',
@@ -39,15 +40,20 @@ class PublishingAPIManual
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
       enriched_data = add_organisations_to_details(enriched_data)
       enriched_data = add_base_path_to_change_notes(enriched_data)
-      enriched_data = add_absent_content_id(enriched_data)
-
       if HMRCManualsAPI::Application.config.publish_topics
-        enriched_data = add_topic_links(enriched_data)
         enriched_data = add_topic_tags(enriched_data)
       end
 
       enriched_data
     end
+  end
+
+  def content_id
+    @manual_attributes["content_id"]
+  end
+
+  def update_type
+    @manual_attributes["update_type"]
   end
 
   def govuk_url
@@ -90,15 +96,27 @@ class PublishingAPIManual
 
   def save!
     raise ValidationError, "manual is invalid" unless valid?
-    publishing_api_response = HMRCManualsAPI.publishing_api.put_content_item(base_path, to_h)
-
+    publishing_api_response = PublishingAPINotifier.new(self).notify
     rummager_manual = RummagerManual.new(base_path, to_h)
     rummager_manual.save!
-
     publishing_api_response
   end
 
+  def send_topic_links?
+    HMRCManualsAPI::Application.config.publish_topics && topic_content_ids.present?
+  end
+
+  def topic_links
+    { links: { topics: topic_content_ids } }
+  end
+
 private
+  def generate_content_id_if_absent
+    if @manual_attributes.is_a?(Hash)
+      @manual_attributes["content_id"] = base_path_uuid unless @manual_attributes["content_id"]
+    end
+  end
+
   def add_base_path_to_child_section_groups(attributes)
     attributes["details"]["child_section_groups"].each do |section_group|
       section_group["child_sections"].each do |section|
@@ -112,15 +130,6 @@ private
     attributes["details"]["change_notes"] && attributes["details"]["change_notes"].each do |change_note_object|
       change_note_object['base_path'] = PublishingAPISection.base_path(@slug, change_note_object['section_id'])
     end
-    attributes
-  end
-
-  def add_topic_links(attributes)
-    if topic_content_ids.present?
-      attributes['links'] ||= {}
-      attributes['links']['topics'] = topic_content_ids
-    end
-
     attributes
   end
 

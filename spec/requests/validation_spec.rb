@@ -1,9 +1,9 @@
 require 'rails_helper'
-require 'gds_api/test_helpers/publishing_api'
+require 'gds_api/test_helpers/publishing_api_v2'
 require 'gds_api/test_helpers/rummager'
 
 describe "validation" do
-  include GdsApi::TestHelpers::PublishingApi
+  include GdsApi::TestHelpers::PublishingApiV2
   include GdsApi::TestHelpers::Rummager
 
   let(:malformed_json) { "[" }
@@ -56,7 +56,9 @@ describe "validation" do
       end
 
       it 'allows images with a relative path' do
-        stub_default_publishing_api_put
+        content_id = UUIDTools::UUID.sha1_create(UUIDTools::UUID_URL_NAMESPACE, "/hmrc-internal-manuals/imaginary-slug").to_s
+        stub_publishing_api_put_content(content_id, {}, { body: {version: 22} })
+        stub_publishing_api_publish(content_id, { update_type: 'minor', previous_version: 22}.to_json)
         stub_any_rummager_post
 
         manual = valid_manual
