@@ -14,11 +14,6 @@ require "action_view/railtie"
 Bundler.require(*Rails.groups)
 
 module HMRCManualsAPI
-  mattr_accessor :content_register
-  mattr_accessor :publishing_api
-  mattr_accessor :rummager
-  mattr_accessor :content_store
-
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -40,5 +35,7 @@ module HMRCManualsAPI
 
     # Disable Rack::Cache
     config.action_dispatch.rack_cache = nil
+
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
   end
 end

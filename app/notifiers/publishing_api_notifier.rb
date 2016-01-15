@@ -12,14 +12,14 @@ class PublishingAPINotifier
 
 private
   def put_content_item
-    HMRCManualsAPI.publishing_api.put_content(@document.content_id, @document.to_h)
+    Services.publishing_api.put_content(@document.content_id, @document.to_h)
   end
 
   def publish(options)
-    HMRCManualsAPI.publishing_api.publish(@document.content_id, @document.update_type, options)
+    Services.publishing_api.publish(@document.content_id, @document.update_type, options)
   end
 
   def put_links
-    HMRCManualsAPI.publishing_api.put_links(@document.content_id, @document.topic_links) if @document.send_topic_links?
+    Services.publishing_api.put_links(@document.content_id, @document.topic_links) if @document.send_topic_links?
   end
 end

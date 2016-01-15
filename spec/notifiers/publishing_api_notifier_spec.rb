@@ -11,9 +11,9 @@ describe PublishingAPINotifier do
 
     context 'all requests get a 200 response' do
       it 'calls put_content, publish and send links and return a 200 response' do
-        expect(HMRCManualsAPI.publishing_api).to receive(:put_content).with(content_id, document_hash).and_return(successful_response)
-        expect(HMRCManualsAPI.publishing_api).to receive(:publish).with(content_id, 'major', {previous_version: 33}).and_return(successful_response)
-        expect(HMRCManualsAPI.publishing_api).to receive(:put_links).with(content_id, links_hash).and_return(successful_response)
+        expect(Services.publishing_api).to receive(:put_content).with(content_id, document_hash).and_return(successful_response)
+        expect(Services.publishing_api).to receive(:publish).with(content_id, 'major', {previous_version: 33}).and_return(successful_response)
+        expect(Services.publishing_api).to receive(:put_links).with(content_id, links_hash).and_return(successful_response)
 
         response = PublishingAPINotifier.new(document).notify
         expect(response).to eq successful_response
@@ -21,9 +21,9 @@ describe PublishingAPINotifier do
 
       it 'does not send links if no links to send' do
         document = double PublishingAPIManual, content_id: content_id, to_h: document_hash, update_type: 'major', send_topic_links?: false, topic_links: links_hash
-        expect(HMRCManualsAPI.publishing_api).to receive(:put_content).with(content_id, document_hash).and_return(successful_response)
-        expect(HMRCManualsAPI.publishing_api).to receive(:publish).with(content_id, 'major', {previous_version: 33}).and_return(successful_response)
-        expect(HMRCManualsAPI.publishing_api).not_to receive(:put_links)
+        expect(Services.publishing_api).to receive(:put_content).with(content_id, document_hash).and_return(successful_response)
+        expect(Services.publishing_api).to receive(:publish).with(content_id, 'major', {previous_version: 33}).and_return(successful_response)
+        expect(Services.publishing_api).not_to receive(:put_links)
 
         response = PublishingAPINotifier.new(document).notify
         expect(response).to eq successful_response

@@ -1,5 +1,5 @@
 class Topics
-  def initialize(manual_slug:, manuals_to_topics: MANUALS_TO_TOPICS, content_register: HMRCManualsAPI.content_register)
+  def initialize(manual_slug:, manuals_to_topics: MANUALS_TO_TOPICS, content_register: Services.content_register)
     @manual_slug = manual_slug
     @manuals_to_topics = manuals_to_topics
     @content_register = content_register

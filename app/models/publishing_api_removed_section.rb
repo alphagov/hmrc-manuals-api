@@ -8,7 +8,7 @@ class PublishingAPIRemovedSection
   validates :manual_slug, :section_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
   validates_with InContentStoreValidator,
     format: SECTION_FORMAT,
-    content_store: HMRCManualsAPI.content_store,
+    content_store: Services.content_store,
     unless: -> { errors[:manual_slug].present? || errors[:section_slug].present? }
 
   attr_reader :manual_slug, :section_slug
@@ -51,7 +51,7 @@ class PublishingAPIRemovedSection
   def save!
     raise ValidationError, "manual section to remove is invalid #{errors.full_messages.to_sentence}" unless valid?
     publishing_api_response = PublishingAPINotifier.new(self).notify
-    HMRCManualsAPI.rummager.delete_document(SECTION_FORMAT, base_path)
+    Services.rummager.delete_document(SECTION_FORMAT, base_path)
     publishing_api_response
   end
 
