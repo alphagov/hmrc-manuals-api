@@ -2,7 +2,7 @@ require 'csv'
 
 desc "Map manual topic slugs to content IDs"
 task map_manual_topic_slugs_to_content_ids: :environment do
-  topics = HMRCManualsAPI.content_register.entries('topic').to_a
+  topics = Services.content_register.entries('topic').to_a
 
   csv = CSV.read("#{Rails.root}/lib/manuals_to_topics.csv")
 

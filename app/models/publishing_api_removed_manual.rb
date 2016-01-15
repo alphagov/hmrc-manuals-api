@@ -8,7 +8,7 @@ class PublishingAPIRemovedManual
   validates :slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
   validates_with InContentStoreValidator,
     format: MANUAL_FORMAT,
-    content_store: HMRCManualsAPI.content_store,
+    content_store: Services.content_store,
     unless: -> { errors[:slug].present? }
 
   attr_reader :slug
@@ -25,7 +25,7 @@ class PublishingAPIRemovedManual
 
   def sections_from_rummager
     query = RummagerSection.search_query(base_path)
-    HMRCManualsAPI.rummager.unified_search(query).results
+    Services.rummager.unified_search(query).results
   end
   private :sections_from_rummager
 
@@ -61,7 +61,7 @@ class PublishingAPIRemovedManual
   def save!
     raise ValidationError, "manual to remove is invalid #{errors.full_messages.to_sentence}" unless valid?
     publishing_api_response = PublishingAPINotifier.new(self).notify
-    HMRCManualsAPI.rummager.delete_document(MANUAL_FORMAT, base_path)
+    Services.rummager.delete_document(MANUAL_FORMAT, base_path)
     publishing_api_response
   end
 
