@@ -11,13 +11,12 @@ class PublishingAPIManual
   validates :slug, slug_in_known_manual_slugs: true, if: :only_known_hmrc_manual_slugs?
   validate :incoming_manual_is_valid
 
-  attr_reader :slug, :manual, :known_manual_slugs
+  attr_reader :slug, :manual
 
   def initialize(slug, manual_attributes, options = {})
     @slug = slug
     @manual_attributes = manual_attributes
     @manual = Manual.new(@manual_attributes)
-    @known_manual_slugs = options.fetch(:known_manual_slugs, MANUALS_TO_TOPICS.keys)
     generate_content_id_if_absent
   end
 

@@ -35,7 +35,9 @@ describe "validation" do
 
       expect(response.status).to eq(422)
       expect(json_response).to include("status" => "error")
-      expect(json_response["errors"].first).to match("does not match any of the following valid slugs: #{ MANUALS_TO_TOPICS.keys.join(" ") }")
+      expect(json_response["errors"].first).to match(
+        "does not match any of the following valid slugs: #{ KNOWN_MANUAL_SLUGS.join(" ") }"
+      )
     end
 
     context 'manuals with images' do
@@ -94,7 +96,7 @@ describe "validation" do
 
       expect(response.status).to eq(422)
       expect(json_response).to include("status" => "error")
-      expect(json_response["errors"].first).to match("does not match any of the following valid slugs: #{ MANUALS_TO_TOPICS.keys.join(" ") }")
+      expect(json_response["errors"].first).to match("does not match any of the following valid slugs: #{ KNOWN_MANUAL_SLUGS.join(" ") }")
     end
   end
 end

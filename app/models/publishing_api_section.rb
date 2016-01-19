@@ -19,7 +19,6 @@ class PublishingAPISection
     @section_slug = section_slug
     @section_attributes = section_attributes
     @section = Section.new(section_attributes)
-    @known_manual_slugs = options.fetch(:known_manual_slugs, MANUALS_TO_TOPICS.keys)
     generate_content_id_if_absent
   end
 
