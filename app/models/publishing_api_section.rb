@@ -80,10 +80,6 @@ class PublishingAPISection
     publishing_api_response
   end
 
-  def send_topic_links?
-    false
-  end
-
 private
   def generate_content_id_if_absent
     if @section_attributes.is_a?(Hash)

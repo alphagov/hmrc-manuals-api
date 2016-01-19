@@ -21,10 +21,6 @@ class RummagerManual < RummagerBase
       'latest_change_note' => latest_change_note,
     }
 
-    if HMRCManualsAPI::Application.config.publish_topics
-      data['specialist_sectors'] = topics unless topics.empty?
-    end
-
     data
   end
 

@@ -64,8 +64,4 @@ class PublishingAPIRemovedManual
     Services.rummager.delete_document(MANUAL_FORMAT, base_path)
     publishing_api_response
   end
-
-  def send_topic_links?
-    false
-  end
 end

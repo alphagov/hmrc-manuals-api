@@ -1,7 +1,6 @@
 require 'active_model'
 require 'struct_with_rendered_markdown'
 require 'valid_slug/pattern'
-require 'topics'
 
 class PublishingAPIManual
   include ActiveModel::Validations
@@ -18,7 +17,6 @@ class PublishingAPIManual
     @slug = slug
     @manual_attributes = manual_attributes
     @manual = Manual.new(@manual_attributes)
-    @topics = options.fetch(:topics, Topics.new(manual_slug: slug))
     @known_manual_slugs = options.fetch(:known_manual_slugs, MANUALS_TO_TOPICS.keys)
     generate_content_id_if_absent
   end
@@ -40,10 +38,6 @@ class PublishingAPIManual
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
       enriched_data = add_organisations_to_details(enriched_data)
       enriched_data = add_base_path_to_change_notes(enriched_data)
-      if HMRCManualsAPI::Application.config.publish_topics
-        enriched_data = add_topic_tags(enriched_data)
-      end
-
       enriched_data
     end
   end
@@ -86,14 +80,6 @@ class PublishingAPIManual
     base_path(manual_slug) + '/updates'
   end
 
-  def topic_content_ids
-    @topics.content_ids
-  end
-
-  def topic_slugs
-    @topics.slugs
-  end
-
   def save!
     raise ValidationError, "manual is invalid" unless valid?
     publishing_api_response = PublishingAPINotifier.new(self).notify
@@ -102,15 +88,8 @@ class PublishingAPIManual
     publishing_api_response
   end
 
-  def send_topic_links?
-    HMRCManualsAPI::Application.config.publish_topics && topic_content_ids.present?
-  end
-
-  def topic_links
-    { links: { topics: topic_content_ids } }
-  end
-
 private
+
   def generate_content_id_if_absent
     if @manual_attributes.is_a?(Hash)
       @manual_attributes["content_id"] = base_path_uuid unless @manual_attributes["content_id"]
@@ -130,15 +109,6 @@ private
     attributes["details"]["change_notes"] && attributes["details"]["change_notes"].each do |change_note_object|
       change_note_object['base_path'] = PublishingAPISection.base_path(@slug, change_note_object['section_id'])
     end
-    attributes
-  end
-
-  def add_topic_tags(attributes)
-    if topic_slugs.present?
-      attributes['details']['tags'] ||= {}
-      attributes['details']['tags']['topics'] = topic_slugs
-    end
-
     attributes
   end
 
