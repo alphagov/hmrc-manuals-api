@@ -23,7 +23,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '3.2.1'
   gem 'rspec-collection_matchers', '1.0.0'
-  gem 'byebug'
+  gem 'pry-byebug'
 end
 
 group :test do
