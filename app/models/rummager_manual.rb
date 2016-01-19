@@ -1,5 +1,4 @@
 class RummagerManual < RummagerBase
-
   def initialize(base_path, publishing_api_manual_hash)
     @base_path = base_path
     @publishing_api_manual = publishing_api_manual_hash

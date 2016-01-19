@@ -13,7 +13,7 @@ class PublishingAPIManual
 
   attr_reader :slug, :manual
 
-  def initialize(slug, manual_attributes, options = {})
+  def initialize(slug, manual_attributes)
     @slug = slug
     @manual_attributes = manual_attributes
     @manual = Manual.new(@manual_attributes)
@@ -66,7 +66,7 @@ class PublishingAPIManual
 
   def self.extract_slug_from_path(path)
     raise InvalidPathError if path.blank? || path !~ %r{\A/#{BASE_PATH_SEGMENT}/}
-    slug = path.split('/',4).third
+    slug = path.split('/', 4).third
     raise InvalidPathError if slug.blank?
     slug
   end
@@ -88,7 +88,6 @@ class PublishingAPIManual
   end
 
 private
-
   def generate_content_id_if_absent
     if @manual_attributes.is_a?(Hash)
       @manual_attributes["content_id"] = base_path_uuid unless @manual_attributes["content_id"]

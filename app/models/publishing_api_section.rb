@@ -14,7 +14,7 @@ class PublishingAPISection
 
   attr_reader :manual_slug, :section_slug, :section_attributes, :known_manual_slugs
 
-  def initialize(manual_slug, section_slug, section_attributes, options = {})
+  def initialize(manual_slug, section_slug, section_attributes)
     @manual_slug = manual_slug
     @section_slug = section_slug
     @section_attributes = section_attributes

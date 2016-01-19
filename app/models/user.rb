@@ -6,7 +6,7 @@ class User < OpenStruct
   def clear_remotely_signed_out!
   end
 
-  def self.where(*args)
+  def self.where(_args)
     []
   end
 
