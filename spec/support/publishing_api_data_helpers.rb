@@ -19,13 +19,6 @@ module PublishingApiDataHelpers
             ]
           }
         ],
-        "organisations" => [
-          {
-            "title" => "HM Revenue & Customs",
-            "abbreviation" => "HMRC",
-            "web_url" => "https://www.gov.uk/government/organisations/hm-revenue-customs"
-          }
-        ],
         "change_notes" => [
           {
             "base_path" => "/hmrc-internal-manuals/employment-income-manual/abc567",
@@ -91,13 +84,6 @@ module PublishingApiDataHelpers
                 "base_path" => "/hmrc-internal-manuals/employment-income-manual/123456"
               }
             ]
-          }
-        ],
-        "organisations" => [
-          {
-            "title" => "HM Revenue & Customs",
-            "abbreviation" => "HMRC",
-            "web_url" => "https://www.gov.uk/government/organisations/hm-revenue-customs"
           }
         ]
       },

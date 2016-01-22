@@ -36,8 +36,11 @@ class PublishingAPISection
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
       enriched_data = add_base_path_to_breadcrumbs(enriched_data)
       enriched_data = add_base_path_to_manual(enriched_data)
-      add_organisations_to_details(enriched_data)
     end
+  end
+
+  def links
+    LinksBuilder.new(content_id).build_links
   end
 
   def content_id

@@ -5,6 +5,7 @@ require 'gds_api/test_helpers/rummager'
 describe 'manual sections resource' do
   include GdsApi::TestHelpers::PublishingApiV2
   include GdsApi::TestHelpers::Rummager
+  include LinksUpdateHelper
 
   let(:maximal_section_endpoint) {
     "/hmrc-manuals/#{maximal_manual_slug}/sections/#{maximal_section_slug}"
@@ -14,6 +15,8 @@ describe 'manual sections resource' do
     stub_publishing_api_put_content(maximal_section_content_id, {}, { body: {version: 788} })
     stub_publishing_api_publish(maximal_section_content_id, { update_type: 'minor', previous_version: 788}.to_json)
     stub_any_rummager_post
+    stub_publishing_api_get_links(maximal_section_content_id)
+    stub_put_default_organisation(maximal_section_content_id)
 
     put_json maximal_section_endpoint, maximal_section
 
@@ -29,21 +32,25 @@ describe 'manual sections resource' do
     stub_publishing_api_put_content(maximal_section_content_id, {}, { body: {version: 12} })
     stub_publishing_api_publish(maximal_section_content_id, { update_type: 'minor', previous_version: 12}.to_json)
     stub_any_rummager_post
+    stub_publishing_api_get_links(maximal_section_content_id)
+    stub_put_default_organisation(maximal_section_content_id)
 
-    put maximal_section_endpoint, maximal_section.to_json,
-        headers = {'CONTENT_TYPE' => 'application/json',
-                   'HTTP_ACCEPT'  => 'text/plain',
-                   'HTTP_AUTHORIZATION' => 'Bearer 12345'}
+    put maximal_section_endpoint, maximal_section.to_json, {
+      'CONTENT_TYPE' => 'application/json',
+      'HTTP_ACCEPT'  => 'text/plain',
+      'HTTP_AUTHORIZATION' => 'Bearer 12345'
+    }
     expect(response.status).to eq(406)
   end
 
   it 'errors if the Content-Type header is not application/json' do
     stub_any_publishing_api_call
 
-    put maximal_section_endpoint, maximal_section.to_json,
-        headers = {'CONTENT_TYPE' => 'text/plain',
-                   'HTTP_ACCEPT'  => 'application/json',
-                   'HTTP_AUTHORIZATION' => 'Bearer 12345'}
+    put maximal_section_endpoint, maximal_section.to_json, {
+      'CONTENT_TYPE' => 'text/plain',
+      'HTTP_ACCEPT'  => 'application/json',
+      'HTTP_AUTHORIZATION' => 'Bearer 12345'
+    }
     expect(response.status).to eq(415)
   end
 
@@ -75,6 +82,8 @@ describe 'manual sections resource' do
     stub_publishing_api_put_content(maximal_section_content_id, {}, { body: { version: 788 } }) # This returns 200
     stub_publishing_api_publish(maximal_section_content_id, { update_type: 'minor', previous_version: 788}.to_json)
     stub_any_rummager_post_with_queueing_enabled # This returns 202, as it does in Production
+    stub_publishing_api_get_links(maximal_section_content_id)
+    stub_put_default_organisation(maximal_section_content_id)
 
     put_json maximal_section_endpoint, maximal_section
 
