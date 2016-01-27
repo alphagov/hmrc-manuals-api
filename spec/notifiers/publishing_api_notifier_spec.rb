@@ -4,15 +4,33 @@ describe PublishingAPINotifier do
   describe '#notify' do
     let(:content_id) { 'de305d54-75b4-431b-adb2-eb6b9e546014' }
     let(:document_hash) { {'a' => '1'} }
-    let(:document) { double PublishingAPIManual, content_id: content_id, to_h: document_hash, update_type: 'major' }
+    let(:document) do
+      double PublishingAPIManual,
+        content_id: content_id,
+        to_h: document_hash,
+        update_type: 'major',
+        links: { 'some' => 'linked_data'}
+    end
     let(:successful_response) { double "response", version: 33 }
 
-    it "updates and publishes via the publishing API"   do
+    it "makes calls to update the document, publish it, and update its links via the publishing API"   do
       expect(Services.publishing_api).to receive(:put_content).with(content_id, document_hash)
         .and_return(successful_response)
       expect(Services.publishing_api).to receive(:publish).with(content_id, 'major', {previous_version: 33})
+      expect(Services.publishing_api).to receive(:put_links).with(content_id, links: { 'some' => 'linked_data'})
 
       PublishingAPINotifier.new(document).notify
+    end
+
+    context "we ask not to update links" do
+      it "updates and publishes the document, but doesn't update the links" do
+        expect(Services.publishing_api).to receive(:put_content).with(content_id, document_hash)
+          .and_return(successful_response)
+        expect(Services.publishing_api).to receive(:publish).with(content_id, 'major', {previous_version: 33})
+        expect(Services.publishing_api).to_not receive(:put_links)
+
+        PublishingAPINotifier.new(document).notify(update_links: false)
+      end
     end
   end
 end

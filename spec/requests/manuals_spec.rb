@@ -6,11 +6,14 @@ require 'gds_api/test_helpers/content_register'
 describe 'manuals resource' do
   include GdsApi::TestHelpers::PublishingApiV2
   include GdsApi::TestHelpers::Rummager
+  include LinksUpdateHelper
 
   it 'confirms update of the manual' do
     allow_any_instance_of(GdsApi::Response).to receive(:version)
     stub_any_publishing_api_call
     stub_any_rummager_post
+    stub_publishing_api_get_links(maximal_manual_content_id)
+    stub_put_default_organisation(maximal_manual_content_id)
 
     put_json "/hmrc-manuals/#{maximal_manual_slug}", maximal_manual
 
@@ -45,6 +48,8 @@ describe 'manuals resource' do
     allow_any_instance_of(GdsApi::Response).to receive(:version)
     stub_any_publishing_api_call
     stub_any_rummager_post_with_queueing_enabled # This returns 202, as it does in Production
+    stub_publishing_api_get_links(maximal_manual_content_id)
+    stub_put_default_organisation(maximal_manual_content_id)
 
     put_json "/hmrc-manuals/#{maximal_manual_slug}", maximal_manual
 
@@ -62,11 +67,14 @@ describe 'manuals resource' do
     allow_any_instance_of(GdsApi::Response).to receive(:version)
     stub_any_publishing_api_call
     stub_any_rummager_post
+    stub_publishing_api_get_links(maximal_manual_content_id)
+    stub_put_default_organisation(maximal_manual_content_id)
 
-    put "/hmrc-manuals/#{maximal_manual_slug}/", maximal_manual.to_json,
-        headers = {'CONTENT_TYPE' => 'application/json',
-                   'HTTP_ACCEPT'  => 'text/plain',
-                   'HTTP_AUTHORIZATION' => 'Bearer 12345'}
+    put "/hmrc-manuals/#{maximal_manual_slug}/", maximal_manual.to_json, {
+      'CONTENT_TYPE' => 'application/json',
+      'HTTP_ACCEPT' => 'text/plain',
+      'HTTP_AUTHORIZATION' => 'Bearer 12345'
+    }
     expect(response.status).to eq(406)
   end
 
@@ -74,10 +82,11 @@ describe 'manuals resource' do
     stub_any_publishing_api_call
     stub_any_rummager_post
 
-    put "/hmrc-manuals/#{maximal_manual_slug}/", maximal_manual.to_json,
-        headers = {'CONTENT_TYPE' => 'text/plain',
-                   'HTTP_ACCEPT'  => 'application/json',
-                   'HTTP_AUTHORIZATION' => 'Bearer 12345'}
+    put "/hmrc-manuals/#{maximal_manual_slug}/", maximal_manual.to_json, {
+      'CONTENT_TYPE' => 'text/plain',
+      'HTTP_ACCEPT'  => 'application/json',
+      'HTTP_AUTHORIZATION' => 'Bearer 12345'
+    }
     expect(response.status).to eq(415)
   end
 end

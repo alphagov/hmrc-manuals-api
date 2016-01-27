@@ -15,8 +15,9 @@ class PublishingAPIManual
 
   def initialize(slug, manual_attributes)
     @slug = slug
-    @manual_attributes = manual_attributes
+    @manual_attributes = Hash(manual_attributes)
     @manual = Manual.new(@manual_attributes)
+
     generate_content_id_if_absent
   end
 
@@ -35,10 +36,13 @@ class PublishingAPIManual
       })
       enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
-      enriched_data = add_organisations_to_details(enriched_data)
       enriched_data = add_base_path_to_change_notes(enriched_data)
       enriched_data
     end
+  end
+
+  def links
+    LinksBuilder.new(content_id).build_links
   end
 
   def content_id
@@ -89,9 +93,7 @@ class PublishingAPIManual
 
 private
   def generate_content_id_if_absent
-    if @manual_attributes.is_a?(Hash)
-      @manual_attributes["content_id"] = base_path_uuid unless @manual_attributes["content_id"]
-    end
+    @manual_attributes["content_id"] = base_path_uuid unless @manual_attributes["content_id"]
   end
 
   def add_base_path_to_child_section_groups(attributes)
