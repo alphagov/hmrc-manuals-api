@@ -6,9 +6,11 @@ class ManualsController < ApplicationController
     begin
       publishing_api_response = manual.save!
       respond_to do |format|
-        format.json { render json: { govuk_url: manual.govuk_url },
-                    status: publishing_api_response.code,
-                    location: manual.govuk_url }
+        format.json {
+          render json: { govuk_url: manual.govuk_url },
+            status: publishing_api_response.code,
+            location: manual.govuk_url
+        }
       end
     rescue ActionController::UnknownFormat
       render json: { status: "error", errors: "Invalid Accept header" }, status: 406

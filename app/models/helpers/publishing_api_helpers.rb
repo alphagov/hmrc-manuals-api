@@ -14,10 +14,7 @@ module Helpers
     end
 
     def add_absent_content_id(attributes)
-      unless attributes["content_id"]
-        attributes["content_id"] = base_path_uuid
-      end
-
+      attributes["content_id"] = base_path_uuid unless attributes["content_id"]
       attributes
     end
 

@@ -11,10 +11,6 @@ module Services
     )
   end
 
-  def self.content_register
-    @content_register ||= GdsApi::ContentRegister.new(Plek.current.find('content-register'))
-  end
-
   def self.rummager
     @rummager ||= GdsApi::Rummager.new(Plek.current.find('search'))
   end

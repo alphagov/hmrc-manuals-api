@@ -18,7 +18,7 @@ private
 
   def load_readme
     file_contents = File.open(Rails.root + "README.md", 'r').read
-    content = Kramdown::Document.new(file_contents).to_html
+    Kramdown::Document.new(file_contents).to_html
   end
 
   def rewrite_public_links(content)

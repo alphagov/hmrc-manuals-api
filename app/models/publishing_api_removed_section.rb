@@ -54,9 +54,4 @@ class PublishingAPIRemovedSection
     Services.rummager.delete_document(SECTION_FORMAT, base_path)
     publishing_api_response
   end
-
-  def send_topic_links?
-    false
-  end
-
 end

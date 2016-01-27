@@ -1,5 +1,4 @@
 class RummagerManual < RummagerBase
-
   def initialize(base_path, publishing_api_manual_hash)
     @base_path = base_path
     @publishing_api_manual = publishing_api_manual_hash
@@ -21,10 +20,6 @@ class RummagerManual < RummagerBase
       'latest_change_note' => latest_change_note,
     }
 
-    if HMRCManualsAPI::Application.config.publish_topics
-      data['specialist_sectors'] = topics unless topics.empty?
-    end
-
     data
   end
 
@@ -33,10 +28,6 @@ class RummagerManual < RummagerBase
   end
 
 private
-  def topics
-    @publishing_api_manual['details'].fetch('tags', {}).fetch('topics', [])
-  end
-
   def latest_change_note
     latest = @publishing_api_manual['details'].fetch('change_notes', []).first
 

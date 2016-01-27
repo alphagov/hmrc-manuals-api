@@ -41,10 +41,7 @@ module PublishingApiDataHelpers
             "change_note" => "Description of changes",
             "published_at" => "2013-12-23T00:00:00+01:00"
           }
-        ],
-        "tags" => {
-          "topics" => maximal_manual_topic_slugs,
-        },
+        ]
       },
       "publishing_app" => "hmrc-manuals-api",
       "rendering_app" => "manuals-frontend",
@@ -61,23 +58,8 @@ module PublishingApiDataHelpers
     }.merge(options)
   end
 
-  def maximal_manual_topic_links
-    {
-      "links" => {
-        "topics" => maximal_manual_topic_content_ids,
-      },
-    }
-  end
-
   def maximal_manual_update_type
     'major'
-  end
-
-  def maximal_manual_without_topics_for_publishing_api(options = {})
-    manual = maximal_manual_for_publishing_api.deep_dup
-    manual["details"].delete("tags")
-    manual.delete("links")
-    manual.merge(options)
   end
 
   def maximal_section_for_publishing_api(options = {})

@@ -14,12 +14,11 @@ class PublishingAPISection
 
   attr_reader :manual_slug, :section_slug, :section_attributes, :known_manual_slugs
 
-  def initialize(manual_slug, section_slug, section_attributes, options = {})
+  def initialize(manual_slug, section_slug, section_attributes)
     @manual_slug = manual_slug
     @section_slug = section_slug
     @section_attributes = section_attributes
     @section = Section.new(section_attributes)
-    @known_manual_slugs = options.fetch(:known_manual_slugs, MANUALS_TO_TOPICS.keys)
     generate_content_id_if_absent
   end
 
@@ -78,10 +77,6 @@ class PublishingAPISection
     rummager_section.save!
 
     publishing_api_response
-  end
-
-  def send_topic_links?
-    false
   end
 
 private

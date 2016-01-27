@@ -5,8 +5,7 @@ class PublishingAPINotifier
 
   def notify
     content_item = put_content_item
-    publish(previous_version: content_item.version)
-    put_links if @document.send_topic_links?
+    publish(content_item.version)
     content_item
   end
 
@@ -15,11 +14,11 @@ private
     Services.publishing_api.put_content(@document.content_id, @document.to_h)
   end
 
-  def publish(options)
-    Services.publishing_api.publish(@document.content_id, @document.update_type, options)
-  end
-
-  def put_links
-    Services.publishing_api.put_links(@document.content_id, @document.topic_links) if @document.send_topic_links?
+  def publish(version)
+    Services.publishing_api.publish(
+      @document.content_id,
+      @document.update_type,
+      previous_version: version
+    )
   end
 end

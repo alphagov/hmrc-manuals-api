@@ -1,7 +1,6 @@
 require 'active_model'
 require 'struct_with_rendered_markdown'
 require 'valid_slug/pattern'
-require 'topics'
 
 class PublishingAPIManual
   include ActiveModel::Validations
@@ -12,14 +11,12 @@ class PublishingAPIManual
   validates :slug, slug_in_known_manual_slugs: true, if: :only_known_hmrc_manual_slugs?
   validate :incoming_manual_is_valid
 
-  attr_reader :slug, :manual, :known_manual_slugs
+  attr_reader :slug, :manual
 
-  def initialize(slug, manual_attributes, options = {})
+  def initialize(slug, manual_attributes)
     @slug = slug
     @manual_attributes = manual_attributes
     @manual = Manual.new(@manual_attributes)
-    @topics = options.fetch(:topics, Topics.new(manual_slug: slug))
-    @known_manual_slugs = options.fetch(:known_manual_slugs, MANUALS_TO_TOPICS.keys)
     generate_content_id_if_absent
   end
 
@@ -40,10 +37,6 @@ class PublishingAPIManual
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
       enriched_data = add_organisations_to_details(enriched_data)
       enriched_data = add_base_path_to_change_notes(enriched_data)
-      if HMRCManualsAPI::Application.config.publish_topics
-        enriched_data = add_topic_tags(enriched_data)
-      end
-
       enriched_data
     end
   end
@@ -73,7 +66,7 @@ class PublishingAPIManual
 
   def self.extract_slug_from_path(path)
     raise InvalidPathError if path.blank? || path !~ %r{\A/#{BASE_PATH_SEGMENT}/}
-    slug = path.split('/',4).third
+    slug = path.split('/', 4).third
     raise InvalidPathError if slug.blank?
     slug
   end
@@ -86,28 +79,12 @@ class PublishingAPIManual
     base_path(manual_slug) + '/updates'
   end
 
-  def topic_content_ids
-    @topics.content_ids
-  end
-
-  def topic_slugs
-    @topics.slugs
-  end
-
   def save!
     raise ValidationError, "manual is invalid" unless valid?
     publishing_api_response = PublishingAPINotifier.new(self).notify
     rummager_manual = RummagerManual.new(base_path, to_h)
     rummager_manual.save!
     publishing_api_response
-  end
-
-  def send_topic_links?
-    HMRCManualsAPI::Application.config.publish_topics && topic_content_ids.present?
-  end
-
-  def topic_links
-    { links: { topics: topic_content_ids } }
   end
 
 private
@@ -130,15 +107,6 @@ private
     attributes["details"]["change_notes"] && attributes["details"]["change_notes"].each do |change_note_object|
       change_note_object['base_path'] = PublishingAPISection.base_path(@slug, change_note_object['section_id'])
     end
-    attributes
-  end
-
-  def add_topic_tags(attributes)
-    if topic_slugs.present?
-      attributes['details']['tags'] ||= {}
-      attributes['details']['tags']['topics'] = topic_slugs
-    end
-
     attributes
   end
 

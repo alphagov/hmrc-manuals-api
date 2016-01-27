@@ -177,19 +177,7 @@ users to find.
 
 ### How tagging works
 
-Tags are mapped by their content IDs to manual slugs based on the topics each
-manual refers to. This is done via the hardcoded CSV in
-`lib/manuals_to_topics.csv`, from where the topic content IDs are sent
-to the Publishing API, and the topic slugs are sent to Rummager. The CSV
-contains three columns: Manual Slug, Topic Slugs, Topic IDs. A manual
-can be tagged to multiple topics, and so the order of the content IDs has to
-match with the order in which the topic slugs are specified.
-
-There is a Rake task at `lib/tasks/manuals_to_topics.rake` to make the update
-process less manual, for the hopefully rare occurrence that we might change
-content IDs, or HMRC might change a manual's topics. It uses current data from
-the content-register to get the content IDs for topic slugs, and regenerates the
-entire CSV file with a `_regenerated` suffix for easy checking.
+Use the [content-tagger](https://github.com/alphagov/content-tagger) app to add topic tags to manuals.
 
 ## Testing publishing in the GOV.UK development VM
 
