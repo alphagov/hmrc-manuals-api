@@ -5,18 +5,15 @@ class LinksBuilder
   end
 
   def build_links
-    @content_store_links = get_links
+    @content_store_links = Services.publishing_api
+      .get_links(@content_id)
+      .try(:links)
+      .to_h.with_indifferent_access
     set_organistion
     @built_links
   end
 
 private
-  def get_links
-    Services.publishing_api.get_links(@content_id)
-  rescue GdsApi::HTTPNotFound
-    {}
-  end
-
   def set_organistion
     if @content_store_links["organisations"].present?
       @built_links["organisations"] = @content_store_links["organisations"]
