@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 describe LinksBuilder do
+  include LinksUpdateHelper
+
   describe "#build_links" do
     let(:content_id) { "document-uuid" }
 
     context "document already has linked organisation" do
       before do
-        allow(Services.publishing_api).to receive(:get_links).with(content_id).and_return(
-          { "organisations" => ["some-org-uuid"] }
-        )
+        stub_publishing_api_get_links(content_id, body: { links: { "organisations" => ["some-org-uuid"] } })
       end
 
       it "uses the existing organisation content ID" do
@@ -20,9 +20,7 @@ describe LinksBuilder do
 
     context "document does not have linked organisation" do
       before do
-        allow(Services.publishing_api).to receive(:get_links).with(content_id).and_return(
-          {}
-        )
+        stub_publishing_api_get_links(content_id, body: { links: { "some_other_link" => "foo" } })
       end
 
       it "uses the default HMRC organisation content ID" do
@@ -32,9 +30,9 @@ describe LinksBuilder do
       end
     end
 
-    context "no document found" do
+    context "no links found" do
       before do
-        allow(Services.publishing_api).to receive(:get_links).with(content_id).and_raise(GdsApi::HTTPNotFound.new(404, 'some', 'error'))
+        allow(Services.publishing_api).to receive(:get_links).with(content_id).and_return(nil)
       end
 
       it "uses the default HMRC organisation content ID" do
