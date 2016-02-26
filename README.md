@@ -4,8 +4,11 @@ This app provides URLs for pushing HMRC manuals to the GOV.UK Publishing API.
 
 ## Connecting to the API
 
-The base path for the preview environment is:
-https://hmrc-manuals-api.preview.alphagov.co.uk
+The base path for the integration environment is:
+https://hmrc-manuals-api.integration.publishing.service.gov.uk
+
+...and the one for production is:
+https://hmrc-manuals-api.publishing.service.gov.uk
 
 Authentication is done with a token, which needs to be supplied in the `Authorization` HTTP header, like this:
 
@@ -18,8 +21,8 @@ You also need to supply an accept header and a Content-Type header:
 
 Please note that:
 
-* Tokens are environment specific, so preview and production will have different tokens.
-* The data on preview is overwritten every night with data from production.
+* Tokens are environment specific, so integration and production will have different tokens.
+* The data on integration is overwritten every night with data from production.
 
 ## Adding or updating a manual
 
@@ -166,9 +169,9 @@ Images are only allowed if on a relative path (ie hosted on `www.gov.uk`) or on
 the GOV.UK assets domain: `assets.digital.cabinet-office.gov.uk`. Markup
 containing images hosted on other domains will be rejected with a `422` error code.
 
-On preview, the allowed image domains are expanded to include the preview
-www.gov.uk domain `www.preview.alphagov.co.uk`) and the preview asset domain
-(`assets-origin.preview.alphagov.co.uk`).
+On integration, the allowed image domains are expanded to include the integration
+www.gov.uk domain (`www-origin.integration.publishing.service.gov.uk`) and the
+integration asset domain (`assets-origin.integration.publishing.service.gov.uk`).
 
 ## Manual tags
 
@@ -200,5 +203,5 @@ http PUT http://hmrc-manuals-api.dev.gov.uk/hmrc-manuals/test-manual \
 ```
 
 In development mode the API doesn't require a valid bearer token; any value is
-accepted. To test publishing to our Preview or Staging environments you would
+accepted. To test publishing to our Integration or Staging environments you would
 need a real token for the right environment.
