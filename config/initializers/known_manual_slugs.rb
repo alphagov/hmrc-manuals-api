@@ -32,7 +32,8 @@ KNOWN_MANUAL_SLUGS = %w{
   corporate-finance-manual
   corporate-intangibles-research-and-development-manual
   cotax-manual
-  customs-civil-penalties
+  customs-authorisation-and-approval
+  customs-civil-penalties-guidance
   customs-freight-simplified-procedures
   customs-intellectual-property-rights
   customs-warehousing
@@ -115,7 +116,7 @@ KNOWN_MANUAL_SLUGS = %w{
   relief-instructions
   repayment-claims-manual
   requesting-assistance-from-an-oms-under-administrative-cooperation-in-excise
-  residence-domicile-and-remittance-basis-manual
+  residence-domicile-and-remittance-basis
   responding-to-requests-from-oms-under-administrative-cooperation-in-excise
   savings-and-investment-manual
   securities-guidance
@@ -209,6 +210,7 @@ KNOWN_MANUAL_SLUGS = %w{
   vat-trader-records
   vat-transfer-of-a-going-concern
   vat-transport
+  vat-water-and-sewerage-services
   vat-welfare
   vat-womens-sanitary-products
   vat-youth-clubs
