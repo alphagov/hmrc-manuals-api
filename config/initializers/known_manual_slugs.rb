@@ -8,7 +8,7 @@ KNOWN_MANUAL_SLUGS = %w{
   appeals-reviews-and-tribunals-guidance
   ata-cpd-carnets
   bank-levy-manual
-  beer-guidance
+  beer-manual
   biofuels-and-fuel-substitutes-assurance
   bona-vacantia-manual
   business-income-manual
@@ -36,36 +36,35 @@ KNOWN_MANUAL_SLUGS = %w{
   customs-civil-penalties-guidance
   customs-freight-simplified-procedures
   customs-intellectual-property-rights
-  customs-warehousing
-  debt-management-banking-manual
+  debt-management-and-banking
   decision-and-appeals-for-national-insurance-contributions-and-statutory-payments
   denatured-alcohol
   diplomatic-privileges
   double-taxation-relief
   duty-free-spirits
   ec-export-preferences
-  ec-preferences-exports-to-turkey
-  ec-preferences-imports-from-turkey
+  ec-preferences-exports-turkey
+  ec-preferences-imports-turkey
   employee-tax-advantaged-share-scheme-user-manual
   employment-income-manual
-  employment-related-securities-manual
+  employment-related-securities
   employment-status-manual
   enquiry-manual
   excise-assessments-interim-guidance
   excise-civil-evasion-penalties-guidance
   excise-civil-penalties
   excise-competent-official-guidance
-  excise-due-diligence-condition-guidance
-  excise-repayment-of-overpaid-duty-guidance
+  excise-due-diligence-condition
+  excise-repayment-overpaid-duty
   excise-statutory-interest-manual
   export-procedures
   film-production-company-manual
-  fraud-civil-investigation-manual
-  gas-for-road-fuel-use
+  fraud-civil-investigation
+  gas-road-fuel-use
   general-insurance-manual
-  guidance-on-real-estate-investment-trusts
-  guidance-on-the-audit-of-customs-values
-  holding-and-moveemnts-alcohol-strategy-subsidiary-records
+  guidance-real-estate-investment-trusts
+  guidance-audit-customs-values
+  holding-and-movements-alcohol-strategy-subsidiary-records
   holding-and-movements-alcohol-strategy-accounts
   holding-and-movements-alcohol-strategy-audit-risk-and-percet
   holding-and-movements-alcohol-strategy-credibility
@@ -76,7 +75,7 @@ KNOWN_MANUAL_SLUGS = %w{
   holding-and-movements-duty-stamps
   holding-and-movements-exports-shops
   holding-and-movements-financial-securities-assurance
-  holding-and-movements-italian-tax-stamps
+  italian-tax-stamps
   holding-and-movements-registered-excise-dealers
   holding-and-movements-warehousing
   holdings-and-movements-owners-and-transporters
@@ -103,10 +102,8 @@ KNOWN_MANUAL_SLUGS = %w{
   national-minimum-wage-manual
   offshore-funds-manual
   oil-taxation-manual
-  oils-technical
-  other-non-statutory-clearance-guidance
-  outward-clearance-of-commercial-vehicles
-  outward-processing-relief
+  oils-technical-manual
+  other-non-statutory-clearance
   partnership-manual
   paye-manual
   paye-settlement-agreements
@@ -115,14 +112,14 @@ KNOWN_MANUAL_SLUGS = %w{
   registered-pensions-scheme-manual
   relief-instructions
   repayment-claims-manual
-  requesting-assistance-from-an-oms-under-administrative-cooperation-in-excise
+  requesting-assistance-oms-under-administrative-cooperation-excise
   residence-domicile-and-remittance-basis
-  responding-to-requests-from-oms-under-administrative-cooperation-in-excise
+  responding-requests-oms-under-administrative-cooperation-excise
   savings-and-investment-manual
   securities-guidance
   self-assessment-claims-manual
   self-assessment-manual
-  self-assessment-the-legal-framework
+  self-assessment-legal-framework
   senior-accounting-officers-guidance
   shared-workspace-business-manual
   shares-and-assets-valuation-manual
@@ -132,14 +129,14 @@ KNOWN_MANUAL_SLUGS = %w{
   stamp-duty-land-tax-manual
   stamp-taxes-shares-manual
   statutory-payments-manual
-  strategic-goods-and-services-assessment-of-risk-and-offence-action
+  strategic-goods-and-services-assessment-risk-and-offence-action-manual
   strategic-goods-and-services-bis-export-licensing-and-sanctions
   tax-compliance-risk-management
   tax-credits-manual
   tax-credits-technical-manual
   technical-teams-operational-guidance
   television-production-company-manual
-  temporary-storage-and-approved-depositories
+  temporary-storage-and-approved-depositories-manual
   tobacco-control-of-supply-chains
   tobacco-products-duty
   tonnage-tax-manual
@@ -164,7 +161,7 @@ KNOWN_MANUAL_SLUGS = %w{
   vat-education-manual
   vat-energy-saving-materials-and-grant-funded-heating-supplies
   vat-exports-of-goods-from-the-uk
-  vat-finance
+  vat-finance-manual
   vat-flat-rate-scheme
   vat-food
   vat-fraud
@@ -175,7 +172,7 @@ KNOWN_MANUAL_SLUGS = %w{
   vat-health
   vat-input-tax
   vat-insurance
-  vat-interest-manual
+  vat-default-interest
   vat-isle-of-man-manual
   vat-joint-and-several-liability
   vat-land-and-property
@@ -217,7 +214,7 @@ KNOWN_MANUAL_SLUGS = %w{
   venture-capital-schemes-manual
   video-games-development-company-manual
   wine-manual
-  holding-and-movements-alcohol-stategy-abandonment-of-goods
+  holding-and-movements-alcohol-strategy-abandonment-goods
   holding-and-movements-assurance-guidance
   hydrocarbon-oils-strategy
   scottish-taxpayer-technical-guidance
