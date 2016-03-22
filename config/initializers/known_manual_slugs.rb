@@ -96,7 +96,7 @@ KNOWN_MANUAL_SLUGS = %w{
   lloyds-manual
   machine-games-duty-manual
   mlr1-penalties-guidance
-  mlr2-registration-guidance
+  money-laundering-regulations-registration
   money-laundering-regulations-compliance
   national-insurance-manual
   national-minimum-wage-manual
