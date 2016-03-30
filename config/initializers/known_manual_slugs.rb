@@ -60,7 +60,7 @@ KNOWN_MANUAL_SLUGS = %w{
   export-procedures
   film-production-company-manual
   fraud-civil-investigation
-  gas-road-fuel-use
+  gas-for-road-fuel-use
   general-insurance-manual
   guidance-real-estate-investment-trusts
   guidance-audit-customs-values
