@@ -2,206 +2,53 @@
 
 This app provides URLs for pushing HMRC manuals to the GOV.UK Publishing API.
 
-## Connecting to the API
+## Nomenclature
 
-The base path for the integration environment is:
-https://hmrc-manuals-api.integration.publishing.service.gov.uk
+- **Manual**: HMRC manual with title and description, contains many Sections. See [Adding or updating a manual](docs/extended_documentation.md#adding-or-updating-a-manual) for more details
 
-...and the one for production is:
-https://hmrc-manuals-api.publishing.service.gov.uk
+- **Section**: Sections can contain sub-sections and/or a content body. See [Adding or updating a section](docs/extended_documentation.md#adding-or-updating-a-manual-section) for more details
 
-Authentication is done with a token, which needs to be supplied in the `Authorization` HTTP header, like this:
+## Technical documentation
 
-    Authorization: Bearer your_token
+Provides an API for a system built by HMRC to publish tax manuals onto GOV.UK. In many ways it is analogous to a backend/admin app for publishing on GOV.UK. Content which passes validation and checks for unsanitary content is submitted to the GOV.UK Publishing API application. The application does not have a database itself. An HMRC manual consists of two document types: the manual itself and manual sections.
 
-You also need to supply an accept header and a Content-Type header:
+See the [extended documentation](docs/extended_documentation.md) for details:
 
-    Accept: application/json
-    Content-Type: application/json
+- [Connecting to the API](docs/extended_documentation.md#connecting-to-the-api)
+- [Adding or updating a manual](docs/extended_documentation.md#adding-or-updating-a-manual)
+- [Adding or updating a section](docs/extended_documentation.md#adding-or-updating-a-manual-section)
+- [Responses to PUT requests](docs/extended_documentation.md#possible-responses-to-put-requests)
+- [Slugs, Section Ids and Urls](docs/extended_documentation.md#slugs-section-ids-and-urls)
+- [Content Ids](docs/extended_documentation.md#content-ids)
+- [Markup](docs/extended_documentation.md#markup)
+- [Manual Tags](docs/extended_documentation.md#manual-tags)
+- [Testing publishing in the GOVUK dev vm](docs/extended_documentation.md#testing-publishing-in-the-govuk-development-vm)
 
-Please note that:
+### Dependencies
 
-* Tokens are environment specific, so integration and production will have different tokens.
-* The data on integration is overwritten every night with data from production.
+- [alphagov/rummager](https://github.com/alphagov/rummager): allows documents to be indexed for searching in both Finders and site search
+- [alphagov/publishing-api](https://github.com/alphagov/publishing-api): allows documents to be published to the Publishing queue
 
-## Adding or updating a manual
+### Running the application
 
-### Request
+`./startup.sh`
 
-    PUT /hmrc-manuals/<slug>
+This runs `bundle install` to install dependencies and runs the app on port `3071`. 
 
-The `<slug>` is used as part of the GOV.UK URL for the document.
+When using the GOV.UK development VM use `bowl hmrc-manuals-api` in the Dev VM `development` directory. The app will be available at http://hmrc-manuals-api.dev.gov.uk/.
 
-### Example JSON
+### Running the test suite
 
-[See an example manual](/public/json_examples/requests/employment-income-manual.json)
+`bundle exec rake`
 
+### Any deviations from idiomatic Rails/Go etc.
 
-### JSON Schema
+The application does not have a database itself, it sends on requests to the Publishing API and Rummager.
 
-[JSON Schema for manuals](public/manual-schema.json)
+### Example API output
 
-## Adding or updating a manual section
+[Responses to PUT requests](docs/extended_documentation.md#possible-responses-to-put-requests)
 
-### Request
+## Licence
 
-    PUT /hmrc-manuals/<manual-slug>/sections/<section_slug>
-
-The `<manual-slug>` and `<section_slug>` will be used as part of the GOV.UK URL for the document. The `<section_slug>` will be the section ID converted to lowercase.
-
-### Example JSON
-
-1. [An example first-level section, with children](/public/json_examples/requests/employment-income-manual/eim11800.json)
-1. [An example third-level section](/public/json_examples/requests/employment-income-manual/eim25525.json)
-1. [An example section with ungrouped children](/public/json_examples/requests/employment-income-manual/eim11200.json) (the group title is omitted and only one group included)
-
-
-### JSON Schema
-
-[JSON Schema for sections](public/section-schema.json)
-
-## Possible responses to PUT requests
-
-* `200`: updated successfully
-* `201`: created successfully
-  * Both `200`s and `201`s return a `Location` header and a response body containing the GOV.UK URL of the manual:
-
-          Location: https://www.gov.uk/hmrc-internal-manuals/<manual_slug>/<section_slug>
-
-          {
-            "govuk_url": "https://www.gov.uk/hmrc-internal-manuals/<manual_slug>/<section_slug>"
-          }
-
-* `400`: the request JSON isn't well-formed.
-* `409`: the slug is taken by content that is managed by another publishing tool.
-* `422`: there's a validation error. A response body would detail the errors:
-
-        {
-          "status": "error",
-          "errors": [
-            "error_message_1",
-            "error_message_2",
-            ...
-          ]
-        }
-
-* `503`: the request could not be completed because the API or the Publishing API is unavailable.
-
-## Slugs, section IDs and URLs
-
-GOV.UK has [URL standards](https://insidegovuk.blog.gov.uk/url-standards-for-gov-uk/)
-to ensure that the URLs are SEO and user friendly.
-
-This API constructs the GOV.UK URLs based upon the slugs and section IDs supplied to it.
-
-Slugs are validated to ensure that they fit the GOV.UK styleguide according to these rules:
-
-* only lowercase letters, numbers and dashes are allowed
-* no leading or trailing dashes
-
-Additionally, users of the API are required to follow the styleguide for slugs:
-
-* slugs should not contain acronyms wherever possible
-* dashes should be used to separate words
-* articles (a, an, the) and other superfluous words should not be used
-* URLs should use the verb stem where possible: eg `apply` instead of `applying`
-* no multiple consecutive dashes
-
-Section IDs are validated to ensure that they can be converted to slugs by simply making them lowercase.
-
-## Content IDs
-
-Both manuals and sections have a field `content_id`, which will be required in
-the future.
-
-This is a UUID string as described in [RFC 4122](https://www.ietf.org/rfc/rfc4122.txt) ([Wiki](https://en.wikipedia.org/wiki/Universally_unique_identifier)). It is
-[validated using this regex](https://github.com/alphagov/publishing-api/blob/1bd2c3d2aaa4681fe6286548aa16a4b5f66367c9/app/validators/uuid_validator.rb#L10-L24).
-
-For example: "30737dba-17f1-49b4-aff8-6dd4bff7fdca".
-
-This is a unique identifier for the piece of content. It is used as the reference
-with which content items can reference other content items on GOV.UK. For example,
-it is used for [tagging to topics](https://www.gov.uk/topic).
-
-Manuals and sections should always have a consistent `content_id`. It is not possible
-to send a previously-published document with the same slug but a different `content_id`.
-
-Currently, when a manual or section doesn't have a `content_id`, one will be
-generated for it. This generated UUID is non-random and based on the `base_path`
-of the item.
-
-## Markup
-
-All `body` attributes in manuals or manual sections may contain
-[Markdown in the Kramdown dialect](http://kramdown.gettalong.org/syntax.html).
-The Markdown in those attributes is converted to HTML before the document is sent to the Publishing API.
-
-There is a whitelist of allowed HTML tags and attributes. If a manual or a section
-contains any disallowed HTML in any field, the request is rejected with a validation error (status code `422`).
-
-The following tags are allowed:
-
-```
-a, abbr, b, bdo, blockquote, br, caption, cite, code, col, colgroup, dd, del, dfn, div, dl, dt, em, figcaption, figure, h1, h2, h3, h4, h5, h6, hgroup, hr, i, img, ins, kbd, li, mark, ol, p, pre, q, rp, rt, ruby, s, samp, small, strike, strong, sub, sup, table, tbody, td, tfoot, th, thead, time, tr, u, ul, var, wbr.
-```
-
-The following tag attributes are allowed, by tag:
-
-* `:all=>["dir", "lang", "title", "id", "class"]`
-* `"a"=>["href", "rel"]`
-* `"blockquote"=>["cite"]`
-* `"col"=>["span", "width"]`
-* `"colgroup"=>["span", "width"]`
-* `"del"=>["cite", "datetime"]`
-* `"img"=>["align", "alt", "height", "src", "width"]`
-* `"ins"=>["cite", "datetime"]`
-* `"ol"=>["start", "reversed", "type"]`
-* `"q"=>["cite"]`
-* `"table"=>["summary", "width"]`
-* `"td"=>["abbr", "axis", "colspan", "rowspan", "width"]`
-* `"th"=>["abbr", "axis", "colspan", "rowspan", "scope", "width"]`
-* `"time"=>["datetime", "pubdate"]`
-* `"ul"=>["type"]`
-
-### Images
-
-Images are only allowed if on a relative path (ie hosted on `www.gov.uk`) or on
-the GOV.UK assets domain: `assets.digital.cabinet-office.gov.uk`. Markup
-containing images hosted on other domains will be rejected with a `422` error code.
-
-On integration, the allowed image domains are expanded to include the integration
-www.gov.uk domain (`www-origin.integration.publishing.service.gov.uk`) and the
-integration asset domain (`assets-origin.integration.publishing.service.gov.uk`).
-
-## Manual tags
-
-Manuals can be tagged to topics on GOV.UK, so that they're easier for
-users to find.
-
-### How tagging works
-
-Use the [content-tagger](https://github.com/alphagov/content-tagger) app to add topic tags to manuals.
-
-## Testing publishing in the GOV.UK development VM
-
-You can use the JSON examples of requests for testing publishing in development,
-for example with cURL from the root directory of the repository:
-
-```
-curl -i -XPUT -H'Authorization: Bearer faketoken' -H'Accept: application/json' \
-  -H'Content-Type: application/json' --data-binary \
-  @public/json_examples/requests/employment-income-manual.json \
-  http://hmrc-manuals-api.dev.gov.uk/hmrc-manuals/test-manual
-```
-
-Or with [HTTPie](https://github.com/jkbrzt/httpie):
-
-```
-http PUT http://hmrc-manuals-api.dev.gov.uk/hmrc-manuals/test-manual \
-  Authorization:'Bearer faketoken' Accept:application/json Content-Type:application/json \
-  < public/json_examples/requests/employment-income-manual.json
-```
-
-In development mode the API doesn't require a valid bearer token; any value is
-accepted. To test publishing to our Integration or Staging environments you would
-need a real token for the right environment.
+[MIT License](LICENCE)
