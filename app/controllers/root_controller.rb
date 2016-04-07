@@ -8,16 +8,16 @@ class RootController < ActionController::API
     render :index
   end
 
-  def readme
-    content = load_readme
+  def documentation
+    content = load_documentation
     content = rewrite_public_links(content)
-    render :readme, locals: { content: content }, layout: true
+    render :documentation, locals: { content: content }, layout: true
   end
 
 private
 
-  def load_readme
-    file_contents = File.open(Rails.root + "README.md", 'r').read
+  def load_documentation
+    file_contents = File.open(Rails.root + "docs/extended_documentation.md", 'r').read
     Kramdown::Document.new(file_contents).to_html
   end
 
