@@ -9,10 +9,18 @@ describe 'root resource' do
     end
   end
 
-  describe '/readme' do
+  describe '/documentation' do
     it 'should not error' do
-      get '/readme'
+      get '/documentation'
       expect(response.status).to eql(200)
+    end
+  end
+
+  describe '/readme' do
+    it 'should redirect' do
+      get '/readme'
+      expect(response.status).to eql(301)
+      expect(response).to redirect_to('/documentation')
     end
   end
 end
