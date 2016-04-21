@@ -3,6 +3,7 @@ KNOWN_MANUAL_SLUGS = %w{
   aggregates-levy
   air-passenger-duty
   air-passenger-duty-risk
+  alcohol-wholesaler-registration-scheme
   animation-production-company-manual
   anti-dumping-and-countervailing-duties
   appeals-reviews-and-tribunals-guidance
@@ -36,6 +37,7 @@ KNOWN_MANUAL_SLUGS = %w{
   customs-civil-penalties-guidance
   customs-freight-simplified-procedures
   customs-intellectual-property-rights
+  customs-special-procedures
   debt-management-and-banking
   decision-and-appeals-for-national-insurance-contributions-and-statutory-payments
   denatured-alcohol
@@ -78,7 +80,7 @@ KNOWN_MANUAL_SLUGS = %w{
   italian-tax-stamps
   holding-and-movements-registered-excise-dealers
   holding-and-movements-warehousing
-  holdings-and-movements-owners-and-transporters
+  holding-and-movements-owners-and-transporters
   import-and-export-pipelines-guidance
   import-and-national-clearance-hub-procedures
   import-preference-guidance-notes
@@ -88,6 +90,7 @@ KNOWN_MANUAL_SLUGS = %w{
   insolvency-manual
   insurance-policyholder-taxation-manual
   insurance-premium-tax
+  international-exchange-of-information
   international-manual
   introduction-to-administrative-co-operation-in-excise
   inward-processing-relief
@@ -129,7 +132,7 @@ KNOWN_MANUAL_SLUGS = %w{
   stamp-duty-land-tax-manual
   stamp-taxes-shares-manual
   statutory-payments-manual
-  strategic-goods-and-services-assessment-risk-and-offence-action-manual
+  strategic-goods-and-services-assessment-risk-and-offence-action
   strategic-goods-and-services-bis-export-licensing-and-sanctions
   tax-compliance-risk-management
   tax-credits-manual
@@ -137,6 +140,7 @@ KNOWN_MANUAL_SLUGS = %w{
   technical-teams-operational-guidance
   television-production-company-manual
   temporary-storage-and-approved-depositories-manual
+  theatre-tax-relief
   tobacco-control-of-supply-chains
   tobacco-products-duty
   tonnage-tax-manual
@@ -191,6 +195,7 @@ KNOWN_MANUAL_SLUGS = %w{
   vat-refunds-to-overseas-business-persons
   vat-registration-manual
   vat-relief-for-disabled-people
+  vat-repayment-supplement-manual
   vat-retail-schemes
   vat-reverse-charge
   vat-sailaway-boat-scheme
@@ -203,10 +208,12 @@ KNOWN_MANUAL_SLUGS = %w{
   vat-supply-and-consideration
   vat-taxable-person
   vat-time-of-supply
+  vat-tour-operators-margin-scheme
   vat-trade-unions-and-professional-bodies
   vat-trader-records
   vat-transfer-of-a-going-concern
   vat-transport
+  vat-valuation
   vat-water-and-sewerage-services
   vat-welfare
   vat-womens-sanitary-products
