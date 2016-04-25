@@ -39,7 +39,7 @@ The `<slug>` is used as part of the GOV.UK URL for the document.
 
 ### JSON Schema
 
-[JSON Schema for manuals](public/manual-schema.json)
+[JSON Schema for manuals](/public/manual-schema.json)
 
 ## Adding or updating a manual section
 
@@ -58,7 +58,7 @@ The `<manual-slug>` and `<section_slug>` will be used as part of the GOV.UK URL 
 
 ### JSON Schema
 
-[JSON Schema for sections](public/section-schema.json)
+[JSON Schema for sections](/public/section-schema.json)
 
 ## Possible responses to PUT requests
 
