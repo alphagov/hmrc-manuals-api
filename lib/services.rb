@@ -1,5 +1,4 @@
 require 'gds_api/publishing_api_v2'
-require 'gds_api/content_register'
 require 'gds_api/rummager'
 require 'gds_api/content_store'
 
