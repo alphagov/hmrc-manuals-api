@@ -1,7 +1,6 @@
 require 'rails_helper'
 require 'gds_api/test_helpers/publishing_api_v2'
 require 'gds_api/test_helpers/rummager'
-require 'gds_api/test_helpers/content_register'
 
 describe 'manuals resource' do
   include GdsApi::TestHelpers::PublishingApiV2
