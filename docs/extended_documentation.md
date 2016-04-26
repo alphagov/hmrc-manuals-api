@@ -166,8 +166,10 @@ The following tag attributes are allowed, by tag:
 ### Images
 
 Images are only allowed if on a relative path (ie hosted on `www.gov.uk`) or on
-the GOV.UK assets domain: `assets.digital.cabinet-office.gov.uk`. Markup
-containing images hosted on other domains will be rejected with a `422` error code.
+the GOV.UK assets domain: `assets.publishing.service.gov.uk`
+(`assets.digital.cabinet-office.gov.uk` is the old GOV.UK assets domain and may
+be removed from the whitelist in the future). Markup containing images hosted
+on other domains will be rejected with a `422` error code.
 
 On integration, the allowed image domains are expanded to include the integration
 www.gov.uk domain (`www-origin.integration.publishing.service.gov.uk`) and the
