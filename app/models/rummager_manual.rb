@@ -10,7 +10,7 @@ class RummagerManual < RummagerBase
   end
 
   def to_h
-    data = {
+    {
       'content_id'         => @content_id,
       'title'              => @publishing_api_manual['title'],
       'description'        => @publishing_api_manual['description'],
@@ -21,8 +21,6 @@ class RummagerManual < RummagerBase
       'format'             => MANUAL_FORMAT,
       'latest_change_note' => latest_change_note,
     }
-
-    data
   end
 
   def save!
