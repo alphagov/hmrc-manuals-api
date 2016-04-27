@@ -76,7 +76,7 @@ class PublishingAPISection
   def save!
     raise ValidationError, "section is invalid" unless valid?
     publishing_api_response = PublishingAPINotifier.new(self).notify
-    rummager_section = RummagerSection.new(base_path, to_h)
+    rummager_section = RummagerSection.new(base_path, to_h, content_id)
     rummager_section.save!
 
     publishing_api_response
