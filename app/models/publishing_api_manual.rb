@@ -86,7 +86,7 @@ class PublishingAPIManual
   def save!
     raise ValidationError, "manual is invalid" unless valid?
     publishing_api_response = PublishingAPINotifier.new(self).notify
-    rummager_manual = RummagerManual.new(base_path, to_h)
+    rummager_manual = RummagerManual.new(base_path, to_h, content_id)
     rummager_manual.save!
     publishing_api_response
   end

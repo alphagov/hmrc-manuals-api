@@ -1,7 +1,8 @@
 class RummagerSection < RummagerBase
-  def initialize(base_path, publishing_api_section_hash)
+  def initialize(base_path, publishing_api_section_hash, content_id)
     @base_path = base_path
     @publishing_api_section = publishing_api_section_hash
+    @content_id = content_id
   end
 
   def id
@@ -22,6 +23,7 @@ class RummagerSection < RummagerBase
 
   def to_h
     {
+      'content_id'              => @content_id,
       'title'                   => title,
       'description'             => @publishing_api_section['description'],
       'link'                    => id,

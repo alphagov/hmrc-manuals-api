@@ -1,7 +1,8 @@
 class RummagerManual < RummagerBase
-  def initialize(base_path, publishing_api_manual_hash)
+  def initialize(base_path, publishing_api_manual_hash, content_id)
     @base_path = base_path
     @publishing_api_manual = publishing_api_manual_hash
+    @content_id = content_id
   end
 
   def id
@@ -9,7 +10,8 @@ class RummagerManual < RummagerBase
   end
 
   def to_h
-    data = {
+    {
+      'content_id'         => @content_id,
       'title'              => @publishing_api_manual['title'],
       'description'        => @publishing_api_manual['description'],
       'link'               => id,
@@ -19,8 +21,6 @@ class RummagerManual < RummagerBase
       'format'             => MANUAL_FORMAT,
       'latest_change_note' => latest_change_note,
     }
-
-    data
   end
 
   def save!
