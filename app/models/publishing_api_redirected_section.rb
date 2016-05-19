@@ -16,7 +16,7 @@ class PublishingAPIRedirectedSection
       errors[:destination_section_slug].present?
     }
 
-  attr_reader :manual_slug, :section_slug, :destination_manual_slug, :destination_section_slug
+  attr_accessor :manual_slug, :section_slug, :destination_manual_slug, :destination_section_slug
 
   def initialize(manual_slug, section_slug, destination_manual_slug, destination_section_slug)
     @manual_slug = manual_slug

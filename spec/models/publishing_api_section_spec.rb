@@ -100,8 +100,14 @@ describe PublishingAPISection do
     end
   end
 
-
   describe 'validations' do
+    context 'validating slug format' do
+      let(:attributes) { valid_section }
+
+      it { should_not allow_value(nil, "1Som\nSłu9G!").for(:manual_slug) }
+      it { should_not allow_value(nil, "1Som\nSłu9G!").for(:section_slug) }
+    end
+
     context 'mismatched section ID and slug' do
       subject { PublishingAPISection.new('manual', 'mismatch', valid_section) }
 

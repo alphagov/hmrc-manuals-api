@@ -11,7 +11,7 @@ class PublishingAPIRemovedManual
     content_store: Services.content_store,
     unless: -> { errors[:slug].present? }
 
-  attr_reader :slug
+  attr_accessor :slug
 
   def initialize(slug)
     @slug = slug

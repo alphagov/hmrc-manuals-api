@@ -24,6 +24,7 @@ group :development, :test do
   gem 'rspec-rails', '3.4.2'
   gem 'rspec-collection_matchers', '1.0.0'
   gem 'pry-byebug'
+  gem 'shoulda-matchers', '~> 3.1'
 end
 
 group :test do

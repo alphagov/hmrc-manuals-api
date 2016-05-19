@@ -5,55 +5,22 @@ require 'gds_api/test_helpers/content_store'
 
 describe PublishingAPIRedirectedSection do
   describe 'validations' do
-    context 'on section_slug' do
-      it 'is invalid when it is missing' do
-        expect(described_class.new('manual-slug', nil, 'manual-redirect-slug', 'section-redirect-slug')).not_to be_valid
-      end
-
-      it 'is invalid when it does not match the valid_slug/pattern' do
-        expect(described_class.new('manual-sug', "1Som\nSłu9G!", 'manual-redirect-slug', 'section-redirect-slug')).not_to be_valid
-      end
-    end
-
-    context 'on manual_slug' do
-      it 'is invalid when it is missing' do
-        expect(described_class.new(nil, 'section-slug', 'manual-redirect-slug', 'section-redirect-slug')).not_to be_valid
-      end
-
-      it 'is invalid when it does not match the valid_slug/pattern' do
-        expect(described_class.new("1Som\nSłu9G!", 'section-slug', 'manual-redirect-slug', 'section-redirect-slug')).not_to be_valid
-      end
-    end
-
-    context 'on destination_section_slug' do
-      it 'is invalid when it is missing' do
-        expect(described_class.new('manual-slug', 'section-slug', 'manual-redirect-slug', nil)).not_to be_valid
-      end
-
-      it 'is invalid when it does not match the valid_slug/pattern' do
-        expect(described_class.new('manual-sug', 'section-slug', 'manual-redirect-slug', "1Som\nSłu9G!")).not_to be_valid
-      end
-    end
-
-    context 'on destination_manual_slug' do
-      it 'is invalid when it is missing' do
-        expect(described_class.new('manual-slug', 'section-slug', nil, 'section-redirect-slug')).not_to be_valid
-      end
-
-      it 'is invalid when it does not match the valid_slug/pattern' do
-        expect(described_class.new('manual-slug', 'section-slug', "1Som\nSłu9G!", 'section-redirect-slug-slug')).not_to be_valid
-      end
+    let(:manual_slug) { "manual" }
+    let(:section_slug) { "section" }
+    let(:destination_manual_slug) { "redirect-manual" }
+    let(:destination_section_slug) { "redirect-section" }
+    subject(:redirected_manual) { described_class.new(manual_slug, section_slug, destination_manual_slug, destination_section_slug) }
+    
+    context 'validating slug format' do
+      it { should_not allow_value(nil, "1Som\nSłu9G!").for(:manual_slug) }
+      it { should_not allow_value(nil, "1Som\nSłu9G!").for(:section_slug) }
+      it { should_not allow_value(nil, "1Som\nSłu9G!").for(:destination_manual_slug) }
+      it { should_not allow_value(nil, "1Som\nSłu9G!").for(:destination_section_slug) }
     end
     
     context 'checking that the manual section exists already' do
       include GdsApi::TestHelpers::ContentStore
-
-      let(:manual_slug) { 'manual' }
-      let(:section_slug) { 'section' }
-      let(:manual_redirect_slug) { 'redirect-manual' }
-      let(:section_redirect_slug) { 'redirect-section' }
       let(:section_path) { subject.base_path }
-      subject(:removed_manual) { described_class.new(manual_slug, section_slug, manual_redirect_slug, section_redirect_slug) }
 
       it 'is invalid if the slugs do not represent a piece of content' do
         content_store_does_not_have_item(section_path)
