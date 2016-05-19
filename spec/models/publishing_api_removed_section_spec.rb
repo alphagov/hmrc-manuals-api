@@ -31,7 +31,7 @@ describe PublishingAPIRemovedSection do
     let(:manual_slug) { 'a-manual' }
     let(:section_slug) { 'a-section' }
     subject(:removed_manual) { described_class.new(manual_slug, section_slug) }
-    
+
     context 'validating slug format' do
       it { should_not allow_value(nil, "1Som\nSłu9G!").for(:manual_slug) }
       it { should_not allow_value(nil, "1Som\nSłu9G!").for(:section_slug) }

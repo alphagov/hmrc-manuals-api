@@ -10,14 +10,14 @@ describe PublishingAPIRedirectedSection do
     let(:destination_manual_slug) { "redirect-manual" }
     let(:destination_section_slug) { "redirect-section" }
     subject(:redirected_manual) { described_class.new(manual_slug, section_slug, destination_manual_slug, destination_section_slug) }
-    
+
     context 'validating slug format' do
       it { should_not allow_value(nil, "1Som\nSłu9G!").for(:manual_slug) }
       it { should_not allow_value(nil, "1Som\nSłu9G!").for(:section_slug) }
       it { should_not allow_value(nil, "1Som\nSłu9G!").for(:destination_manual_slug) }
       it { should_not allow_value(nil, "1Som\nSłu9G!").for(:destination_section_slug) }
     end
-    
+
     context 'checking that the manual section exists already' do
       include GdsApi::TestHelpers::ContentStore
       let(:section_path) { subject.base_path }

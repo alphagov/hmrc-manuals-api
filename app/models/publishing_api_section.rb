@@ -35,7 +35,7 @@ class PublishingAPISection
       enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
       enriched_data = add_base_path_to_breadcrumbs(enriched_data)
-      enriched_data = add_base_path_to_manual(enriched_data)
+      add_base_path_to_manual(enriched_data)
     end
   end
 

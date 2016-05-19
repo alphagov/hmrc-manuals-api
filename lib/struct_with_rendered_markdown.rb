@@ -1,7 +1,7 @@
 require 'kramdown'
 
 class StructWithRenderedMarkdown
-  ATTRIBUTES_THAT_CAN_CONTAIN_MARKDOWN = [ "body" ]
+  ATTRIBUTES_THAT_CAN_CONTAIN_MARKDOWN = ["body"]
 
   def initialize(struct)
     @struct = struct.dup
@@ -19,7 +19,7 @@ private
       struct.each do |key, value|
         if ATTRIBUTES_THAT_CAN_CONTAIN_MARKDOWN.include?(key)
           struct[key] = markdown_to_html(value)
-        elsif value.is_a?(Hash) or value.is_a?(Array)
+        elsif value.is_a?(Hash) || value.is_a?(Array)
           render_markdown_in(value)
         end
       end

@@ -68,7 +68,6 @@ describe PublishingAPIRemovedManual do
     it 'includes the updates_path of the manual as an exact path in routes' do
       expect(subject[:routes]).to include({ path: removed_manual.updates_path, type: :exact })
     end
-
   end
 
   describe '#sections' do
