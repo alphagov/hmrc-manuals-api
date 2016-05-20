@@ -11,7 +11,7 @@ class PublishingAPIManual
   validates :slug, slug_in_known_manual_slugs: true, if: :only_known_hmrc_manual_slugs?
   validate :incoming_manual_is_valid
 
-  attr_reader :slug, :manual
+  attr_accessor :slug, :manual
 
   def initialize(slug, manual_attributes)
     @slug = slug
@@ -65,7 +65,7 @@ class PublishingAPIManual
 
   def self.base_path(manual_slug)
     # The slug should be lowercase, but let's make sure
-    "/#{BASE_PATH_SEGMENT}/#{manual_slug.downcase}"
+    "/#{BASE_PATH_SEGMENT}/#{manual_slug.to_s.downcase}"
   end
 
   def self.extract_slug_from_path(path)

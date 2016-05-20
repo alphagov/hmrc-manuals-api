@@ -5,20 +5,17 @@ require 'gds_api/test_helpers/content_store'
 
 describe PublishingAPIRemovedManual do
   describe 'validations' do
-    it 'is invalid without a slug' do
-      expect(described_class.new(nil)).not_to be_valid
-    end
+    let(:slug) { 'our-slug' }
+    subject(:removed_manual) { described_class.new(slug) }
 
-    it 'is invalid with a slug that does not match the valid_slug/pattern' do
-      expect(described_class.new("1Som\nSłu9G!")).not_to be_valid
+    context 'validating slug format' do
+      it { should_not allow_value(nil, "1Som\nSłu9G!").for(:slug) }
     end
 
     context 'checking that the manual exists already' do
       include GdsApi::TestHelpers::ContentStore
 
-      let(:slug) { 'our-slug' }
       let(:manual_path) { subject.base_path }
-      subject(:removed_manual) { described_class.new(slug) }
 
       it 'is invalid if the slug does not represent a piece of content' do
         content_store_does_not_have_item(manual_path)

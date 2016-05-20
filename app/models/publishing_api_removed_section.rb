@@ -11,7 +11,7 @@ class PublishingAPIRemovedSection
     content_store: Services.content_store,
     unless: -> { errors[:manual_slug].present? || errors[:section_slug].present? }
 
-  attr_reader :manual_slug, :section_slug
+  attr_accessor :manual_slug, :section_slug
 
   def self.from_rummager_result(rummager_result)
     raise InvalidJSONError if rummager_result.blank? || rummager_result['link'].blank?

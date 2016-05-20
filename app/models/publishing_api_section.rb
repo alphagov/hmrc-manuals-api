@@ -12,7 +12,7 @@ class PublishingAPISection
   validate :incoming_section_is_valid
   validate :section_slug_matches_section_id, if: -> { @section.valid? }
 
-  attr_reader :manual_slug, :section_slug, :section_attributes, :known_manual_slugs
+  attr_accessor :manual_slug, :section_slug, :section_attributes, :known_manual_slugs
 
   def initialize(manual_slug, section_slug, section_attributes)
     @manual_slug = manual_slug
@@ -62,7 +62,7 @@ class PublishingAPISection
   def self.base_path(manual_slug, section_slug)
     # The section_slug may not be lowercase - for example if it is extracted
     # from a section_id field.
-    File.join(PublishingAPIManual.base_path(manual_slug.downcase), section_slug.downcase)
+    File.join(PublishingAPIManual.base_path(manual_slug.to_s.downcase), section_slug.to_s.downcase)
   end
 
   def self.extract_slugs_from_path(path)
@@ -121,7 +121,7 @@ private
   end
 
   def section_slug_matches_section_id
-    if section_slug.downcase != section_attributes['details']['section_id'].downcase
+    if section_slug.to_s.downcase != section_attributes['details']['section_id'].downcase
       errors[:base] << "Slug in URL and Section ID must match, ignoring case"
     end
   end

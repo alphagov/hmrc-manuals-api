@@ -86,6 +86,10 @@ describe PublishingAPIManual do
   end
 
   describe 'validations' do
+    context 'validating slug format' do
+      it { should_not allow_value(nil, "1Som\nSłu9G!").for(:slug) }
+    end
+
     context "with an empty payload" do
       let(:attributes) { {} }
       it { should_not be_valid }

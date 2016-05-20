@@ -28,33 +28,19 @@ describe PublishingAPIRemovedSection do
   end
 
   describe 'validations' do
-    context 'on section_slug' do
-      it 'is invalid when it is missing' do
-        expect(described_class.new('a-manual-slug', nil)).not_to be_valid
-      end
-
-      it 'is invalid when it does not match the valid_slug/pattern' do
-        expect(described_class.new('a-manual-sug', "1Som\nSłu9G!")).not_to be_valid
-      end
-    end
-
-    context 'on manual_slug' do
-      it 'is invalid when it is missing' do
-        expect(described_class.new(nil, 'a-section-slug')).not_to be_valid
-      end
-
-      it 'is invalid when it does not match the valid_slug/pattern' do
-        expect(described_class.new("1Som\nSłu9G!", 'a-section-slug')).not_to be_valid
-      end
+    let(:manual_slug) { 'a-manual' }
+    let(:section_slug) { 'a-section' }
+    subject(:removed_manual) { described_class.new(manual_slug, section_slug) }
+    
+    context 'validating slug format' do
+      it { should_not allow_value(nil, "1Som\nSłu9G!").for(:manual_slug) }
+      it { should_not allow_value(nil, "1Som\nSłu9G!").for(:section_slug) }
     end
 
     context 'checking that the manual section exists already' do
       include GdsApi::TestHelpers::ContentStore
 
-      let(:manual_slug) { 'a-manual' }
-      let(:section_slug) { 'a-section' }
       let(:section_path) { subject.base_path }
-      subject(:removed_manual) { described_class.new(manual_slug, section_slug) }
 
       it 'is invalid if the slugs do not represent a piece of content' do
         content_store_does_not_have_item(section_path)

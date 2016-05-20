@@ -128,6 +128,21 @@ module PublishingApiDataHelpers
       ],
     }
   end
+
+  def redirected_manual_section_for_publishing_api(manual_slug: 'some-manual', section_slug: 'some-section', dest_manual_slug: 'some-other-manual', dest_section_slug: 'some-other-section')
+    {
+      'format' => 'redirect',
+      'publishing_app' => 'hmrc-manuals-api',
+      'base_path' => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
+      'redirects' => [
+        {
+          'path' => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
+          'type' => "exact",
+          'destination' => "/hmrc-internal-manuals/#{dest_manual_slug}/#{dest_section_slug}"
+        }
+      ],
+    }
+  end
 end
 
 RSpec.configuration.include PublishingApiDataHelpers
