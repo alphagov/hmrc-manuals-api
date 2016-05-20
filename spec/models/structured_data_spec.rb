@@ -15,8 +15,8 @@ describe StructuredData do
   end
 
   it "finds string fields in arrays" do
-    expect(data(a: 1, b: [ { c: "abc" }, { d: "xyz" } ]).string_fields).to eq(
-      [ { path: "#/b[0]/c", value: "abc" }, { path: "#/b[1]/d", value: "xyz" } ]
+    expect(data(a: 1, b: [{ c: "abc" }, { d: "xyz" }]).string_fields).to eq(
+      [{ path: "#/b[0]/c", value: "abc" }, { path: "#/b[1]/d", value: "xyz" }]
     )
   end
 end

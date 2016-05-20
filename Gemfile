@@ -10,14 +10,11 @@ gem 'gds-sso', '9.3.0'
 gem 'plek', '1.11.0'
 gem 'gds-api-adapters', '~> 26.5'
 gem 'govspeak', '3.0.0'
-
 gem 'sidekiq', '3.4.2'
-
 gem 'uuidtools', '2.1.5'
 
 group :development do
   gem "foreman", "0.78.0"
-  gem "govuk-lint"
 end
 
 group :development, :test do
@@ -25,6 +22,7 @@ group :development, :test do
   gem 'rspec-collection_matchers', '1.0.0'
   gem 'pry-byebug'
   gem 'shoulda-matchers', '~> 3.1'
+  gem "govuk-lint"
 end
 
 group :test do

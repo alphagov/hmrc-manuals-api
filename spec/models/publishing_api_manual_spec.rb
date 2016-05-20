@@ -68,7 +68,6 @@ describe PublishingAPIManual do
 
   describe 'content_id' do
     context 'when content id is specified in the attributes' do
-
       let(:content_id) { SecureRandom.uuid }
       let(:attributes) { valid_manual.merge("content_id" => content_id) }
 
@@ -112,7 +111,7 @@ describe PublishingAPIManual do
 
     context "with invalid child section groups" do
       let(:child_section_group_with_dangerous_title) { { "title" => "title <script></script>", "child_sections" => [] } }
-      let(:attributes) { valid_manual("details" => { "child_section_groups" => [ child_section_group_with_dangerous_title ] * 2 }) }
+      let(:attributes) { valid_manual("details" => { "child_section_groups" => [child_section_group_with_dangerous_title] * 2 }) }
 
       it "is invalid" do
         expect(subject).to_not be_valid

@@ -19,7 +19,7 @@ class StructuredData
         find_string_fields_in(value, "#{path}[#{index}]")
       end
     when String then
-      [ path: path, value: struct ]
+      [path: path, value: struct]
     else
       []
     end

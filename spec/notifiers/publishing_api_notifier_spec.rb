@@ -13,7 +13,7 @@ describe PublishingAPINotifier do
     end
     let(:successful_response) { double "response", version: 33 }
 
-    it "makes calls to update the document, publish it, and update its links via the publishing API"   do
+    it "makes calls to update the document, publish it, and update its links via the publishing API" do
       expect(Services.publishing_api).to receive(:put_content).with(content_id, document_hash)
         .and_return(successful_response)
       expect(Services.publishing_api).to receive(:publish).with(content_id, 'major', {previous_version: 33})

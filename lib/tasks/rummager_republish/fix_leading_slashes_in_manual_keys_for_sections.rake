@@ -1,7 +1,6 @@
 require 'gds_api/rummager'
 
 namespace :rummager_republish do
-
   # Use lambdas because methods in Rake tasks are global, which could
   # cause problems if anyone else were to write more Rake tasks in this
   # app.
@@ -16,7 +15,7 @@ namespace :rummager_republish do
     }
 
     section_data = {
-      'title'             => title_without_section_ids.call(section['title'],section['hmrc_manual_section_id']),
+      'title'             => title_without_section_ids.call(section['title'], section['hmrc_manual_section_id']),
       'description'       => section['description'],
       'public_updated_at' => section['public_timestamp'],
       'details'           => details_hash,

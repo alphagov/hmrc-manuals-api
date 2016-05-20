@@ -1,3 +1,5 @@
+# rubocop:disable Style/SymbolProc
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 ENV['GOVUK_WEBSITE_ROOT'] ||= 'https://www.gov.uk'
@@ -43,3 +45,5 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 end
+
+# rubocop:enable Style/SymbolProc

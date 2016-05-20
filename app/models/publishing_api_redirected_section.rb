@@ -9,11 +9,11 @@ class PublishingAPIRedirectedSection
   validates_with InContentStoreValidator,
     format: SECTION_FORMAT,
     content_store: Services.content_store,
-    unless: -> { 
+    unless: -> {
       errors[:manual_slug].present? ||
-      errors[:section_slug].present? ||
-      errors[:destination_manual_slug].present? ||
-      errors[:destination_section_slug].present?
+        errors[:section_slug].present? ||
+        errors[:destination_manual_slug].present? ||
+        errors[:destination_section_slug].present?
     }
 
   attr_accessor :manual_slug, :section_slug, :destination_manual_slug, :destination_section_slug
