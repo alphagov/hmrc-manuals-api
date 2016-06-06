@@ -18,6 +18,8 @@
 /coverage
 /spec/reports
 
-
 # Ignore OS-generated files
 .DS_Store
+
+# Ignore Rspec example status file
+/spec/example_status.txt
