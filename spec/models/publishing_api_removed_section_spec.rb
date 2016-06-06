@@ -130,7 +130,10 @@ describe PublishingAPIRemovedSection do
         subject.save!
 
         assert_publishing_api_put_content(removed_manual_section.content_id, gone_manual_section_for_publishing_api)
-        assert_publishing_api_publish(removed_manual_section.content_id, {update_type: removed_manual_section.update_type})
+        assert_publishing_api_publish(
+          removed_manual_section.content_id,
+          {update_type: removed_manual_section.update_type, previous_version: 33}
+        )
 
         # TODO: Update this with `assert_rummager_deleted_item(publishing_api_base_path[1..-1])`
         #      once https://github.com/alphagov/gds-api-adapters/pull/362 has been merged

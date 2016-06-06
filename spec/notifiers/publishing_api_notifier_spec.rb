@@ -17,7 +17,7 @@ describe PublishingAPINotifier do
       expect(Services.publishing_api).to receive(:put_content).with(content_id, document_hash)
         .and_return(successful_response)
       expect(Services.publishing_api).to receive(:publish).with(content_id, 'major', {previous_version: 33})
-      expect(Services.publishing_api).to receive(:put_links).with(content_id, links: { 'some' => 'linked_data'})
+      expect(Services.publishing_api).to receive(:patch_links).with(content_id, links: { 'some' => 'linked_data'})
 
       PublishingAPINotifier.new(document).notify
     end
@@ -27,7 +27,7 @@ describe PublishingAPINotifier do
         expect(Services.publishing_api).to receive(:put_content).with(content_id, document_hash)
           .and_return(successful_response)
         expect(Services.publishing_api).to receive(:publish).with(content_id, 'major', {previous_version: 33})
-        expect(Services.publishing_api).to_not receive(:put_links)
+        expect(Services.publishing_api).to_not receive(:patch_links)
 
         PublishingAPINotifier.new(document).notify(update_links: false)
       end

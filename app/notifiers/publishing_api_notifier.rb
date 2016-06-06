@@ -6,7 +6,7 @@ class PublishingAPINotifier
   def notify(update_links: true)
     content_item = put_content_item
     publish(content_item.version)
-    put_links if update_links
+    patch_links if update_links
     content_item
   end
 
@@ -15,8 +15,8 @@ private
     Services.publishing_api.put_content(@document.content_id, @document.to_h)
   end
 
-  def put_links
-    Services.publishing_api.put_links(@document.content_id, links: @document.links)
+  def patch_links
+    Services.publishing_api.patch_links(@document.content_id, links: @document.links)
   end
 
   def publish(version)

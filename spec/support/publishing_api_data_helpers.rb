@@ -1,6 +1,8 @@
 module PublishingApiDataHelpers
   def maximal_manual_for_publishing_api(options = {})
     {
+      "base_path" => "/hmrc-internal-manuals/employment-income-manual",
+      "locale" => "en",
       "format" => "hmrc_manual",
       "title" => "Employment Income Manual",
       "description" => "A manual about incoming employment",
@@ -57,7 +59,9 @@ module PublishingApiDataHelpers
 
   def maximal_section_for_publishing_api(options = {})
     {
+      "base_path" => "/hmrc-internal-manuals/employment-income-manual/12345",
       "format" => "hmrc_manual_section",
+      "locale" => "en",
       "title" => "A section on a part of employment income",
       "description" => "Some description",
       "public_updated_at" => "2014-01-23T00:00:00+01:00",
@@ -102,6 +106,7 @@ module PublishingApiDataHelpers
     {
       'base_path' => base_path,
       'format' => 'gone',
+      'update_type' => 'major',
       'publishing_app' => 'hmrc-manuals-api',
       'routes' => [
         {
@@ -118,7 +123,9 @@ module PublishingApiDataHelpers
 
   def gone_manual_section_for_publishing_api(manual_slug: 'some-manual', section_slug: 'some-section')
     {
+      'base_path' => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
       'format' => 'gone',
+      'update_type' => 'major',
       'publishing_app' => 'hmrc-manuals-api',
       'routes' => [
         {
