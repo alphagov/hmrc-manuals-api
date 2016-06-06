@@ -98,7 +98,7 @@ describe PublishingAPIRedirectedSection do
         subject.save!
 
         assert_publishing_api_put_content(redirected_manual_section.content_id, redirected_manual_section_for_publishing_api)
-        assert_publishing_api_publish(redirected_manual_section.content_id, {update_type: redirected_manual_section.update_type})
+        assert_publishing_api_publish(redirected_manual_section.content_id, {update_type: redirected_manual_section.update_type, previous_version: 33})
       end
     end
   end

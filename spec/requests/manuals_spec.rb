@@ -18,6 +18,7 @@ describe 'manuals resource' do
 
     expect(response.status).to eq(200)
     expect(response.headers['Content-Type']).to include('application/json')
+
     assert_publishing_api_put_content(maximal_manual_content_id, maximal_manual_for_publishing_api)
     assert_publishing_api_publish(maximal_manual_content_id, {update_type: 'major'})
     assert_rummager_posted_item(maximal_manual_for_rummager)
