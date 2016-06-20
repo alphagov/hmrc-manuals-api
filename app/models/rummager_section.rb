@@ -28,7 +28,6 @@ class RummagerSection < RummagerBase
       'description'             => @publishing_api_section['description'],
       'link'                    => id,
       'indexable_content'       => body_without_html,
-      'organisations'           => [GOVUK_HMRC_SLUG],
       'public_timestamp'        => @publishing_api_section['public_updated_at'],
       'hmrc_manual_section_id'  => section_id,
       'manual'                  => @publishing_api_section['details']['manual']['base_path'],
