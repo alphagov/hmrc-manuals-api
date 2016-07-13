@@ -25,7 +25,8 @@ class PublishingAPIManual
     @_to_h ||= begin
       enriched_data = @manual_attributes.except('content_id', 'update_type').deep_dup.merge({
         base_path: base_path,
-        format: MANUAL_FORMAT,
+        document_type: MANUAL_FORMAT,
+        schema_name: MANUAL_FORMAT,
         publishing_app: 'hmrc-manuals-api',
         rendering_app: 'manuals-frontend',
         routes: [
