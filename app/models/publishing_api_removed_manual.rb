@@ -32,7 +32,8 @@ class PublishingAPIRemovedManual
   def to_h
     @_to_h ||= {
       base_path: base_path,
-      format: 'gone',
+      document_type: 'gone',
+      schema_name: 'gone',
       publishing_app: 'hmrc-manuals-api',
       update_type: update_type,
       routes: [

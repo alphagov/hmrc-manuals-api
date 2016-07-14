@@ -27,7 +27,8 @@ class PublishingAPIRedirectedSection
 
   def to_h
     @_to_h ||= {
-      format: 'redirect',
+      document_type: 'redirect',
+      schema_name: 'redirect',
       publishing_app: 'hmrc-manuals-api',
       base_path: base_path,
       redirects: [

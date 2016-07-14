@@ -3,7 +3,8 @@ module PublishingApiDataHelpers
     {
       "base_path" => "/hmrc-internal-manuals/employment-income-manual",
       "locale" => "en",
-      "format" => "hmrc_manual",
+      "document_type" => "hmrc_manual",
+      "schema_name" => "hmrc_manual",
       "title" => "Employment Income Manual",
       "description" => "A manual about incoming employment",
       "public_updated_at" => "2014-01-23T00:00:00+01:00",
@@ -60,7 +61,8 @@ module PublishingApiDataHelpers
   def maximal_section_for_publishing_api(options = {})
     {
       "base_path" => "/hmrc-internal-manuals/employment-income-manual/12345",
-      "format" => "hmrc_manual_section",
+      "document_type" => "hmrc_manual_section",
+      "schema_name" => "hmrc_manual_section",
       "locale" => "en",
       "title" => "A section on a part of employment income",
       "description" => "Some description",
@@ -105,7 +107,8 @@ module PublishingApiDataHelpers
   def gone_manual_for_publishing_api(base_path: '/hmrc-internal-manuals/some-slug')
     {
       'base_path' => base_path,
-      'format' => 'gone',
+      'document_type' => 'gone',
+      'schema_name' => 'gone',
       'update_type' => 'major',
       'publishing_app' => 'hmrc-manuals-api',
       'routes' => [
@@ -124,7 +127,8 @@ module PublishingApiDataHelpers
   def gone_manual_section_for_publishing_api(manual_slug: 'some-manual', section_slug: 'some-section')
     {
       'base_path' => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
-      'format' => 'gone',
+      'document_type' => 'gone',
+      'schema_name' => 'gone',
       'update_type' => 'major',
       'publishing_app' => 'hmrc-manuals-api',
       'routes' => [
@@ -138,7 +142,8 @@ module PublishingApiDataHelpers
 
   def redirected_manual_section_for_publishing_api(manual_slug: 'some-manual', section_slug: 'some-section', dest_manual_slug: 'some-other-manual', dest_section_slug: 'some-other-section')
     {
-      'format' => 'redirect',
+      'document_type' => 'redirect',
+      'schema_name' => 'redirect',
       'publishing_app' => 'hmrc-manuals-api',
       'base_path' => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
       'redirects' => [

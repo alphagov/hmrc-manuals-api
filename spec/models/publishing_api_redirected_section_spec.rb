@@ -54,8 +54,8 @@ describe PublishingAPIRedirectedSection do
       it { should be_valid_against_schema('redirect') }
     end
 
-    it 'is a "redirect" format object' do
-      expect(subject[:format]).to eq('redirect')
+    it 'is a "redirect" document type' do
+      expect(subject[:document_type]).to eq('redirect')
     end
 
     it 'is published by the "hmrc-manuals-api" app' do

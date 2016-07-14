@@ -74,8 +74,8 @@ describe PublishingAPIRemovedSection do
       it { should be_valid_against_schema('gone') }
     end
 
-    it 'is a "gone" format object' do
-      expect(subject[:format]).to eq('gone')
+    it 'is a "gone" document type' do
+      expect(subject[:document_type]).to eq('gone')
     end
 
     it 'is published by the "hmrc-manuals-api" app' do
