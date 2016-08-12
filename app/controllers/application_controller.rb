@@ -1,8 +1,7 @@
 require 'gds_api/exceptions'
 
-class ApplicationController < ActionController::API
+class ApplicationController < ActionController::Base
   include GDS::SSO::ControllerMethods
-  include ActionController::MimeResponds
   respond_to :json
 
   before_filter :require_signin_permission!
