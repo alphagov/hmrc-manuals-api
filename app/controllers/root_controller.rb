@@ -1,4 +1,4 @@
-class RootController < ActionController::API
+class RootController < ActionController::Base
   include ActionController::UrlFor
   include ActionView::Layouts
 
