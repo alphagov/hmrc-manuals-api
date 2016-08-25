@@ -162,6 +162,7 @@ KNOWN_MANUAL_SLUGS = %w{
   vat-construction
   vat-cost-sharing-exemption-manual
   vat-cultural-services
+  vat-default-surcharge-officers-guide
   vat-education-manual
   vat-energy-saving-materials-and-grant-funded-heating-supplies
   vat-exports-of-goods-from-the-uk
