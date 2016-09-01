@@ -11,7 +11,7 @@ module Services
   end
 
   def self.rummager
-    @rummager ||= GdsApi::Rummager.new(Plek.current.find('search'))
+    @rummager ||= GdsApi::Rummager.new(Plek.current.find('rummager'))
   end
 
   def self.content_store

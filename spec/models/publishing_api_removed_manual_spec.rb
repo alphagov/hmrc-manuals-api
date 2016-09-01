@@ -153,7 +153,7 @@ describe PublishingAPIRemovedManual do
 
         #TODO: Update this with `assert_rummager_deleted_item(publishing_api_base_path[1..-1])`
         #      once https://github.com/alphagov/gds-api-adapters/pull/362 has been merged
-        assert_requested(:delete, %r{#{Plek.new.find('search')}/documents/#{publishing_api_base_path}})
+        assert_requested(:delete, %r{#{Plek.new.find('rummager')}/documents/#{publishing_api_base_path}})
       end
     end
   end
