@@ -25,7 +25,7 @@ namespace :rummager_republish do
 
   desc 'Republish manual sections to Rummager with a leading slash.'
   task sections_with_leading_slash: :environment do
-    rummager = GdsApi::Rummager.new(Plek.current.find('search'))
+    rummager = GdsApi::Rummager.new(Plek.current.find('rummager'))
     # As of 2015-09-17, there are 2345 HMRC manual sections.
     count = 3000
 
