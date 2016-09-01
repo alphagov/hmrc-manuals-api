@@ -47,7 +47,7 @@ describe 'manuals resource' do
   it 'returns the status code from the Publishing API response, not Rummager' do
     allow_any_instance_of(GdsApi::Response).to receive(:version)
     stub_any_publishing_api_call
-    stub_any_rummager_post_with_queueing_enabled # This returns 202, as it does in Production
+    stub_any_rummager_post # This returns 202, as it does in Production
     stub_publishing_api_get_links(maximal_manual_content_id)
     stub_put_default_organisation(maximal_manual_content_id)
 

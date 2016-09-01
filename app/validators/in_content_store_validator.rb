@@ -10,13 +10,13 @@ class InContentStoreValidator < ActiveModel::Validator
 
   def validate(record)
     content_item = fetch_content_item(record)
-    if content_item.nil?
-      record.errors.add(:base, missing_message(record, content_item))
-    elsif content_item.format == 'gone'
-      record.errors.add(:base, gone_message(record, content_item))
-    elsif content_item.format != format
+    if content_item.format != format
       record.errors.add(:base, wrong_format_message(record, content_item))
     end
+  rescue GdsApi::HTTPNotFound
+      record.errors.add(:base, missing_message(record, content_item))
+  rescue GdsApi::HTTPGone
+      record.errors.add(:base, gone_message(record, content_item))
   end
 
   private
