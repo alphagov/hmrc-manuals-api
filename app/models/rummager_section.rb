@@ -44,7 +44,7 @@ class RummagerSection < RummagerBase
       'filter_format' => SECTION_FORMAT,
       'filter_organisations' => [GOVUK_HMRC_SLUG],
       'filter_manual' => manual_path,
-      'count' => '5000',
+      'count' => '1000',
     }
   end
 end

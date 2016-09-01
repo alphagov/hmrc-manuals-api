@@ -31,7 +31,7 @@ module RummagerHelpers
       'filter_format' => 'hmrc_manual_section',
       'filter_organisations' => ['hm-revenue-customs'],
       'filter_manual' => "/hmrc-internal-manuals/#{manual_slug}",
-      'count' => '5000',
+      'count' => '1000',
     }
   end
 
