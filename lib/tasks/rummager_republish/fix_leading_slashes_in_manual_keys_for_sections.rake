@@ -29,7 +29,7 @@ namespace :rummager_republish do
     # As of 2015-09-17, there are 2345 HMRC manual sections.
     count = 3000
 
-    search_results = rummager.unified_search(filter_format: ['hmrc_manual_section'],
+    search_results = rummager.search(filter_format: ['hmrc_manual_section'],
                                              count: count.to_s,
                                              fields: 'title,description,link,indexable_content,public_timestamp,hmrc_manual_section_id,manual')
 

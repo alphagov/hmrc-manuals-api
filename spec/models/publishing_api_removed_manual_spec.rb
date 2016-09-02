@@ -74,7 +74,7 @@ describe PublishingAPIRemovedManual do
     subject(:removed_manual) { described_class.new('some-manual-slug') }
 
     it 'asks rummager for all the hmrc manual sections under its slug' do
-      rummager_query = stub_request(:get, %r{/unified_search.json})
+      rummager_query = stub_request(:get, %r{/search.json})
         .with(query: search_for_sections_rummager_query('some-manual-slug'))
         .to_return(body: no_manual_sections_rummager_json_result)
 
@@ -84,7 +84,7 @@ describe PublishingAPIRemovedManual do
     end
 
     it 'exposes each result from rummager as a PublishingAPIRemovedSection' do
-      stub_request(:get, %r{/unified_search.json})
+      stub_request(:get, %r{/search.json})
         .to_return(body: two_manual_sections_rummager_json_result('some-manual-slug'))
 
       sections = subject.sections
@@ -100,7 +100,7 @@ describe PublishingAPIRemovedManual do
     end
 
     it 'exposes the error from rummager if the rummager call fails' do
-      stub_request(:get, %r{/unified_search.json})
+      stub_request(:get, %r{/search.json})
         .to_return(status: 503, body: '{"error":"arg!"}')
 
       expect {
