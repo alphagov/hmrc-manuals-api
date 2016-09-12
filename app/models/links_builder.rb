@@ -9,12 +9,12 @@ class LinksBuilder
       .get_links(@content_id)
       .try(:links)
       .to_h.with_indifferent_access
-    set_organistion
+    set_organisation
     @built_links
   end
 
 private
-  def set_organistion
+  def set_organisation
     if @content_store_links["organisations"].present?
       @built_links["organisations"] = @content_store_links["organisations"]
     else
