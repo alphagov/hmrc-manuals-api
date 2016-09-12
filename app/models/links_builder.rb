@@ -14,12 +14,13 @@ class LinksBuilder
   end
 
 private
+
   def set_organisation
-    if @content_store_links["organisations"].present?
-      @built_links["organisations"] = @content_store_links["organisations"]
-    else
-      # Use HMRC content ID to set organisation
-      @built_links["organisations"] = ["6667cce2-e809-4e21-ae09-cb0bdc1ddda3"]
-    end
+    @built_links["organisations"] = if @content_store_links["organisations"].present?
+                                      @content_store_links["organisations"]
+                                    else
+                                      # Use HMRC content ID to set organisation
+                                      ["6667cce2-e809-4e21-ae09-cb0bdc1ddda3"]
+                                    end
   end
 end

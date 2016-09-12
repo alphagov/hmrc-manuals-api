@@ -1,7 +1,7 @@
 require 'kramdown'
 
 class StructWithRenderedMarkdown
-  ATTRIBUTES_THAT_CAN_CONTAIN_MARKDOWN = ["body"]
+  ATTRIBUTES_THAT_CAN_CONTAIN_MARKDOWN = ["body"].freeze
 
   def initialize(struct)
     @struct = struct.dup
@@ -12,6 +12,7 @@ class StructWithRenderedMarkdown
   end
 
 private
+
   def render_markdown_in(struct)
     if struct.is_a?(Array)
       struct.each { |item| render_markdown_in(item) }

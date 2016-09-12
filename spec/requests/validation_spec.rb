@@ -9,8 +9,8 @@ describe "validation" do
 
   let(:malformed_json) { "[" }
   let(:headers) { { 'Content-Type' => 'application/json', 'HTTP_AUTHORIZATION' => 'Bearer 12345678' } }
-  let(:manual_without_title)  { valid_manual.tap {|m| m.delete("title") } }
-  let(:section_without_title) { valid_section.tap {|m| m.delete("title") } }
+  let(:manual_without_title)  { valid_manual.tap { |m| m.delete("title") } }
+  let(:section_without_title) { valid_section.tap { |m| m.delete("title") } }
 
   context "for manuals" do
     it "detects malformed JSON" do
@@ -60,11 +60,11 @@ describe "validation" do
 
       it 'allows images with a relative path' do
         content_id = UUIDTools::UUID.sha1_create(UUIDTools::UUID_URL_NAMESPACE, "/hmrc-internal-manuals/imaginary-slug").to_s
-        stub_publishing_api_put_content(content_id, {}, { body: {version: 22} })
+        stub_publishing_api_put_content(content_id, {}, body: { version: 22 })
         stub_publishing_api_get_links(content_id)
         stub_put_default_organisation(content_id)
 
-        stub_publishing_api_publish(content_id, { update_type: 'minor', previous_version: 22}.to_json)
+        stub_publishing_api_publish(content_id, { update_type: 'minor', previous_version: 22 }.to_json)
         stub_any_rummager_post
 
         manual = valid_manual

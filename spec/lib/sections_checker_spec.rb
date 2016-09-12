@@ -352,7 +352,7 @@ RSpec.describe SectionsChecker do
     )
   end
 
-  def hmrc_manual_section_content_item_for_base_path(base_path, child_section_groups:[], breadcrumbs: [], manual_base_path:)
+  def hmrc_manual_section_content_item_for_base_path(base_path, child_section_groups:[], breadcrumbs:[], manual_base_path: "")
     item = content_item_for_base_path(base_path)
     item.merge(
       "format" => SECTION_FORMAT,

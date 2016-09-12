@@ -1,6 +1,6 @@
 module IgnoringError
-  def ignoring_error(error_class, &block)
-    block.call
+  def ignoring_error(error_class)
+    yield
   rescue error_class
     nil
   end

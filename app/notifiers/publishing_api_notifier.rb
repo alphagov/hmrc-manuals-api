@@ -11,6 +11,7 @@ class PublishingAPINotifier
   end
 
 private
+
   def put_content_item
     Services.publishing_api.put_content(@document.content_id, @document.to_h)
   end

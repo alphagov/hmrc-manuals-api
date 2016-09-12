@@ -27,6 +27,7 @@ class RummagerManual < RummagerBase
   end
 
 private
+
   def latest_change_note
     latest = @publishing_api_manual['details'].fetch('change_notes', []).first
 

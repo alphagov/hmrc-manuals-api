@@ -7,7 +7,8 @@ class StructuredData
     find_string_fields_in(@struct, "#")
   end
 
-  private
+private
+
   def find_string_fields_in(struct, path)
     case struct
     when Hash then

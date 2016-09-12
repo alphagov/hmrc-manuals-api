@@ -23,8 +23,7 @@ class PublishingAPIManual
 
   def to_h
     @_to_h ||= begin
-      enriched_data = @manual_attributes.except('content_id', 'update_type').deep_dup.merge({
-        base_path: base_path,
+      enriched_data = @manual_attributes.except('content_id', 'update_type').deep_dup.merge(base_path: base_path,
         document_type: MANUAL_FORMAT,
         schema_name: MANUAL_FORMAT,
         publishing_app: 'hmrc-manuals-api',
@@ -33,8 +32,7 @@ class PublishingAPIManual
           { path: base_path, type: :exact },
           { path: updates_path, type: :exact }
         ],
-        locale: "en",
-      })
+        locale: "en")
       enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
       enriched_data = add_base_path_to_change_notes(enriched_data)
@@ -62,7 +60,7 @@ class PublishingAPIManual
     PublishingAPIManual.base_path(@slug)
   end
 
-  BASE_PATH_SEGMENT = 'hmrc-internal-manuals'
+  BASE_PATH_SEGMENT = 'hmrc-internal-manuals'.freeze
 
   def self.base_path(manual_slug)
     # The slug should be lowercase, but let's make sure
@@ -93,6 +91,7 @@ class PublishingAPIManual
   end
 
 private
+
   def generate_content_id_if_absent
     @manual_attributes["content_id"] = base_path_uuid unless @manual_attributes["content_id"]
   end
@@ -115,7 +114,7 @@ private
 
   def incoming_manual_is_valid
     unless @manual.valid?
-      @manual.errors.full_messages.each {|message| self.errors[:base] << message }
+      @manual.errors.full_messages.each { |message| self.errors[:base] << message }
     end
   end
 

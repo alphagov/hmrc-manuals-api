@@ -11,7 +11,7 @@ describe StructuredData do
   end
 
   it "finds nested string fields" do
-    expect(data(a: 1, b: { c: "abc"}).string_fields).to eq([path: "#/b/c", value: "abc"])
+    expect(data(a: 1, b: { c: "abc" }).string_fields).to eq([path: "#/b/c", value: "abc"])
   end
 
   it "finds string fields in arrays" do

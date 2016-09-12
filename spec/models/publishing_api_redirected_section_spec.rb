@@ -92,13 +92,13 @@ describe PublishingAPIRedirectedSection do
       subject(:redirected_manual_section) { described_class.new('some-manual', 'some-section', 'some-other-manual', 'some-other-section') }
 
       it 'issues put_content and publish requests to the publishing api to mark the manual section as gone' do
-        stub_publishing_api_put_content(redirected_manual_section.content_id, {}, { body: {version: 33} })
-        stub_publishing_api_publish(redirected_manual_section.content_id, { update_type: 'major', previous_version: 33}.to_json)
+        stub_publishing_api_put_content(redirected_manual_section.content_id, {}, body: { version: 33 })
+        stub_publishing_api_publish(redirected_manual_section.content_id, { update_type: 'major', previous_version: 33 }.to_json)
 
         subject.save!
 
         assert_publishing_api_put_content(redirected_manual_section.content_id, redirected_manual_section_for_publishing_api)
-        assert_publishing_api_publish(redirected_manual_section.content_id, {update_type: redirected_manual_section.update_type, previous_version: 33})
+        assert_publishing_api_publish(redirected_manual_section.content_id, update_type: redirected_manual_section.update_type, previous_version: 33)
       end
     end
   end

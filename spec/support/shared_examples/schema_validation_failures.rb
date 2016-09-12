@@ -7,7 +7,7 @@ end
 
 RSpec.shared_examples "it validates as a section ID" do
   context 'slashes' do
-    let(:value) { "No/Slashes\\Allowed"}
+    let(:value) { "No/Slashes\\Allowed" }
 
     it_behaves_like "it rejects the value as not matching"
   end
