@@ -84,7 +84,7 @@ describe PublishingAPISection do
   describe 'content_id' do
     context 'when content id is present' do
       let(:content_id) { SecureRandom.uuid }
-      let(:attributes) {valid_section.merge("content_id" => content_id) }
+      let(:attributes) { valid_section.merge("content_id" => content_id) }
 
       it 'returns the context id' do
         expect(subject.content_id).to eq content_id
@@ -111,7 +111,7 @@ describe PublishingAPISection do
     context 'mismatched section ID and slug' do
       subject { PublishingAPISection.new('manual', 'mismatch', valid_section) }
 
-      it { should_not be_valid}
+      it { should_not be_valid }
 
       it 'rejects mismatches' do
         subject.valid? # trigger validations and populate errors

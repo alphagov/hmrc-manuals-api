@@ -55,10 +55,9 @@ private
 
   def child_section_in_tree?(parent, child)
     child_sections(parent).each do |child_section|
-      if child_section['base_path'] == child['base_path']
+      if child_section['base_path'] == child['base_path'] ||
+          child_section_in_tree?(content_item(child_section['base_path']), child)
         return true
-      else
-        return true if child_section_in_tree?(content_item(child_section['base_path']), child)
       end
     end
     false

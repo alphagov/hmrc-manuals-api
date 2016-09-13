@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   rescue_from GdsApi::BaseError do |exception|
     notify_airbrake(exception)
-    if (exception.is_a?(GdsApi::HTTPErrorResponse) && (500..599).include?(exception.code)) ||
+    if (exception.is_a?(GdsApi::HTTPErrorResponse) && (500..599).cover?(exception.code)) ||
         exception.is_a?(GdsApi::TimedOutException)
       message = 'Service unavailable'
       render json: { status: "error", errors: [message] }, status: 503
@@ -20,6 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
 private
+
   def parse_request_body
     @parsed_request_body = JSON.parse(request.body.read)
   rescue JSON::ParserError => e

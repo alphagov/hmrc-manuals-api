@@ -11,7 +11,7 @@ class NoDangerousHTMLInTextFieldsValidator < ActiveModel::EachValidator
     'www.gov.uk',
     'assets.digital.cabinet-office.gov.uk',
     'assets.publishing.service.gov.uk',
-  ]
+  ].freeze
 
   def validate_each(record, _attribute, value)
     freetext_fields_with_paths = StructuredData.new(value).string_fields
@@ -26,6 +26,7 @@ class NoDangerousHTMLInTextFieldsValidator < ActiveModel::EachValidator
   end
 
 private
+
   def dangerous?(value)
     validator = Govspeak::HtmlValidator.new(value, allowed_image_hosts: ALLOWED_IMAGE_HOSTS)
     validator.invalid?
