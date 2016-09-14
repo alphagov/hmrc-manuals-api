@@ -8,8 +8,8 @@ describe 'manuals resource' do
   include LinksUpdateHelper
 
   it 'confirms update of the manual' do
-    allow_any_instance_of(GdsApi::Response).to receive(:version)
     stub_any_publishing_api_call
+    stub_any_publishing_api_put_content.to_return(body: { version: nil }.to_json)
     stub_any_rummager_post
     stub_publishing_api_get_links(maximal_manual_content_id)
     stub_put_default_organisation(maximal_manual_content_id)
@@ -45,8 +45,8 @@ describe 'manuals resource' do
   end
 
   it 'returns the status code from the Publishing API response, not Rummager' do
-    allow_any_instance_of(GdsApi::Response).to receive(:version)
     stub_any_publishing_api_call
+    stub_any_publishing_api_put_content.to_return(body: { version: nil }.to_json)
     stub_any_rummager_post # This returns 202, as it does in Production
     stub_publishing_api_get_links(maximal_manual_content_id)
     stub_put_default_organisation(maximal_manual_content_id)
@@ -64,8 +64,8 @@ describe 'manuals resource' do
   end
 
   it 'errors if the Accept header is not application/json' do
-    allow_any_instance_of(GdsApi::Response).to receive(:version)
     stub_any_publishing_api_call
+    stub_any_publishing_api_put_content.to_return(body: { version: nil }.to_json)
     stub_any_rummager_post
     stub_publishing_api_get_links(maximal_manual_content_id)
     stub_put_default_organisation(maximal_manual_content_id)
