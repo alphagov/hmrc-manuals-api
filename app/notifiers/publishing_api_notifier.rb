@@ -5,7 +5,7 @@ class PublishingAPINotifier
 
   def notify(update_links: true)
     content_item = put_content_item
-    publish(content_item.version)
+    publish(content_item["version"])
     patch_links if update_links
     content_item
   end

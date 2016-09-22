@@ -10,7 +10,7 @@ class InContentStoreValidator < ActiveModel::Validator
 
   def validate(record)
     content_item = fetch_content_item(record)
-    if content_item.format != format
+    if content_item["format"] != format
       record.errors.add(:base, wrong_format_message(record, content_item))
     end
   rescue GdsApi::HTTPNotFound
@@ -34,6 +34,6 @@ private
   end
 
   def wrong_format_message(_record, content_item)
-    %{Exists in the content store, but is not a "#{format} (it's a "#{content_item.format}"')"}
+    %{Exists in the content store, but is not a "#{format} (it's a "#{content_item['format']}"')"}
   end
 end

@@ -25,7 +25,7 @@ class PublishingAPIRemovedManual
 
   def sections_from_rummager
     query = RummagerSection.search_query(base_path)
-    Services.rummager.search(query).results
+    Services.rummager.search(query)["results"]
   end
   private :sections_from_rummager
 

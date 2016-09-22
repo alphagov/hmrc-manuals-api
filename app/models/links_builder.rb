@@ -5,10 +5,11 @@ class LinksBuilder
   end
 
   def build_links
-    @content_store_links = Services.publishing_api
-      .get_links(@content_id)
-      .try(:links)
-      .to_h.with_indifferent_access
+    begin
+      @content_store_links = Services.publishing_api.get_links(@content_id)["links"].with_indifferent_access
+    rescue GdsApi::HTTPNotFound
+      @content_store_links = nil
+    end
     set_organisation
     @built_links
   end
@@ -16,7 +17,7 @@ class LinksBuilder
 private
 
   def set_organisation
-    @built_links["organisations"] = if @content_store_links["organisations"].present?
+    @built_links["organisations"] = if @content_store_links && @content_store_links["organisations"].present?
                                       @content_store_links["organisations"]
                                     else
                                       # Use HMRC content ID to set organisation
