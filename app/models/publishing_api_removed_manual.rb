@@ -18,40 +18,9 @@ class PublishingAPIRemovedManual
   end
 
   def sections
-    sections_from_rummager.map do |section_json|
+    SectionRetriever.new(slug).sections_from_rummager.map do |section_json|
       PublishingAPIRemovedSection.from_rummager_result(section_json)
     end
-  end
-
-  def sections_from_rummager
-    sections = []
-    search_response = nil
-
-    loop do
-      new_query = rummager_section_query(start_index(search_response))
-
-      search_response = Services.rummager.search(new_query)
-      sections += search_response["results"]
-      return sections if all_sections_retrieved?(sections, search_response)
-    end
-  end
-
-  private :sections_from_rummager
-
-  def all_sections_retrieved?(sections, search_response)
-    sections.count >= search_response["total"]
-  end
-
-  def start_index(search_response)
-    if search_response
-      search_response["start"] + search_response["results"].count
-    else
-      0
-    end
-  end
-
-  def rummager_section_query(start_index)
-    RummagerSection.search_query(base_path, start_index)
   end
 
   def to_h
