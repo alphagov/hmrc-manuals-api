@@ -1,22 +1,5 @@
 desc "Redirect a section, takes original manual slug, section slug, destination manual slug and destination section slug"
 task :redirect_hmrc_section, [] => :environment do |_task, args|
-  def output_error_message(message)
-    puts "ERROR!"
-    print "  "
-    puts message
-  end
-
-  def redirect_and_output(manual)
-    response = manual.save!
-    if response.code == 200
-      puts "OK!"
-    else
-      output_error_message(response.raw_response_body)
-    end
-  rescue => e
-    output_error_message(e.message)
-  end
-
   slugs = args.extras
   if slugs.empty? || slugs.length < 4
     puts "Usage: rake redirect_hmrc_section[manual-slug,section-slug-to-redirect,destination-manual-slug,destination-section-slug]"
@@ -27,6 +10,39 @@ task :redirect_hmrc_section, [] => :environment do |_task, args|
     destination_section_slug = slugs[3]
 
     section = PublishingAPIRedirectedSection.new(manual_slug, section_slug, destination_manual_slug, destination_section_slug)
-    redirect_and_output(section)
+    TaskHelper.save_and_output(section)
+  end
+end
+
+desc "Redirect a section to its parent manual, takes original manual slug, section slug, destination manual slug"
+task :redirect_hmrc_section_to_parent_manual, [] => :environment do |_task, args|
+  slugs = args.extras
+  if slugs.empty? || slugs.length < 2
+    puts "Usage: rake redirect_hmrc_section_to_parent_manual[manual-slug,section-slug-to-redirect]"
+  else
+    manual_slug = slugs[0]
+    section_slug = slugs[1]
+
+    section = PublishingAPIRedirectedSectionToParentManual.new(manual_slug, section_slug)
+    TaskHelper.save_and_output(section)
+  end
+end
+
+desc "Redirect all sections in a manual to the parent manual, takes manual slug"
+task :redirect_all_hmrc_sections_to_parent_manual, [] => :environment do |_task, args|
+  slugs = args.extras
+  if slugs.empty?
+    puts "Usage: rake redirect_all_hmrc_sections_to_parent_manual[manual-slug]"
+  else
+    manual_slug = slugs[0]
+
+    sections = SectionRetriever.new(manual_slug).sections_from_rummager.map do |json|
+      PublishingAPIRedirectedSectionToParentManual.from_rummager_result(json)
+    end
+    puts "Redirecting #{sections.count} sections"
+    sections.each do |section|
+      puts "\tRedirecting #{section.manual_slug}/#{section.section_slug} > #{section.manual_slug}"
+      TaskHelper.save_and_output(section)
+    end
   end
 end

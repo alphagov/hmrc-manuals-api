@@ -75,7 +75,6 @@ describe PublishingAPIRemovedManual do
 
     it 'asks rummager for all the hmrc manual sections under its slug' do
       rummager_query = stub_request(:get, %r{/search.json})
-        .with(query: search_for_sections_rummager_query('some-manual-slug'))
         .to_return(body: no_manual_sections_rummager_json_result)
 
       subject.sections
@@ -106,6 +105,29 @@ describe PublishingAPIRemovedManual do
       expect {
         subject.sections
       }.to raise_error(GdsApi::BaseError)
+    end
+
+    describe 'paging through sections' do
+      subject(:removed_manual) { described_class.new('some-manual-slug') }
+
+      it 'gets all sections when there is more than one page of results' do
+        stub_request(:get, %r{/search.json?.+start=0})
+          .to_return(body: one_of_two_manual_sections_rummager_json_result('some-manual-slug'))
+
+        stub_request(:get, %r{/search.json?.+start=1})
+          .to_return(body: two_of_two_manual_sections_rummager_json_result('some-manual-slug'))
+
+        sections = subject.sections
+        expect(sections.size).to eq(2)
+
+        expect(sections.first).to be_a PublishingAPIRemovedSection
+        expect(sections.first.manual_slug).to eq('some-manual-slug')
+        expect(sections.first.section_slug).to eq('section-1')
+
+        expect(sections.last).to be_a PublishingAPIRemovedSection
+        expect(sections.last.manual_slug).to eq('some-manual-slug')
+        expect(sections.last.section_slug).to eq('section-2')
+      end
     end
   end
 

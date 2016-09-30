@@ -39,12 +39,13 @@ class RummagerSection < RummagerBase
     SendToRummagerWorker.perform_async(SECTION_FORMAT, self.id, self.to_h)
   end
 
-  def self.search_query(manual_path)
+  def self.search_query(manual_path, start = 0, count = 1000)
     {
       'filter_format' => SECTION_FORMAT,
-      'filter_organisations' => [GOVUK_HMRC_SLUG],
+      'filter_organisations' => GOVUK_HMRC_SLUG,
       'filter_manual' => manual_path,
-      'count' => '1000',
+      'count' => count,
+      'start' => start,
     }
   end
 end
