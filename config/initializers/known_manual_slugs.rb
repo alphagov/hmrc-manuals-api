@@ -7,6 +7,7 @@ KNOWN_MANUAL_SLUGS = %w{
   animation-production-company-manual
   anti-dumping-and-countervailing-duties
   appeals-reviews-and-tribunals-guidance
+  apprenticeship-levy
   ata-cpd-carnets
   bank-levy-manual
   beer-manual
