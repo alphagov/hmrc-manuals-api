@@ -5,20 +5,20 @@ class PublishingAPIRedirectedSection
   include ActiveModel::Validations
   include Helpers::PublishingAPIHelpers
 
-  validates :manual_slug, :section_slug, :destination_manual_slug, :destination_section_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
+  validates :manual_slug, :section_slug, :destination_manual_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
+  validates :destination_section_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }, allow_nil: true
   validates_with InContentStoreValidator,
     format: SECTION_FORMAT,
     content_store: Services.content_store,
     unless: -> {
       errors[:manual_slug].present? ||
         errors[:section_slug].present? ||
-        errors[:destination_manual_slug].present? ||
-        errors[:destination_section_slug].present?
+        errors[:destination_manual_slug].present?
     }
 
   attr_accessor :manual_slug, :section_slug, :destination_manual_slug, :destination_section_slug
 
-  def initialize(manual_slug, section_slug, destination_manual_slug, destination_section_slug)
+  def initialize(manual_slug, section_slug, destination_manual_slug, destination_section_slug = nil)
     @manual_slug = manual_slug
     @section_slug = section_slug
     @destination_manual_slug = destination_manual_slug
@@ -54,7 +54,11 @@ class PublishingAPIRedirectedSection
   end
 
   def redirect_to_location
-    PublishingAPISection.base_path(destination_manual_slug, destination_section_slug)
+    if destination_section_slug.present?
+      PublishingAPISection.base_path(destination_manual_slug, destination_section_slug)
+    else
+      PublishingAPIManual.base_path(destination_manual_slug)
+    end
   end
 
   def save!

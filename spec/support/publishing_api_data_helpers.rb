@@ -140,7 +140,7 @@ module PublishingApiDataHelpers
     }
   end
 
-  def redirected_manual_section_for_publishing_api(manual_slug: 'some-manual', section_slug: 'some-section', dest_manual_slug: 'some-other-manual', dest_section_slug: 'some-other-section')
+  def redirected_manual_section_to_other_manual_section_for_publishing_api(manual_slug: 'some-manual', section_slug: 'some-section', dest_manual_slug: 'some-other-manual', dest_section_slug: 'some-other-section')
     {
       'document_type' => 'redirect',
       'schema_name' => 'redirect',
@@ -156,7 +156,23 @@ module PublishingApiDataHelpers
     }
   end
 
-  def redirected_manual_section_to_manual_for_publishing_api(manual_slug: 'some-manual', section_slug: 'some-section')
+  def redirected_manual_section_to_other_manual_for_publishing_api(manual_slug: 'some-manual', section_slug: 'some-section', dest_manual_slug: 'some-other-manual')
+    {
+      'document_type' => 'redirect',
+      'schema_name' => 'redirect',
+      'publishing_app' => 'hmrc-manuals-api',
+      'base_path' => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
+      'redirects' => [
+        {
+          'path' => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
+          'type' => "exact",
+          'destination' => "/hmrc-internal-manuals/#{dest_manual_slug}"
+        }
+      ],
+    }
+  end
+
+  def redirected_manual_section_to_parent_manual_for_publishing_api(manual_slug: 'some-manual', section_slug: 'some-section')
     {
       'document_type' => 'redirect',
       'schema_name' => 'redirect',

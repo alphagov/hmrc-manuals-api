@@ -1,8 +1,12 @@
-desc "Redirect a section, takes original manual slug, section slug, destination manual slug and destination section slug"
+desc "Redirect a section, takes original manual slug, section slug, destination manual slug and (optional) destination section slug"
 task :redirect_hmrc_section, [] => :environment do |_task, args|
   slugs = args.extras
-  if slugs.empty? || slugs.length < 4
-    puts "Usage: rake redirect_hmrc_section[manual-slug,section-slug-to-redirect,destination-manual-slug,destination-section-slug]"
+  if slugs.empty? || slugs.length < 3
+    puts %{Usage:
+  rake redirect_hmrc_section[manual-slug,section-slug-to-redirect,destination-manual-slug]
+or
+  rake redirect_hmrc_section[manual-slug,section-slug-to-redirect,destingation-manual-slug,destination-section-slug]
+}
   else
     manual_slug = slugs[0]
     section_slug = slugs[1]
