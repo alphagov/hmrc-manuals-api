@@ -27,6 +27,7 @@ class RummagerSection < RummagerBase
       'title'                   => title,
       'description'             => @publishing_api_section['description'],
       'link'                    => id,
+      'content_store_document_type' => SECTION_FORMAT,
       'indexable_content'       => body_without_html,
       'public_timestamp'        => @publishing_api_section['public_updated_at'],
       'hmrc_manual_section_id'  => section_id,

@@ -14,6 +14,7 @@ class RummagerManual < RummagerBase
       'content_id'         => @content_id,
       'title'              => @publishing_api_manual['title'],
       'description'        => @publishing_api_manual['description'],
+      'content_store_document_type' => MANUAL_FORMAT,
       'link'               => id,
       'indexable_content'  => nil,
       'public_timestamp'   => @publishing_api_manual['public_updated_at'],
