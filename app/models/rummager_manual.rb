@@ -19,6 +19,8 @@ class RummagerManual < RummagerBase
       'latest_change_note' => latest_change_note,
       'link' => id,
       'public_timestamp' => @publishing_api_manual['public_updated_at'],
+      'publishing_app' => 'hmrc-manuals-api',
+      'rendering_app' => 'manuals-frontend',
       'title' => @publishing_api_manual['title'],
     }
   end

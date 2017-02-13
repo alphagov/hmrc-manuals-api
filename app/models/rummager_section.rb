@@ -32,6 +32,8 @@ class RummagerSection < RummagerBase
       'link' => id,
       'manual' => @publishing_api_section['details']['manual']['base_path'],
       'public_timestamp' => @publishing_api_section['public_updated_at'],
+      'publishing_app' => 'hmrc-manuals-api',
+      'rendering_app' => 'manuals-frontend',
       'title' => title,
     }
   end
