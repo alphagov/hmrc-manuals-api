@@ -23,16 +23,16 @@ class RummagerSection < RummagerBase
 
   def to_h
     {
-      'content_id'              => @content_id,
-      'title'                   => title,
-      'description'             => @publishing_api_section['description'],
-      'link'                    => id,
+      'content_id' => @content_id,
       'content_store_document_type' => SECTION_FORMAT,
-      'indexable_content'       => body_without_html,
-      'public_timestamp'        => @publishing_api_section['public_updated_at'],
-      'hmrc_manual_section_id'  => section_id,
-      'manual'                  => @publishing_api_section['details']['manual']['base_path'],
-      'format'                  => SECTION_FORMAT,
+      'description' => @publishing_api_section['description'],
+      'format' => SECTION_FORMAT,
+      'hmrc_manual_section_id' => section_id,
+      'indexable_content' => body_without_html,
+      'link' => id,
+      'manual' => @publishing_api_section['details']['manual']['base_path'],
+      'public_timestamp' => @publishing_api_section['public_updated_at'],
+      'title' => title,
     }
   end
 

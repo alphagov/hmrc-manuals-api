@@ -11,15 +11,15 @@ class RummagerManual < RummagerBase
 
   def to_h
     {
-      'content_id'         => @content_id,
-      'title'              => @publishing_api_manual['title'],
-      'description'        => @publishing_api_manual['description'],
+      'content_id' => @content_id,
       'content_store_document_type' => MANUAL_FORMAT,
-      'link'               => id,
-      'indexable_content'  => nil,
-      'public_timestamp'   => @publishing_api_manual['public_updated_at'],
-      'format'             => MANUAL_FORMAT,
+      'description' => @publishing_api_manual['description'],
+      'format' => MANUAL_FORMAT,
+      'indexable_content' => nil,
       'latest_change_note' => latest_change_note,
+      'link' => id,
+      'public_timestamp' => @publishing_api_manual['public_updated_at'],
+      'title' => @publishing_api_manual['title'],
     }
   end
 
