@@ -94,7 +94,6 @@ KNOWN_MANUAL_SLUGS = %w{
   international-exchange-of-information
   international-manual
   introduction-to-administrative-co-operation-in-excise
-  inward-processing-relief
   labour-provider-operational-guidance
   landfill-tax-liability
   lloyds-manual
