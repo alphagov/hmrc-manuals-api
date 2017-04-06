@@ -24,6 +24,7 @@ See the [extended documentation](docs/extended_documentation.md) for details:
 - [Manual Tags](docs/extended_documentation.md#manual-tags)
 - [Removing published manuals](docs/extended_documentation.md#removing-published-manuals)
 - [Testing publishing in the GOVUK dev vm](docs/extended_documentation.md#testing-publishing-in-the-govuk-development-vm)
+- [Managing manuals and sections with rake](docs/extended_documentation.md#managing-manuals-and-sections-with-rake)
 
 ### Dependencies
 
