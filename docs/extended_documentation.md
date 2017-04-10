@@ -218,3 +218,35 @@ http PUT http://hmrc-manuals-api.dev.gov.uk/hmrc-manuals/test-manual \
 In development mode the API doesn't require a valid bearer token; any value is
 accepted. To test publishing to our Integration or Staging environments you would
 need a real token for the right environment.
+
+
+## Managing manuals and sections with rake
+
+HMRC Manuals API contains [rake tasks](https://github.com/alphagov/hmrc-manuals-api/tree/master/lib/tasks)
+for removing manuals and sections and redirecting sections.
+
+### Redirect a section back to the parent manual
+
+To redirect a section back to the parent manual:
+
+```
+bundle exec rake redirect_hmrc_section_to_parent_manual[manual-slug,section-slug,section-slug]
+```
+
+### Remove a section
+
+Alternatively to remove the section (this makes it a 'gone' route):
+
+```
+bundle exec rake remove_hmrc_sections[manual-slug,section-slug,section-slug]
+```
+
+### Remove a manual
+
+To completely remove a manual:
+
+```
+bundle exec rake remove_hmrc_manuals[manual-slug,manual-slug]
+```
+
+This will remove the manuals provided as arguments and all sections within those manuals.
