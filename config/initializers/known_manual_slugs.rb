@@ -106,6 +106,7 @@ KNOWN_MANUAL_SLUGS = %w{
   offshore-funds-manual
   oil-taxation-manual
   oils-technical-manual
+  orchestra-tax-relief
   other-non-statutory-clearance
   partnership-manual
   paye-manual
