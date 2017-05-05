@@ -1,5 +1,5 @@
 # this middleware isn't used in token authentication
-Rails.application.config.middleware.delete "OmniAuth::Builder"
+Rails.application.config.middleware.delete OmniAuth::Builder
 
 GDS::SSO.config do |config|
   config.user_model   = 'User'
