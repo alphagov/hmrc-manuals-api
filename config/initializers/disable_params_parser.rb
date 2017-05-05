@@ -10,4 +10,4 @@
 # Thirdly, empty arrays are converted to nil, which is not compatible with
 # validation against the schema - we want to require a given key, but allow the
 # value to be an empty array.
-Rails.application.config.middleware.delete "ActionDispatch::ParamsParser"
+Rails.application.config.middleware.delete ActionDispatch::ParamsParser
