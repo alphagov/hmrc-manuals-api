@@ -1,5 +1,5 @@
 class SectionsController < ApplicationController
-  before_filter :parse_request_body, only: [:update]
+  before_action :parse_request_body, only: [:update]
 
   def update
     section = PublishingAPISection.new(params[:manual_id], params[:id], @parsed_request_body)

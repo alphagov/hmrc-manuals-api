@@ -4,8 +4,8 @@ class ApplicationController < ActionController::Base
   include GDS::SSO::ControllerMethods
   respond_to :json
 
-  before_filter :require_signin_permission!
-  before_filter :check_content_type_header
+  before_action :require_signin_permission!
+  before_action :check_content_type_header
 
   rescue_from GdsApi::BaseError do |exception|
     notify_airbrake(exception)
