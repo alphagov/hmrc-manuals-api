@@ -14,7 +14,7 @@ describe "validation" do
 
   context "for manuals" do
     it "detects malformed JSON" do
-      put '/hmrc-manuals/imaginary-slug', malformed_json, headers
+      put_json '/hmrc-manuals/imaginary-slug', malformed_json, headers
 
       expect(response.status).to eq(400)
       expect(json_response).to include("status" => "error")
@@ -78,7 +78,7 @@ describe "validation" do
 
   context "for manual sections" do
     it "detects malformed JSON" do
-      put '/hmrc-manuals/imaginary-slug/sections/imaginary-section', malformed_json, headers
+      put_json '/hmrc-manuals/imaginary-slug/sections/imaginary-section', malformed_json, headers
 
       expect(response.status).to eq(400)
       expect(json_response).to include("status" => "error")
