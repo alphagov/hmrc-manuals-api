@@ -21,6 +21,7 @@ KNOWN_MANUAL_SLUGS = %w{
   child-benefit-manual
   child-benefit-technical-manual
   cider-guidance
+  civil-evasion-penalties-for-customs-excise-and-vat
   claimant-compliance-manual
   climate-change-levy-guidance
   collection-of-student-loans-manual
