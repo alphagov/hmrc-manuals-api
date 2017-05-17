@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.0.2'
+gem 'rails', '5.1.0'
 gem 'logstasher', '0.5.3'
 gem 'unicorn', '4.8.3'
 gem 'airbrake', '3.1.15'
