@@ -15,6 +15,7 @@ gem 'responders', '~> 2.0'
 
 group :development do
   gem "foreman", "0.78.0"
+  gem 'listen'
 end
 
 group :development, :test do
