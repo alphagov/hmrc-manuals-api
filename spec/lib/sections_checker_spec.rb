@@ -64,24 +64,24 @@ RSpec.describe SectionsChecker do
       let(:new_manual_child_section_groups) { [] }
 
       before do
-        child_1_content_item = hmrc_manual_section_content_item_for_base_path(
+        child1_content_item = hmrc_manual_section_content_item_for_base_path(
           child_1_base_path,
           manual_base_path: manual_path
         )
 
-        child_2_content_item = hmrc_manual_section_content_item_for_base_path(
+        child2_content_item = hmrc_manual_section_content_item_for_base_path(
           child_2_base_path,
           manual_base_path: new_manual_path
         )
 
-        child_3_content_item = hmrc_manual_section_content_item_for_base_path(
+        child3_content_item = hmrc_manual_section_content_item_for_base_path(
           child_3_base_path,
           manual_base_path: manual_path
         )
 
-        content_store_has_item(child_1_base_path, child_1_content_item)
-        content_store_has_item(child_2_base_path, child_2_content_item)
-        content_store_has_item(child_3_base_path, child_3_content_item)
+        content_store_has_item(child_1_base_path, child1_content_item)
+        content_store_has_item(child_2_base_path, child2_content_item)
+        content_store_has_item(child_3_base_path, child3_content_item)
         content_store_has_item(new_manual_path, new_manual_content_item)
       end
 
@@ -117,19 +117,19 @@ RSpec.describe SectionsChecker do
         end
 
         before do
-          child_5_content_item = hmrc_manual_section_content_item_for_base_path(
+          child5_content_item = hmrc_manual_section_content_item_for_base_path(
             child_5_base_path,
             manual_base_path: new_manual_path
           )
 
-          child_6_content_item = hmrc_manual_section_content_item_for_base_path(
+          child6_content_item = hmrc_manual_section_content_item_for_base_path(
             child_6_base_path,
             manual_base_path: new_manual_path,
             child_section_groups: new_section_child_section_group
           )
 
-          content_store_has_item(child_5_base_path, child_5_content_item)
-          content_store_has_item(child_6_base_path, child_6_content_item)
+          content_store_has_item(child_5_base_path, child5_content_item)
+          content_store_has_item(child_6_base_path, child6_content_item)
         end
 
         context 'when the new manual parent does contain the section' do
@@ -226,7 +226,7 @@ RSpec.describe SectionsChecker do
       let(:new_section_path) { PublishingAPISection.base_path(manual_slug, 'a-new-section-slug') }
 
       before do
-        child_1_content_item = hmrc_manual_section_content_item_for_base_path(
+        child1_content_item = hmrc_manual_section_content_item_for_base_path(
           child_1_base_path,
           manual_base_path: manual_path,
           breadcrumbs: [
@@ -237,7 +237,7 @@ RSpec.describe SectionsChecker do
           ]
         )
 
-        child_2_content_item = hmrc_manual_section_content_item_for_base_path(
+        child2_content_item = hmrc_manual_section_content_item_for_base_path(
           child_2_base_path,
           manual_base_path: manual_path,
           breadcrumbs: [
@@ -248,7 +248,7 @@ RSpec.describe SectionsChecker do
           ]
         )
 
-        child_3_content_item = hmrc_manual_section_content_item_for_base_path(
+        child3_content_item = hmrc_manual_section_content_item_for_base_path(
           child_3_base_path,
           manual_base_path: manual_path,
           breadcrumbs: [
@@ -259,9 +259,9 @@ RSpec.describe SectionsChecker do
           ]
         )
 
-        content_store_has_item(child_1_base_path, child_1_content_item)
-        content_store_has_item(child_2_base_path, child_2_content_item)
-        content_store_has_item(child_3_base_path, child_3_content_item)
+        content_store_has_item(child_1_base_path, child1_content_item)
+        content_store_has_item(child_2_base_path, child2_content_item)
+        content_store_has_item(child_3_base_path, child3_content_item)
 
         new_section_content_item = hmrc_manual_section_content_item_for_base_path(
           new_section_path,
@@ -313,7 +313,7 @@ RSpec.describe SectionsChecker do
       let(:new_section_path) { PublishingAPISection.base_path(manual_slug, 'a-new-section-slug') }
 
       before do
-        child_2_content_item = hmrc_manual_section_content_item_for_base_path(
+        child2_content_item = hmrc_manual_section_content_item_for_base_path(
           child_2_base_path,
           manual_base_path: manual_path,
           breadcrumbs: [
@@ -324,7 +324,7 @@ RSpec.describe SectionsChecker do
           ]
         )
 
-        content_store_has_item(child_2_base_path, child_2_content_item)
+        content_store_has_item(child_2_base_path, child2_content_item)
 
         new_section_content_item = hmrc_manual_section_content_item_for_base_path(
           new_section_path,
@@ -342,7 +342,7 @@ RSpec.describe SectionsChecker do
     end
   end
 
-  def hmrc_manual_content_item_for_base_path(base_path, child_section_groups:[])
+  def hmrc_manual_content_item_for_base_path(base_path, child_section_groups: [])
     item = content_item_for_base_path(base_path)
     item.merge(
       "format" => MANUAL_FORMAT,
@@ -352,7 +352,7 @@ RSpec.describe SectionsChecker do
     )
   end
 
-  def hmrc_manual_section_content_item_for_base_path(base_path, child_section_groups:[], breadcrumbs:[], manual_base_path: "")
+  def hmrc_manual_section_content_item_for_base_path(base_path, child_section_groups: [], breadcrumbs: [], manual_base_path: "")
     item = content_item_for_base_path(base_path)
     item.merge(
       "format" => SECTION_FORMAT,
