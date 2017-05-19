@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.7.1'
+gem 'rails', '5.1.0'
 gem 'logstasher', '0.5.3'
 gem 'unicorn', '4.8.3'
-gem 'airbrake', '3.1.15'
+gem 'airbrake', github: 'alphagov/airbrake', branch: 'silence-dep-warnings-for-rails-5'
 gem 'json-schema', '2.5.1'
-gem 'gds-sso', '9.3.0'
+gem 'gds-sso', '~> 13.2.0'
 gem 'plek', '1.11.0'
 gem 'gds-api-adapters', '36.0.1'
 gem 'govspeak', '~> 3.3.0'
@@ -15,6 +15,7 @@ gem 'responders', '~> 2.0'
 
 group :development do
   gem "foreman", "0.78.0"
+  gem 'listen'
 end
 
 group :development, :test do

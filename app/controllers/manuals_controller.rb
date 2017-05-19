@@ -1,5 +1,5 @@
 class ManualsController < ApplicationController
-  before_filter :parse_request_body, only: [:update]
+  before_action :parse_request_body, only: [:update]
 
   def update
     manual = PublishingAPIManual.new(params[:id], @parsed_request_body)

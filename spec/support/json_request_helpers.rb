@@ -5,7 +5,7 @@ module JSONRequestHelper
       'HTTP_ACCEPT' => 'application/json',
       'HTTP_AUTHORIZATION' => 'Bearer 12345678'
     }
-    put path, attrs.to_json, default_headers.merge(headers)
+    put path, params: attrs.to_json, headers: default_headers.merge(headers)
   end
 
   def json_response

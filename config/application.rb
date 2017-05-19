@@ -4,9 +4,9 @@ require File.expand_path('../boot', __FILE__)
 require "active_model/railtie"
 # require "active_record/railtie"
 require "action_controller/railtie"
-# require "action_mailer/railtie"
+require "action_mailer/railtie"
 require "action_view/railtie"
-# require "sprockets/railtie"
+require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
 # Require the gems listed in Gemfile, including any gems
@@ -39,6 +39,6 @@ module HMRCManualsAPI
     # Disable Rack::Cache
     config.action_dispatch.rack_cache = nil
 
-    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    config.eager_load_paths += Dir["#{config.root}/lib/**/"]
   end
 end
