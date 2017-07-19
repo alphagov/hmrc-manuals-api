@@ -10,6 +10,7 @@ KNOWN_MANUAL_SLUGS = %w{
   apprenticeship-levy
   ata-cpd-carnets
   bank-levy-manual
+  banking-manual
   beer-manual
   biofuels-and-fuel-substitutes-assurance
   bona-vacantia-manual
