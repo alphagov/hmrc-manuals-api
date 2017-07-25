@@ -38,6 +38,7 @@ class PublishingAPIRedirectedSection
           destination: redirect_to_location
         }
       ],
+      update_type: update_type
     }
   end
 
