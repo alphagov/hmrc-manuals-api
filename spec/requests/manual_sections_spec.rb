@@ -13,7 +13,7 @@ describe 'manual sections resource' do
 
   it 'confirms update of the manual section' do
     stub_publishing_api_put_content(maximal_section_content_id, {}, body: { version: 788 })
-    stub_publishing_api_publish(maximal_section_content_id, { update_type: 'minor', previous_version: 788 }.to_json)
+    stub_publishing_api_publish(maximal_section_content_id, { update_type: nil, previous_version: 788 }.to_json)
     stub_any_rummager_post
     stub_publishing_api_get_links(maximal_section_content_id)
     stub_put_default_organisation(maximal_section_content_id)
@@ -30,7 +30,7 @@ describe 'manual sections resource' do
 
   it 'errors if the Accept header is not application/json' do
     stub_publishing_api_put_content(maximal_section_content_id, {}, body: { version: 12 })
-    stub_publishing_api_publish(maximal_section_content_id, { update_type: 'minor', previous_version: 12 }.to_json)
+    stub_publishing_api_publish(maximal_section_content_id, { update_type: nil, previous_version: 12 }.to_json)
     stub_any_rummager_post
     stub_publishing_api_get_links(maximal_section_content_id)
     stub_put_default_organisation(maximal_section_content_id)
@@ -76,7 +76,7 @@ describe 'manual sections resource' do
 
   it 'returns the status code from the Publishing API response, not Rummager' do
     stub_publishing_api_put_content(maximal_section_content_id, {}, body: { version: 788 }) # This returns 200
-    stub_publishing_api_publish(maximal_section_content_id, { update_type: 'minor', previous_version: 788 }.to_json)
+    stub_publishing_api_publish(maximal_section_content_id, { update_type: nil, previous_version: 788 }.to_json)
     stub_any_rummager_post # This returns 202, as it does in Production
     stub_publishing_api_get_links(maximal_section_content_id)
     stub_put_default_organisation(maximal_section_content_id)
