@@ -3,6 +3,7 @@ module PublishingApiDataHelpers
     {
       "base_path" => "/hmrc-internal-manuals/employment-income-manual",
       "locale" => "en",
+      "update_type" => "major",
       "document_type" => "hmrc_manual",
       "schema_name" => "hmrc_manual",
       "title" => "Employment Income Manual",

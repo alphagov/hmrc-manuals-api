@@ -23,7 +23,7 @@ private
   def publish(version)
     Services.publishing_api.publish(
       @document.content_id,
-      @document.update_type,
+      nil, #this is update_type, which is being deprecated. We still need to pass it for now.
       previous_version: version
     )
   end

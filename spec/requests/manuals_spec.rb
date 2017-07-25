@@ -13,14 +13,13 @@ describe 'manuals resource' do
     stub_any_rummager_post
     stub_publishing_api_get_links(maximal_manual_content_id)
     stub_put_default_organisation(maximal_manual_content_id)
-
     put_json "/hmrc-manuals/#{maximal_manual_slug}", maximal_manual
 
     expect(response.status).to eq(200)
     expect(response.headers['Content-Type']).to include('application/json')
 
     assert_publishing_api_put_content(maximal_manual_content_id, maximal_manual_for_publishing_api)
-    assert_publishing_api_publish(maximal_manual_content_id, update_type: 'major')
+    assert_publishing_api_publish(maximal_manual_content_id, update_type: nil)
     assert_rummager_posted_item(maximal_manual_for_rummager)
     expect(response.headers['Location']).to include(maximal_manual_url)
     expect(response.body).to include(maximal_manual_url)

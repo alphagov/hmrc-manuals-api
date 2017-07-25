@@ -124,7 +124,7 @@ describe PublishingAPIRemovedSection do
 
       it 'issues put_content and publish requests to the publishing api to mark the manual section as gone' do
         stub_publishing_api_put_content(removed_manual_section.content_id, {}, body: { version: 33 })
-        stub_publishing_api_publish(removed_manual_section.content_id, { update_type: 'major', previous_version: 33 }.to_json)
+        stub_publishing_api_publish(removed_manual_section.content_id, { update_type: nil, previous_version: 33 }.to_json)
         stub_any_rummager_delete
 
         subject.save!
@@ -132,7 +132,7 @@ describe PublishingAPIRemovedSection do
         assert_publishing_api_put_content(removed_manual_section.content_id, gone_manual_section_for_publishing_api)
         assert_publishing_api_publish(
           removed_manual_section.content_id,
-          update_type: removed_manual_section.update_type, previous_version: 33
+          update_type: nil, previous_version: 33
         )
 
         # TODO: Update this with `assert_rummager_deleted_item(publishing_api_base_path[1..-1])`

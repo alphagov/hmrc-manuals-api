@@ -64,7 +64,7 @@ describe "validation" do
         stub_publishing_api_get_links(content_id)
         stub_put_default_organisation(content_id)
 
-        stub_publishing_api_publish(content_id, { update_type: 'minor', previous_version: 22 }.to_json)
+        stub_publishing_api_publish(content_id, { update_type: nil, previous_version: 22 }.to_json)
         stub_any_rummager_post
 
         manual = valid_manual
