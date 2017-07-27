@@ -63,6 +63,7 @@ module PublishingApiDataHelpers
     {
       "base_path" => "/hmrc-internal-manuals/employment-income-manual/12345",
       "document_type" => "hmrc_manual_section",
+      "update_type" => "minor",
       "schema_name" => "hmrc_manual_section",
       "locale" => "en",
       "title" => "A section on a part of employment income",

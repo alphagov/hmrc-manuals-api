@@ -24,7 +24,7 @@ class PublishingAPISection
 
   def to_h
     @_to_h ||= begin
-      enriched_data = @section_attributes.except('content_id', 'update_type').deep_dup.merge(base_path: base_path,
+      enriched_data = @section_attributes.except('content_id').deep_dup.merge(base_path: base_path,
         document_type: SECTION_FORMAT,
         schema_name: SECTION_FORMAT,
         publishing_app: 'hmrc-manuals-api',
