@@ -24,7 +24,7 @@ class RummagerSection < RummagerBase
   def to_h
     {
       'content_id' => @content_id,
-      'content_store_document_type' => SECTION_FORMAT,
+      'content_store_document_type' => SECTION_DOCUMENT_TYPE,
       'description' => @publishing_api_section['description'],
       'format' => SECTION_FORMAT,
       'hmrc_manual_section_id' => section_id,

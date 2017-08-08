@@ -12,7 +12,7 @@ class RummagerManual < RummagerBase
   def to_h
     {
       'content_id' => @content_id,
-      'content_store_document_type' => MANUAL_FORMAT,
+      'content_store_document_type' => MANUAL_DOCUMENT_TYPE,
       'description' => @publishing_api_manual['description'],
       'format' => MANUAL_FORMAT,
       'indexable_content' => nil,

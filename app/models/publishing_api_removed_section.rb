@@ -7,7 +7,7 @@ class PublishingAPIRemovedSection
 
   validates :manual_slug, :section_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
   validates_with InContentStoreValidator,
-    format: SECTION_FORMAT,
+    schema_name: SECTION_SCHEMA_NAME,
     content_store: Services.content_store,
     unless: -> { errors[:manual_slug].present? || errors[:section_slug].present? }
 

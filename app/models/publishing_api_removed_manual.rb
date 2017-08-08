@@ -7,7 +7,7 @@ class PublishingAPIRemovedManual
 
   validates :slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
   validates_with InContentStoreValidator,
-    format: MANUAL_FORMAT,
+    schema_name: MANUAL_SCHEMA_NAME,
     content_store: Services.content_store,
     unless: -> { errors[:slug].present? }
 

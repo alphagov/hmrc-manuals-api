@@ -143,6 +143,6 @@ describe PublishingAPIRemovedSection do
   end
 
   def hmrc_manual_section_content_item_for_base_path(base_path)
-    content_item_for_base_path(base_path).merge("format" => SECTION_FORMAT)
+    content_item_for_base_path(base_path).merge("schema_name" => SECTION_SCHEMA_NAME)
   end
 end

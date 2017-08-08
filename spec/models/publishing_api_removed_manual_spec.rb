@@ -181,6 +181,6 @@ describe PublishingAPIRemovedManual do
   end
 
   def hmrc_manual_content_item_for_base_path(base_path)
-    content_item_for_base_path(base_path).merge("format" => MANUAL_FORMAT)
+    content_item_for_base_path(base_path).merge("schema_name" => MANUAL_SCHEMA_NAME)
   end
 end
