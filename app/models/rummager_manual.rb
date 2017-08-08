@@ -14,7 +14,7 @@ class RummagerManual < RummagerBase
       'content_id' => @content_id,
       'content_store_document_type' => MANUAL_DOCUMENT_TYPE,
       'description' => @publishing_api_manual['description'],
-      'format' => MANUAL_FORMAT,
+      'format' => MANUAL_SCHEMA_NAME,
       'indexable_content' => nil,
       'latest_change_note' => latest_change_note,
       'link' => id,
@@ -26,7 +26,7 @@ class RummagerManual < RummagerBase
   end
 
   def save!
-    SendToRummagerWorker.perform_async(MANUAL_FORMAT, self.id, self.to_h)
+    SendToRummagerWorker.perform_async(MANUAL_DOCUMENT_TYPE, self.id, self.to_h)
   end
 
 private

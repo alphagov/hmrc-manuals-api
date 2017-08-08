@@ -8,9 +8,9 @@ class SectionsChecker
 
     children = child_sections(item)
 
-    if item['format'] == MANUAL_FORMAT
+    if item['schema_name'] == MANUAL_SCHEMA_NAME
       check_children_of_manual(item, children)
-    elsif item['format'] == SECTION_FORMAT
+    elsif item['schema_name'] == SECTION_SCHEMA_NAME
       check_children_of_section(item, children)
     end
   end

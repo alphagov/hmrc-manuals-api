@@ -26,7 +26,7 @@ class RummagerSection < RummagerBase
       'content_id' => @content_id,
       'content_store_document_type' => SECTION_DOCUMENT_TYPE,
       'description' => @publishing_api_section['description'],
-      'format' => SECTION_FORMAT,
+      'format' => SECTION_SCHEMA_NAME,
       'hmrc_manual_section_id' => section_id,
       'indexable_content' => body_without_html,
       'link' => id,
@@ -39,12 +39,12 @@ class RummagerSection < RummagerBase
   end
 
   def save!
-    SendToRummagerWorker.perform_async(SECTION_FORMAT, self.id, self.to_h)
+    SendToRummagerWorker.perform_async(SECTION_DOCUMENT_TYPE, self.id, self.to_h)
   end
 
   def self.search_query(manual_path, start = 0, count = 1000)
     {
-      'filter_format' => SECTION_FORMAT,
+      'filter_format' => SECTION_SCHEMA_NAME,
       'filter_organisations' => GOVUK_HMRC_SLUG,
       'filter_manual' => manual_path,
       'count' => count,

@@ -34,7 +34,7 @@ describe PublishingAPIRemovedManual do
         expect(subject).to be_valid
       end
 
-      it 'is invalid when the slug represents any other format piece of content' do
+      it 'is invalid when the slug represents a piece of content with any other schema_name' do
         content_store_has_item(manual_path)
         expect(subject).not_to be_valid
       end

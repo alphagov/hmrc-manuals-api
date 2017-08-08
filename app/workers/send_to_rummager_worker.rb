@@ -1,7 +1,7 @@
 class SendToRummagerWorker
   include Sidekiq::Worker
 
-  def perform(format, id, attributes)
-    Services.rummager.add_document(format, id, attributes)
+  def perform(document_type, id, attributes)
+    Services.rummager.add_document(document_type, id, attributes)
   end
 end

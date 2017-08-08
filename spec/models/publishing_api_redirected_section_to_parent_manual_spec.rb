@@ -35,7 +35,7 @@ describe PublishingAPIRedirectedSectionToParentManual do
         expect(subject).to be_valid
       end
 
-      it 'is invalid when the slugs represent any other format piece of content' do
+      it 'is invalid when the slugs represent a piece of content with any other schema_name' do
         content_store_has_item(section_path)
         expect(subject).not_to be_valid
       end

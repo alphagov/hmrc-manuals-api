@@ -56,7 +56,7 @@ class PublishingAPIRemovedManual
   def save!
     raise ValidationError, "manual to remove is invalid #{errors.full_messages.to_sentence}" unless valid?
     publishing_api_response = PublishingAPINotifier.new(self).notify(update_links: false)
-    Services.rummager.delete_document(MANUAL_FORMAT, base_path)
+    Services.rummager.delete_document(MANUAL_DOCUMENT_TYPE, base_path)
     publishing_api_response
   end
 end
