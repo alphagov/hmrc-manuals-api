@@ -59,7 +59,7 @@ describe PublishingAPIRemovedSection do
         expect(subject).to be_valid
       end
 
-      it 'is invalid when the slugs represent any other format piece of content' do
+      it 'is invalid when the slugs represents a piece of content with any other schema_name' do
         content_store_has_item(section_path)
         expect(subject).not_to be_valid
       end
@@ -143,6 +143,6 @@ describe PublishingAPIRemovedSection do
   end
 
   def hmrc_manual_section_content_item_for_base_path(base_path)
-    content_item_for_base_path(base_path).merge("format" => SECTION_FORMAT)
+    content_item_for_base_path(base_path).merge("schema_name" => SECTION_SCHEMA_NAME)
   end
 end

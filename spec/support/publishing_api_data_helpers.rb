@@ -155,6 +155,7 @@ module PublishingApiDataHelpers
           'destination' => "/hmrc-internal-manuals/#{dest_manual_slug}/#{dest_section_slug}"
         }
       ],
+      'update_type' => 'major'
     }
   end
 
@@ -171,6 +172,7 @@ module PublishingApiDataHelpers
           'destination' => "/hmrc-internal-manuals/#{dest_manual_slug}"
         }
       ],
+      'update_type' => 'major'
     }
   end
 
@@ -187,6 +189,7 @@ module PublishingApiDataHelpers
           'destination' => "/hmrc-internal-manuals/#{manual_slug}"
         }
       ],
+      'update_type' => 'major'
     }
   end
 end

@@ -345,7 +345,7 @@ RSpec.describe SectionsChecker do
   def hmrc_manual_content_item_for_base_path(base_path, child_section_groups: [])
     item = content_item_for_base_path(base_path)
     item.merge(
-      "format" => MANUAL_FORMAT,
+      "schema_name" => MANUAL_SCHEMA_NAME,
       "details" => item["details"].merge(
         "child_section_groups" => child_section_groups
       )
@@ -355,7 +355,7 @@ RSpec.describe SectionsChecker do
   def hmrc_manual_section_content_item_for_base_path(base_path, child_section_groups: [], breadcrumbs: [], manual_base_path: "")
     item = content_item_for_base_path(base_path)
     item.merge(
-      "format" => SECTION_FORMAT,
+      "schema_name" => SECTION_SCHEMA_NAME,
       "details" => item["details"].merge(
         "child_section_groups" => child_section_groups,
         "breadcrumbs" => breadcrumbs,
