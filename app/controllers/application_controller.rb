@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   before_action :check_content_type_header
 
   rescue_from GdsApi::BaseError do |exception|
-    notify_airbrake(exception)
+    GovukError.notify(exception)
     if (exception.is_a?(GdsApi::HTTPErrorResponse) && (500..599).cover?(exception.code)) ||
         exception.is_a?(GdsApi::TimedOutException)
       message = 'Service unavailable'

@@ -6,9 +6,6 @@ redis_config = {
 
 Sidekiq.configure_server do |config|
   config.redis = redis_config
-  config.error_handlers << lambda do |exception, context|
-     Airbrake.notify(exception, parameters: context)
-   end
 end
 
 Sidekiq.configure_client do |config|
