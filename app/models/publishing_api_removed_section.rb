@@ -51,8 +51,6 @@ class PublishingAPIRemovedSection
 
   def save!
     raise ValidationError, "manual section to remove is invalid #{errors.full_messages.to_sentence}" unless valid?
-    publishing_api_response = PublishingAPINotifier.new(self).notify(update_links: false)
-    Services.rummager.delete_document(SECTION_DOCUMENT_TYPE, base_path)
-    publishing_api_response
+    PublishingAPINotifier.new(self).notify(update_links: false)
   end
 end

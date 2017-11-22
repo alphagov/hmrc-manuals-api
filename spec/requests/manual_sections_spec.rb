@@ -1,10 +1,8 @@
 require 'rails_helper'
 require 'gds_api/test_helpers/publishing_api_v2'
-require 'gds_api/test_helpers/rummager'
 
 describe 'manual sections resource' do
   include GdsApi::TestHelpers::PublishingApiV2
-  include GdsApi::TestHelpers::Rummager
   include LinksUpdateHelper
 
   let(:maximal_section_endpoint) {
@@ -14,7 +12,6 @@ describe 'manual sections resource' do
   it 'confirms update of the manual section' do
     stub_publishing_api_put_content(maximal_section_content_id, {}, body: { version: 788 })
     stub_publishing_api_publish(maximal_section_content_id, { update_type: nil, previous_version: 788 }.to_json)
-    stub_any_rummager_post
     stub_publishing_api_get_links(maximal_section_content_id)
     stub_put_default_organisation(maximal_section_content_id)
 
@@ -23,7 +20,6 @@ describe 'manual sections resource' do
     expect(response.status).to eq(200)
     expect(response.headers['Content-Type']).to include('application/json')
     assert_publishing_api_put_content(maximal_section_content_id, maximal_section_for_publishing_api)
-    assert_rummager_posted_item(maximal_section_for_rummager)
     expect(response.headers['Location']).to include(maximal_section_url)
     expect(response.body).to include(maximal_section_url)
   end
@@ -31,7 +27,6 @@ describe 'manual sections resource' do
   it 'errors if the Accept header is not application/json' do
     stub_publishing_api_put_content(maximal_section_content_id, {}, body: { version: 12 })
     stub_publishing_api_publish(maximal_section_content_id, { update_type: nil, previous_version: 12 }.to_json)
-    stub_any_rummager_post
     stub_publishing_api_get_links(maximal_section_content_id)
     stub_put_default_organisation(maximal_section_content_id)
 
@@ -74,10 +69,9 @@ describe 'manual sections resource' do
     expect(response.status).to eq(500)
   end
 
-  it 'returns the status code from the Publishing API response, not Rummager' do
+  it 'returns the status code from the Publishing API response' do
     stub_publishing_api_put_content(maximal_section_content_id, {}, body: { version: 788 }) # This returns 200
     stub_publishing_api_publish(maximal_section_content_id, { update_type: nil, previous_version: 788 }.to_json)
-    stub_any_rummager_post # This returns 202, as it does in Production
     stub_publishing_api_get_links(maximal_section_content_id)
     stub_put_default_organisation(maximal_section_content_id)
 

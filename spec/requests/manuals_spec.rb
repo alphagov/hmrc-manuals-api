@@ -1,16 +1,13 @@
 require 'rails_helper'
 require 'gds_api/test_helpers/publishing_api_v2'
-require 'gds_api/test_helpers/rummager'
 
 describe 'manuals resource' do
   include GdsApi::TestHelpers::PublishingApiV2
-  include GdsApi::TestHelpers::Rummager
   include LinksUpdateHelper
 
   it 'confirms update of the manual' do
     stub_any_publishing_api_call
     stub_any_publishing_api_put_content.to_return(body: { version: nil }.to_json)
-    stub_any_rummager_post
     stub_publishing_api_get_links(maximal_manual_content_id)
     stub_put_default_organisation(maximal_manual_content_id)
     put_json "/hmrc-manuals/#{maximal_manual_slug}", maximal_manual
@@ -20,14 +17,12 @@ describe 'manuals resource' do
 
     assert_publishing_api_put_content(maximal_manual_content_id, maximal_manual_for_publishing_api)
     assert_publishing_api_publish(maximal_manual_content_id, update_type: nil)
-    assert_rummager_posted_item(maximal_manual_for_rummager)
     expect(response.headers['Location']).to include(maximal_manual_url)
     expect(response.body).to include(maximal_manual_url)
   end
 
   it 'handles the Publishing API being unavailable' do
     publishing_api_isnt_available
-    stub_any_rummager_post
 
     put_json "/hmrc-manuals/#{maximal_manual_slug}", maximal_manual
 
@@ -36,17 +31,15 @@ describe 'manuals resource' do
 
   it 'handles Publishing API put_content returning 409' do
     stub_publishing_api_put_content(maximal_manual_content_id, {}, status: 409)
-    stub_any_rummager_post
 
     put_json "/hmrc-manuals/#{maximal_manual_slug}", maximal_manual
 
     expect(response.status).to eq(500)
   end
 
-  it 'returns the status code from the Publishing API response, not Rummager' do
+  it 'returns the status code from the Publishing API response' do
     stub_any_publishing_api_call
     stub_any_publishing_api_put_content.to_return(body: { version: nil }.to_json)
-    stub_any_rummager_post # This returns 202, as it does in Production
     stub_publishing_api_get_links(maximal_manual_content_id)
     stub_put_default_organisation(maximal_manual_content_id)
 
@@ -65,7 +58,6 @@ describe 'manuals resource' do
   it 'errors if the Accept header is not application/json' do
     stub_any_publishing_api_call
     stub_any_publishing_api_put_content.to_return(body: { version: nil }.to_json)
-    stub_any_rummager_post
     stub_publishing_api_get_links(maximal_manual_content_id)
     stub_put_default_organisation(maximal_manual_content_id)
 
@@ -77,7 +69,6 @@ describe 'manuals resource' do
 
   it 'errors if the Content-Type header is not application/json' do
     stub_any_publishing_api_call
-    stub_any_rummager_post
 
     put "/hmrc-manuals/#{maximal_manual_slug}/", params: maximal_manual.to_json, headers: { 'CONTENT_TYPE' => 'text/plain',
       'HTTP_ACCEPT' => 'application/json',
