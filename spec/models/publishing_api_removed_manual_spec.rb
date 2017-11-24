@@ -133,7 +133,6 @@ describe PublishingAPIRemovedManual do
 
   describe '#save!' do
     include GdsApi::TestHelpers::PublishingApiV2
-    include GdsApi::TestHelpers::Rummager
     include GdsApi::TestHelpers::ContentStore
     before do
       content_item = hmrc_manual_content_item_for_base_path(subject.base_path)
@@ -166,16 +165,11 @@ describe PublishingAPIRemovedManual do
       it 'issues a put_content and publish requests to the publishing api to mark the manual as gone' do
         stub_publishing_api_put_content(removed_manual.content_id, {}, status: 201, body: { version: 4 }.to_json)
         stub_publishing_api_publish(removed_manual.content_id, { update_type: nil, previous_version: 4 }.to_json)
-        stub_any_rummager_delete
 
         subject.save!
 
         assert_publishing_api_put_content(removed_manual.content_id, gone_manual)
         assert_publishing_api_publish(removed_manual.content_id, update_type: nil, previous_version: 4)
-
-        #TODO: Update this with `assert_rummager_deleted_item(publishing_api_base_path[1..-1])`
-        #      once https://github.com/alphagov/gds-api-adapters/pull/362 has been merged
-        assert_requested(:delete, %r{#{Plek.new.find('rummager')}/documents/#{publishing_api_base_path}})
       end
     end
   end

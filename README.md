@@ -36,14 +36,14 @@ See the [extended documentation](docs/extended_documentation.md) for details:
 
 ### Dependencies
 
-- [alphagov/rummager](https://github.com/alphagov/rummager): allows documents to be indexed for searching in both Finders and site search
+- [alphagov/rummager](https://github.com/alphagov/rummager): allows document sections to be retrieved
 - [alphagov/publishing-api](https://github.com/alphagov/publishing-api): allows documents to be published to the Publishing queue
 
 ### Running the application
 
 `./startup.sh`
 
-This runs `bundle install` to install dependencies and runs the app on port `3071`. 
+This runs `bundle install` to install dependencies and runs the app on port `3071`.
 
 When using the GOV.UK development VM use `bowl hmrc-manuals-api` in the Dev VM `development` directory. The app will be available at http://hmrc-manuals-api.dev.gov.uk/.
 
@@ -53,7 +53,7 @@ When using the GOV.UK development VM use `bowl hmrc-manuals-api` in the Dev VM `
 
 ### Any deviations from idiomatic Rails/Go etc.
 
-The application does not have a database itself, it sends on requests to the Publishing API and Rummager.
+The application does not have a database itself, it sends on requests to the Publishing API.
 
 ### Example API output
 

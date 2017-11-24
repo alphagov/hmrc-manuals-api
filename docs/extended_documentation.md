@@ -186,7 +186,7 @@ Use the [content-tagger](https://github.com/alphagov/content-tagger) app to add 
 
 ## Removing published manuals
 
-The API endpoints of the app do not cover removal of manuals. There is a rake task for this purpose. Removal means deleting the manual from rummager and replacing the published manual with a 410 Gone document. As manuals can have sections underneath them removal does the same for each section that is a child of the manual.
+The API endpoints of the app do not cover removal of manuals. There is a rake task for this purpose. Removal means replacing the published manual with a 410 Gone document. As manuals can have sections underneath them removal does the same for each section that is a child of the manual.
 
 The rake task is invoked as follows:
 

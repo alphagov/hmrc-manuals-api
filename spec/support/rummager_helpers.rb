@@ -1,33 +1,4 @@
 module RummagerHelpers
-  def maximal_manual_for_rummager
-    {
-      'content_id'         => '913fd52f-072c-409e-88b2-ea0b7a8b6d9c',
-      'title'              => 'Employment Income Manual',
-      'description'        => 'A manual about incoming employment',
-      'content_store_document_type' => 'hmrc_manual',
-      'link'               => '/hmrc-internal-manuals/employment-income-manual',
-      'indexable_content'  => nil,
-      'public_timestamp'   => '2014-01-23T00:00:00+01:00',
-      'format'             => 'hmrc_manual',
-      'latest_change_note' => 'Description of changes in Title of a Section that was changed'
-    }
-  end
-
-  def maximal_section_for_rummager
-    {
-      'content_id'             => '25e687b8-74da-4892-938d-7de82fa5df27',
-      'title'                  => '12345 - A section on a part of employment income',
-      'description'            => 'Some description',
-      'content_store_document_type' => 'hmrc_manual_section',
-      'link'                   => '/hmrc-internal-manuals/employment-income-manual/12345',
-      'indexable_content'      => 'I need somebody to love', # Markdown/HTML has been stripped
-      'public_timestamp'       => '2014-01-23T00:00:00+01:00',
-      'hmrc_manual_section_id' => '12345',
-      'manual'                 => '/hmrc-internal-manuals/employment-income-manual',
-      'format'                 => 'hmrc_manual_section',
-    }
-  end
-
   def no_manual_sections_rummager_json_result
     <<-JSON.strip_heredoc
       {
