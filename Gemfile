@@ -20,7 +20,7 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '3.5.2'
-  gem 'rspec-collection_matchers', '1.1.2'
+  gem 'rspec-collection_matchers', '1.1.3'
   gem 'pry-byebug'
   gem 'shoulda-matchers', '~> 3.1'
   gem "govuk-lint"
