@@ -161,7 +161,7 @@ GEM
     parallel (1.12.0)
     parser (2.4.0.2)
       ast (~> 2.3)
-    plek (1.11.0)
+    plek (2.0.0)
     powerpack (0.1.1)
     pry (0.11.3)
       coderay (~> 1.1.0)
@@ -327,7 +327,7 @@ DEPENDENCIES
   json-schema (= 2.5.2)
   listen
   logstasher (= 0.5.3)
-  plek (= 1.11.0)
+  plek (= 2.0.0)
   pry-byebug
   rails (= 5.1.0)
   responders (~> 2.0)
