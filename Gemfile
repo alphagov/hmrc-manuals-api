@@ -14,7 +14,7 @@ gem 'responders', '~> 2.0'
 gem 'govuk_app_config', '~> 0.2.0'
 
 group :development do
-  gem "foreman", "0.78.0"
+  gem "foreman", "0.84.0"
   gem 'listen'
 end
 
