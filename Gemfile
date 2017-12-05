@@ -27,7 +27,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'simplecov', '0.8.2', require: false
+  gem 'simplecov', '0.15.1', require: false
   gem 'simplecov-rcov', '0.2.3', require: false
   gem 'ci_reporter_rspec', '1.0.0'
   gem 'webmock', '~> 2.3.0'
