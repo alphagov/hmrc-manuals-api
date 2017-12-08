@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '5.1.4'
-gem 'logstasher', '0.5.3'
+gem 'logstasher', '1.2.2'
 gem 'unicorn', '5.3.1'
 gem 'json-schema', '2.5.2'
 gem 'gds-sso', '~> 13.2.1'
