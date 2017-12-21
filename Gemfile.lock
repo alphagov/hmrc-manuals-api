@@ -70,7 +70,7 @@ GEM
     ffi (1.9.18)
     foreman (0.84.0)
       thor (~> 0.19.1)
-    gds-api-adapters (50.6.0)
+    gds-api-adapters (50.7.0)
       link_header
       lrucache (~> 0.1.1)
       null_logger
@@ -330,7 +330,7 @@ PLATFORMS
 DEPENDENCIES
   ci_reporter_rspec (= 1.0.0)
   foreman (= 0.84.0)
-  gds-api-adapters (~> 50.6.0)
+  gds-api-adapters (~> 50.7.0)
   gds-sso (~> 13.5.0)
   govspeak (~> 5.2.2)
   govuk-content-schema-test-helpers (= 1.6.0)
