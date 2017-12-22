@@ -11,7 +11,7 @@ gem 'govspeak', '~> 5.2.2'
 gem 'sidekiq', '3.4.2'
 gem 'uuidtools', '2.1.5'
 gem 'responders', '~> 2.0'
-gem 'govuk_app_config', '~> 0.2.0'
+gem 'govuk_app_config', '~> 1.1'
 
 group :development do
   gem "foreman", "0.84.0"
