@@ -30,6 +30,6 @@ group :test do
   gem 'simplecov', '0.15.1', require: false
   gem 'simplecov-rcov', '0.2.3', require: false
   gem 'ci_reporter_rspec', '1.0.0'
-  gem 'webmock', '~> 3.1.1'
+  gem 'webmock', '~> 3.2.0'
   gem 'govuk-content-schema-test-helpers', '1.6.0'
 end
