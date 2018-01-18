@@ -197,6 +197,7 @@ KNOWN_MANUAL_SLUGS = %w{
   vat-postal-services
   vat-protective-equipment
   vat-refunds
+  vat-refunds-manual
   vat-refunds-to-overseas-business-persons
   vat-registration-manual
   vat-relief-for-disabled-people
