@@ -103,6 +103,7 @@ KNOWN_MANUAL_SLUGS = %w{
   mlr1-penalties-guidance
   money-laundering-regulations-registration
   money-laundering-regulations-compliance
+  museums-and-galleries-exhibition-tax-relief
   national-insurance-manual
   national-minimum-wage-manual
   offshore-funds-manual
