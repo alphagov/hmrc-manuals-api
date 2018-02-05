@@ -1,8 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '5.1.4'
-gem 'logstasher', '1.2.2'
-gem 'unicorn', '5.4.0'
 gem 'json-schema', '2.8.0'
 gem 'gds-sso', '~> 13.5.1'
 gem 'plek', '2.1.0'
@@ -11,7 +9,7 @@ gem 'govspeak', '~> 5.4.0'
 gem 'sidekiq', '3.4.2'
 gem 'uuidtools', '2.1.5'
 gem 'responders', '~> 2.0'
-gem 'govuk_app_config', '~> 1.2'
+gem 'govuk_app_config', '~> 1.3'
 
 group :development do
   gem "foreman", "0.84.0"
