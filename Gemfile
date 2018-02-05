@@ -1,8 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'rails', '5.1.4'
-gem 'logstasher', '1.2.2'
-gem 'unicorn', '5.4.0'
 gem 'json-schema', '2.8.0'
 gem 'gds-sso', '~> 13.5.1'
 gem 'plek', '2.1.0'
