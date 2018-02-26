@@ -78,7 +78,7 @@ GEM
       plek (>= 1.9.0)
       rack-cache
       rest-client (~> 2.0)
-    gds-sso (13.5.1)
+    gds-sso (13.6.0)
       multi_json (~> 1.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
@@ -116,7 +116,7 @@ GEM
     htmlentities (4.3.4)
     http-cookie (1.0.3)
       domain_name (~> 0.5)
-    i18n (0.9.3)
+    i18n (0.9.5)
       concurrent-ruby (~> 1.0)
     json (1.8.6)
     json-schema (2.8.0)
@@ -134,7 +134,7 @@ GEM
       activesupport (>= 4.0)
       logstash-event (~> 1.2.0)
       request_store
-    loofah (2.1.1)
+    loofah (2.2.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     lrucache (0.1.4)
@@ -155,7 +155,7 @@ GEM
     multipart-post (2.0.0)
     netrc (0.11.0)
     nio4r (2.2.0)
-    nokogiri (1.8.1)
+    nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     null_logger (0.0.1)
     oauth2 (1.4.0)
@@ -306,7 +306,7 @@ GEM
     thread_safe (0.3.6)
     timers (4.0.4)
       hitimes
-    tzinfo (1.2.4)
+    tzinfo (1.2.5)
       thread_safe (~> 0.1)
     unf (0.1.4)
       unf_ext
@@ -335,7 +335,7 @@ DEPENDENCIES
   ci_reporter_rspec (= 1.0.0)
   foreman (= 0.84.0)
   gds-api-adapters (~> 51.2.0)
-  gds-sso (~> 13.5.1)
+  gds-sso (~> 13.6.0)
   govspeak (~> 5.4.0)
   govuk-content-schema-test-helpers (= 1.6.0)
   govuk-lint

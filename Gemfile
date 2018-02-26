@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '5.1.4'
 gem 'json-schema', '2.8.0'
-gem 'gds-sso', '~> 13.5.1'
+gem 'gds-sso', '~> 13.6.0'
 gem 'plek', '2.1.1'
 gem 'gds-api-adapters', '~> 51.2.0'
 gem 'govspeak', '~> 5.4.0'
