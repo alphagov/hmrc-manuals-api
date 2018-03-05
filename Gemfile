@@ -1,33 +1,31 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.1.5'
-gem 'json-schema', '2.8.0'
-gem 'gds-sso', '~> 13.6.0'
-gem 'plek', '2.1.1'
-gem 'gds-api-adapters', '~> 51.3.0'
-gem 'govspeak', '~> 5.5.0'
-gem 'sidekiq', '3.4.2'
-gem 'uuidtools', '2.1.5'
+gem 'rails', '~> 5.1'
+gem 'json-schema', '~> 2.8'
+gem 'gds-sso', '~> 13.6'
+gem 'plek', '~> 2.1'
+gem 'gds-api-adapters', '~> 51.3'
+gem 'govspeak', '~> 5.5'
+gem 'uuidtools', '~> 2.1'
 gem 'responders', '~> 2.0'
 gem 'govuk_app_config', '~> 1.3'
 
 group :development do
-  gem "foreman", "0.84.0"
   gem 'listen'
 end
 
 group :development, :test do
-  gem 'rspec-rails', '3.7.2'
-  gem 'rspec-collection_matchers', '1.1.3'
+  gem 'rspec-rails', '~> 3.7'
+  gem 'rspec-collection_matchers', '~> 1.1'
   gem 'pry-byebug'
   gem 'shoulda-matchers', '~> 3.1'
   gem "govuk-lint"
 end
 
 group :test do
-  gem 'simplecov', '0.15.1', require: false
-  gem 'simplecov-rcov', '0.2.3', require: false
-  gem 'ci_reporter_rspec', '1.0.0'
-  gem 'webmock', '~> 3.3.0'
-  gem 'govuk-content-schema-test-helpers', '1.6.0'
+  gem 'simplecov', '~> 0.15', require: false
+  gem 'simplecov-rcov', '~> 0.2', require: false
+  gem 'ci_reporter_rspec', '~> 1.0'
+  gem 'webmock', '~> 3.3'
+  gem 'govuk-content-schema-test-helpers', '~> 1.6'
 end
