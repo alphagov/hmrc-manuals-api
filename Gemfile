@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.1'
+gem 'rails', '~> 5.2'
 gem 'json-schema', '~> 2.8'
 gem 'gds-sso', '~> 13.6'
 gem 'plek', '~> 2.1'
