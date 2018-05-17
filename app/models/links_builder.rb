@@ -1,4 +1,6 @@
 class LinksBuilder
+  HMRC_CONTENT_ID = "6667cce2-e809-4e21-ae09-cb0bdc1ddda3".freeze
+
   def initialize(content_id)
     @content_id = content_id
     @built_links = {}
@@ -11,6 +13,7 @@ class LinksBuilder
       @content_store_links = nil
     end
     set_organisation
+    set_primary_organisation
     @built_links
   end
 
@@ -20,8 +23,11 @@ private
     @built_links["organisations"] = if @content_store_links && @content_store_links["organisations"].present?
                                       @content_store_links["organisations"]
                                     else
-                                      # Use HMRC content ID to set organisation
-                                      ["6667cce2-e809-4e21-ae09-cb0bdc1ddda3"]
+                                      [HMRC_CONTENT_ID]
                                     end
+  end
+
+  def set_primary_organisation
+    @built_links["primary_publishing_organisation"] = [HMRC_CONTENT_ID]
   end
 end
