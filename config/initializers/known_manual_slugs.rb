@@ -98,6 +98,7 @@ KNOWN_MANUAL_SLUGS = %w{
   introduction-to-administrative-co-operation-in-excise
   labour-provider-operational-guidance
   landfill-tax-liability
+  life-assurance
   lloyds-manual
   machine-games-duty-manual
   mlr1-penalties-guidance
