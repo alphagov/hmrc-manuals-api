@@ -148,6 +148,7 @@ KNOWN_MANUAL_SLUGS = %w{
   theatre-tax-relief
   tobacco-control-of-supply-chains
   tobacco-products-duty
+  tobacco-products-manufacturing-machinery-licensing-scheme
   tonnage-tax-manual
   trusts-settlements-and-estates-manual
   vat-accounting
