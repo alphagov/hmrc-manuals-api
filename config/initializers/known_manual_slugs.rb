@@ -229,6 +229,7 @@ KNOWN_MANUAL_SLUGS = %w{
   vat-youth-clubs
   venture-capital-schemes-manual
   video-games-development-company-manual
+  welsh-taxpayer-technical-guidance
   wine-manual
   holding-and-movements-alcohol-strategy-abandonment-goods
   holding-and-movements-assurance-guidance
