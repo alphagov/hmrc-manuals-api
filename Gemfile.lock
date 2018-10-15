@@ -119,7 +119,7 @@ GEM
       concurrent-ruby (~> 1.0)
     jaro_winkler (1.5.1)
     json (2.1.0)
-    json-schema (2.8.0)
+    json-schema (2.8.1)
       addressable (>= 2.4)
     jwt (1.5.6)
     kgio (2.11.2)
