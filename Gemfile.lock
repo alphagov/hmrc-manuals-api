@@ -42,7 +42,7 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.5.2)
+    addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
     arel (9.0.0)
     ast (2.4.0)
@@ -70,7 +70,7 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.25)
-    gds-api-adapters (57.0.0)
+    gds-api-adapters (57.1.0)
       addressable
       link_header
       null_logger
@@ -331,7 +331,7 @@ PLATFORMS
 
 DEPENDENCIES
   ci_reporter_rspec (~> 1.0)
-  gds-api-adapters (~> 57.0)
+  gds-api-adapters (~> 57.1)
   gds-sso (~> 14.0)
   govspeak (~> 5.9)
   govuk-content-schema-test-helpers (~> 1.6)
