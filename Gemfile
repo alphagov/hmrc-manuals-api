@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby File.read(".ruby-version").chomp
+
 gem 'rails', '~> 5.2'
 gem 'json-schema', '~> 2.8'
 gem 'gds-sso', '~> 14.0'
