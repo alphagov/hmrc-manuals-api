@@ -18,7 +18,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.8'
   gem 'rspec-collection_matchers', '~> 1.1'
   gem 'pry-byebug'
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-matchers', '~> 4.0'
   gem "govuk-lint"
 end
 
