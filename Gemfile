@@ -8,7 +8,7 @@ gem 'gds-api-adapters', '~> 57.4'
 gem 'govspeak', '~> 5.9'
 gem 'uuidtools', '~> 2.1'
 gem 'responders', '~> 2.0'
-gem 'govuk_app_config', '~> 1.11'
+gem 'govuk_app_config', '~> 1.12'
 
 group :development do
   gem 'listen'
