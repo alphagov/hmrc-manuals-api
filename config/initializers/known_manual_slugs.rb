@@ -80,7 +80,6 @@ KNOWN_MANUAL_SLUGS = %w{
   holding-and-movements-duty-stamps
   holding-and-movements-exports-shops
   holding-and-movements-financial-securities-assurance
-  italian-tax-stamps
   holding-and-movements-registered-excise-dealers
   holding-and-movements-warehousing
   holding-and-movements-owners-and-transporters
@@ -97,6 +96,7 @@ KNOWN_MANUAL_SLUGS = %w{
   international-manual
   introduction-to-administrative-co-operation-in-excise
   investment-funds
+  italian-tax-stamps
   labour-provider-operational-guidance
   landfill-tax-liability
   life-assurance
