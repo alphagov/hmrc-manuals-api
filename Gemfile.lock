@@ -68,7 +68,7 @@ GEM
     faraday (0.15.4)
       multipart-post (>= 1.2, < 3)
     ffi (1.10.0)
-    gds-api-adapters (59.1.0)
+    gds-api-adapters (59.2.0)
       addressable
       link_header
       null_logger
@@ -302,7 +302,7 @@ GEM
       thread_safe (~> 0.1)
     unf (0.1.4)
       unf_ext
-    unf_ext (0.0.7.5)
+    unf_ext (0.0.7.6)
     unicode-display_width (1.5.0)
     unicorn (5.4.1)
       kgio (~> 2.6)
@@ -325,7 +325,7 @@ PLATFORMS
 
 DEPENDENCIES
   ci_reporter_rspec (~> 1.0)
-  gds-api-adapters (~> 59.1)
+  gds-api-adapters (~> 59.2)
   gds-sso (~> 14.0)
   govspeak (~> 6.0)
   govuk-content-schema-test-helpers (~> 1.6)
