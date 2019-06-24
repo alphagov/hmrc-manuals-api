@@ -7,7 +7,7 @@ gem 'plek', '~> 3.0'
 gem 'gds-api-adapters', '~> 59.5'
 gem 'govspeak', '~> 6.2'
 gem 'uuidtools', '~> 2.1'
-gem 'responders', '~> 2.4'
+gem 'responders', '~> 3.0'
 gem 'govuk_app_config', '~> 1.19'
 
 group :development do
