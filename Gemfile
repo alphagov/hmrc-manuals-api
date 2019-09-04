@@ -26,6 +26,6 @@ group :test do
   gem 'simplecov', '~> 0.17', require: false
   gem 'simplecov-rcov', '~> 0.2', require: false
   gem 'ci_reporter_rspec', '~> 1.0'
-  gem 'webmock', '~> 3.6'
+  gem 'webmock', '~> 3.7'
   gem 'govuk-content-schema-test-helpers', '~> 1.6'
 end
