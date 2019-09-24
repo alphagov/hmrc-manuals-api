@@ -11,15 +11,15 @@ private
 
   def find_string_fields_in(struct, path)
     case struct
-    when Hash then
+    when Hash
       struct.flat_map do |key, value|
         find_string_fields_in(value, "#{path}/#{key}")
       end
-    when Array then
+    when Array
       struct.flat_map.with_index do |value, index|
         find_string_fields_in(value, "#{path}[#{index}]")
       end
-    when String then
+    when String
       [path: path, value: struct]
     else
       []
