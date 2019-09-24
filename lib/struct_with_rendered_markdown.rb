@@ -1,7 +1,7 @@
 require "kramdown"
 
 class StructWithRenderedMarkdown
-  ATTRIBUTES_THAT_CAN_CONTAIN_MARKDOWN = ["body"].freeze
+  ATTRIBUTES_THAT_CAN_CONTAIN_MARKDOWN = %w[body].freeze
 
   def initialize(struct)
     @struct = struct.dup

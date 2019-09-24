@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     r.get "/", controller: "root", action: "index"
     r.get "/documentation", controller: "root", action: "documentation"
     r.get "/readme", to: redirect("/documentation")
-    r.get "/healthcheck", :to => proc { [200, {}, ["OK"]] }
+    r.get "/healthcheck", :to => proc { [200, {}, %w[OK]] }
 
     # We need to override the controller and url helper here because rails is unhappy
     # with the dash in 'hmrc-manuals'.
