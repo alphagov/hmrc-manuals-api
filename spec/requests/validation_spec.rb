@@ -1,19 +1,19 @@
-require 'rails_helper'
-require 'gds_api/test_helpers/publishing_api_v2'
-require 'gds_api/test_helpers/rummager'
+require "rails_helper"
+require "gds_api/test_helpers/publishing_api_v2"
+require "gds_api/test_helpers/rummager"
 
 describe "validation" do
   include GdsApi::TestHelpers::PublishingApiV2
   include GdsApi::TestHelpers::Rummager
   include LinksUpdateHelper
 
-  let(:headers) { { 'Content-Type' => 'application/json', 'HTTP_AUTHORIZATION' => 'Bearer 12345678' } }
+  let(:headers) { { "Content-Type" => "application/json", "HTTP_AUTHORIZATION" => "Bearer 12345678" } }
   let(:manual_without_title)  { valid_manual.tap { |m| m.delete("title") } }
   let(:section_without_title) { valid_section.tap { |m| m.delete("title") } }
 
   context "for manuals" do
     it "validates for the presence of the title" do
-      put_json '/hmrc-manuals/imaginary-slug', manual_without_title
+      put_json "/hmrc-manuals/imaginary-slug", manual_without_title
 
       expect(response.status).to eq(422)
       expect(json_response).to include("status" => "error")
@@ -23,33 +23,33 @@ describe "validation" do
     it "validates for known manual slug name in production environment" do
       allow(HMRCManualsAPI::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(false)
 
-      put_json '/hmrc-manuals/unknown-slug', valid_manual
+      put_json "/hmrc-manuals/unknown-slug", valid_manual
 
       expect(response.status).to eq(422)
       expect(json_response).to include("status" => "error")
       expect(json_response["errors"].first).to match(
-        "does not match any of the following valid slugs: #{KNOWN_MANUAL_SLUGS.join(' ')}"
+        "does not match any of the following valid slugs: #{KNOWN_MANUAL_SLUGS.join(' ')}",
       )
     end
 
-    context 'manuals with images' do
-      it 'rejects manuals with Markdown images not on assets.digital.cabinet-office.gov.uk' do
+    context "manuals with images" do
+      it "rejects manuals with Markdown images not on assets.digital.cabinet-office.gov.uk" do
         manual = valid_manual
-        manual['description'] = '![Manual](http://upload.wikimedia.org/wikipedia/commons/e/ef/Icono_Normativa.png)'
-        put_json '/hmrc-manuals/imaginary-slug', manual, headers
+        manual["description"] = "![Manual](http://upload.wikimedia.org/wikipedia/commons/e/ef/Icono_Normativa.png)"
+        put_json "/hmrc-manuals/imaginary-slug", manual, headers
 
         expect(response.status).to eq(422)
       end
 
-      it 'rejects manuals with HTML images not on assets.digital.cabinet-office.gov.uk' do
+      it "rejects manuals with HTML images not on assets.digital.cabinet-office.gov.uk" do
         manual = valid_manual
-        manual['description'] = '<img src="http://upload.wikimedia.org/wikipedia/commons/e/ef/Icono_Normativa.png" alt="Manual"/>'
-        put_json '/hmrc-manuals/imaginary-slug', manual, headers
+        manual["description"] = '<img src="http://upload.wikimedia.org/wikipedia/commons/e/ef/Icono_Normativa.png" alt="Manual"/>'
+        put_json "/hmrc-manuals/imaginary-slug", manual, headers
 
         expect(response.status).to eq(422)
       end
 
-      it 'allows images with a relative path' do
+      it "allows images with a relative path" do
         content_id = UUIDTools::UUID.sha1_create(UUIDTools::UUID_URL_NAMESPACE, "/hmrc-internal-manuals/imaginary-slug").to_s
         stub_publishing_api_put_content(content_id, {}, body: { version: 22 })
         stub_publishing_api_get_links(content_id)
@@ -59,8 +59,8 @@ describe "validation" do
         stub_any_rummager_post
 
         manual = valid_manual
-        manual['description'] = '![Manual](/path/to/image.png)'
-        put_json '/hmrc-manuals/imaginary-slug', manual, headers
+        manual["description"] = "![Manual](/path/to/image.png)"
+        put_json "/hmrc-manuals/imaginary-slug", manual, headers
 
         expect(response.status).to eq(200)
       end
@@ -69,7 +69,7 @@ describe "validation" do
 
   context "for manual sections" do
     it "validates for the presence of the title" do
-      put_json '/hmrc-manuals/imaginary-slug/sections/imaginary-section', section_without_title
+      put_json "/hmrc-manuals/imaginary-slug/sections/imaginary-section", section_without_title
 
       expect(response.status).to eq(422)
       expect(json_response).to include("status" => "error")
@@ -79,7 +79,7 @@ describe "validation" do
     it "validates for known manual slug name in production environment" do
       allow(HMRCManualsAPI::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(false)
 
-      put_json '/hmrc-manuals/imaginary-slug/sections/imaginary-section', valid_section
+      put_json "/hmrc-manuals/imaginary-slug/sections/imaginary-section", valid_section
 
       expect(response.status).to eq(422)
       expect(json_response).to include("status" => "error")

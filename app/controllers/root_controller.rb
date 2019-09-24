@@ -17,7 +17,7 @@ class RootController < ActionController::Base
 private
 
   def load_documentation
-    file_contents = File.open(Rails.root + "docs/extended_documentation.md", 'r').read
+    file_contents = File.open(Rails.root + "docs/extended_documentation.md", "r").read
     Kramdown::Document.new(file_contents).to_html
   end
 
@@ -25,8 +25,8 @@ private
     doc = Nokogiri::HTML.parse(content)
     doc.css("a[href^='/public/']", "a[href^='public/']").each do |anchor|
       # find all links with a path which starts "public" or "/public"
-      new_path = anchor.attributes['href'].value.gsub(%r{^/?public}, '')
-      anchor.attributes['href'].value = new_path
+      new_path = anchor.attributes["href"].value.gsub(%r{^/?public}, "")
+      anchor.attributes["href"].value = new_path
     end
     doc.to_html
   end

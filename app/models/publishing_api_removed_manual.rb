@@ -1,5 +1,5 @@
-require 'active_model'
-require 'valid_slug/pattern'
+require "active_model"
+require "valid_slug/pattern"
 
 class PublishingAPIRemovedManual
   include ActiveModel::Validations
@@ -7,9 +7,9 @@ class PublishingAPIRemovedManual
 
   validates :slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
   validates_with InContentStoreValidator,
-    schema_name: MANUAL_SCHEMA_NAME,
-    content_store: Services.content_store,
-    unless: -> { errors[:slug].present? }
+                 schema_name: MANUAL_SCHEMA_NAME,
+                 content_store: Services.content_store,
+                 unless: -> { errors[:slug].present? }
 
   attr_accessor :slug
 
@@ -24,11 +24,11 @@ class PublishingAPIRemovedManual
   end
 
   def to_h
-    @_to_h ||= {
+    @to_h ||= {
       base_path: base_path,
-      document_type: 'gone',
-      schema_name: 'gone',
-      publishing_app: 'hmrc-manuals-api',
+      document_type: "gone",
+      schema_name: "gone",
+      publishing_app: "hmrc-manuals-api",
       update_type: update_type,
       routes: [
         { path: base_path, type: :exact },
@@ -42,7 +42,7 @@ class PublishingAPIRemovedManual
   end
 
   def update_type
-    'major'
+    "major"
   end
 
   def base_path
@@ -55,6 +55,7 @@ class PublishingAPIRemovedManual
 
   def save!
     raise ValidationError, "manual to remove is invalid #{errors.full_messages.to_sentence}" unless valid?
+
     PublishingAPINotifier.new(self).notify(update_links: false)
   end
 end

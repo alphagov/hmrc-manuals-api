@@ -1,5 +1,5 @@
-require 'spec_helper'
-require 'struct_with_rendered_markdown'
+require "spec_helper"
+require "struct_with_rendered_markdown"
 
 describe StructWithRenderedMarkdown do
   def conversion_of(struct)
@@ -8,7 +8,7 @@ describe StructWithRenderedMarkdown do
 
   it "renders markdown in 'body' fields to HTML" do
     expect(conversion_of("body" => "# Hello world", "a" => "b")).to eq(
-      "body" => '<h1 id="hello-world">Hello world</h1>' + "\n", "a" => "b"
+      "body" => '<h1 id="hello-world">Hello world</h1>' + "\n", "a" => "b",
     )
   end
 
@@ -16,22 +16,22 @@ describe StructWithRenderedMarkdown do
     recursive_struct = {
       "a" => [
         "b" => {
-          "body" => "**b**"
+          "body" => "**b**",
         },
         "c" => {
-          "body" => "**c**"
+          "body" => "**c**",
         },
-      ]
+      ],
     }
     expect(conversion_of(recursive_struct)).to eq(
       "a" => [
         "b" => {
-          "body" => "<p><strong>b</strong></p>\n"
+          "body" => "<p><strong>b</strong></p>\n",
         },
         "c" => {
-          "body" => "<p><strong>c</strong></p>\n"
+          "body" => "<p><strong>c</strong></p>\n",
         },
-      ]
+      ],
     )
   end
 end

@@ -1,6 +1,6 @@
-require 'active_model'
-require 'struct_with_rendered_markdown'
-require 'valid_slug/pattern'
+require "active_model"
+require "struct_with_rendered_markdown"
+require "valid_slug/pattern"
 
 class PublishingAPIManual
   include ActiveModel::Validations
@@ -22,15 +22,15 @@ class PublishingAPIManual
   end
 
   def to_h
-    @_to_h ||= begin
-      enriched_data = @manual_attributes.except('content_id').deep_dup.merge(base_path: base_path,
+    @to_h ||= begin
+      enriched_data = @manual_attributes.except("content_id").deep_dup.merge(base_path: base_path,
         document_type: MANUAL_DOCUMENT_TYPE,
         schema_name: MANUAL_SCHEMA_NAME,
-        publishing_app: 'hmrc-manuals-api',
-        rendering_app: 'manuals-frontend',
+        publishing_app: "hmrc-manuals-api",
+        rendering_app: "manuals-frontend",
         routes: [
           { path: base_path, type: :exact },
-          { path: updates_path, type: :exact }
+          { path: updates_path, type: :exact },
         ],
         locale: "en")
       enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
@@ -60,7 +60,7 @@ class PublishingAPIManual
     PublishingAPIManual.base_path(@slug)
   end
 
-  BASE_PATH_SEGMENT = 'hmrc-internal-manuals'.freeze
+  BASE_PATH_SEGMENT = "hmrc-internal-manuals".freeze
 
   def self.base_path(manual_slug)
     # The slug should be lowercase, but let's make sure
@@ -69,8 +69,10 @@ class PublishingAPIManual
 
   def self.extract_slug_from_path(path)
     raise InvalidPathError if path.blank? || path !~ %r{\A/#{BASE_PATH_SEGMENT}/}
-    slug = path.split('/', 4).third
+
+    slug = path.split("/", 4).third
     raise InvalidPathError if slug.blank?
+
     slug
   end
 
@@ -79,11 +81,12 @@ class PublishingAPIManual
   end
 
   def self.updates_path(manual_slug)
-    base_path(manual_slug) + '/updates'
+    base_path(manual_slug) + "/updates"
   end
 
   def save!
     raise ValidationError, "manual is invalid" unless valid?
+
     PublishingAPINotifier.new(self).notify
   end
 
@@ -96,7 +99,7 @@ private
   def add_base_path_to_child_section_groups(attributes)
     attributes["details"]["child_section_groups"].each do |section_group|
       section_group["child_sections"].each do |section|
-        section['base_path'] = PublishingAPISection.base_path(@slug, section['section_id'])
+        section["base_path"] = PublishingAPISection.base_path(@slug, section["section_id"])
       end
     end
     attributes
@@ -104,7 +107,7 @@ private
 
   def add_base_path_to_change_notes(attributes)
     attributes["details"]["change_notes"] && attributes["details"]["change_notes"].each do |change_note_object|
-      change_note_object['base_path'] = PublishingAPISection.base_path(@slug, change_note_object['section_id'])
+      change_note_object["base_path"] = PublishingAPISection.base_path(@slug, change_note_object["section_id"])
     end
     attributes
   end

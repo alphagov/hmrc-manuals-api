@@ -11,7 +11,7 @@ module RummagerHelpers
     JSON
   end
 
-  def single_section_parsed_rummager_json_result(manual_slug, section_slug = 'section-1')
+  def single_section_parsed_rummager_json_result(manual_slug, section_slug = "section-1")
     {
       "format" => "hmrc_manual_section",
       "link" => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
@@ -21,15 +21,15 @@ module RummagerHelpers
           "title" => "HM Revenue & Customs",
           "acronym" => "HMRC",
           "organisation_state" => "live",
-          "link" => "/government/organisations/hm-revenue-customs"
-        }
+          "link" => "/government/organisations/hm-revenue-customs",
+        },
       ],
       "public_timestamp" => "2015-02-03T16:30:33+00:00",
       "title" => "section 1",
       "index" => "mainstream",
       "es_score" => nil,
       "_id" => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
-      "document_type" => "hmrc_manual_section"
+      "document_type" => "hmrc_manual_section",
     }
   end
 

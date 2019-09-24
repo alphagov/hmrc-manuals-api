@@ -1,5 +1,5 @@
-require 'active_model'
-require 'valid_slug/pattern'
+require "active_model"
+require "valid_slug/pattern"
 
 class PublishingAPIRedirectedSection
   include ActiveModel::Validations
@@ -8,13 +8,13 @@ class PublishingAPIRedirectedSection
   validates :manual_slug, :section_slug, :destination_manual_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
   validates :destination_section_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }, allow_nil: true
   validates_with InContentStoreValidator,
-    schema_name: SECTION_SCHEMA_NAME,
-    content_store: Services.content_store,
-    unless: -> {
-      errors[:manual_slug].present? ||
-        errors[:section_slug].present? ||
-        errors[:destination_manual_slug].present?
-    }
+                 schema_name: SECTION_SCHEMA_NAME,
+                 content_store: Services.content_store,
+                 unless: -> {
+                   errors[:manual_slug].present? ||
+                     errors[:section_slug].present? ||
+                     errors[:destination_manual_slug].present?
+                 }
 
   attr_accessor :manual_slug, :section_slug, :destination_manual_slug, :destination_section_slug
 
@@ -26,19 +26,19 @@ class PublishingAPIRedirectedSection
   end
 
   def to_h
-    @_to_h ||= {
-      document_type: 'redirect',
-      schema_name: 'redirect',
-      publishing_app: 'hmrc-manuals-api',
+    @to_h ||= {
+      document_type: "redirect",
+      schema_name: "redirect",
+      publishing_app: "hmrc-manuals-api",
       base_path: base_path,
       redirects: [
         {
           path: base_path,
           type: "exact",
-          destination: redirect_to_location
-        }
+          destination: redirect_to_location,
+        },
       ],
-      update_type: update_type
+      update_type: update_type,
     }
   end
 
@@ -47,7 +47,7 @@ class PublishingAPIRedirectedSection
   end
 
   def update_type
-    'major'
+    "major"
   end
 
   def base_path
@@ -64,6 +64,7 @@ class PublishingAPIRedirectedSection
 
   def save!
     raise ValidationError, "manual section to redirect is invalid #{errors.full_messages.to_sentence}" unless valid?
+
     PublishingAPINotifier.new(self).notify(update_links: false)
   end
 end

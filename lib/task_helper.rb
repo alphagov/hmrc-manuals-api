@@ -12,7 +12,7 @@ class TaskHelper
     else
       output_error_message(response.raw_response_body)
     end
-  rescue => e
+  rescue StandardError => e
     output_error_message(e.message)
   end
 end
