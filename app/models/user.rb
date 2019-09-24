@@ -3,8 +3,7 @@ require "ostruct"
 class User < OpenStruct
   include GDS::SSO::User
 
-  def clear_remotely_signed_out!
-  end
+  def clear_remotely_signed_out!; end
 
   def self.where(_args)
     []
@@ -15,8 +14,7 @@ class User < OpenStruct
     new
   end
 
-  def save!
-  end
+  def save!; end
 
   # needed only to appease the :mock_gds_sso strategy
   def update_attribute(key, value)
