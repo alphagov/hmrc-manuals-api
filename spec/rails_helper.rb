@@ -4,7 +4,7 @@
 ENV["RAILS_ENV"] ||= "test"
 ENV["GOVUK_WEBSITE_ROOT"] ||= "https://www.gov.uk"
 require "spec_helper"
-require File.expand_path("../../config/environment", __FILE__)
+require File.expand_path('../config/environment', __dir__)
 require "rspec/rails"
 require "webmock/rspec"
 
