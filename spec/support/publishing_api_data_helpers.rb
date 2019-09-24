@@ -19,9 +19,9 @@ module PublishingApiDataHelpers
                 "section_id" => "12345",
                 "description" => "A short description of the section",
                 "base_path" => "/hmrc-internal-manuals/employment-income-manual/12345",
-              }
+              },
             ],
-          }
+          },
         ],
         "change_notes" => [
           {
@@ -37,7 +37,7 @@ module PublishingApiDataHelpers
             "section_id" => "ABC555",
             "change_note" => "Description of changes",
             "published_at" => "2013-12-23T00:00:00+01:00",
-          }
+          },
         ],
       },
       "publishing_app" => "hmrc-manuals-api",
@@ -79,7 +79,7 @@ module PublishingApiDataHelpers
           {
             "section_id" => "1234",
             "base_path" => "/hmrc-internal-manuals/employment-income-manual/1234",
-          }
+          },
         ],
         "child_section_groups" => [
           {
@@ -90,9 +90,9 @@ module PublishingApiDataHelpers
                 "section_id" => "123456",
                 "description" => "A short description of the section",
                 "base_path" => "/hmrc-internal-manuals/employment-income-manual/123456",
-              }
+              },
             ],
-          }
+          },
         ],
       },
       "publishing_app" => "hmrc-manuals-api",
@@ -101,7 +101,7 @@ module PublishingApiDataHelpers
         {
           "path" => "/hmrc-internal-manuals/employment-income-manual/12345",
           "type" => "exact",
-        }
+        },
       ],
     }.merge(options)
   end
@@ -153,7 +153,7 @@ module PublishingApiDataHelpers
           "path" => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
           "type" => "exact",
           "destination" => "/hmrc-internal-manuals/#{dest_manual_slug}/#{dest_section_slug}",
-        }
+        },
       ],
       "update_type" => "major",
     }
@@ -170,7 +170,7 @@ module PublishingApiDataHelpers
           "path" => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
           "type" => "exact",
           "destination" => "/hmrc-internal-manuals/#{dest_manual_slug}",
-        }
+        },
       ],
       "update_type" => "major",
     }
@@ -187,7 +187,7 @@ module PublishingApiDataHelpers
           "path" => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
           "type" => "exact",
           "destination" => "/hmrc-internal-manuals/#{manual_slug}",
-        }
+        },
       ],
       "update_type" => "major",
     }
@@ -204,7 +204,7 @@ module PublishingApiDataHelpers
           "path" => "/hmrc-internal-manuals/#{manual_slug}",
           "type" => "exact",
           "destination" => "/hmrc-internal-manuals/#{destination_manual_slug}",
-        }
+        },
       ],
       "update_type" => "major",
     }

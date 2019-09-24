@@ -35,7 +35,7 @@ RSpec.describe SectionsChecker do
                 "title" => "Scope of this guidance",
                 "description" => "",
                 "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-2",
-              }
+              },
             ],
           },
           {
@@ -45,9 +45,9 @@ RSpec.describe SectionsChecker do
                 "title" => "Guidance by country: contents",
                 "description" => "",
                 "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-3",
-              }
+              },
             ],
-          }
+          },
         ]
       end
       let(:child_1_base_path) { PublishingAPISection.base_path(manual_slug, "child-1") }
@@ -110,9 +110,9 @@ RSpec.describe SectionsChecker do
                   "title" => "Scope of this guidance",
                   "description" => "",
                   "base_path" => "/hmrc-internal-manuals/#{new_manual_slug}/child-6",
-                }
+                },
               ],
-            }
+            },
           ]
         end
 
@@ -142,9 +142,9 @@ RSpec.describe SectionsChecker do
                     "title" => "Income arising in the United Kingdom to non-residents: contents",
                     "description" => "",
                     "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-2",
-                  }
+                  },
                 ],
-              }
+              },
             ]
           end
 
@@ -205,7 +205,7 @@ RSpec.describe SectionsChecker do
                 "title" => "Scope of this guidance",
                 "description" => "",
                 "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-2",
-              }
+              },
             ],
           },
           {
@@ -215,9 +215,9 @@ RSpec.describe SectionsChecker do
                 "title" => "Guidance by country: contents",
                 "description" => "",
                 "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-3",
-              }
+              },
             ],
-          }
+          },
         ]
       end
       let(:child_1_base_path) { PublishingAPISection.base_path(manual_slug, "child-1") }
@@ -233,7 +233,7 @@ RSpec.describe SectionsChecker do
             {
               "section_id" => "SECTION ID ONE",
               "base_path" => section_path,
-            }
+            },
           ]
         )
 
@@ -244,7 +244,7 @@ RSpec.describe SectionsChecker do
             {
               "section_id" => "SECTION ID TWO",
               "base_path" => new_section_path,
-            }
+            },
           ]
         )
 
@@ -255,7 +255,7 @@ RSpec.describe SectionsChecker do
             {
               "section_id" => "SECTION ID ONE",
               "base_path" => section_path,
-            }
+            },
           ]
         )
 
@@ -274,9 +274,9 @@ RSpec.describe SectionsChecker do
                   "title" => "Income arising in the United Kingdom to non-residents: contents",
                   "description" => "",
                   "base_path" => child_2_base_path,
-                }
+                },
               ],
-            }
+            },
           ]
         )
         content_store_has_item(new_section_path, new_section_content_item)
@@ -304,9 +304,9 @@ RSpec.describe SectionsChecker do
                 "title" => "Scope of this guidance",
                 "description" => "",
                 "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-2",
-              }
+              },
             ],
-          }
+          },
         ]
       end
       let(:child_2_base_path) { PublishingAPISection.base_path(manual_slug, "child-2") }
@@ -320,7 +320,7 @@ RSpec.describe SectionsChecker do
             {
               "section_id" => "SECTION ID TWO",
               "base_path" => new_section_path,
-            }
+            },
           ]
         )
 

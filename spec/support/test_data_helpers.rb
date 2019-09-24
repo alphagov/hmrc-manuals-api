@@ -58,9 +58,9 @@ module TestDataHelpers
                 title: "About 12345",
                 section_id: "12345",
                 description: "A short description of the section",
-              }
+              },
             ],
-          }
+          },
         ],
         change_notes: [
           {
@@ -74,7 +74,7 @@ module TestDataHelpers
             section_id: "ABC555",
             change_note: "Description of changes",
             published_at: "2013-12-23T00:00:00+01:00",
-          }
+          },
         ],
       },
     }.merge(options).deep_stringify_keys
@@ -109,7 +109,7 @@ module TestDataHelpers
         breadcrumbs: [
           {
             section_id: "1234",
-          }
+          },
         ],
         child_section_groups: [
           title: "A group of sections",
@@ -118,8 +118,8 @@ module TestDataHelpers
               title: "About 123456",
               section_id: "123456",
               description: "A short description of the section",
-            }
-          ]
+            },
+          ],
         ],
       },
     }.merge(options).deep_stringify_keys

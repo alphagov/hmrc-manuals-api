@@ -22,7 +22,7 @@ module RummagerHelpers
           "acronym" => "HMRC",
           "organisation_state" => "live",
           "link" => "/government/organisations/hm-revenue-customs",
-        }
+        },
       ],
       "public_timestamp" => "2015-02-03T16:30:33+00:00",
       "title" => "section 1",

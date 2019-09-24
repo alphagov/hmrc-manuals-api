@@ -36,7 +36,7 @@ class PublishingAPIRedirectedSection
           path: base_path,
           type: "exact",
           destination: redirect_to_location,
-        }
+        },
       ],
       update_type: update_type,
     }
