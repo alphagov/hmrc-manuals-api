@@ -117,10 +117,10 @@ describe PublishingAPIManual do
         expect(subject).to_not be_valid
         expect(subject).to have(2).errors_on(:base)
         expect(subject.errors.full_messages[0]).to match(
-          %r{'#/details/child_section_groups\[0\]/title' contains disallowed HTML}
+          %r{'#/details/child_section_groups\[0\]/title' contains disallowed HTML},
         )
         expect(subject.errors.full_messages[1]).to match(
-          %r{'#/details/child_section_groups\[1\]/title' contains disallowed HTML}
+          %r{'#/details/child_section_groups\[1\]/title' contains disallowed HTML},
         )
       end
     end

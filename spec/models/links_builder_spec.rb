@@ -11,7 +11,7 @@ describe LinksBuilder do
       stub_publishing_api_get_links(content_id, body: { links: { "some_other_link" => "foo" } })
       expect(LinksBuilder.new(content_id).build_links).to eq(
         "organisations" => ["6667cce2-e809-4e21-ae09-cb0bdc1ddda3"],
-        "primary_publishing_organisation" => ["6667cce2-e809-4e21-ae09-cb0bdc1ddda3"]
+        "primary_publishing_organisation" => ["6667cce2-e809-4e21-ae09-cb0bdc1ddda3"],
       )
     end
 
@@ -23,7 +23,7 @@ describe LinksBuilder do
       it "uses the existing organisation content ID" do
         expect(LinksBuilder.new(content_id).build_links).to eq(
           "organisations" => ["some-org-uuid"],
-          "primary_publishing_organisation" => ["6667cce2-e809-4e21-ae09-cb0bdc1ddda3"]
+          "primary_publishing_organisation" => ["6667cce2-e809-4e21-ae09-cb0bdc1ddda3"],
         )
       end
     end
@@ -36,7 +36,7 @@ describe LinksBuilder do
       it "uses the default HMRC organisation content ID" do
         expect(LinksBuilder.new(content_id).build_links).to eq(
           "organisations" => ["6667cce2-e809-4e21-ae09-cb0bdc1ddda3"],
-          "primary_publishing_organisation" => ["6667cce2-e809-4e21-ae09-cb0bdc1ddda3"]
+          "primary_publishing_organisation" => ["6667cce2-e809-4e21-ae09-cb0bdc1ddda3"],
         )
       end
     end
@@ -50,7 +50,7 @@ describe LinksBuilder do
       it "uses the default HMRC organisation content ID" do
         expect(LinksBuilder.new(content_id).build_links).to eq(
           "organisations" => ["6667cce2-e809-4e21-ae09-cb0bdc1ddda3"],
-          "primary_publishing_organisation" => ["6667cce2-e809-4e21-ae09-cb0bdc1ddda3"]
+          "primary_publishing_organisation" => ["6667cce2-e809-4e21-ae09-cb0bdc1ddda3"],
         )
       end
     end

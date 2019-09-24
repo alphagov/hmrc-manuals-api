@@ -58,7 +58,7 @@ RSpec.describe SectionsChecker do
       let(:new_manual_content_item) do
         hmrc_manual_content_item_for_base_path(
           new_manual_path,
-          child_section_groups: new_manual_child_section_groups
+          child_section_groups: new_manual_child_section_groups,
         )
       end
       let(:new_manual_child_section_groups) { [] }
@@ -66,17 +66,17 @@ RSpec.describe SectionsChecker do
       before do
         child1_content_item = hmrc_manual_section_content_item_for_base_path(
           child_1_base_path,
-          manual_base_path: manual_path
+          manual_base_path: manual_path,
         )
 
         child2_content_item = hmrc_manual_section_content_item_for_base_path(
           child_2_base_path,
-          manual_base_path: new_manual_path
+          manual_base_path: new_manual_path,
         )
 
         child3_content_item = hmrc_manual_section_content_item_for_base_path(
           child_3_base_path,
-          manual_base_path: manual_path
+          manual_base_path: manual_path,
         )
 
         content_store_has_item(child_1_base_path, child1_content_item)
@@ -119,13 +119,13 @@ RSpec.describe SectionsChecker do
         before do
           child5_content_item = hmrc_manual_section_content_item_for_base_path(
             child_5_base_path,
-            manual_base_path: new_manual_path
+            manual_base_path: new_manual_path,
           )
 
           child6_content_item = hmrc_manual_section_content_item_for_base_path(
             child_6_base_path,
             manual_base_path: new_manual_path,
-            child_section_groups: new_section_child_section_group
+            child_section_groups: new_section_child_section_group,
           )
 
           content_store_has_item(child_5_base_path, child5_content_item)
@@ -174,7 +174,7 @@ RSpec.describe SectionsChecker do
       hmrc_manual_section_content_item_for_base_path(
         section_path,
         child_section_groups: child_section_groups,
-        manual_base_path: manual_path
+        manual_base_path: manual_path,
       )
     end
 
@@ -234,7 +234,7 @@ RSpec.describe SectionsChecker do
               "section_id" => "SECTION ID ONE",
               "base_path" => section_path,
             },
-          ]
+          ],
         )
 
         child2_content_item = hmrc_manual_section_content_item_for_base_path(
@@ -245,7 +245,7 @@ RSpec.describe SectionsChecker do
               "section_id" => "SECTION ID TWO",
               "base_path" => new_section_path,
             },
-          ]
+          ],
         )
 
         child3_content_item = hmrc_manual_section_content_item_for_base_path(
@@ -256,7 +256,7 @@ RSpec.describe SectionsChecker do
               "section_id" => "SECTION ID ONE",
               "base_path" => section_path,
             },
-          ]
+          ],
         )
 
         content_store_has_item(child_1_base_path, child1_content_item)
@@ -277,7 +277,7 @@ RSpec.describe SectionsChecker do
                 },
               ],
             },
-          ]
+          ],
         )
         content_store_has_item(new_section_path, new_section_content_item)
       end
@@ -321,7 +321,7 @@ RSpec.describe SectionsChecker do
               "section_id" => "SECTION ID TWO",
               "base_path" => new_section_path,
             },
-          ]
+          ],
         )
 
         content_store_has_item(child_2_base_path, child2_content_item)
@@ -329,7 +329,7 @@ RSpec.describe SectionsChecker do
         new_section_content_item = hmrc_manual_section_content_item_for_base_path(
           new_section_path,
           manual_base_path: manual_path,
-          child_section_groups: []
+          child_section_groups: [],
         )
         content_store_has_item(new_section_path, new_section_content_item)
       end
@@ -347,8 +347,8 @@ RSpec.describe SectionsChecker do
     item.merge(
       "schema_name" => MANUAL_SCHEMA_NAME,
       "details" => item["details"].merge(
-        "child_section_groups" => child_section_groups
-      )
+        "child_section_groups" => child_section_groups,
+      ),
     )
   end
 
@@ -359,8 +359,8 @@ RSpec.describe SectionsChecker do
       "details" => item["details"].merge(
         "child_section_groups" => child_section_groups,
         "breadcrumbs" => breadcrumbs,
-        "manual" => { "base_path" => manual_base_path }
-      )
+        "manual" => { "base_path" => manual_base_path },
+      ),
     )
   end
 end
