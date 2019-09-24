@@ -8,13 +8,13 @@ class PublishingAPIRedirectedSection
   validates :manual_slug, :section_slug, :destination_manual_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
   validates :destination_section_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }, allow_nil: true
   validates_with InContentStoreValidator,
-    schema_name: SECTION_SCHEMA_NAME,
-    content_store: Services.content_store,
-    unless: -> {
-      errors[:manual_slug].present? ||
-        errors[:section_slug].present? ||
-        errors[:destination_manual_slug].present?
-    }
+                 schema_name: SECTION_SCHEMA_NAME,
+                 content_store: Services.content_store,
+                 unless: -> {
+                   errors[:manual_slug].present? ||
+                     errors[:section_slug].present? ||
+                     errors[:destination_manual_slug].present?
+                 }
 
   attr_accessor :manual_slug, :section_slug, :destination_manual_slug, :destination_section_slug
 

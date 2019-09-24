@@ -7,11 +7,11 @@ class PublishingAPIRedirectedManual
 
   validates :manual_slug, :destination_manual_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
   validates_with InContentStoreValidator,
-    schema_name: MANUAL_SCHEMA_NAME,
-    content_store: Services.content_store,
-    unless: -> {
-      errors[:manual_slug].present? || errors[:destination_manual_slug].present?
-    }
+                 schema_name: MANUAL_SCHEMA_NAME,
+                 content_store: Services.content_store,
+                 unless: -> {
+                   errors[:manual_slug].present? || errors[:destination_manual_slug].present?
+                 }
 
   attr_accessor :manual_slug, :destination_manual_slug
 
