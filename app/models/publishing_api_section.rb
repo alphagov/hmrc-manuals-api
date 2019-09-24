@@ -69,11 +69,13 @@ class PublishingAPISection
     slugs[:manual] = PublishingAPIManual.extract_slug_from_path(path)
     slugs[:section] = path.split("/", 5).fourth
     raise InvalidPathError if slugs[:section].blank?
+
     slugs
   end
 
   def save!
     raise ValidationError, "section is invalid" unless valid?
+
     PublishingAPINotifier.new(self).notify
   end
 

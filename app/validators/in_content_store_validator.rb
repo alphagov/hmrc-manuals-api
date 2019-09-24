@@ -4,6 +4,7 @@ class InContentStoreValidator < ActiveModel::Validator
     super
     raise "Must provide schema_name and content_store options to the validator" unless options[:schema_name] && options[:content_store]
     raise 'Can\'t provide "gone" as a schema_name to the validator' if options[:schema_name] == "gone"
+
     @schema_name = options[:schema_name]
     @content_store = options[:content_store]
   end

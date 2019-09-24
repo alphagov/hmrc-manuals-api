@@ -69,8 +69,10 @@ class PublishingAPIManual
 
   def self.extract_slug_from_path(path)
     raise InvalidPathError if path.blank? || path !~ %r{\A/#{BASE_PATH_SEGMENT}/}
+
     slug = path.split("/", 4).third
     raise InvalidPathError if slug.blank?
+
     slug
   end
 
@@ -84,6 +86,7 @@ class PublishingAPIManual
 
   def save!
     raise ValidationError, "manual is invalid" unless valid?
+
     PublishingAPINotifier.new(self).notify
   end
 

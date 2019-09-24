@@ -51,6 +51,7 @@ class PublishingAPIRedirectedManual
 
   def save!
     raise ValidationError, "manual section to redirect is invalid #{errors.full_messages.to_sentence}" unless valid?
+
     PublishingAPINotifier.new(self).notify(update_links: false)
   end
 

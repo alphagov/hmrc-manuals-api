@@ -15,6 +15,7 @@ class PublishingAPIRemovedSection
 
   def self.from_rummager_result(rummager_result)
     raise InvalidJSONError if rummager_result.blank? || rummager_result["link"].blank?
+
     slugs = PublishingAPISection.extract_slugs_from_path(rummager_result["link"])
     new(slugs[:manual], slugs[:section])
   end
@@ -51,6 +52,7 @@ class PublishingAPIRemovedSection
 
   def save!
     raise ValidationError, "manual section to remove is invalid #{errors.full_messages.to_sentence}" unless valid?
+
     PublishingAPINotifier.new(self).notify(update_links: false)
   end
 end

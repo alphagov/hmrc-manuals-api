@@ -2,6 +2,7 @@ class ConformsToJsonSchemaValidator < ActiveModel::EachValidator
   def initialize(options = {})
     super
     raise "Provide a schema to the validator (schema: <SCHEMA>)" unless options[:schema]
+
     @schema = options[:schema]
   end
 

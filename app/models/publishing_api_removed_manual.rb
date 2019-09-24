@@ -55,6 +55,7 @@ class PublishingAPIRemovedManual
 
   def save!
     raise ValidationError, "manual to remove is invalid #{errors.full_messages.to_sentence}" unless valid?
+
     PublishingAPINotifier.new(self).notify(update_links: false)
   end
 end
