@@ -22,7 +22,7 @@ class PublishingAPIManual
   end
 
   def to_h
-    @_to_h ||= begin
+    @to_h ||= begin
       enriched_data = @manual_attributes.except("content_id").deep_dup.merge(base_path: base_path,
         document_type: MANUAL_DOCUMENT_TYPE,
         schema_name: MANUAL_SCHEMA_NAME,

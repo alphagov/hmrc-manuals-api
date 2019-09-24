@@ -26,7 +26,7 @@ class PublishingAPIRemovedSection
   end
 
   def to_h
-    @_to_h ||= {
+    @to_h ||= {
       base_path: base_path,
       document_type: "gone",
       schema_name: "gone",
