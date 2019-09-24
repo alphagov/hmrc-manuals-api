@@ -1,25 +1,25 @@
-require 'rails_helper'
-require 'gds_api/test_helpers/content_store'
+require "rails_helper"
+require "gds_api/test_helpers/content_store"
 
 RSpec.describe SectionsChecker do
   include GdsApi::TestHelpers::ContentStore
 
-  context 'when given a manual slug' do
-    let(:manual_slug) { 'a-manual-slug' }
+  context "when given a manual slug" do
+    let(:manual_slug) { "a-manual-slug" }
     let(:manual_path) { PublishingAPIManual.base_path(manual_slug) }
     let(:content_item) { hmrc_manual_content_item_for_base_path(manual_path, child_section_groups: child_section_groups) }
     before do
       content_store_has_item(manual_path, content_item)
     end
 
-    context 'and the manual has no child sections' do
+    context "and the manual has no child sections" do
       let(:child_section_groups) { [] }
-      it 'returns the empty array' do
+      it "returns the empty array" do
         expect(described_class.new(manual_slug).check).to be_empty
       end
     end
 
-    context 'and the manual has some child sections' do
+    context "and the manual has some child sections" do
       let(:child_section_groups) do
         [
           {
@@ -50,10 +50,10 @@ RSpec.describe SectionsChecker do
           }
         ]
       end
-      let(:child_1_base_path) { PublishingAPISection.base_path(manual_slug, 'child-1') }
-      let(:child_2_base_path) { PublishingAPISection.base_path(manual_slug, 'child-2') }
-      let(:child_3_base_path) { PublishingAPISection.base_path(manual_slug, 'child-3') }
-      let(:new_manual_slug) { 'a-new-manual-slug' }
+      let(:child_1_base_path) { PublishingAPISection.base_path(manual_slug, "child-1") }
+      let(:child_2_base_path) { PublishingAPISection.base_path(manual_slug, "child-2") }
+      let(:child_3_base_path) { PublishingAPISection.base_path(manual_slug, "child-3") }
+      let(:new_manual_slug) { "a-new-manual-slug" }
       let(:new_manual_path) { PublishingAPIManual.base_path(new_manual_slug) }
       let(:new_manual_content_item) do
         hmrc_manual_content_item_for_base_path(
@@ -87,14 +87,14 @@ RSpec.describe SectionsChecker do
 
       subject { described_class.new(manual_slug).check }
 
-      it 'returns the children that still belong to this manual' do
+      it "returns the children that still belong to this manual" do
         expect(subject).to include(child_1_base_path)
         expect(subject).to include(child_3_base_path)
       end
 
-      context 'and there is a child that has been reparented' do
-        let(:child_5_base_path) { PublishingAPISection.base_path(new_manual_slug, 'child-5') }
-        let(:child_6_base_path) { PublishingAPISection.base_path(new_manual_slug, 'child-6') }
+      context "and there is a child that has been reparented" do
+        let(:child_5_base_path) { PublishingAPISection.base_path(new_manual_slug, "child-5") }
+        let(:child_6_base_path) { PublishingAPISection.base_path(new_manual_slug, "child-6") }
         let(:new_manual_child_section_groups) do
           [
             {
@@ -132,7 +132,7 @@ RSpec.describe SectionsChecker do
           content_store_has_item(child_6_base_path, child6_content_item)
         end
 
-        context 'when the new manual parent does contain the section' do
+        context "when the new manual parent does contain the section" do
           let(:new_section_child_section_group) do
             [
               {
@@ -148,15 +148,15 @@ RSpec.describe SectionsChecker do
             ]
           end
 
-          it 'does not return the reparented section' do
+          it "does not return the reparented section" do
             expect(subject).not_to include(child_2_base_path)
           end
         end
 
-        context 'when the new manual parent does not contain the section' do
+        context "when the new manual parent does not contain the section" do
           let(:new_section_child_section_group) { [] }
 
-          it 'returns the incorrectly reparented child' do
+          it "returns the incorrectly reparented child" do
             expect(subject).to include(child_2_base_path)
           end
         end
@@ -164,9 +164,9 @@ RSpec.describe SectionsChecker do
     end
   end
 
-  context 'when given a section slug' do
-    let(:manual_slug) { 'a-manual-slug' }
-    let(:section_slug) { 'a-section-slug' }
+  context "when given a section slug" do
+    let(:manual_slug) { "a-manual-slug" }
+    let(:section_slug) { "a-section-slug" }
     let(:full_section_slug) { "#{manual_slug}/#{section_slug}" }
     let(:manual_path) { PublishingAPIManual.base_path(manual_slug) }
     let(:section_path) { PublishingAPISection.base_path(manual_slug, section_slug) }
@@ -182,14 +182,14 @@ RSpec.describe SectionsChecker do
       content_store_has_item(section_path, content_item)
     end
 
-    context 'and the section has no child sections' do
+    context "and the section has no child sections" do
       let(:child_section_groups) { [] }
-      it 'returns the empty array' do
+      it "returns the empty array" do
         expect(described_class.new(full_section_slug).check).to be_empty
       end
     end
 
-    context 'and the section has some child sections' do
+    context "and the section has some child sections" do
       let(:child_section_groups) do
         [
           {
@@ -220,10 +220,10 @@ RSpec.describe SectionsChecker do
           }
         ]
       end
-      let(:child_1_base_path) { PublishingAPISection.base_path(manual_slug, 'child-1') }
-      let(:child_2_base_path) { PublishingAPISection.base_path(manual_slug, 'child-2') }
-      let(:child_3_base_path) { PublishingAPISection.base_path(manual_slug, 'child-3') }
-      let(:new_section_path) { PublishingAPISection.base_path(manual_slug, 'a-new-section-slug') }
+      let(:child_1_base_path) { PublishingAPISection.base_path(manual_slug, "child-1") }
+      let(:child_2_base_path) { PublishingAPISection.base_path(manual_slug, "child-2") }
+      let(:child_3_base_path) { PublishingAPISection.base_path(manual_slug, "child-3") }
+      let(:new_section_path) { PublishingAPISection.base_path(manual_slug, "a-new-section-slug") }
 
       before do
         child1_content_item = hmrc_manual_section_content_item_for_base_path(
@@ -284,17 +284,17 @@ RSpec.describe SectionsChecker do
 
       subject { described_class.new(full_section_slug).check }
 
-      it 'returns the children that still belong to this manual' do
+      it "returns the children that still belong to this manual" do
         expect(subject).to include(child_1_base_path)
         expect(subject).to include(child_3_base_path)
       end
 
-      it 'does not return a child if it has been reparented' do
+      it "does not return a child if it has been reparented" do
         expect(subject).not_to include(child_2_base_path)
       end
     end
 
-    context 'section does not have the correct new parent' do
+    context "section does not have the correct new parent" do
       let(:child_section_groups) do
         [
           {
@@ -309,8 +309,8 @@ RSpec.describe SectionsChecker do
           }
         ]
       end
-      let(:child_2_base_path) { PublishingAPISection.base_path(manual_slug, 'child-2') }
-      let(:new_section_path) { PublishingAPISection.base_path(manual_slug, 'a-new-section-slug') }
+      let(:child_2_base_path) { PublishingAPISection.base_path(manual_slug, "child-2") }
+      let(:new_section_path) { PublishingAPISection.base_path(manual_slug, "a-new-section-slug") }
 
       before do
         child2_content_item = hmrc_manual_section_content_item_for_base_path(
@@ -336,7 +336,7 @@ RSpec.describe SectionsChecker do
 
       subject { described_class.new(full_section_slug).check }
 
-      it 'returns the base path of the offending section' do
+      it "returns the base path of the offending section" do
         expect(subject).to include(child_2_base_path)
       end
     end

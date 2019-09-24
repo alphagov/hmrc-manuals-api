@@ -12,7 +12,7 @@ module PublishingApiDataHelpers
       "details" => {
         "child_section_groups" => [
           {
-            "title" => 'A group of sections',
+            "title" => "A group of sections",
             "child_sections" => [
               {
                 "title" => "About 12345",
@@ -26,10 +26,10 @@ module PublishingApiDataHelpers
         "change_notes" => [
           {
             "base_path" => "/hmrc-internal-manuals/employment-income-manual/abc567",
-            "title" => 'Title of a Section that was changed',
-            "section_id" => 'ABC567',
-            "change_note" => 'Description of changes',
-            "published_at" => '2014-01-23T00:00:00+01:00'
+            "title" => "Title of a Section that was changed",
+            "section_id" => "ABC567",
+            "change_note" => "Description of changes",
+            "published_at" => "2014-01-23T00:00:00+01:00"
           },
           {
             "base_path" => "/hmrc-internal-manuals/employment-income-manual/abc555",
@@ -56,7 +56,7 @@ module PublishingApiDataHelpers
   end
 
   def maximal_manual_update_type
-    'major'
+    "major"
   end
 
   def maximal_section_for_publishing_api(options = {})
@@ -83,7 +83,7 @@ module PublishingApiDataHelpers
         ],
         "child_section_groups" => [
           {
-            "title" => 'A group of sections',
+            "title" => "A group of sections",
             "child_sections" => [
               {
                 "title" => "About 123456",
@@ -106,107 +106,107 @@ module PublishingApiDataHelpers
     }.merge(options)
   end
 
-  def gone_manual_for_publishing_api(base_path: '/hmrc-internal-manuals/some-slug')
+  def gone_manual_for_publishing_api(base_path: "/hmrc-internal-manuals/some-slug")
     {
-      'base_path' => base_path,
-      'document_type' => 'gone',
-      'schema_name' => 'gone',
-      'update_type' => 'major',
-      'publishing_app' => 'hmrc-manuals-api',
-      'routes' => [
+      "base_path" => base_path,
+      "document_type" => "gone",
+      "schema_name" => "gone",
+      "update_type" => "major",
+      "publishing_app" => "hmrc-manuals-api",
+      "routes" => [
         {
-          'path' => base_path,
-          'type' => 'exact',
+          "path" => base_path,
+          "type" => "exact",
         },
         {
-          'path' => "#{base_path}/updates",
-          'type' => 'exact',
-        },
-      ],
-    }
-  end
-
-  def gone_manual_section_for_publishing_api(manual_slug: 'some-manual', section_slug: 'some-section')
-    {
-      'base_path' => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
-      'document_type' => 'gone',
-      'schema_name' => 'gone',
-      'update_type' => 'major',
-      'publishing_app' => 'hmrc-manuals-api',
-      'routes' => [
-        {
-          'path' => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
-          'type' => 'exact',
+          "path" => "#{base_path}/updates",
+          "type" => "exact",
         },
       ],
     }
   end
 
-  def redirected_manual_section_to_other_manual_section_for_publishing_api(manual_slug: 'some-manual', section_slug: 'some-section', dest_manual_slug: 'some-other-manual', dest_section_slug: 'some-other-section')
+  def gone_manual_section_for_publishing_api(manual_slug: "some-manual", section_slug: "some-section")
     {
-      'document_type' => 'redirect',
-      'schema_name' => 'redirect',
-      'publishing_app' => 'hmrc-manuals-api',
-      'base_path' => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
-      'redirects' => [
+      "base_path" => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
+      "document_type" => "gone",
+      "schema_name" => "gone",
+      "update_type" => "major",
+      "publishing_app" => "hmrc-manuals-api",
+      "routes" => [
         {
-          'path' => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
-          'type' => "exact",
-          'destination' => "/hmrc-internal-manuals/#{dest_manual_slug}/#{dest_section_slug}"
-        }
+          "path" => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
+          "type" => "exact",
+        },
       ],
-      'update_type' => 'major'
     }
   end
 
-  def redirected_manual_section_to_other_manual_for_publishing_api(manual_slug: 'some-manual', section_slug: 'some-section', dest_manual_slug: 'some-other-manual')
+  def redirected_manual_section_to_other_manual_section_for_publishing_api(manual_slug: "some-manual", section_slug: "some-section", dest_manual_slug: "some-other-manual", dest_section_slug: "some-other-section")
     {
-      'document_type' => 'redirect',
-      'schema_name' => 'redirect',
-      'publishing_app' => 'hmrc-manuals-api',
-      'base_path' => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
-      'redirects' => [
+      "document_type" => "redirect",
+      "schema_name" => "redirect",
+      "publishing_app" => "hmrc-manuals-api",
+      "base_path" => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
+      "redirects" => [
         {
-          'path' => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
-          'type' => "exact",
-          'destination' => "/hmrc-internal-manuals/#{dest_manual_slug}"
+          "path" => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
+          "type" => "exact",
+          "destination" => "/hmrc-internal-manuals/#{dest_manual_slug}/#{dest_section_slug}"
         }
       ],
-      'update_type' => 'major'
+      "update_type" => "major"
     }
   end
 
-  def redirected_manual_section_to_parent_manual_for_publishing_api(manual_slug: 'some-manual', section_slug: 'some-section')
+  def redirected_manual_section_to_other_manual_for_publishing_api(manual_slug: "some-manual", section_slug: "some-section", dest_manual_slug: "some-other-manual")
     {
-      'document_type' => 'redirect',
-      'schema_name' => 'redirect',
-      'publishing_app' => 'hmrc-manuals-api',
-      'base_path' => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
-      'redirects' => [
+      "document_type" => "redirect",
+      "schema_name" => "redirect",
+      "publishing_app" => "hmrc-manuals-api",
+      "base_path" => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
+      "redirects" => [
         {
-          'path' => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
-          'type' => "exact",
-          'destination' => "/hmrc-internal-manuals/#{manual_slug}"
+          "path" => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
+          "type" => "exact",
+          "destination" => "/hmrc-internal-manuals/#{dest_manual_slug}"
         }
       ],
-      'update_type' => 'major'
+      "update_type" => "major"
     }
   end
 
-  def redirected_manual_to_other_manual_for_publishing_api(manual_slug: 'some-manual', destination_manual_slug: 'some-other-manual')
+  def redirected_manual_section_to_parent_manual_for_publishing_api(manual_slug: "some-manual", section_slug: "some-section")
     {
-      'document_type' => 'redirect',
-      'schema_name' => 'redirect',
-      'publishing_app' => 'hmrc-manuals-api',
-      'base_path' => "/hmrc-internal-manuals/#{manual_slug}",
-      'redirects' => [
+      "document_type" => "redirect",
+      "schema_name" => "redirect",
+      "publishing_app" => "hmrc-manuals-api",
+      "base_path" => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
+      "redirects" => [
         {
-          'path' => "/hmrc-internal-manuals/#{manual_slug}",
-          'type' => "exact",
-          'destination' => "/hmrc-internal-manuals/#{destination_manual_slug}"
+          "path" => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
+          "type" => "exact",
+          "destination" => "/hmrc-internal-manuals/#{manual_slug}"
         }
       ],
-      'update_type' => 'major'
+      "update_type" => "major"
+    }
+  end
+
+  def redirected_manual_to_other_manual_for_publishing_api(manual_slug: "some-manual", destination_manual_slug: "some-other-manual")
+    {
+      "document_type" => "redirect",
+      "schema_name" => "redirect",
+      "publishing_app" => "hmrc-manuals-api",
+      "base_path" => "/hmrc-internal-manuals/#{manual_slug}",
+      "redirects" => [
+        {
+          "path" => "/hmrc-internal-manuals/#{manual_slug}",
+          "type" => "exact",
+          "destination" => "/hmrc-internal-manuals/#{destination_manual_slug}"
+        }
+      ],
+      "update_type" => "major"
     }
   end
 end

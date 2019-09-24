@@ -1,5 +1,5 @@
-require 'rails_helper'
-require 'gds_api/test_helpers/publishing_api_v2'
+require "rails_helper"
+require "gds_api/test_helpers/publishing_api_v2"
 
 describe LinksBuilder do
   include LinksUpdateHelper

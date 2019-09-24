@@ -1,5 +1,5 @@
-require 'active_model'
-require 'valid_slug/pattern'
+require "active_model"
+require "valid_slug/pattern"
 
 class PublishingAPIRemovedManual
   include ActiveModel::Validations
@@ -26,9 +26,9 @@ class PublishingAPIRemovedManual
   def to_h
     @_to_h ||= {
       base_path: base_path,
-      document_type: 'gone',
-      schema_name: 'gone',
-      publishing_app: 'hmrc-manuals-api',
+      document_type: "gone",
+      schema_name: "gone",
+      publishing_app: "hmrc-manuals-api",
       update_type: update_type,
       routes: [
         { path: base_path, type: :exact },
@@ -42,7 +42,7 @@ class PublishingAPIRemovedManual
   end
 
   def update_type
-    'major'
+    "major"
   end
 
   def base_path

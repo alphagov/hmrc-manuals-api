@@ -1,4 +1,4 @@
-require 'ostruct'
+require "ostruct"
 
 class User < OpenStruct
   include GDS::SSO::User

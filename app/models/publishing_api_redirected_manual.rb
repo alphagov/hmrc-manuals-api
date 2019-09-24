@@ -1,5 +1,5 @@
-require 'active_model'
-require 'valid_slug/pattern'
+require "active_model"
+require "valid_slug/pattern"
 
 class PublishingAPIRedirectedManual
   include ActiveModel::Validations
@@ -22,9 +22,9 @@ class PublishingAPIRedirectedManual
 
   def to_h
     @_to_h ||= {
-      document_type: 'redirect',
-      schema_name: 'redirect',
-      publishing_app: 'hmrc-manuals-api',
+      document_type: "redirect",
+      schema_name: "redirect",
+      publishing_app: "hmrc-manuals-api",
       base_path: base_path,
       redirects: [
         {

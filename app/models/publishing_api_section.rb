@@ -1,6 +1,6 @@
-require 'active_model'
-require 'struct_with_rendered_markdown'
-require 'valid_slug/pattern'
+require "active_model"
+require "struct_with_rendered_markdown"
+require "valid_slug/pattern"
 
 class PublishingAPISection
   include ActiveModel::Validations
@@ -24,11 +24,11 @@ class PublishingAPISection
 
   def to_h
     @_to_h ||= begin
-      enriched_data = @section_attributes.except('content_id').deep_dup.merge(base_path: base_path,
+      enriched_data = @section_attributes.except("content_id").deep_dup.merge(base_path: base_path,
         document_type: SECTION_DOCUMENT_TYPE,
         schema_name: SECTION_SCHEMA_NAME,
-        publishing_app: 'hmrc-manuals-api',
-        rendering_app: 'manuals-frontend',
+        publishing_app: "hmrc-manuals-api",
+        rendering_app: "manuals-frontend",
         routes: [{ path: PublishingAPISection.base_path(@manual_slug, @section_slug), type: :exact }],
         locale: "en")
       enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
@@ -67,7 +67,7 @@ class PublishingAPISection
   def self.extract_slugs_from_path(path)
     slugs = {}
     slugs[:manual] = PublishingAPIManual.extract_slug_from_path(path)
-    slugs[:section] = path.split('/', 5).fourth
+    slugs[:section] = path.split("/", 5).fourth
     raise InvalidPathError if slugs[:section].blank?
     slugs
   end
@@ -89,7 +89,7 @@ private
     # child_section_groups isn't required for sections, so might be nil:
     (attributes["details"]["child_section_groups"] || []).each do |section_group|
       section_group["child_sections"].each do |section|
-        section['base_path'] = PublishingAPISection.base_path(@manual_slug, section['section_id'])
+        section["base_path"] = PublishingAPISection.base_path(@manual_slug, section["section_id"])
       end
     end
     attributes
@@ -98,7 +98,7 @@ private
   def add_base_path_to_breadcrumbs(attributes)
     # breadcrumbs isn't required, so might be nil:
     (attributes["details"]["breadcrumbs"] || []).each do |section|
-      section['base_path'] = PublishingAPISection.base_path(@manual_slug, section['section_id'])
+      section["base_path"] = PublishingAPISection.base_path(@manual_slug, section["section_id"])
     end
     attributes
   end
@@ -117,7 +117,7 @@ private
   end
 
   def section_slug_matches_section_id
-    if !section_slug.to_s.casecmp(section_attributes['details']['section_id'].downcase).zero?
+    if !section_slug.to_s.casecmp(section_attributes["details"]["section_id"].downcase).zero?
       errors[:base] << "Slug in URL and Section ID must match, ignoring case"
     end
   end

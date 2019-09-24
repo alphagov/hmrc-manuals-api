@@ -1,5 +1,5 @@
-require 'govspeak/html_validator'
-require 'structured_data'
+require "govspeak/html_validator"
+require "structured_data"
 
 class NoDangerousHTMLInTextFieldsValidator < ActiveModel::EachValidator
   ALLOWED_IMAGE_HOSTS = [
@@ -8,9 +8,9 @@ class NoDangerousHTMLInTextFieldsValidator < ActiveModel::EachValidator
     URI.parse(Plek.new.asset_root).host,   # eg assets-origin.preview.alphagov.co.uk
 
     # Hardcode production URLs so that content copied from production is valid
-    'www.gov.uk',
-    'assets.digital.cabinet-office.gov.uk',
-    'assets.publishing.service.gov.uk',
+    "www.gov.uk",
+    "assets.digital.cabinet-office.gov.uk",
+    "assets.publishing.service.gov.uk",
   ].freeze
 
   def validate_each(record, _attribute, value)

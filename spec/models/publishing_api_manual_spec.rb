@@ -1,91 +1,91 @@
-require 'rails_helper'
+require "rails_helper"
 
 describe PublishingAPIManual do
-  describe '.base_path' do
-    it 'returns the GOV.UK path for the manual' do
-      base_path = PublishingAPIManual.base_path('some-manual')
-      expect(base_path).to eql('/hmrc-internal-manuals/some-manual')
+  describe ".base_path" do
+    it "returns the GOV.UK path for the manual" do
+      base_path = PublishingAPIManual.base_path("some-manual")
+      expect(base_path).to eql("/hmrc-internal-manuals/some-manual")
     end
 
-    it 'ensures that it is lowercase' do
-      base_path = PublishingAPIManual.base_path('Some-Manual')
-      expect(base_path).to eql('/hmrc-internal-manuals/some-manual')
+    it "ensures that it is lowercase" do
+      base_path = PublishingAPIManual.base_path("Some-Manual")
+      expect(base_path).to eql("/hmrc-internal-manuals/some-manual")
     end
   end
 
-  describe '.extract_slug_from_path' do
-    it 'finds the first path segment after the base path segment' do
-      extracted_slug = described_class.extract_slug_from_path('/hmrc-internal-manuals/what-a-slug')
-      expect(extracted_slug).to eq('what-a-slug')
+  describe ".extract_slug_from_path" do
+    it "finds the first path segment after the base path segment" do
+      extracted_slug = described_class.extract_slug_from_path("/hmrc-internal-manuals/what-a-slug")
+      expect(extracted_slug).to eq("what-a-slug")
     end
 
-    it 'ignores trailing slashes' do
-      extracted_slug = described_class.extract_slug_from_path('/hmrc-internal-manuals/what-a-slug/')
-      expect(extracted_slug).to eq('what-a-slug')
+    it "ignores trailing slashes" do
+      extracted_slug = described_class.extract_slug_from_path("/hmrc-internal-manuals/what-a-slug/")
+      expect(extracted_slug).to eq("what-a-slug")
     end
 
-    it 'ignores path segments after the first one' do
-      extracted_slug = described_class.extract_slug_from_path('/hmrc-internal-manuals/what-a-slug/section-slug')
-      expect(extracted_slug).to eq('what-a-slug')
+    it "ignores path segments after the first one" do
+      extracted_slug = described_class.extract_slug_from_path("/hmrc-internal-manuals/what-a-slug/section-slug")
+      expect(extracted_slug).to eq("what-a-slug")
     end
 
-    it 'raises an InvalidPathErrorInvalidPathError exception if the path is blank' do
+    it "raises an InvalidPathErrorInvalidPathError exception if the path is blank" do
       expect {
-        described_class.extract_slug_from_path('')
+        described_class.extract_slug_from_path("")
       }.to raise_error(InvalidPathError)
     end
 
-    it 'raises an InvalidPathError exception if the path does not start with the base path segment' do
+    it "raises an InvalidPathError exception if the path does not start with the base path segment" do
       expect {
-        described_class.extract_slug_from_path('/fco-travel-advice/dont-go-back-to-rockville')
+        described_class.extract_slug_from_path("/fco-travel-advice/dont-go-back-to-rockville")
       }.to raise_error(InvalidPathError)
     end
 
-    it 'raises an InvalidPathError exception if the path does start with the base path segment, but has no 2nd path segment' do
+    it "raises an InvalidPathError exception if the path does start with the base path segment, but has no 2nd path segment" do
       expect {
-        described_class.extract_slug_from_path('/hmrc-internal-manuals/')
+        described_class.extract_slug_from_path("/hmrc-internal-manuals/")
       }.to raise_error(InvalidPathError)
     end
   end
 
   subject(:publishing_api_manual) { PublishingAPIManual.new(slug, attributes) }
-  let(:slug) { 'some-slug' }
+  let(:slug) { "some-slug" }
   let(:attributes) { valid_manual }
 
-  describe '#to_h' do
+  describe "#to_h" do
     subject { publishing_api_manual.to_h }
 
-    context 'valid_manual' do
-      it { should be_valid_against_schema('hmrc_manual') }
+    context "valid_manual" do
+      it { should be_valid_against_schema("hmrc_manual") }
     end
 
-    context 'maximal_manual' do
+    context "maximal_manual" do
       let(:attributes) { maximal_manual }
 
-      it { should be_valid_against_schema('hmrc_manual') }
+      it { should be_valid_against_schema("hmrc_manual") }
     end
   end
 
-  describe 'content_id' do
-    context 'when content id is specified in the attributes' do
+  describe "content_id" do
+    context "when content id is specified in the attributes" do
       let(:content_id) { SecureRandom.uuid }
       let(:attributes) { valid_manual.merge("content_id" => content_id) }
 
-      it 'returns the content_id' do
+      it "returns the content_id" do
         expect(subject.content_id).to eq content_id
       end
     end
 
-    context 'when content id is absent from the attributes' do
-      it 'generates one from the base path' do
-        expect(attributes['content_id']).to be nil
+    context "when content id is absent from the attributes" do
+      it "generates one from the base path" do
+        expect(attributes["content_id"]).to be nil
         expect(subject.content_id).to eq UUIDTools::UUID.sha1_create(UUIDTools::UUID_URL_NAMESPACE, subject.base_path).to_s
       end
     end
   end
 
-  describe 'validations' do
-    context 'validating slug format' do
+  describe "validations" do
+    context "validating slug format" do
       it { should_not allow_value(nil, "1Som\nSłu9G!").for(:slug) }
     end
 
@@ -125,13 +125,13 @@ describe PublishingAPIManual do
       end
     end
 
-    context 'when app is configured to only allow known slugs' do
+    context "when app is configured to only allow known slugs" do
       before do
         allow(HMRCManualsAPI::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(false)
       end
 
       context "with a manual slug name not in list of known slugs" do
-        let(:slug) { 'non-existent-slug' }
+        let(:slug) { "non-existent-slug" }
         it { should_not be_valid }
       end
 
@@ -141,13 +141,13 @@ describe PublishingAPIManual do
       end
     end
 
-    context 'when app is configured to allow unknown slugs' do
+    context "when app is configured to allow unknown slugs" do
       before do
         allow(HMRCManualsAPI::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(true)
       end
 
       context "with a manual slug name not in list of known slugs" do
-        let(:slug) { 'non-existent-slug' }
+        let(:slug) { "non-existent-slug" }
         it { should be_valid }
       end
 

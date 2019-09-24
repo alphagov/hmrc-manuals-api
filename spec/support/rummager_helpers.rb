@@ -11,7 +11,7 @@ module RummagerHelpers
     JSON
   end
 
-  def single_section_parsed_rummager_json_result(manual_slug, section_slug = 'section-1')
+  def single_section_parsed_rummager_json_result(manual_slug, section_slug = "section-1")
     {
       "format" => "hmrc_manual_section",
       "link" => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",

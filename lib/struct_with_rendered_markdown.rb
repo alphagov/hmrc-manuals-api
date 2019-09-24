@@ -1,4 +1,4 @@
-require 'kramdown'
+require "kramdown"
 
 class StructWithRenderedMarkdown
   ATTRIBUTES_THAT_CAN_CONTAIN_MARKDOWN = ["body"].freeze

@@ -1,5 +1,5 @@
-require 'active_model'
-require 'valid_slug/pattern'
+require "active_model"
+require "valid_slug/pattern"
 
 class PublishingAPIRemovedSection
   include ActiveModel::Validations
@@ -14,8 +14,8 @@ class PublishingAPIRemovedSection
   attr_accessor :manual_slug, :section_slug
 
   def self.from_rummager_result(rummager_result)
-    raise InvalidJSONError if rummager_result.blank? || rummager_result['link'].blank?
-    slugs = PublishingAPISection.extract_slugs_from_path(rummager_result['link'])
+    raise InvalidJSONError if rummager_result.blank? || rummager_result["link"].blank?
+    slugs = PublishingAPISection.extract_slugs_from_path(rummager_result["link"])
     new(slugs[:manual], slugs[:section])
   end
 
@@ -27,9 +27,9 @@ class PublishingAPIRemovedSection
   def to_h
     @_to_h ||= {
       base_path: base_path,
-      document_type: 'gone',
-      schema_name: 'gone',
-      publishing_app: 'hmrc-manuals-api',
+      document_type: "gone",
+      schema_name: "gone",
+      publishing_app: "hmrc-manuals-api",
       update_type: update_type,
       routes: [
         { path: base_path, type: :exact },
@@ -42,7 +42,7 @@ class PublishingAPIRemovedSection
   end
 
   def update_type
-    'major'
+    "major"
   end
 
   def base_path
