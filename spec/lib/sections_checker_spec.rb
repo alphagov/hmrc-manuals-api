@@ -28,15 +28,15 @@ RSpec.describe SectionsChecker do
                 "section_id" => "DT1690PP",
                 "title" => "Income arising in the United Kingdom to non-residents: contents",
                 "description" => "",
-                "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-1"
+                "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-1",
               },
               {
                 "section_id" => "DT2100",
                 "title" => "Scope of this guidance",
                 "description" => "",
-                "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-2"
+                "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-2",
               }
-            ]
+            ],
           },
           {
             "child_sections" => [
@@ -44,9 +44,9 @@ RSpec.describe SectionsChecker do
                 "section_id" => "DT2140PP",
                 "title" => "Guidance by country: contents",
                 "description" => "",
-                "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-3"
+                "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-3",
               }
-            ]
+            ],
           }
         ]
       end
@@ -103,15 +103,15 @@ RSpec.describe SectionsChecker do
                   "section_id" => "DT1690PP",
                   "title" => "Income arising in the United Kingdom to non-residents: contents",
                   "description" => "",
-                  "base_path" => "/hmrc-internal-manuals/#{new_manual_slug}/child-5"
+                  "base_path" => "/hmrc-internal-manuals/#{new_manual_slug}/child-5",
                 },
                 {
                   "section_id" => "DT2100",
                   "title" => "Scope of this guidance",
                   "description" => "",
-                  "base_path" => "/hmrc-internal-manuals/#{new_manual_slug}/child-6"
+                  "base_path" => "/hmrc-internal-manuals/#{new_manual_slug}/child-6",
                 }
-              ]
+              ],
             }
           ]
         end
@@ -141,9 +141,9 @@ RSpec.describe SectionsChecker do
                     "section_id" => "DT1690PP",
                     "title" => "Income arising in the United Kingdom to non-residents: contents",
                     "description" => "",
-                    "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-2"
+                    "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-2",
                   }
-                ]
+                ],
               }
             ]
           end
@@ -198,15 +198,15 @@ RSpec.describe SectionsChecker do
                 "section_id" => "DT1690PP",
                 "title" => "Income arising in the United Kingdom to non-residents: contents",
                 "description" => "",
-                "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-1"
+                "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-1",
               },
               {
                 "section_id" => "DT2100",
                 "title" => "Scope of this guidance",
                 "description" => "",
-                "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-2"
+                "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-2",
               }
-            ]
+            ],
           },
           {
             "child_sections" => [
@@ -214,9 +214,9 @@ RSpec.describe SectionsChecker do
                 "section_id" => "DT2140PP",
                 "title" => "Guidance by country: contents",
                 "description" => "",
-                "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-3"
+                "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-3",
               }
-            ]
+            ],
           }
         ]
       end
@@ -232,7 +232,7 @@ RSpec.describe SectionsChecker do
           breadcrumbs: [
             {
               "section_id" => "SECTION ID ONE",
-              "base_path" => section_path
+              "base_path" => section_path,
             }
           ]
         )
@@ -243,7 +243,7 @@ RSpec.describe SectionsChecker do
           breadcrumbs: [
             {
               "section_id" => "SECTION ID TWO",
-              "base_path" => new_section_path
+              "base_path" => new_section_path,
             }
           ]
         )
@@ -254,7 +254,7 @@ RSpec.describe SectionsChecker do
           breadcrumbs: [
             {
               "section_id" => "SECTION ID ONE",
-              "base_path" => section_path
+              "base_path" => section_path,
             }
           ]
         )
@@ -273,9 +273,9 @@ RSpec.describe SectionsChecker do
                   "section_id" => "DT1690PP",
                   "title" => "Income arising in the United Kingdom to non-residents: contents",
                   "description" => "",
-                  "base_path" => child_2_base_path
+                  "base_path" => child_2_base_path,
                 }
-              ]
+              ],
             }
           ]
         )
@@ -303,9 +303,9 @@ RSpec.describe SectionsChecker do
                 "section_id" => "DT2100",
                 "title" => "Scope of this guidance",
                 "description" => "",
-                "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-2"
+                "base_path" => "/hmrc-internal-manuals/#{manual_slug}/child-2",
               }
-            ]
+            ],
           }
         ]
       end
@@ -319,7 +319,7 @@ RSpec.describe SectionsChecker do
           breadcrumbs: [
             {
               "section_id" => "SECTION ID TWO",
-              "base_path" => new_section_path
+              "base_path" => new_section_path,
             }
           ]
         )

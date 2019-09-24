@@ -38,7 +38,7 @@ module TestDataHelpers
       details: {
         child_section_groups: [],
         change_notes: [],
-      }
+      },
     }.merge(options).deep_stringify_keys
   end
 
@@ -57,9 +57,9 @@ module TestDataHelpers
               {
                 title: "About 12345",
                 section_id: "12345",
-                description: "A short description of the section"
+                description: "A short description of the section",
               }
-            ]
+            ],
           }
         ],
         change_notes: [
@@ -67,16 +67,16 @@ module TestDataHelpers
             title: "Title of a Section that was changed",
             section_id: "ABC567",
             change_note: "Description of changes",
-            published_at: "2014-01-23T00:00:00+01:00"
+            published_at: "2014-01-23T00:00:00+01:00",
           },
           {
             title: "Title of the previous Section that was changed",
             section_id: "ABC555",
             change_note: "Description of changes",
-            published_at: "2013-12-23T00:00:00+01:00"
+            published_at: "2013-12-23T00:00:00+01:00",
           }
-        ]
-      }
+        ],
+      },
     }.merge(options).deep_stringify_keys
   end
 
@@ -87,7 +87,7 @@ module TestDataHelpers
       update_type: "major",
       details: {
         section_id: "12345",
-      }
+      },
     }.merge(options).deep_stringify_keys
   end
 
@@ -108,7 +108,7 @@ module TestDataHelpers
         section_id: "12345",
         breadcrumbs: [
           {
-            section_id: "1234"
+            section_id: "1234",
           }
         ],
         child_section_groups: [
@@ -117,11 +117,11 @@ module TestDataHelpers
             {
               title: "About 123456",
               section_id: "123456",
-              description: "A short description of the section"
+              description: "A short description of the section",
             }
           ]
-        ]
-      }
+        ],
+      },
     }.merge(options).deep_stringify_keys
   end
 end

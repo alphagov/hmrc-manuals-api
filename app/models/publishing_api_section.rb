@@ -105,7 +105,7 @@ private
 
   def add_base_path_to_manual(attributes)
     attributes["details"]["manual"] = {
-      "base_path" => PublishingAPIManual.base_path(@manual_slug)
+      "base_path" => PublishingAPIManual.base_path(@manual_slug),
     }
     attributes
   end

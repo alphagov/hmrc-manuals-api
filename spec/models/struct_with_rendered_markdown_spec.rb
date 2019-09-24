@@ -16,20 +16,20 @@ describe StructWithRenderedMarkdown do
     recursive_struct = {
       "a" => [
         "b" => {
-          "body" => "**b**"
+          "body" => "**b**",
         },
         "c" => {
-          "body" => "**c**"
+          "body" => "**c**",
         },
-      ]
+      ],
     }
     expect(conversion_of(recursive_struct)).to eq(
       "a" => [
         "b" => {
-          "body" => "<p><strong>b</strong></p>\n"
+          "body" => "<p><strong>b</strong></p>\n",
         },
         "c" => {
-          "body" => "<p><strong>c</strong></p>\n"
+          "body" => "<p><strong>c</strong></p>\n",
         },
       ]
     )

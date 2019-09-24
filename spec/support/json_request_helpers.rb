@@ -3,7 +3,7 @@ module JSONRequestHelper
     default_headers = {
       "CONTENT_TYPE" => "application/json",
       "HTTP_ACCEPT" => "application/json",
-      "HTTP_AUTHORIZATION" => "Bearer 12345678"
+      "HTTP_AUTHORIZATION" => "Bearer 12345678",
     }
     put path, params: attrs.to_json, headers: default_headers.merge(headers)
   end
