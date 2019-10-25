@@ -69,6 +69,7 @@ KNOWN_MANUAL_SLUGS = %w{
   general-insurance-manual
   guidance-real-estate-investment-trusts
   guidance-audit-customs-values
+  help-save-technical
   holding-and-movements-alcohol-strategy-subsidiary-records
   holding-and-movements-alcohol-strategy-accounts
   holding-and-movements-alcohol-strategy-audit-risk-and-percet
