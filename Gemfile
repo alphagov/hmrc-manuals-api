@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 gem "gds-api-adapters", "~> 60.1"
-gem "gds-sso", "~> 14.1"
+gem "gds-sso", "~> 14.2"
 gem "govspeak", "~> 6.5"
 gem "govuk_app_config", "~> 2.0"
 gem "json-schema", "~> 2.8"
