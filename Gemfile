@@ -6,7 +6,7 @@ gem "govspeak", "~> 6.5"
 gem "govuk_app_config", "~> 2.0"
 gem "json-schema", "~> 2.8"
 gem "plek", "~> 3.0"
-gem "rails", "~> 5.2"
+gem "rails", "~> 6.0"
 gem "responders", "~> 3.0"
 gem "uuidtools", "~> 2.1"
 
