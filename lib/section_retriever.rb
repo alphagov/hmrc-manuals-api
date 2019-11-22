@@ -12,7 +12,7 @@ class SectionRetriever
     loop do
       new_query = rummager_section_query(start_index(search_response))
 
-      search_response = Services.rummager.search(new_query)
+      search_response = Services.search_api.search(new_query)
       sections += search_response["results"]
       return sections if all_sections_retrieved?(sections, search_response)
     end
