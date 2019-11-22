@@ -1,10 +1,10 @@
 require "rails_helper"
 require "gds_api/test_helpers/publishing_api_v2"
-require "gds_api/test_helpers/rummager"
+require "gds_api/test_helpers/search"
 
 describe "validation" do
   include GdsApi::TestHelpers::PublishingApiV2
-  include GdsApi::TestHelpers::Rummager
+  include GdsApi::TestHelpers::Search
   include LinksUpdateHelper
 
   let(:headers) { { "Content-Type" => "application/json", "HTTP_AUTHORIZATION" => "Bearer 12345678" } }
@@ -56,7 +56,7 @@ describe "validation" do
         stub_put_default_organisation(content_id)
 
         stub_publishing_api_publish(content_id, { update_type: nil, previous_version: 22 }.to_json)
-        stub_any_rummager_post
+        stub_any_search_post
 
         manual = valid_manual
         manual["description"] = "![Manual](/path/to/image.png)"
