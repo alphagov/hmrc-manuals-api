@@ -8,7 +8,7 @@ describe SectionRetriever do
       search_api_query = stub_request(:get, %r{/search.json})
         .to_return(body: no_manual_sections_rummager_json_result)
 
-      subject.sections_from_search_api.map { |json| PublishingAPIRemovedSection.from_rummager_result(json) }
+      subject.sections_from_search_api.map { |json| PublishingAPIRemovedSection.from_search_api_result(json) }
 
       assert_requested search_api_query
     end
@@ -17,7 +17,7 @@ describe SectionRetriever do
       stub_request(:get, %r{/search.json})
         .to_return(body: two_manual_sections_rummager_json_result("some-manual-slug"))
 
-      sections = subject.sections_from_search_api.map { |json| PublishingAPIRemovedSection.from_rummager_result(json) }
+      sections = subject.sections_from_search_api.map { |json| PublishingAPIRemovedSection.from_search_api_result(json) }
       expect(sections.size).to eq(2)
 
       expect(sections.first).to be_a PublishingAPIRemovedSection
@@ -34,7 +34,7 @@ describe SectionRetriever do
         .to_return(status: 503, body: '{"error":"arg!"}')
 
       expect {
-        subject.sections_from_search_api.map { |json| PublishingAPIRemovedSection.from_rummager_result(json) }
+        subject.sections_from_search_api.map { |json| PublishingAPIRemovedSection.from_search_api_result(json) }
       }.to raise_error(GdsApi::BaseError)
     end
 
