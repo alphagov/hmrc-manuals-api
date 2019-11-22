@@ -33,7 +33,7 @@ private
   end
 
   def search_api_section_query(start_index)
-    RummagerSection.search_query(base_path, start_index)
+    SearchApiSection.search_query(base_path, start_index)
   end
 
   def base_path
