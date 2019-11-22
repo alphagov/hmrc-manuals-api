@@ -48,7 +48,7 @@ describe SectionRetriever do
         stub_request(:get, %r{/search.json?.+start=1})
           .to_return(body: two_of_two_manual_sections_rummager_json_result("some-manual-slug"))
 
-        sections = subject.sections_from_search_api.map { |json| PublishingAPIRedirectedSectionToParentManual.from_rummager_result(json) }
+        sections = subject.sections_from_search_api.map { |json| PublishingAPIRedirectedSectionToParentManual.from_search_api_result(json) }
         expect(sections.size).to eq(2)
 
         expect(sections.first).to be_a PublishingAPIRedirectedSectionToParentManual
