@@ -36,7 +36,7 @@ See the [extended documentation](docs/extended_documentation.md) for details:
 
 ### Dependencies
 
-- [alphagov/rummager](https://github.com/alphagov/rummager): allows document sections to be retrieved
+- [alphagov/search-api](https://github.com/alphagov/search-api): allows document sections to be retrieved
 - [alphagov/publishing-api](https://github.com/alphagov/publishing-api): allows documents to be published to the Publishing queue
 
 ### Running the application
