@@ -1,4 +1,4 @@
-class RummagerSection
+class SearchApiSection
   GOVUK_HMRC_SLUG = "hm-revenue-customs".freeze
 
   def self.search_query(manual_path, start = 0, count = 1000)

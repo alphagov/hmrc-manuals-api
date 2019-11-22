@@ -1,6 +1,6 @@
 require "rails_helper"
 require "gds_api/test_helpers/publishing_api_v2"
-require "gds_api/test_helpers/rummager"
+require "gds_api/test_helpers/search"
 require "gds_api/test_helpers/content_store"
 
 describe PublishingAPIRedirectedSection do
@@ -84,7 +84,7 @@ describe PublishingAPIRedirectedSection do
 
   describe "#save!" do
     include GdsApi::TestHelpers::PublishingApiV2
-    include GdsApi::TestHelpers::Rummager
+    include GdsApi::TestHelpers::Search
 
     before do
       content_item = hmrc_manual_section_content_item_for_base_path(subject.base_path)

@@ -1,14 +1,14 @@
 require "rails_helper"
 require "gds_api/test_helpers/publishing_api_v2"
-require "gds_api/test_helpers/rummager"
+require "gds_api/test_helpers/search"
 require "gds_api/test_helpers/content_store"
 
 describe PublishingAPIRemovedSection do
-  describe ".from_rummager_result" do
-    let(:rummager_json) { single_section_parsed_rummager_json_result("manual-slug", "section-slug") }
+  describe ".from_search_api_result" do
+    let(:search_api_json) { single_section_parsed_search_api_json_result("manual-slug", "section-slug") }
 
     it "extracts the manual and section slugs from the link attribute" do
-      section = described_class.from_rummager_result(rummager_json)
+      section = described_class.from_search_api_result(search_api_json)
       expect(section).to be_a described_class
       expect(section.manual_slug).to eq("manual-slug")
       expect(section.section_slug).to eq("section-slug")
@@ -16,13 +16,13 @@ describe PublishingAPIRemovedSection do
 
     it "raises an InvalidJSONError if the json object has no link attribute" do
       expect {
-        described_class.from_rummager_result(rummager_json.except("link"))
+        described_class.from_search_api_result(search_api_json.except("link"))
       }.to raise_error(InvalidJSONError)
     end
 
     it "raises an InvalidPathError if the link attribute cannot be used to extract slugs" do
       expect {
-        described_class.from_rummager_result(rummager_json.merge("link" => "/oh-my/what-a-hat/"))
+        described_class.from_search_api_result(search_api_json.merge("link" => "/oh-my/what-a-hat/"))
       }.to raise_error(InvalidPathError)
     end
   end

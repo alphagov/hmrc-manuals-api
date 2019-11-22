@@ -40,8 +40,8 @@ task :redirect_all_hmrc_sections_to_parent_manual, [] => :environment do |_task,
   else
     manual_slug = slugs[0]
 
-    sections = SectionRetriever.new(manual_slug).sections_from_rummager.map do |json|
-      PublishingAPIRedirectedSectionToParentManual.from_rummager_result(json)
+    sections = SectionRetriever.new(manual_slug).sections_from_search_api.map do |json|
+      PublishingAPIRedirectedSectionToParentManual.from_search_api_result(json)
     end
     puts "Redirecting #{sections.count} sections"
     sections.each do |section|
