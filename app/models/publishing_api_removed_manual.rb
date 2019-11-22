@@ -18,7 +18,7 @@ class PublishingAPIRemovedManual
   end
 
   def sections
-    SectionRetriever.new(slug).sections_from_rummager.map do |section_json|
+    SectionRetriever.new(slug).sections_from_search_api.map do |section_json|
       PublishingAPIRemovedSection.from_rummager_result(section_json)
     end
   end

@@ -5,12 +5,12 @@ class SectionRetriever
     @manual_slug = manual_slug
   end
 
-  def sections_from_rummager
+  def sections_from_search_api
     sections = []
     search_response = nil
 
     loop do
-      new_query = rummager_section_query(start_index(search_response))
+      new_query = search_api_section_query(start_index(search_response))
 
       search_response = Services.search_api.search(new_query)
       sections += search_response["results"]
@@ -32,7 +32,7 @@ private
     end
   end
 
-  def rummager_section_query(start_index)
+  def search_api_section_query(start_index)
     RummagerSection.search_query(base_path, start_index)
   end
 
