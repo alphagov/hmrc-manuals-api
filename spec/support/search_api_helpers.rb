@@ -1,5 +1,5 @@
-module RummagerHelpers
-  def no_manual_sections_rummager_json_result
+module SearchApiHelpers
+  def no_manual_sections_search_api_json_result
     <<-JSON.strip_heredoc
       {
         "results":[],
@@ -11,7 +11,7 @@ module RummagerHelpers
     JSON
   end
 
-  def single_section_parsed_rummager_json_result(manual_slug, section_slug = "section-1")
+  def single_section_parsed_search_api_json_result(manual_slug, section_slug = "section-1")
     {
       "format" => "hmrc_manual_section",
       "link" => "/hmrc-internal-manuals/#{manual_slug}/#{section_slug}",
@@ -33,7 +33,7 @@ module RummagerHelpers
     }
   end
 
-  def two_manual_sections_rummager_json_result(manual_slug)
+  def two_manual_sections_search_api_json_result(manual_slug)
     <<-JSON.strip_heredoc
       {
         "results":[
@@ -84,7 +84,7 @@ module RummagerHelpers
     JSON
   end
 
-  def one_of_two_manual_sections_rummager_json_result(manual_slug)
+  def one_of_two_manual_sections_search_api_json_result(manual_slug)
     <<-JSON.strip_heredoc
       {
         "results":[
@@ -116,7 +116,7 @@ module RummagerHelpers
     JSON
   end
 
-  def two_of_two_manual_sections_rummager_json_result(manual_slug)
+  def two_of_two_manual_sections_search_api_json_result(manual_slug)
     <<-JSON.strip_heredoc
       {
         "results":[
@@ -149,4 +149,4 @@ module RummagerHelpers
   end
 end
 
-RSpec.configuration.include(RummagerHelpers)
+RSpec.configuration.include(SearchApiHelpers)

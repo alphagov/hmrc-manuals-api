@@ -73,18 +73,18 @@ describe PublishingAPIRemovedManual do
   describe "#sections" do
     subject(:removed_manual) { described_class.new("some-manual-slug") }
 
-    it "asks rummager for all the hmrc manual sections under its slug" do
-      rummager_query = stub_request(:get, %r{/search.json})
-        .to_return(body: no_manual_sections_rummager_json_result)
+    it "asks Search API for all the hmrc manual sections under its slug" do
+      search_api_query = stub_request(:get, %r{/search.json})
+        .to_return(body: no_manual_sections_search_api_json_result)
 
       subject.sections
 
-      assert_requested rummager_query
+      assert_requested search_api_query
     end
 
-    it "exposes each result from rummager as a PublishingAPIRemovedSection" do
+    it "exposes each result from Search API as a PublishingAPIRemovedSection" do
       stub_request(:get, %r{/search.json})
-        .to_return(body: two_manual_sections_rummager_json_result("some-manual-slug"))
+        .to_return(body: two_manual_sections_search_api_json_result("some-manual-slug"))
 
       sections = subject.sections
       expect(sections.size).to eq(2)
@@ -98,7 +98,7 @@ describe PublishingAPIRemovedManual do
       expect(sections.last.section_slug).to eq("section-2")
     end
 
-    it "exposes the error from rummager if the rummager call fails" do
+    it "exposes the error from Search API if the Search API call fails" do
       stub_request(:get, %r{/search.json})
         .to_return(status: 503, body: '{"error":"arg!"}')
 
@@ -112,10 +112,10 @@ describe PublishingAPIRemovedManual do
 
       it "gets all sections when there is more than one page of results" do
         stub_request(:get, %r{/search.json?.+start=0})
-          .to_return(body: one_of_two_manual_sections_rummager_json_result("some-manual-slug"))
+          .to_return(body: one_of_two_manual_sections_search_api_json_result("some-manual-slug"))
 
         stub_request(:get, %r{/search.json?.+start=1})
-          .to_return(body: two_of_two_manual_sections_rummager_json_result("some-manual-slug"))
+          .to_return(body: two_of_two_manual_sections_search_api_json_result("some-manual-slug"))
 
         sections = subject.sections
         expect(sections.size).to eq(2)
