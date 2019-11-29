@@ -13,9 +13,9 @@ class ManualsController < ApplicationController
         }
       end
     rescue ActionController::UnknownFormat
-      render json: { status: "error", errors: "Invalid Accept header" }, status: 406
+      render json: { status: "error", errors: "Invalid Accept header" }, status: :not_acceptable
     rescue ValidationError
-      render json: { status: "error", errors: manual.errors.full_messages }, status: 422
+      render json: { status: "error", errors: manual.errors.full_messages }, status: :unprocessable_entity
     end
   end
 end
