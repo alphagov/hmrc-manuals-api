@@ -19,7 +19,7 @@ group :development, :test do
   gem "rspec-collection_matchers", "~> 1.2"
   gem "rspec-rails", "~> 3.9"
   gem "rubocop-govuk"
-  gem "shoulda-matchers", "~> 4.1"
+  gem "shoulda-matchers", "~> 4.2"
 end
 
 group :test do
