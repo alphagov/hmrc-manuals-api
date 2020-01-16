@@ -27,5 +27,5 @@ group :test do
   gem "govuk-content-schema-test-helpers", "~> 1.6"
   gem "simplecov", "~> 0.17", require: false
   gem "simplecov-rcov", "~> 0.2", require: false
-  gem "webmock", "~> 3.7"
+  gem "webmock", "~> 3.8"
 end
