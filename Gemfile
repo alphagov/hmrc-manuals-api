@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "gds-api-adapters", "~> 63.4"
+gem "gds-api-adapters", "~> 63.5"
 gem "gds-sso", "~> 14.2"
 gem "govspeak", "~> 6.5"
 gem "govuk_app_config", "~> 2.0"
