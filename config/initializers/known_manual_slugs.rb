@@ -44,6 +44,7 @@ KNOWN_MANUAL_SLUGS = %w{
   debt-management-and-banking
   decision-and-appeals-for-national-insurance-contributions-and-statutory-payments
   denatured-alcohol
+  digital-services-tax
   diplomatic-privileges
   double-taxation-relief
   duty-free-spirits
