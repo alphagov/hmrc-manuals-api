@@ -17,7 +17,7 @@ end
 group :development, :test do
   gem "pry-byebug"
   gem "rspec-collection_matchers", "~> 1.2"
-  gem "rspec-rails", "~> 3.9"
+  gem "rspec-rails", "~> 4.0"
   gem "rubocop-govuk"
   gem "shoulda-matchers", "~> 4.3"
 end
