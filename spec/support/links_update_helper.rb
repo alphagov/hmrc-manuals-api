@@ -8,7 +8,7 @@ module LinksUpdateHelper
     stub_publishing_api_patch_links(
       content_id,
       { links: { organisations: %w[6667cce2-e809-4e21-ae09-cb0bdc1ddda3],
-        primary_publishing_organisation: %w[6667cce2-e809-4e21-ae09-cb0bdc1ddda3] } }.to_json,
+                 primary_publishing_organisation: %w[6667cce2-e809-4e21-ae09-cb0bdc1ddda3] } }.to_json,
     )
   end
 end
