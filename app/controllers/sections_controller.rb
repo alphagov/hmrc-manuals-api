@@ -9,8 +9,8 @@ class SectionsController < ApplicationController
       respond_to do |format|
         format.json {
           render json: { govuk_url: section.govuk_url },
-          status: publishing_api_response.code,
-          location: section.govuk_url
+                 status: publishing_api_response.code,
+                 location: section.govuk_url
         }
       end
     rescue ActionController::UnknownFormat

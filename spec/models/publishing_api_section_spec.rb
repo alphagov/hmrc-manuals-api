@@ -131,7 +131,7 @@ describe PublishingAPISection do
 
     context "when app is configured to only allow known manual slugs" do
       let(:attributes) { valid_section }
-      #section_slug and section_id have to match to pass `:section_slug_matches_section_id` validation
+      # section_slug and section_id have to match to pass `:section_slug_matches_section_id` validation
       let(:section_slug) { valid_section["details"]["section_id"] }
 
       before do

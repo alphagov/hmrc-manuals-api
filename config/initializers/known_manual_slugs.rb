@@ -1,4 +1,4 @@
-KNOWN_MANUAL_SLUGS = %w{
+KNOWN_MANUAL_SLUGS = %w[
   admin-law-manual
   aggregates-levy
   air-passenger-duty
@@ -238,4 +238,4 @@ KNOWN_MANUAL_SLUGS = %w{
   holding-and-movements-assurance-guidance
   hydrocarbon-oils-strategy
   scottish-taxpayer-technical-guidance
-}.freeze
+].freeze

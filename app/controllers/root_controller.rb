@@ -1,6 +1,6 @@
 # rubocop:disable Rails/ApplicationController
 class RootController < ActionController::Base
-# rubocop:enable Rails/ApplicationController
+  # rubocop:enable Rails/ApplicationController
   include ActionController::UrlFor
   include ActionView::Layouts
 
