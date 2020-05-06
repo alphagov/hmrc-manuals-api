@@ -29,9 +29,9 @@ class PublishingAPIManual
                                                                              publishing_app: "hmrc-manuals-api",
                                                                              rendering_app: "manuals-frontend",
                                                                              routes: [
-          { path: base_path, type: :exact },
-          { path: updates_path, type: :exact },
-        ],
+                                                                               { path: base_path, type: :exact },
+                                                                               { path: updates_path, type: :exact },
+                                                                             ],
                                                                              locale: "en")
       enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
