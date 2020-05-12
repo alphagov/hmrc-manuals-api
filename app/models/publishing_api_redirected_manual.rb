@@ -9,7 +9,7 @@ class PublishingAPIRedirectedManual
   validates_with InContentStoreValidator,
                  schema_name: MANUAL_SCHEMA_NAME,
                  content_store: Services.content_store,
-                 unless: -> {
+                 unless: lambda {
                    errors[:manual_slug].present? || errors[:destination_manual_slug].present?
                  }
 

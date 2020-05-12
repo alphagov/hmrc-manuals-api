@@ -7,11 +7,11 @@ class SectionsController < ApplicationController
     begin
       publishing_api_response = section.save!
       respond_to do |format|
-        format.json {
+        format.json do
           render json: { govuk_url: section.govuk_url },
                  status: publishing_api_response.code,
                  location: section.govuk_url
-        }
+        end
       end
     rescue ActionController::UnknownFormat
       render json: { status: "error", errors: "Invalid Accept header" }, status: :not_acceptable

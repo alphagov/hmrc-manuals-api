@@ -5,9 +5,9 @@ describe "manual sections resource" do
   include GdsApi::TestHelpers::PublishingApiV2
   include LinksUpdateHelper
 
-  let(:maximal_section_endpoint) {
+  let(:maximal_section_endpoint) do
     "/hmrc-manuals/#{maximal_manual_slug}/sections/#{maximal_section_slug}"
-  }
+  end
 
   it "confirms update of the manual section" do
     stub_publishing_api_put_content(maximal_section_content_id, {}, body: { version: 788 })
