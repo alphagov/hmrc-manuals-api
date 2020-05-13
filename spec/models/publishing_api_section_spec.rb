@@ -59,9 +59,9 @@ describe PublishingAPISection do
     end
   end
 
-  subject(:publishing_api_section) {
+  subject(:publishing_api_section) do
     PublishingAPISection.new(manual_slug, section_slug, attributes)
-  }
+  end
   let(:manual_slug) { "some-slug" }
   let(:section_slug) { "some_id" }
 

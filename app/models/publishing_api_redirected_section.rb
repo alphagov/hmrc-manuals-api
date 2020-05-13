@@ -10,7 +10,7 @@ class PublishingAPIRedirectedSection
   validates_with InContentStoreValidator,
                  schema_name: SECTION_SCHEMA_NAME,
                  content_store: Services.content_store,
-                 unless: -> {
+                 unless: lambda {
                    errors[:manual_slug].present? ||
                      errors[:section_slug].present? ||
                      errors[:destination_manual_slug].present?
