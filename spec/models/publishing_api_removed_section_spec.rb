@@ -130,7 +130,8 @@ describe PublishingAPIRemovedSection do
         assert_publishing_api_put_content(removed_manual_section.content_id, gone_manual_section_for_publishing_api)
         assert_publishing_api_publish(
           removed_manual_section.content_id,
-          update_type: nil, previous_version: 33,
+          update_type: nil,
+          previous_version: 33,
         )
       end
     end
