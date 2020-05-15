@@ -24,13 +24,15 @@ class PublishingAPISection
 
   def to_h
     @to_h ||= begin
-      enriched_data = @section_attributes.except("content_id").deep_dup.merge(base_path: base_path,
-                                                                              document_type: SECTION_DOCUMENT_TYPE,
-                                                                              schema_name: SECTION_SCHEMA_NAME,
-                                                                              publishing_app: "hmrc-manuals-api",
-                                                                              rendering_app: "manuals-frontend",
-                                                                              routes: [{ path: PublishingAPISection.base_path(@manual_slug, @section_slug), type: :exact }],
-                                                                              locale: "en")
+      enriched_data = @section_attributes.except("content_id").deep_dup.merge(
+        base_path: base_path,
+        document_type: SECTION_DOCUMENT_TYPE,
+        schema_name: SECTION_SCHEMA_NAME,
+        publishing_app: "hmrc-manuals-api",
+        rendering_app: "manuals-frontend",
+        routes: [{ path: PublishingAPISection.base_path(@manual_slug, @section_slug), type: :exact }],
+        locale: "en",
+      )
       enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
       enriched_data = add_base_path_to_breadcrumbs(enriched_data)
@@ -119,7 +121,7 @@ private
   end
 
   def section_slug_matches_section_id
-    if !section_slug.to_s.casecmp(section_attributes["details"]["section_id"].downcase).zero?
+    unless section_slug.to_s.casecmp(section_attributes["details"]["section_id"].downcase).zero?
       errors[:base] << "Slug in URL and Section ID must match, ignoring case"
     end
   end

@@ -61,18 +61,22 @@ describe "manuals resource" do
     stub_publishing_api_get_links(maximal_manual_content_id)
     stub_put_default_organisation(maximal_manual_content_id)
 
-    put "/hmrc-manuals/#{maximal_manual_slug}/", params: maximal_manual.to_json, headers: { "CONTENT_TYPE" => "application/json",
-                                                                                            "HTTP_ACCEPT" => "text/plain",
-                                                                                            "HTTP_AUTHORIZATION" => "Bearer 12345" }
+    put "/hmrc-manuals/#{maximal_manual_slug}/",
+        params: maximal_manual.to_json,
+        headers: { "CONTENT_TYPE" => "application/json",
+                   "HTTP_ACCEPT" => "text/plain",
+                   "HTTP_AUTHORIZATION" => "Bearer 12345" }
     expect(response.status).to eq(406)
   end
 
   it "errors if the Content-Type header is not application/json" do
     stub_any_publishing_api_call
 
-    put "/hmrc-manuals/#{maximal_manual_slug}/", params: maximal_manual.to_json, headers: { "CONTENT_TYPE" => "text/plain",
-                                                                                            "HTTP_ACCEPT" => "application/json",
-                                                                                            "HTTP_AUTHORIZATION" => "Bearer 12345" }
+    put "/hmrc-manuals/#{maximal_manual_slug}/",
+        params: maximal_manual.to_json,
+        headers: { "CONTENT_TYPE" => "text/plain",
+                   "HTTP_ACCEPT" => "application/json",
+                   "HTTP_AUTHORIZATION" => "Bearer 12345" }
     expect(response.status).to eq(415)
   end
 end

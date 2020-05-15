@@ -23,16 +23,18 @@ class PublishingAPIManual
 
   def to_h
     @to_h ||= begin
-      enriched_data = @manual_attributes.except("content_id").deep_dup.merge(base_path: base_path,
-                                                                             document_type: MANUAL_DOCUMENT_TYPE,
-                                                                             schema_name: MANUAL_SCHEMA_NAME,
-                                                                             publishing_app: "hmrc-manuals-api",
-                                                                             rendering_app: "manuals-frontend",
-                                                                             routes: [
-                                                                               { path: base_path, type: :exact },
-                                                                               { path: updates_path, type: :exact },
-                                                                             ],
-                                                                             locale: "en")
+      enriched_data = @manual_attributes.except("content_id").deep_dup.merge(
+        base_path: base_path,
+        document_type: MANUAL_DOCUMENT_TYPE,
+        schema_name: MANUAL_SCHEMA_NAME,
+        publishing_app: "hmrc-manuals-api",
+        rendering_app: "manuals-frontend",
+        routes: [
+          { path: base_path, type: :exact },
+          { path: updates_path, type: :exact },
+        ],
+        locale: "en",
+      )
       enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
       enriched_data = add_base_path_to_change_notes(enriched_data)
