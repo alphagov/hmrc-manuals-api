@@ -1,8 +1,8 @@
 require "rails_helper"
-require "gds_api/test_helpers/publishing_api_v2"
+require "gds_api/test_helpers/publishing_api"
 
 describe "manuals resource" do
-  include GdsApi::TestHelpers::PublishingApiV2
+  include GdsApi::TestHelpers::PublishingApi
   include LinksUpdateHelper
 
   it "confirms update of the manual" do
@@ -22,7 +22,7 @@ describe "manuals resource" do
   end
 
   it "handles the Publishing API being unavailable" do
-    publishing_api_isnt_available
+    stub_publishing_api_isnt_available
 
     put_json "/hmrc-manuals/#{maximal_manual_slug}", maximal_manual
 

@@ -1,5 +1,5 @@
 require "rails_helper"
-require "gds_api/test_helpers/publishing_api_v2"
+require "gds_api/test_helpers/publishing_api"
 
 describe LinksBuilder do
   include LinksUpdateHelper
@@ -42,9 +42,9 @@ describe LinksBuilder do
     end
 
     context "no links found" do
-      include GdsApi::TestHelpers::PublishingApiV2
+      include GdsApi::TestHelpers::PublishingApi
       before do
-        publishing_api_does_not_have_links(content_id)
+        stub_publishing_api_does_not_have_links(content_id)
       end
 
       it "uses the default HMRC organisation content ID" do

@@ -1,8 +1,8 @@
 require "rails_helper"
-require "gds_api/test_helpers/publishing_api_v2"
+require "gds_api/test_helpers/publishing_api"
 
 describe "manual sections resource" do
-  include GdsApi::TestHelpers::PublishingApiV2
+  include GdsApi::TestHelpers::PublishingApi
   include LinksUpdateHelper
 
   let(:maximal_section_endpoint) do
@@ -50,7 +50,7 @@ describe "manual sections resource" do
   end
 
   it "handles the Publishing API being unavailable" do
-    publishing_api_isnt_available
+    stub_publishing_api_isnt_available
 
     put_json maximal_section_endpoint, maximal_section
 
@@ -101,10 +101,10 @@ describe "manual sections resource" do
 private
 
   def publishing_api_times_out
-    stub_request(:any, /#{GdsApi::TestHelpers::PublishingApiV2::PUBLISHING_API_V2_ENDPOINT}\/.*/).to_timeout
+    stub_request(:any, /#{GdsApi::TestHelpers::PublishingApi::PUBLISHING_API_V2_ENDPOINT}\/.*/).to_timeout
   end
 
   def publishing_api_validation_error
-    stub_request(:any, /#{GdsApi::TestHelpers::PublishingApiV2::PUBLISHING_API_V2_ENDPOINT}\/.*/).to_return(status: 422)
+    stub_request(:any, /#{GdsApi::TestHelpers::PublishingApi::PUBLISHING_API_V2_ENDPOINT}\/.*/).to_return(status: 422)
   end
 end
