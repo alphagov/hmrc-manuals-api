@@ -22,7 +22,7 @@ describe "manuals resource" do
   end
 
   it "handles the Publishing API being unavailable" do
-    publishing_api_isnt_available
+    stub_publishing_api_isnt_available
 
     put_json "/hmrc-manuals/#{maximal_manual_slug}", maximal_manual
 

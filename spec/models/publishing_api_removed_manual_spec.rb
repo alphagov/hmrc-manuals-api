@@ -18,24 +18,24 @@ describe PublishingAPIRemovedManual do
       let(:manual_path) { subject.base_path }
 
       it "is invalid if the slug does not represent a piece of content" do
-        content_store_does_not_have_item(manual_path)
+        stub_content_store_does_not_have_item(manual_path)
         expect(subject).not_to be_valid
       end
 
       it 'is invalid if the slug already represents a "gone" piece of content' do
         content_item = content_item_for_base_path(manual_path).merge("format" => "gone")
-        content_store_has_item(manual_path, content_item)
+        stub_content_store_has_item(manual_path, content_item)
         expect(subject).not_to be_valid
       end
 
       it 'is valid when the slug represents an "hmrc-manual" piece of content' do
         content_item = hmrc_manual_content_item_for_base_path(manual_path)
-        content_store_has_item(manual_path, content_item)
+        stub_content_store_has_item(manual_path, content_item)
         expect(subject).to be_valid
       end
 
       it "is invalid when the slug represents a piece of content with any other schema_name" do
-        content_store_has_item(manual_path)
+        stub_content_store_has_item(manual_path)
         expect(subject).not_to be_valid
       end
     end
@@ -136,7 +136,7 @@ describe PublishingAPIRemovedManual do
     include GdsApi::TestHelpers::ContentStore
     before do
       content_item = hmrc_manual_content_item_for_base_path(subject.base_path)
-      content_store_has_item(subject.base_path, content_item)
+      stub_content_store_has_item(subject.base_path, content_item)
     end
 
     describe "for an invalid manual" do

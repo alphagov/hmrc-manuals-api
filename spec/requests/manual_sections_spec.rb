@@ -50,7 +50,7 @@ describe "manual sections resource" do
   end
 
   it "handles the Publishing API being unavailable" do
-    publishing_api_isnt_available
+    stub_publishing_api_isnt_available
 
     put_json maximal_section_endpoint, maximal_section
 

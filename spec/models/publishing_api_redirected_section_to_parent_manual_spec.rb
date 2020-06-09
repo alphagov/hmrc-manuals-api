@@ -19,24 +19,24 @@ describe PublishingAPIRedirectedSectionToParentManual do
       let(:section_path) { subject.base_path }
 
       it "is invalid if the slugs do not represent a piece of content" do
-        content_store_does_not_have_item(section_path)
+        stub_content_store_does_not_have_item(section_path)
         expect(subject).not_to be_valid
       end
 
       it 'is invalid if the slugs already represent a "gone" piece of content' do
         content_item = content_item_for_base_path(section_path).merge("format" => "gone")
-        content_store_has_item(section_path, content_item)
+        stub_content_store_has_item(section_path, content_item)
         expect(subject).not_to be_valid
       end
 
       it 'is valid when the slugs represent an "hmrc-manual-section" piece of content' do
         content_item = hmrc_manual_section_content_item_for_base_path(section_path)
-        content_store_has_item(section_path, content_item)
+        stub_content_store_has_item(section_path, content_item)
         expect(subject).to be_valid
       end
 
       it "is invalid when the slugs represent a piece of content with any other schema_name" do
-        content_store_has_item(section_path)
+        stub_content_store_has_item(section_path)
         expect(subject).not_to be_valid
       end
     end
@@ -65,7 +65,7 @@ describe PublishingAPIRedirectedSectionToParentManual do
     include GdsApi::TestHelpers::ContentStore
     before do
       content_item = hmrc_manual_section_content_item_for_base_path(subject.base_path)
-      content_store_has_item(subject.base_path, content_item)
+      stub_content_store_has_item(subject.base_path, content_item)
     end
 
     describe "for an invalid manual section" do

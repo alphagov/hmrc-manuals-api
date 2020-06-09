@@ -44,7 +44,7 @@ describe LinksBuilder do
     context "no links found" do
       include GdsApi::TestHelpers::PublishingApi
       before do
-        publishing_api_does_not_have_links(content_id)
+        stub_publishing_api_does_not_have_links(content_id)
       end
 
       it "uses the default HMRC organisation content ID" do
