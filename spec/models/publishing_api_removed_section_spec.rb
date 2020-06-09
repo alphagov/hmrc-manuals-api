@@ -1,5 +1,5 @@
 require "rails_helper"
-require "gds_api/test_helpers/publishing_api_v2"
+require "gds_api/test_helpers/publishing_api"
 require "gds_api/test_helpers/search"
 require "gds_api/test_helpers/content_store"
 
@@ -92,7 +92,7 @@ describe PublishingAPIRemovedSection do
   end
 
   describe "#save!" do
-    include GdsApi::TestHelpers::PublishingApiV2
+    include GdsApi::TestHelpers::PublishingApi
     include GdsApi::TestHelpers::ContentStore
     before do
       content_item = hmrc_manual_section_content_item_for_base_path(subject.base_path)

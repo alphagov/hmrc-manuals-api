@@ -1,8 +1,8 @@
 require "rails_helper"
-require "gds_api/test_helpers/publishing_api_v2"
+require "gds_api/test_helpers/publishing_api"
 
 describe "manuals resource" do
-  include GdsApi::TestHelpers::PublishingApiV2
+  include GdsApi::TestHelpers::PublishingApi
   include LinksUpdateHelper
 
   it "confirms update of the manual" do

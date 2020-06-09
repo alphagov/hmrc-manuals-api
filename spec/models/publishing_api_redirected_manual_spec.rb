@@ -1,5 +1,5 @@
 require "rails_helper"
-require "gds_api/test_helpers/publishing_api_v2"
+require "gds_api/test_helpers/publishing_api"
 require "gds_api/test_helpers/search"
 require "gds_api/test_helpers/content_store"
 
@@ -69,7 +69,7 @@ describe PublishingAPIRedirectedManual do
   end
 
   describe "#save!" do
-    include GdsApi::TestHelpers::PublishingApiV2
+    include GdsApi::TestHelpers::PublishingApi
     include GdsApi::TestHelpers::Search
 
     before do
