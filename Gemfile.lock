@@ -329,7 +329,7 @@ GEM
     unicorn (5.5.5)
       kgio (~> 2.6)
       raindrops (~> 0.7)
-    uuidtools (2.1.5)
+    uuidtools (2.2.0)
     warden (1.2.8)
       rack (>= 2.0.6)
     warden-oauth2 (0.0.1)
@@ -365,7 +365,7 @@ DEPENDENCIES
   shoulda-matchers (~> 4.3)
   simplecov (~> 0.18)
   simplecov-rcov (~> 0.2)
-  uuidtools (~> 2.1)
+  uuidtools (~> 2.2)
   webmock (~> 3.8)
 
 BUNDLED WITH

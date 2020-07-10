@@ -8,7 +8,7 @@ gem "json-schema", "~> 2.8"
 gem "plek", "~> 4.0"
 gem "rails", "~> 6.0"
 gem "responders", "~> 3.0"
-gem "uuidtools", "~> 2.1"
+gem "uuidtools", "~> 2.2"
 
 group :development do
   gem "listen"
