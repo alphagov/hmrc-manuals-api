@@ -342,26 +342,26 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ci_reporter_rspec (~> 1.0)
-  gds-api-adapters (~> 67.0)
-  gds-sso (~> 15.0)
-  govspeak (~> 6.5)
-  govuk-content-schema-test-helpers (~> 1.6)
-  govuk_app_config (~> 2.2)
-  json-schema (~> 2.8)
+  ci_reporter_rspec
+  gds-api-adapters
+  gds-sso
+  govspeak
+  govuk-content-schema-test-helpers
+  govuk_app_config
+  json-schema
   listen
-  plek (~> 4.0)
+  plek
   pry-byebug
   rails (~> 6.0)
-  responders (~> 3.0)
-  rspec-collection_matchers (~> 1.2)
-  rspec-rails (~> 4.0)
+  responders
+  rspec-collection_matchers
+  rspec-rails
   rubocop-govuk
-  shoulda-matchers (~> 4.3)
-  simplecov (~> 0.18)
-  simplecov-rcov (~> 0.2)
-  uuidtools (~> 2.2)
-  webmock (~> 3.8)
+  shoulda-matchers
+  simplecov
+  simplecov-rcov
+  uuidtools
+  webmock
 
 BUNDLED WITH
    1.17.2
