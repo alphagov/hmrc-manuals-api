@@ -1,12 +1,13 @@
 source "https://rubygems.org"
 
+gem "rails", "6.0.3.2"
+
 gem "gds-api-adapters"
 gem "gds-sso"
 gem "govspeak"
 gem "govuk_app_config"
 gem "json-schema"
 gem "plek"
-gem "rails", "~> 6.0.3", ">= 6.0.3.2"
 gem "responders"
 gem "uuidtools"
 
