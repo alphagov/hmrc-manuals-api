@@ -1,5 +1,4 @@
 require "rails_helper"
-require "valid_slug/pattern"
 
 describe ValidSlug::PATTERN do
   it "matches good slugs" do

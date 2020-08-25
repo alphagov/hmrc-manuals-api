@@ -60,18 +60,18 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     ast (2.4.1)
     builder (3.2.4)
-    byebug (11.1.1)
+    byebug (11.1.3)
     ci_reporter (2.0.0)
       builder (>= 2.1.2)
     ci_reporter_rspec (1.0.0)
       ci_reporter (~> 2.0)
       rspec (>= 2.14, < 4)
-    coderay (1.1.2)
+    coderay (1.1.3)
     concurrent-ruby (1.1.7)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     crass (1.0.6)
-    diff-lcs (1.3)
+    diff-lcs (1.4.4)
     docile (1.3.2)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
@@ -186,7 +186,7 @@ GEM
     parser (2.7.1.4)
       ast (~> 2.4.1)
     plek (4.0.0)
-    pry (0.13.0)
+    pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
     pry-byebug (3.9.0)
@@ -225,8 +225,8 @@ GEM
     rainbow (3.0.0)
     raindrops (0.19.1)
     rake (13.0.1)
-    rb-fsevent (0.10.3)
-    rb-inotify (0.10.0)
+    rb-fsevent (0.10.4)
+    rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (1.7.1)
     request_store (1.5.0)
@@ -302,7 +302,7 @@ GEM
     simplecov (0.18.5)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
-    simplecov-html (0.12.1)
+    simplecov-html (0.12.2)
     simplecov-rcov (0.2.3)
       simplecov (>= 0.4.1)
     sprockets (3.7.2)
@@ -342,26 +342,26 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ci_reporter_rspec (~> 1.0)
-  gds-api-adapters (~> 67.0)
-  gds-sso (~> 15.0)
-  govspeak (~> 6.5)
-  govuk-content-schema-test-helpers (~> 1.6)
-  govuk_app_config (~> 2.2)
-  json-schema (~> 2.8)
+  ci_reporter_rspec
+  gds-api-adapters
+  gds-sso
+  govspeak
+  govuk-content-schema-test-helpers
+  govuk_app_config
+  json-schema
   listen
-  plek (~> 4.0)
+  plek
   pry-byebug
-  rails (~> 6.0)
-  responders (~> 3.0)
-  rspec-collection_matchers (~> 1.2)
-  rspec-rails (~> 4.0)
+  rails (= 6.0.3.2)
+  responders
+  rspec-collection_matchers
+  rspec-rails
   rubocop-govuk
-  shoulda-matchers (~> 4.3)
-  simplecov (~> 0.18)
-  simplecov-rcov (~> 0.2)
-  uuidtools (~> 2.2)
-  webmock (~> 3.8)
+  shoulda-matchers
+  simplecov
+  simplecov-rcov
+  uuidtools
+  webmock
 
 BUNDLED WITH
    1.17.2
