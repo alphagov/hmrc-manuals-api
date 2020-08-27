@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   include GDS::SSO::ControllerMethods
   respond_to :json
 
+  skip_forgery_protection
+
   before_action :authenticate_user!
   before_action :check_content_type_header
 
