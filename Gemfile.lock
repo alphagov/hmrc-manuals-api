@@ -302,8 +302,6 @@ GEM
       docile (~> 1.1)
       simplecov-html (~> 0.11)
     simplecov-html (0.12.2)
-    simplecov-rcov (0.2.3)
-      simplecov (>= 0.4.1)
     sprockets (3.7.2)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -358,7 +356,6 @@ DEPENDENCIES
   rubocop-govuk
   shoulda-matchers
   simplecov
-  simplecov-rcov
   uuidtools
   webmock
 
