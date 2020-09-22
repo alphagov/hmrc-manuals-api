@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  api:
+    container_name: "gds_api"
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3071:3000"
+    volumes:
+      - .:/app
+    environment:
+      RAILS_ENV: development

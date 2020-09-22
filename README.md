@@ -47,9 +47,15 @@ This runs `bundle install` to install dependencies and runs the app on port `307
 
 When using the GOV.UK development VM use `bowl hmrc-manuals-api` in the Dev VM `development` directory. The app will be available at http://hmrc-manuals-api.dev.gov.uk/.
 
+Using docker
+`make up open`
+
 ### Running the test suite
 
 `bundle exec rake`
+
+Using docker
+`make test`
 
 ### Any deviations from idiomatic Rails/Go etc.
 
