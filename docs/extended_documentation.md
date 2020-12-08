@@ -223,7 +223,7 @@ need a real token for the right environment.
 ## Managing manuals and sections with rake
 
 HMRC Manuals API contains [rake tasks](https://github.com/alphagov/hmrc-manuals-api/tree/master/lib/tasks)
-for removing manuals and sections and redirecting sections.
+for removing manuals and sections and redirecting sections. These can be run using the [rake Jenkins job](https://docs.publishing.service.gov.uk/manual/running-rake-tasks.html). Where the examples below require a slug as a parameter, this is the last part of the URL without a leading slash, for example given the URL 'https://www.gov.uk/hmrc-internal-manuals/guidance-audit-customs-values' the slug would be 'guidance-audit-customs-values'
 
 ### Redirect a section back to the parent manual
 
