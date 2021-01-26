@@ -3,8 +3,5 @@
 library("govuk")
 
 node {
-  govuk.buildProject(
-    rubyLintDiff: false,
-    brakeman: true
-  )
+  govuk.buildProject()
 }
