@@ -195,7 +195,7 @@ $ cd /var/apps/hmrc-manuals-api
 $ sudo -u deploy govuk_setenv hmrc-manuals-api bundle exec rake remove_hmrc_manuals[slug-to-remove-1,slug-to-remove-2,...,slug-to-remove-n]
 ```
 
-## Testing publishing in the GOV.UK development VM
+## Testing publishing in GOV.UK Docker
 
 You can use the JSON examples of requests for testing publishing in development,
 for example with cURL from the root directory of the repository:
@@ -218,7 +218,6 @@ http PUT http://hmrc-manuals-api.dev.gov.uk/hmrc-manuals/test-manual \
 In development mode the API doesn't require a valid bearer token; any value is
 accepted. To test publishing to our Integration or Staging environments you would
 need a real token for the right environment.
-
 
 ## Managing manuals and sections with rake
 
