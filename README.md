@@ -1,6 +1,10 @@
 # HMRC Manuals API
 
-This app provides URLs for pushing HMRC manuals to the GOV.UK Publishing API.
+Provides an API for a system built by HMRC to publish tax manuals onto GOV.UK. In many
+ways it is analogous to a backend/admin app for publishing on GOV.UK. Content which
+passes validation and checks for unsanitary content is submitted to the GOV.UK
+Publishing API application. The application does not have a database itself. An HMRC
+manual consists of two document types: the manual itself and manual sections.
 
 ## Nomenclature
 
@@ -23,8 +27,6 @@ This is a Ruby on Rails app, and should follow [our Rails app conventions](https
 You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-docker) to run the application and its tests with all the necessary dependencies. Follow [the usage instructions](https://github.com/alphagov/govuk-docker#usage) to get started.
 
 **Use GOV.UK Docker to run any commands that follow.**
-
-Provides an API for a system built by HMRC to publish tax manuals onto GOV.UK. In many ways it is analogous to a backend/admin app for publishing on GOV.UK. Content which passes validation and checks for unsanitary content is submitted to the GOV.UK Publishing API application. The application does not have a database itself. An HMRC manual consists of two document types: the manual itself and manual sections.
 
 See the [extended documentation](docs/extended_documentation.md) for details:
 
