@@ -28,6 +28,14 @@ You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-do
 
 **Use GOV.UK Docker to run any commands that follow.**
 
+### Running the test suite
+
+```sh
+bundle exec rspec
+```
+
+## Manuals and decisions
+
 See the [extended documentation](docs/extended_documentation.md) for details:
 
 - [Connecting to the API](docs/extended_documentation.md#connecting-to-the-api)
@@ -42,12 +50,6 @@ See the [extended documentation](docs/extended_documentation.md) for details:
 - [Testing publishing in GOV.UK Docker](docs/extended_documentation.md#testing-publishing-in-govuk-docker)
 - [Managing manuals and sections with rake](docs/extended_documentation.md#managing-manuals-and-sections-with-rake)
 - [Responses to PUT requests](docs/extended_documentation.md#possible-responses-to-put-requests)
-
-### Running the test suite
-
-```sh
-bundle exec rspec
-```
 
 ## Licence
 
