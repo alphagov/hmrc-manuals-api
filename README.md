@@ -34,11 +34,6 @@ See the [extended documentation](docs/extended_documentation.md) for details:
 - [Testing publishing in the GOVUK dev vm](docs/extended_documentation.md#testing-publishing-in-the-govuk-development-vm)
 - [Managing manuals and sections with rake](docs/extended_documentation.md#managing-manuals-and-sections-with-rake)
 
-### Dependencies
-
-- [alphagov/search-api](https://github.com/alphagov/search-api): allows document sections to be retrieved
-- [alphagov/publishing-api](https://github.com/alphagov/publishing-api): allows documents to be published to the Publishing queue
-
 ### Running the application
 
 `./startup.sh`
@@ -50,10 +45,6 @@ When using the GOV.UK development VM use `bowl hmrc-manuals-api` in the Dev VM `
 ### Running the test suite
 
 `bundle exec rake`
-
-### Any deviations from idiomatic Rails/Go etc.
-
-The application does not have a database itself, it sends on requests to the Publishing API.
 
 ### Example API output
 
