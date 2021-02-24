@@ -1,6 +1,10 @@
 # HMRC Manuals API
 
-This app provides URLs for pushing HMRC manuals to the GOV.UK Publishing API.
+Provides an API for a system built by HMRC to publish tax manuals onto GOV.UK. In many
+ways it is analogous to a backend/admin app for publishing on GOV.UK. Content which
+passes validation and checks for unsanitary content is submitted to the GOV.UK
+Publishing API application. The application does not have a database itself. An HMRC
+manual consists of two document types: the manual itself and manual sections.
 
 ## Nomenclature
 
@@ -8,17 +12,30 @@ This app provides URLs for pushing HMRC manuals to the GOV.UK Publishing API.
 
 - **Section**: Sections can contain sub-sections and/or a content body. See [Adding or updating a section](docs/extended_documentation.md#adding-or-updating-a-manual-section) for more details.
 
-<a name="adding-a-new-slug"></a>
-## Adding a new slug
-
-Before adding a new manual through the api, the slug for the manual must be added to [/config/initializers/known_manual_slugs.rb](config/initializers/known_manual_slugs.rb) and the application re-deployed.
-
-The workflow for this is likely to be initiated by a zendesk ticket raised by HMRC with the new slug. A developer can
-then add the slug and re-deploy the application and inform HMRC that the slug is ready to be published against.
-
 ## Technical documentation
 
-Provides an API for a system built by HMRC to publish tax manuals onto GOV.UK. In many ways it is analogous to a backend/admin app for publishing on GOV.UK. Content which passes validation and checks for unsanitary content is submitted to the GOV.UK Publishing API application. The application does not have a database itself. An HMRC manual consists of two document types: the manual itself and manual sections.
+This is a Ruby on Rails app, and should follow [our Rails app conventions](https://docs.publishing.service.gov.uk/manual/conventions-for-rails-applications.html).
+
+You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-docker) to run the application and its tests with all the necessary dependencies. Follow [the usage instructions](https://github.com/alphagov/govuk-docker#usage) to get started.
+
+**Use GOV.UK Docker to run any commands that follow.**
+
+### Running the test suite
+
+```sh
+bundle exec rspec
+```
+
+<a name="adding-a-new-slug"></a>
+### Adding a new slug
+
+Before adding a new manual through the API, the slug for the manual must be added to [/config/initializers/known_manual_slugs.rb](config/initializers/known_manual_slugs.rb) and the application re-deployed.
+
+The workflow for this is likely to be initiated by a Zendesk ticket raised by HMRC with
+the new slug. A developer can then add the slug and re-deploy the application and
+inform HMRC that the slug is ready to be published against.
+
+## Manuals and decisions
 
 See the [extended documentation](docs/extended_documentation.md) for details:
 
@@ -31,33 +48,9 @@ See the [extended documentation](docs/extended_documentation.md) for details:
 - [Markup](docs/extended_documentation.md#markup)
 - [Manual Tags](docs/extended_documentation.md#manual-tags)
 - [Removing published manuals](docs/extended_documentation.md#removing-published-manuals)
-- [Testing publishing in the GOVUK dev vm](docs/extended_documentation.md#testing-publishing-in-the-govuk-development-vm)
+- [Testing publishing in GOV.UK Docker](docs/extended_documentation.md#testing-publishing-in-govuk-docker)
 - [Managing manuals and sections with rake](docs/extended_documentation.md#managing-manuals-and-sections-with-rake)
-
-### Dependencies
-
-- [alphagov/search-api](https://github.com/alphagov/search-api): allows document sections to be retrieved
-- [alphagov/publishing-api](https://github.com/alphagov/publishing-api): allows documents to be published to the Publishing queue
-
-### Running the application
-
-`./startup.sh`
-
-This runs `bundle install` to install dependencies and runs the app on port `3071`.
-
-When using the GOV.UK development VM use `bowl hmrc-manuals-api` in the Dev VM `development` directory. The app will be available at http://hmrc-manuals-api.dev.gov.uk/.
-
-### Running the test suite
-
-`bundle exec rake`
-
-### Any deviations from idiomatic Rails/Go etc.
-
-The application does not have a database itself, it sends on requests to the Publishing API.
-
-### Example API output
-
-[Responses to PUT requests](docs/extended_documentation.md#possible-responses-to-put-requests)
+- [Responses to PUT requests](docs/extended_documentation.md#possible-responses-to-put-requests)
 
 ## Licence
 
