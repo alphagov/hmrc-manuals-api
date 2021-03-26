@@ -36,6 +36,7 @@ KNOWN_MANUAL_SLUGS = %w[
   corporate-finance-manual
   corporate-intangibles-research-and-development-manual
   cotax-manual
+  cryptoassets-manual
   customs-authorisation-and-approval
   customs-civil-penalties-guidance
   customs-freight-simplified-procedures
