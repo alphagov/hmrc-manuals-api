@@ -6,6 +6,9 @@ Rails.application.routes.draw do
     get "/readme", to: redirect("/documentation")
     get "/healthcheck", to: proc { [200, {}, %w[OK]] }
 
+    get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
+    get "/healthcheck/ready", to: GovukHealthcheck.rack_response
+
     scope only: :update do
       resources :manuals, path: "hmrc-manuals" do
         resources :sections
