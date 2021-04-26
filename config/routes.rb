@@ -4,7 +4,6 @@ Rails.application.routes.draw do
     get "/", to: "root#index"
     get "/documentation", to: "root#documentation"
     get "/readme", to: redirect("/documentation")
-    get "/healthcheck", to: proc { [200, {}, %w[OK]] }
 
     get "/healthcheck/live", to: proc { [200, {}, %w[OK]] }
     get "/healthcheck/ready", to: GovukHealthcheck.rack_response
