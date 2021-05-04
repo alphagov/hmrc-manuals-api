@@ -154,6 +154,7 @@ KNOWN_MANUAL_SLUGS = %w[
   tobacco-products-duty
   tobacco-products-manufacturing-machinery-licensing-scheme
   tonnage-tax-manual
+  trust-registration-service-manual
   trusts-settlements-and-estates-manual
   vat-accounting
   vat-agricultural-flat-rate-scheme
