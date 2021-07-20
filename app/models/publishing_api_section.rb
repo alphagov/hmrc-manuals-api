@@ -84,8 +84,8 @@ class PublishingAPISection
 private
 
   def generate_content_id_if_absent
-    if @section_attributes.is_a?(Hash)
-      @section_attributes["content_id"] = base_path_uuid unless @section_attributes["content_id"]
+    if @section_attributes.is_a?(Hash) && !(@section_attributes["content_id"])
+      @section_attributes["content_id"] = base_path_uuid
     end
   end
 

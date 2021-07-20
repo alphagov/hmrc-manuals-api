@@ -83,7 +83,7 @@ class PublishingAPIManual
   end
 
   def self.updates_path(manual_slug)
-    base_path(manual_slug) + "/updates"
+    "#{base_path(manual_slug)}/updates"
   end
 
   def save!
