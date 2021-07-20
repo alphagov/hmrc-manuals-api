@@ -19,7 +19,7 @@ class RootController < ActionController::Base
 private
 
   def load_documentation
-    file_contents = File.open(Rails.root + "docs/extended_documentation.md", "r").read
+    file_contents = File.open(Rails.root.join("docs/extended_documentation.md"), "r").read
     Kramdown::Document.new(file_contents).to_html
   end
 

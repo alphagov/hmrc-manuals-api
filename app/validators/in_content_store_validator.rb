@@ -1,5 +1,6 @@
 class InContentStoreValidator < ActiveModel::Validator
   attr_reader :schema_name, :content_store
+
   def initialize(options = {})
     super
     raise "Must provide schema_name and content_store options to the validator" unless options[:schema_name] && options[:content_store]

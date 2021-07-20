@@ -14,9 +14,10 @@ class StructWithRenderedMarkdown
 private
 
   def render_markdown_in(struct)
-    if struct.is_a?(Array)
+    case struct
+    when Array
       struct.each { |item| render_markdown_in(item) }
-    elsif struct.is_a?(Hash)
+    when Hash
       struct.each do |key, value|
         if ATTRIBUTES_THAT_CAN_CONTAIN_MARKDOWN.include?(key)
           struct[key] = markdown_to_html(value)

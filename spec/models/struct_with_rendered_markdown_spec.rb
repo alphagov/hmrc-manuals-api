@@ -8,7 +8,7 @@ describe StructWithRenderedMarkdown do
 
   it "renders markdown in 'body' fields to HTML" do
     expect(conversion_of("body" => "# Hello world", "a" => "b")).to eq(
-      "body" => '<h1 id="hello-world">Hello world</h1>' + "\n", "a" => "b",
+      "body" => "<h1 id=\"hello-world\">Hello world</h1>\n", "a" => "b",
     )
   end
 
