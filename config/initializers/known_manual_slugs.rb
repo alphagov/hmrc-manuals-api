@@ -195,6 +195,7 @@ KNOWN_MANUAL_SLUGS = %w[
   vat-land-and-property
   vat-margin-schemes
   vat-new-means-of-transport
+  vat-new-means-transport-northern-ireland
   vat-partial-exemption-guidance
   vat-payments-on-account-scheme
   vat-personal-exports-retail-exports-manual
