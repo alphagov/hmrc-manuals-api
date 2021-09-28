@@ -7,6 +7,7 @@ module Services
     @publishing_api ||= GdsApi::PublishingApi.new(
       Plek.new.find("publishing-api"),
       bearer_token: ENV["PUBLISHING_API_BEARER_TOKEN"] || "example",
+      timeout: 10,
     )
   end
 
