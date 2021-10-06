@@ -1,4 +1,5 @@
 KNOWN_MANUAL_SLUGS = %w[
+  peters-manual
   admin-law-manual
   aggregates-levy
   air-passenger-duty
