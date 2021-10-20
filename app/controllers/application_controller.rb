@@ -24,7 +24,9 @@ class ApplicationController < ActionController::Base
 private
 
   def parse_request_body
+    puts "parsing body"
     @parsed_request_body = JSON.parse(request.body.read)
+    puts "done parsing"
   rescue JSON::ParserError => e
     message = "Request JSON could not be parsed: #{e.message}"
     render json: { status: "error", errors: [message] }, status: :bad_request

@@ -2,4 +2,4 @@
 :concurrency: 8
 :logfile: ./log/sidekiq.json.log
 :queues:
-  - publishing_api
+  - default

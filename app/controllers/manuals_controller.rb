@@ -8,8 +8,8 @@ class ManualsController < ApplicationController
       respond_to do |format|
         format.json do
           render json: { govuk_url: manual.govuk_url },
-                 status: publishing_api_response.code,
-                 location: manual.govuk_url
+                 status: "200",
+                 location: "/foo"
         end
       end
     rescue ActionController::UnknownFormat
