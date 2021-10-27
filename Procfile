@@ -1,1 +1,1 @@
-web: bundle exec rails s -p 3071
+web: bundle exec unicorn -c ./config/unicorn.rb -p ${PORT:-3071}
