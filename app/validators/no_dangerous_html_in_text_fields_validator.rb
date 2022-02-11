@@ -18,10 +18,10 @@ class NoDangerousHTMLInTextFieldsValidator < ActiveModel::EachValidator
     freetext_fields_with_paths.each do |field_with_path|
       next unless dangerous?(field_with_path[:value])
 
-      record.errors[:base] << "'#{field_with_path[:path]}' contains disallowed HTML; " \
+      record.errors.add(:base, "'#{field_with_path[:path]}' contains disallowed HTML; " \
         "the following tags are allowed: #{allowed_html_tags.join(', ')} and " \
         "the following tag attributes are allowed: #{allowed_html_attributes.inspect} and " \
-        "inline images are allowed if they are relative or hosted on these domains: #{ALLOWED_IMAGE_HOSTS.join(', ')}"
+        "inline images are allowed if they are relative or hosted on these domains: #{ALLOWED_IMAGE_HOSTS.join(', ')}")
     end
   end
 

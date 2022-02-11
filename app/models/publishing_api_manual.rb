@@ -116,7 +116,7 @@ private
 
   def incoming_manual_is_valid
     unless @manual.valid?
-      @manual.errors.full_messages.each { |message| errors[:base] << message }
+      @manual.errors.full_messages.each { |message| errors.add(:base, message) }
     end
   end
 
