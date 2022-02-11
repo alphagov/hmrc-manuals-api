@@ -116,13 +116,13 @@ private
 
   def incoming_section_is_valid
     unless @section.valid?
-      @section.errors.full_messages.each { |message| errors[:base] << message }
+      @section.errors.full_messages.each { |message| errors.add(:base, message) }
     end
   end
 
   def section_slug_matches_section_id
     unless section_slug.to_s.casecmp(section_attributes["details"]["section_id"].downcase).zero?
-      errors[:base] << "Slug in URL and Section ID must match, ignoring case"
+      errors.add(:base, "Slug in URL and Section ID must match, ignoring case")
     end
   end
 

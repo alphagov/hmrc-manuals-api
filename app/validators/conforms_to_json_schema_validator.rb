@@ -8,6 +8,6 @@ class ConformsToJsonSchemaValidator < ActiveModel::EachValidator
 
   def validate_each(record, _attribute, value)
     errors = JSON::Validator.fully_validate(@schema, value, validate_schema: true)
-    errors.each { |e| record.errors[:base] << e }
+    errors.each { |e| record.errors.add(:base, e) }
   end
 end
