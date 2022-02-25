@@ -156,6 +156,7 @@ KNOWN_MANUAL_SLUGS = %w[
   tonnage-tax-manual
   trust-registration-service-manual
   trusts-settlements-and-estates-manual
+  uncertain-tax-treatments-by-large-businesses-manual
   vat-accounting
   vat-agricultural-flat-rate-scheme
   vat-annual-accounting-system
