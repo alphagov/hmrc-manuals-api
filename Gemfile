@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-gem "rails", "7.0.2"
+gem "rails", "7.0.2.2"
 
 gem "gds-api-adapters"
 gem "gds-sso"
