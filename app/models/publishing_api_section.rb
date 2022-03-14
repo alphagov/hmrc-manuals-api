@@ -29,7 +29,7 @@ class PublishingAPISection
         document_type: SECTION_DOCUMENT_TYPE,
         schema_name: SECTION_SCHEMA_NAME,
         publishing_app: "hmrc-manuals-api",
-        rendering_app: "manuals-frontend",
+        rendering_app: "government-frontend",
         routes: [{ path: PublishingAPISection.base_path(@manual_slug, @section_slug), type: :exact }],
         locale: "en",
       )

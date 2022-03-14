@@ -38,7 +38,7 @@
     ]
   },
   "publishing_app": "hmrc-manuals-api",
-  "rendering_app": "manuals-frontend",
+  "rendering_app": "government-frontend",
   "routes": [
     {
       "path": "/hmrc-manuals/employment-income-manual/eim00100",
