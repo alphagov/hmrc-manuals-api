@@ -52,6 +52,6 @@ See the [extended documentation](docs/extended_documentation.md) for details:
 - [Managing manuals and sections with rake](docs/extended_documentation.md#managing-manuals-and-sections-with-rake)
 - [Responses to PUT requests](docs/extended_documentation.md#possible-responses-to-put-requests)
 
-## Licence
+## License
 
-[MIT License](LICENCE)
+[MIT License](LICENSE)
