@@ -9,7 +9,6 @@ gem "govuk_app_config"
 gem "json-schema"
 gem "plek"
 gem "responders"
-gem "sprockets-rails"
 gem "uuidtools"
 
 group :development do
