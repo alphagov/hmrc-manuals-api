@@ -3,6 +3,7 @@ module PublishingApiDataHelpers
     {
       "base_path" => "/hmrc-internal-manuals/employment-income-manual",
       "locale" => "en",
+      "phase" => "beta",
       "update_type" => "major",
       "document_type" => "hmrc_manual",
       "schema_name" => "hmrc_manual",
@@ -66,6 +67,7 @@ module PublishingApiDataHelpers
       "update_type" => "minor",
       "schema_name" => "hmrc_manual_section",
       "locale" => "en",
+      "phase" => "beta",
       "title" => "A section on a part of employment income",
       "description" => "Some description",
       "public_updated_at" => "2014-01-23T00:00:00+01:00",
