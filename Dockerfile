@@ -23,7 +23,7 @@ COPY . /app
 
 FROM $base_image
 
-ENV RAILS_ENV=production GOVUK_APP_NAME=hmrc-manuals-api
+ENV GOVUK_PROMETHEUS_EXPORTER=true RAILS_ENV=production GOVUK_APP_NAME=hmrc-manuals-api
 
 RUN apt-get update -qy && \
     apt-get upgrade -y && \
