@@ -149,6 +149,7 @@ KNOWN_MANUAL_SLUGS = %w[
   technical-teams-operational-guidance
   television-production-company-manual
   temporary-storage-and-approved-depositories-manual
+  temporary-storage-of-imports
   theatre-tax-relief
   tobacco-control-of-supply-chains
   tobacco-products-duty
