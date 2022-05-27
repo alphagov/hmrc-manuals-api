@@ -42,7 +42,7 @@
     ]
   },
   "publishing_app": "hmrc-manuals-api",
-  "rendering_app": "manuals-frontend",
+  "rendering_app": "government-frontend",
   "routes": [
     {
       "path": "/hmrc-internal-manuals/employment-income-manual",
