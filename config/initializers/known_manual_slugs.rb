@@ -38,6 +38,7 @@ KNOWN_MANUAL_SLUGS = %w[
   cotax-manual
   cryptoassets-manual
   customs-authorisation-and-approval
+  customs-cds-volume-3-tariff-step-by-step-guide
   customs-civil-penalties-guidance
   customs-freight-simplified-procedures
   customs-intellectual-property-rights
