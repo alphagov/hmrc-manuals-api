@@ -76,6 +76,7 @@ module PublishingApiDataHelpers
         "section_id" => "12345",
         "manual" => {
           "base_path" => "/hmrc-internal-manuals/employment-income-manual",
+          "title" => "Employment Income Manual",
         },
         "breadcrumbs" => [
           {

@@ -1,6 +1,9 @@
 require "rails_helper"
+require "gds_api/test_helpers/publishing_api"
 
 describe "Dangerous markup" do
+  include GdsApi::TestHelpers::PublishingApi
+
   context "in manuals" do
     context "(disallowed HTML tags)" do
       let(:manual_with_script_tag_in_title) { valid_manual(title: "<script>text</script>") }
@@ -28,6 +31,11 @@ describe "Dangerous markup" do
   end
 
   context "in sections" do
+    before do
+      stub_publishing_api_has_lookups({ maximal_manual_base_path => maximal_manual_content_id })
+      stub_publishing_api_has_item(maximal_manual_for_publishing_api(content_id: maximal_manual_content_id, publication_state: "published"))
+    end
+
     context "(disallowed HTML tags)" do
       let(:section_with_disallowed_html_tag_in_title) { valid_section(title: "<script>text</script>") }
 
