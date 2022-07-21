@@ -68,17 +68,12 @@ describe "validation" do
   end
 
   context "for manual sections" do
-    before do
-      stub_publishing_api_has_lookups({ "/hmrc-internal-manuals/imaginary-slug" => maximal_manual_content_id })
-      stub_publishing_api_has_item(maximal_manual_for_publishing_api(content_id: maximal_manual_content_id, publication_state: "published"))
-    end
-
     it "validates for the presence of the title" do
       put_json "/hmrc-manuals/imaginary-slug/sections/imaginary-section", section_without_title
 
       expect(response.status).to eq(422)
       expect(json_response).to include("status" => "error")
-      expect(json_response["errors"]).to include(%r{The property '#/' did not contain a required property of 'title' in schema})
+      expect(json_response["errors"].first).to match(%r{The property '#/' did not contain a required property of 'title' in schema})
     end
 
     it "validates for known manual slug name in production environment" do
@@ -88,7 +83,7 @@ describe "validation" do
 
       expect(response.status).to eq(422)
       expect(json_response).to include("status" => "error")
-      expect(json_response["errors"]).to include("Manual slug does not match any of the following valid slugs: #{KNOWN_MANUAL_SLUGS.join(' ')} ")
+      expect(json_response["errors"].first).to match("does not match any of the following valid slugs: #{KNOWN_MANUAL_SLUGS.join(' ')}")
     end
   end
 end

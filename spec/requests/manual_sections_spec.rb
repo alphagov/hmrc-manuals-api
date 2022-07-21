@@ -9,11 +9,6 @@ describe "manual sections resource" do
     "/hmrc-manuals/#{maximal_manual_slug}/sections/#{maximal_section_slug}"
   end
 
-  before do
-    stub_publishing_api_has_lookups({ maximal_manual_base_path => maximal_manual_content_id })
-    stub_publishing_api_has_item(maximal_manual_for_publishing_api(content_id: maximal_manual_content_id, publication_state: "published"))
-  end
-
   it "confirms update of the manual section" do
     stub_publishing_api_put_content(maximal_section_content_id, {}, body: { version: 788 })
     stub_publishing_api_publish(maximal_section_content_id, { update_type: nil, previous_version: 788 }.to_json)
@@ -41,18 +36,6 @@ describe "manual sections resource" do
                    "HTTP_ACCEPT" => "text/plain",
                    "HTTP_AUTHORIZATION" => "Bearer 12345" }
     expect(response.status).to eq(406)
-  end
-
-  it "errors if the parent manual does not exist (so can't copy title)" do
-    stub_publishing_api_has_lookups({})
-
-    put maximal_section_endpoint,
-        params: maximal_section.to_json,
-        headers: { "CONTENT_TYPE" => "application/json",
-                   "HTTP_ACCEPT" => "text/plain",
-                   "HTTP_AUTHORIZATION" => "Bearer 12345" }
-    expect(response.status).to eq(422)
-    expect(json_response["errors"]).to include("Manual title Unable to find parent manual's title as manual doesn't exist in Publishing API for base_path: /hmrc-internal-manuals/employment-income-manual")
   end
 
   it "errors if the Content-Type header is not application/json" do
@@ -105,14 +88,14 @@ describe "manual sections resource" do
     put_json "/hmrc-manuals/BREAK_THE_RULEZ/sections/some-section", valid_section
 
     expect(response.status).to eq(422)
-    expect(json_response["errors"]).to include("Manual slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
+    expect(json_response["errors"].first).to eq("Manual slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
   end
 
   it "rejects invalid section slugs" do
     put_json "/hmrc-manuals/some-manual/sections/BREAK_THE_RULEZ", valid_section
 
     expect(response.status).to eq(422)
-    expect(json_response["errors"]).to include("Section slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
+    expect(json_response["errors"].first).to eq("Section slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
   end
 
 private

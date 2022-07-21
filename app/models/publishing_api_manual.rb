@@ -87,14 +87,6 @@ class PublishingAPIManual
     "#{base_path(manual_slug)}/updates"
   end
 
-  def self.title(manual_slug)
-    content_id = GdsApi.publishing_api.lookup_content_id(base_path: base_path(manual_slug))
-    return nil unless content_id
-
-    content_item = GdsApi.publishing_api.get_live_content(content_id)
-    content_item["title"]
-  end
-
   def save!
     raise ValidationError, "manual is invalid" unless valid?
 
