@@ -7,7 +7,6 @@ class PublishingAPISection
   include Helpers::PublishingAPIHelpers
 
   validates :to_h, no_dangerous_html_in_text_fields: true, if: -> { @section.valid? }
-  validates :to_h, parent_manual_title: true, if: -> { @section.valid? }
   validates :manual_slug, :section_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
   validates :manual_slug, slug_in_known_manual_slugs: true, if: :only_known_hmrc_manual_slugs?
   validate :incoming_section_is_valid
@@ -38,7 +37,7 @@ class PublishingAPISection
       enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
       enriched_data = add_base_path_to_breadcrumbs(enriched_data)
-      add_base_path_and_title_to_manual(enriched_data)
+      add_base_path_to_manual(enriched_data)
     end
   end
 
@@ -109,12 +108,10 @@ private
     attributes
   end
 
-  def add_base_path_and_title_to_manual(attributes)
+  def add_base_path_to_manual(attributes)
     attributes["details"]["manual"] = {
       "base_path" => PublishingAPIManual.base_path(@manual_slug),
-      "title" => PublishingAPIManual.title(@manual_slug),
     }
-
     attributes
   end
 

@@ -1,14 +1,6 @@
 require "rails_helper"
-require "gds_api/test_helpers/publishing_api"
 
 describe PublishingAPISection do
-  include GdsApi::TestHelpers::PublishingApi
-
-  before do
-    stub_publishing_api_has_lookups({ "/hmrc-internal-manuals/some-slug" => maximal_manual_content_id })
-    stub_publishing_api_has_item(maximal_manual_for_publishing_api(content_id: maximal_manual_content_id, publication_state: "published"))
-  end
-
   describe ".base_path" do
     it "returns the GOV.UK path for the section" do
       base_path = PublishingAPISection.base_path("some-manual", "some-section-id")
@@ -137,13 +129,6 @@ describe PublishingAPISection do
       it { should_not be_valid }
     end
 
-    context "with a missing parent manual" do
-      let(:attributes) { valid_section }
-      let(:section_slug) { valid_section["details"]["section_id"] }
-      before { stub_publishing_api_has_lookups({}) }
-      it { should_not be_valid }
-    end
-
     context "when app is configured to only allow known manual slugs" do
       let(:attributes) { valid_section }
       # section_slug and section_id have to match to pass `:section_slug_matches_section_id` validation
@@ -160,11 +145,6 @@ describe PublishingAPISection do
 
       context "with a manual slug name in list of known slugs" do
         let(:manual_slug) { KNOWN_MANUAL_SLUGS.first }
-
-        before do
-          stub_publishing_api_has_lookups({ "/hmrc-internal-manuals/#{manual_slug}" => maximal_manual_content_id })
-        end
-
         it { should be_valid }
       end
     end
