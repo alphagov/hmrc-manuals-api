@@ -1,34 +1,20 @@
-ARG base_image=ruby:2.7.6-slim-buster
+ARG base_image=ghcr.io/alphagov/govuk-ruby-base:2.7.6
+ARG builder_image=ghcr.io/alphagov/govuk-ruby-builder:2.7.6
 
-FROM $base_image AS builder
-
-ENV RAILS_ENV=production
-
-# TODO: have a separate build image which already contains the build-only deps.
-RUN apt-get update -qq && \
-    apt-get upgrade -y && \
-    apt-get install -y build-essential nodejs && \
-    apt-get clean
+FROM $builder_image AS builder
 
 RUN mkdir /app
 
 WORKDIR /app
 COPY Gemfile* .ruby-version /app/
 
-RUN bundle config set deployment 'true' && \
-    bundle config set without 'development test webkit' && \
-    bundle install -j8 --retry=2
+RUN BUNDLE_WITHOUT='development test webkit' bundle install
 
 COPY . /app
 
 FROM $base_image
 
-ENV GOVUK_PROMETHEUS_EXPORTER=true RAILS_ENV=production GOVUK_APP_NAME=hmrc-manuals-api
-
-RUN apt-get update -qy && \
-    apt-get upgrade -y && \
-    apt-get install -y nodejs && \
-    apt-get clean
+ENV GOVUK_APP_NAME=hmrc-manuals-api
 
 COPY --from=builder /usr/local/bundle/ /usr/local/bundle/
 COPY --from=builder /app /app/
