@@ -199,6 +199,7 @@ KNOWN_MANUAL_SLUGS = %w[
   vat-margin-schemes
   vat-new-means-of-transport
   vat-new-means-transport-northern-ireland
+  vat-official-gifts-received-in-the-context-of-international-relations
   vat-partial-exemption-guidance
   vat-payments-on-account-scheme
   vat-personal-exports-retail-exports-manual
@@ -232,6 +233,7 @@ KNOWN_MANUAL_SLUGS = %w[
   vat-transfer-of-a-going-concern
   vat-transport
   vat-valuation
+  vat-visiting-force-relief
   vat-water-and-sewerage-services
   vat-welfare
   vat-womens-sanitary-products
