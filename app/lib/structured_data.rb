@@ -20,7 +20,7 @@ private
         find_string_fields_in(value, "#{path}[#{index}]")
       end
     when String
-      [path: path, value: struct]
+      [path:, value: struct]
     else
       []
     end

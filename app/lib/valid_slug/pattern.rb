@@ -3,5 +3,5 @@ module ValidSlug
   # or trailing dashes, or multiple consecutive dashes.
   #
   # Trying to implement: https://insidegovuk.blog.gov.uk/url-standards-for-gov-uk/
-  PATTERN = /\A[a-z\d]+(?:-[a-z\d]+)*\z/.freeze
+  PATTERN = /\A[a-z\d]+(?:-[a-z\d]+)*\z/
 end

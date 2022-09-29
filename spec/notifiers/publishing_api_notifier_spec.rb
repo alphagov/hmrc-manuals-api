@@ -6,7 +6,7 @@ describe PublishingAPINotifier do
     let(:document_hash) { { "a" => "1" } }
     let(:document) do
       double PublishingAPIManual,
-             content_id: content_id,
+             content_id:,
              to_h: document_hash,
              update_type: "major",
              links: { "some" => "linked_data" }

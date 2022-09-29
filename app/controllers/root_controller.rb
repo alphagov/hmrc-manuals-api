@@ -13,7 +13,7 @@ class RootController < ActionController::Base
   def documentation
     content = load_documentation
     content = rewrite_public_links(content)
-    render :documentation, locals: { content: content }, layout: true
+    render :documentation, locals: { content: }, layout: true
   end
 
 private
