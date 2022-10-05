@@ -30,7 +30,7 @@ class PublishingAPIRedirectedSection
       document_type: "redirect",
       schema_name: "redirect",
       publishing_app: "hmrc-manuals-api",
-      base_path: base_path,
+      base_path:,
       redirects: [
         {
           path: base_path,
@@ -38,7 +38,7 @@ class PublishingAPIRedirectedSection
           destination: redirect_to_location,
         },
       ],
-      update_type: update_type,
+      update_type:,
     }
   end
 

@@ -7,7 +7,7 @@ RSpec.describe SectionsChecker do
   context "when given a manual slug" do
     let(:manual_slug) { "a-manual-slug" }
     let(:manual_path) { PublishingAPIManual.base_path(manual_slug) }
-    let(:content_item) { hmrc_manual_content_item_for_base_path(manual_path, child_section_groups: child_section_groups) }
+    let(:content_item) { hmrc_manual_content_item_for_base_path(manual_path, child_section_groups:) }
     before do
       stub_content_store_has_item(manual_path, content_item)
     end
@@ -173,7 +173,7 @@ RSpec.describe SectionsChecker do
     let(:content_item) do
       hmrc_manual_section_content_item_for_base_path(
         section_path,
-        child_section_groups: child_section_groups,
+        child_section_groups:,
         manual_base_path: manual_path,
       )
     end
