@@ -12,10 +12,10 @@ module Services
   end
 
   def self.search_api
-    @search_api ||= GdsApi::Search.new(Plek.current.find("search"))
+    @search_api ||= GdsApi::Search.new(Plek.new.find("search"))
   end
 
   def self.content_store
-    @content_store ||= GdsApi::ContentStore.new(Plek.current.find("content-store"))
+    @content_store ||= GdsApi::ContentStore.new(Plek.new.find("content-store"))
   end
 end
