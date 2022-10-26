@@ -56,7 +56,7 @@ describe PublishingAPIRedirectedManual do
     subject(:redirected_manual_as_hash) { redirected_manual.to_h }
 
     context "valid schema" do
-      it { should be_valid_against_schema("redirect") }
+      it { should be_valid_against_publisher_schema("redirect") }
     end
 
     it "is a redirect document type" do

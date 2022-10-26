@@ -119,8 +119,6 @@ GEM
       nokogiri (~> 1.12)
       rinku (~> 2.0)
       sanitize (~> 6)
-    govuk-content-schema-test-helpers (1.6.1)
-      json-schema (~> 2.8.0)
     govuk_app_config (4.10.1)
       logstasher (~> 2.1)
       plek (~> 4)
@@ -142,6 +140,8 @@ GEM
       rails (>= 6)
       rouge
       sprockets (>= 3)
+    govuk_schemas (4.4.1)
+      json-schema (~> 2.8.0)
     hashdiff (1.0.1)
     hashie (5.0.0)
     htmlentities (4.3.4)
@@ -403,8 +403,8 @@ DEPENDENCIES
   gds-api-adapters
   gds-sso
   govspeak
-  govuk-content-schema-test-helpers
   govuk_app_config
+  govuk_schemas
   json-schema
   listen
   plek
