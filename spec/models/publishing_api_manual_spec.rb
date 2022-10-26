@@ -56,13 +56,13 @@ describe PublishingAPIManual do
     subject { publishing_api_manual.to_h }
 
     context "valid_manual" do
-      it { should be_valid_against_schema("hmrc_manual") }
+      it { should be_valid_against_publisher_schema("hmrc_manual") }
     end
 
     context "maximal_manual" do
       let(:attributes) { maximal_manual }
 
-      it { should be_valid_against_schema("hmrc_manual") }
+      it { should be_valid_against_publisher_schema("hmrc_manual") }
     end
   end
 

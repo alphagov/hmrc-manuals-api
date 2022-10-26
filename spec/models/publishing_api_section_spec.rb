@@ -71,13 +71,13 @@ describe PublishingAPISection do
     context "valid_section" do
       let(:attributes) { valid_section }
 
-      it { should be_valid_against_schema("hmrc_manual_section") }
+      it { should be_valid_against_publisher_schema("hmrc_manual_section") }
     end
 
     context "maximal_section" do
       let(:attributes) { maximal_section }
 
-      it { should be_valid_against_schema("hmrc_manual_section") }
+      it { should be_valid_against_publisher_schema("hmrc_manual_section") }
     end
   end
 

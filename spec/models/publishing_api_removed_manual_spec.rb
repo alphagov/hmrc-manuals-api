@@ -46,7 +46,7 @@ describe PublishingAPIRemovedManual do
     subject(:removed_manual_as_hash) { removed_manual.to_h }
 
     context "valid schema" do
-      it { should be_valid_against_schema("gone") }
+      it { should be_valid_against_publisher_schema("gone") }
     end
 
     it 'is a "gone" document type' do

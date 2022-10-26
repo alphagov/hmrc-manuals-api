@@ -70,7 +70,7 @@ describe PublishingAPIRedirectedSection do
     subject(:redirected_manual_section_as_hash) { redirected_manual_section.to_h }
 
     context "valid schema" do
-      it { should be_valid_against_schema("redirect") }
+      it { should be_valid_against_publisher_schema("redirect") }
     end
 
     it 'is a "redirect" document type' do

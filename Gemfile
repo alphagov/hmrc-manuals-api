@@ -25,7 +25,7 @@ end
 
 group :test do
   gem "ci_reporter_rspec"
-  gem "govuk-content-schema-test-helpers"
+  gem "govuk_schemas"
   gem "simplecov", require: false
   gem "webmock"
 end
