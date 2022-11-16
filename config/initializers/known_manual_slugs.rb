@@ -186,6 +186,7 @@ KNOWN_MANUAL_SLUGS = %w[
   vat-food
   vat-fraud
   vat-fuel-and-power
+  vat-fulfilment-house-due-diligence-scheme
   vat-gold-manual
   vat-government-and-public-bodies
   vat-groups
