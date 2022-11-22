@@ -1,5 +1,5 @@
 FRONTEND_BASE_URL = if Rails.env.development?
-                      Plek.new.find("government-frontend")
+                      Plek.find("government-frontend")
                     else
-                      Plek.new.website_root
+                      Plek.website_root
                     end

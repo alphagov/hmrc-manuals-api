@@ -1,6 +1,6 @@
 module LinksUpdateHelper
   def stub_publishing_api_get_links(content_id, body: { links: {} })
-    stub_request(:get, Plek.new.find("publishing-api") + "/v2/links/#{content_id}")
+    stub_request(:get, Plek.find("publishing-api") + "/v2/links/#{content_id}")
       .to_return(body: body.to_json)
   end
 
