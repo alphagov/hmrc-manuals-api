@@ -395,6 +395,7 @@ DEPENDENCIES
   govuk_schemas
   json-schema
   listen
+  mail (~> 2.7.1)
   plek
   pry-byebug
   rails (= 7.0.4)

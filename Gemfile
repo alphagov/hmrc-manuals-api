@@ -7,6 +7,7 @@ gem "gds-sso"
 gem "govspeak"
 gem "govuk_app_config"
 gem "json-schema"
+gem "mail", "~> 2.7.1"  # TODO: remove once https://github.com/mikel/mail/issues/1489 is fixed.
 gem "plek"
 gem "responders"
 gem "uuidtools"
