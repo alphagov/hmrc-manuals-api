@@ -24,6 +24,7 @@ group :development, :test do
 end
 
 group :test do
+  gem "brakeman"
   gem "ci_reporter_rspec"
   gem "govuk_schemas"
   gem "simplecov", require: false
