@@ -6,9 +6,8 @@ FROM $builder_image AS builder
 
 WORKDIR /app
 COPY Gemfile* .ruby-version /app/
-
-RUN BUNDLE_WITHOUT='development test webkit' bundle install
-
+# TODO: remove chmod workaround once https://www.github.com/mikel/mail/issues/1489 is fixed.
+RUN bundle install && chmod -R o+r "${BUNDLE_PATH}"
 COPY . /app
 
 
