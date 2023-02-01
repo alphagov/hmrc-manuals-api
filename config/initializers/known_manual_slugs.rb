@@ -4,6 +4,7 @@ KNOWN_MANUAL_SLUGS = %w[
   air-passenger-duty
   air-passenger-duty-risk
   alcohol-wholesaler-registration-scheme
+  alternative-dispute-resolution-guidance
   animation-production-company-manual
   anti-dumping-and-countervailing-duties
   appeals-reviews-and-tribunals-guidance
@@ -104,6 +105,7 @@ KNOWN_MANUAL_SLUGS = %w[
   labour-provider-operational-guidance
   landfill-tax-liability
   life-assurance
+  litigation-and-settlement-strategy
   lloyds-manual
   machine-games-duty-manual
   mlr1-penalties-guidance
