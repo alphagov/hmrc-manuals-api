@@ -3,6 +3,7 @@ KNOWN_MANUAL_SLUGS = %w[
   aggregates-levy
   air-passenger-duty
   air-passenger-duty-risk
+  alcoholic-ingredients-relief
   alcohol-wholesaler-registration-scheme
   alternative-dispute-resolution-guidance
   animation-production-company-manual
