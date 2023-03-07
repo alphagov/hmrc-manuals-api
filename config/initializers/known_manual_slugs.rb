@@ -125,6 +125,7 @@ KNOWN_MANUAL_SLUGS = %w[
   paye-manual
   paye-settlement-agreements
   pensions-tax-manual
+  plastic-packaging-tax-manual
   property-income-manual
   registered-pensions-scheme-manual
   relief-instructions
