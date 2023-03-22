@@ -56,6 +56,7 @@ KNOWN_MANUAL_SLUGS = %w[
   ec-preferences-exports-turkey
   ec-preferences-imports-turkey
   economic-crime-supervision-handbook
+  electricity-generator-levy-manual
   employee-tax-advantaged-share-scheme-user-manual
   employment-income-manual
   employment-related-securities
