@@ -143,6 +143,7 @@ KNOWN_MANUAL_SLUGS = %w[
   shared-workspace-business-manual
   shares-and-assets-valuation-manual
   ships-report
+  soft-drinks-industry-levy
   specialist-investigations-operational-guidance
   spirits-production
   stamp-duty-land-tax-manual
