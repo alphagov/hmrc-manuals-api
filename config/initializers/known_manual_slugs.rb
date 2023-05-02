@@ -3,8 +3,8 @@ KNOWN_MANUAL_SLUGS = %w[
   aggregates-levy
   air-passenger-duty
   air-passenger-duty-risk
-  alcoholic-ingredients-relief
   alcohol-wholesaler-registration-scheme
+  alcoholic-ingredients-relief
   alternative-dispute-resolution-guidance
   animation-production-company-manual
   anti-dumping-and-countervailing-duties
@@ -74,23 +74,26 @@ KNOWN_MANUAL_SLUGS = %w[
   fraud-civil-investigation
   gas-for-road-fuel-use
   general-insurance-manual
-  guidance-real-estate-investment-trusts
   guidance-audit-customs-values
+  guidance-real-estate-investment-trusts
   help-save-technical
-  holding-and-movements-alcohol-strategy-subsidiary-records
+  holding-and-movements-alcohol-strategy-abandonment-goods
   holding-and-movements-alcohol-strategy-accounts
   holding-and-movements-alcohol-strategy-audit-risk-and-percet
   holding-and-movements-alcohol-strategy-credibility
   holding-and-movements-alcohol-strategy-post-visit-action
   holding-and-movements-alcohol-strategy-pre-visit-preparation
+  holding-and-movements-alcohol-strategy-subsidiary-records
   holding-and-movements-alcohol-strategy-supply-chains
   holding-and-movements-alcohol-strategy-unannounced-visits
+  holding-and-movements-assurance-guidance
   holding-and-movements-duty-stamps
   holding-and-movements-exports-shops
   holding-and-movements-financial-securities-assurance
+  holding-and-movements-owners-and-transporters
   holding-and-movements-registered-excise-dealers
   holding-and-movements-warehousing
-  holding-and-movements-owners-and-transporters
+  hydrocarbon-oils-strategy
   import-and-export-pipelines-guidance
   import-and-national-clearance-hub-procedures
   import-preference-guidance-notes
@@ -112,8 +115,8 @@ KNOWN_MANUAL_SLUGS = %w[
   lloyds-manual
   machine-games-duty-manual
   mlr1-penalties-guidance
-  money-laundering-regulations-registration
   money-laundering-regulations-compliance
+  money-laundering-regulations-registration
   museums-and-galleries-exhibition-tax-relief
   national-insurance-manual
   national-minimum-wage-manual
@@ -133,16 +136,19 @@ KNOWN_MANUAL_SLUGS = %w[
   repayment-claims-manual
   requesting-assistance-oms-under-administrative-cooperation-excise
   residence-domicile-and-remittance-basis
+  residential-property-developer-tax-manual
   responding-requests-oms-under-administrative-cooperation-excise
   savings-and-investment-manual
+  scottish-taxpayer-technical-guidance
   securities-guidance
   self-assessment-claims-manual
-  self-assessment-manual
   self-assessment-legal-framework
+  self-assessment-manual
   senior-accounting-officers-guidance
   shared-workspace-business-manual
   shares-and-assets-valuation-manual
   ships-report
+  soft-drinks-industry-levy
   specialist-investigations-operational-guidance
   spirits-production
   stamp-duty-land-tax-manual
@@ -182,6 +188,7 @@ KNOWN_MANUAL_SLUGS = %w[
   vat-construction
   vat-cost-sharing-exemption-manual
   vat-cultural-services
+  vat-default-interest
   vat-default-surcharge-officers-guide
   vat-deregistration
   vat-education-manual
@@ -199,7 +206,6 @@ KNOWN_MANUAL_SLUGS = %w[
   vat-health
   vat-input-tax
   vat-insurance
-  vat-default-interest
   vat-isle-of-man-manual
   vat-joint-and-several-liability
   vat-land-and-property
@@ -249,9 +255,4 @@ KNOWN_MANUAL_SLUGS = %w[
   video-games-development-company-manual
   welsh-taxpayer-technical-guidance
   wine-manual
-  holding-and-movements-alcohol-strategy-abandonment-goods
-  holding-and-movements-assurance-guidance
-  hydrocarbon-oils-strategy
-  scottish-taxpayer-technical-guidance
-  residential-property-developer-tax-manual
 ].freeze
