@@ -159,6 +159,7 @@ KNOWN_MANUAL_SLUGS = %w[
   tax-compliance-risk-management
   tax-credits-manual
   tax-credits-technical-manual
+  tax-free-childcare-technical-manual
   technical-teams-operational-guidance
   television-production-company-manual
   temporary-storage-and-approved-depositories-manual
