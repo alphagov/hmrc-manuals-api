@@ -11,6 +11,7 @@ KNOWN_MANUAL_SLUGS = %w[
   appeals-reviews-and-tribunals-guidance
   apprenticeship-levy
   ata-cpd-carnets
+  avoidance-handling-process
   bank-levy-manual
   banking-manual
   beer-manual
