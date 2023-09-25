@@ -148,6 +148,7 @@ KNOWN_MANUAL_SLUGS = %w[
   self-assessment-manual
   senior-accounting-officers-guidance
   shared-workspace-business-manual
+  sharepoint-tax-manuals-test-site
   shares-and-assets-valuation-manual
   ships-report
   soft-drinks-industry-levy
