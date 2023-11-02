@@ -1,4 +1,4 @@
-name: Run Minitest
+name: Run RSpec
 
 on:
   workflow_call:
@@ -14,30 +14,30 @@ on:
         type: string
 
 jobs:
-  run-minitest:
-    name: Run Minitest
+  run-rspec:
+    name: Run RSpec
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-          repository: alphagov/hmrc-manuals-api
-          ref: ${{ inputs.ref || github.ref }}
+          show-progress: false
 
       - name: Checkout Publishing API (for Content Schemas)
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: alphagov/publishing-api
           ref: ${{ inputs.publishingApiRef }}
           path: vendor/publishing-api
+          show-progress: false
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
-      - name: Run Minitest
+      - name: Run RSpec
         env:
-          RAILS_ENV: test
           GOVUK_CONTENT_SCHEMAS_PATH: vendor/publishing-api/content_schemas
-        run: bundle exec rake test
+          RAILS_ENV: test
+        run: bundle exec rake spec

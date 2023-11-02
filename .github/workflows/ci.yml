@@ -21,5 +21,4 @@ jobs:
 
   test-ruby:
     name: Test Ruby
-    uses: ./.github/workflows/minitest.yml
-
+    uses: ./.github/workflows/rspec.yml
