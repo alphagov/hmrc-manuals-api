@@ -1,5 +1,4 @@
 require "active_model"
-require "valid_slug/pattern"
 
 class PublishingAPIRedirectedSection
   include ActiveModel::Validations

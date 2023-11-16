@@ -1,6 +1,4 @@
 require "active_model"
-require "struct_with_rendered_markdown"
-require "valid_slug/pattern"
 
 class PublishingAPIManual
   include ActiveModel::Validations
@@ -122,6 +120,6 @@ private
   end
 
   def only_known_hmrc_manual_slugs?
-    !HMRCManualsAPI::Application.config.allow_unknown_hmrc_manual_slugs
+    !HmrcManualsApi::Application.config.allow_unknown_hmrc_manual_slugs
   end
 end

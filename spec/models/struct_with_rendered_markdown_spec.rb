@@ -1,5 +1,4 @@
 require "spec_helper"
-require "struct_with_rendered_markdown"
 
 describe StructWithRenderedMarkdown do
   def conversion_of(struct)

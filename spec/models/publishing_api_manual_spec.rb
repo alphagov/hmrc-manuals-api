@@ -127,7 +127,7 @@ describe PublishingAPIManual do
 
     context "when app is configured to only allow known slugs" do
       before do
-        allow(HMRCManualsAPI::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(false)
+        allow(HmrcManualsApi::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(false)
       end
 
       context "with a manual slug name not in list of known slugs" do
@@ -143,7 +143,7 @@ describe PublishingAPIManual do
 
     context "when app is configured to allow unknown slugs" do
       before do
-        allow(HMRCManualsAPI::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(true)
+        allow(HmrcManualsApi::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(true)
       end
 
       context "with a manual slug name not in list of known slugs" do
