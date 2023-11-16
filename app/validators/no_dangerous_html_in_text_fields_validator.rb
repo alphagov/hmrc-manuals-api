@@ -1,4 +1,5 @@
 require "govspeak/html_validator"
+require "structured_data"
 
 class NoDangerousHTMLInTextFieldsValidator < ActiveModel::EachValidator
   ALLOWED_IMAGE_HOSTS = [

@@ -1,4 +1,5 @@
 require "spec_helper"
+require "structured_data"
 
 describe StructuredData do
   def data(opts)

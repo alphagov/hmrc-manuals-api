@@ -135,7 +135,7 @@ describe PublishingAPISection do
       let(:section_slug) { valid_section["details"]["section_id"] }
 
       before do
-        allow(HmrcManualsApi::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(false)
+        allow(HMRCManualsAPI::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(false)
       end
 
       context "with a manual slug name not in list of known slugs" do
