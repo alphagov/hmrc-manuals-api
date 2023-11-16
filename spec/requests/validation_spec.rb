@@ -21,7 +21,7 @@ describe "validation" do
     end
 
     it "validates for known manual slug name in production environment" do
-      allow(HmrcManualsApi::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(false)
+      allow(HMRCManualsAPI::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(false)
 
       put_json "/hmrc-manuals/unknown-slug", valid_manual
 
@@ -77,7 +77,7 @@ describe "validation" do
     end
 
     it "validates for known manual slug name in production environment" do
-      allow(HmrcManualsApi::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(false)
+      allow(HMRCManualsAPI::Application.config).to receive(:allow_unknown_hmrc_manual_slugs).and_return(false)
 
       put_json "/hmrc-manuals/imaginary-slug/sections/imaginary-section", valid_section
 

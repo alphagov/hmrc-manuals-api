@@ -1,4 +1,5 @@
 require "active_model"
+require "valid_slug/pattern"
 
 class PublishingAPIRemovedSection
   include ActiveModel::Validations
