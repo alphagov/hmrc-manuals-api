@@ -171,6 +171,7 @@ KNOWN_MANUAL_SLUGS = %w[
   tobacco-control-of-supply-chains
   tobacco-products-duty
   tobacco-products-manufacturing-machinery-licensing-scheme
+  tobacco-track-and-trace-compliance
   tonnage-tax-manual
   trust-registration-service-manual
   trusts-settlements-and-estates-manual
