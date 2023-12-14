@@ -32,6 +32,7 @@ KNOWN_MANUAL_SLUGS = %w[
   community-investment-tax-relief-manual
   company-taxation-manual
   complaints-and-remedy-guidance
+  complaints-from-external-customers-about-the-conduct-of-hmrc-staff-guidance
   complaints-handling-guidance
   compliance-handbook
   compliance-operational-guidance
