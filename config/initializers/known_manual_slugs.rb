@@ -22,6 +22,7 @@ KNOWN_MANUAL_SLUGS = %w[
   cap-imports
   capital-allowances-manual
   capital-gains-manual
+  CECCG-complaints-from-external-customers-about-the-conduct-of-hmrc-staff-guidance
   child-benefit-manual
   child-benefit-technical-manual
   cider-guidance
