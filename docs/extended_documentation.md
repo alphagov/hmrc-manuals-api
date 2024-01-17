@@ -184,17 +184,6 @@ users to find.
 
 Use the [content-tagger](https://github.com/alphagov/content-tagger) app to add topic tags to manuals.
 
-## Removing published manuals
-
-The API endpoints of the app do not cover removal of manuals. There is a rake task for this purpose. Removal means replacing the published manual with a 410 Gone document. As manuals can have sections underneath them removal does the same for each section that is a child of the manual.
-
-The rake task is invoked as follows:
-
-```
-$ cd /var/apps/hmrc-manuals-api
-$ sudo -u deploy govuk_setenv hmrc-manuals-api bundle exec rake remove_hmrc_manuals[slug-to-remove-1,slug-to-remove-2,...,slug-to-remove-n]
-```
-
 ## Testing publishing in GOV.UK Docker
 
 You can use the JSON examples of requests for testing publishing in development,
@@ -221,31 +210,62 @@ need a real token for the right environment.
 
 ## Managing manuals and sections with rake
 
-HMRC Manuals API contains [rake tasks](https://github.com/alphagov/hmrc-manuals-api/tree/master/lib/tasks)
-for removing manuals and sections and redirecting sections. These can be run using the [rake Jenkins job](https://docs.publishing.service.gov.uk/manual/running-rake-tasks.html). Where the examples below require a slug as a parameter, this is the last part of the URL without a leading slash, for example given the URL 'https://www.gov.uk/hmrc-internal-manuals/guidance-audit-customs-values' the slug would be 'guidance-audit-customs-values'
+The API endpoints of the app do not cover removal of manuals. There are rake tasks for this purpose.
+
+These rake tasks can be run by following [this documentation](https://docs.publishing.service.gov.uk/manual/running-rake-tasks.html#run-a-rake-task-on-eks).
+
+> The slugs can be determined from the URL:
+>
+> For a manual, a URL of `https://www.gov.uk/hmrc-internal-manuals/vat-input-tax` would have a `manual-slug` of `vat-input-tax`.
+>
+> For a section, a URL of `https://www.gov.uk/hmrc-internal-manuals/vat-input-tax/vit31100` would have a `manual-slug` of `vat-input-tax` and a `section-slug` of `vit31100`.
+
+### Remove an entire manual
+
+To completely remove one or multiple manuals and all of their sections, run the `remove_hmrc_manuals` task. Removal means replacing the published manual and sections with 410 Gone responses.
+
+For example, to remove a single manual and all of its sections:
+
+```
+rake 'remove_hmrc_manuals[manual-slug]'
+```
+
+For example, to remove a multiple manuals and all of their sections:
+
+```
+rake 'remove_hmrc_manuals[manual-slug-1,manual-slug-2]'
+```
+
+> There is no limit to the number of manuals that can be included in this task.
 
 ### Redirect a section back to the parent manual
 
-To redirect a section back to the parent manual:
+To redirect sections back to the parent manual, run the `redirect_hmrc_section_to_parent_manual` task with the slug of the manual, followed by the slug(s) of the sections you wish to redirect.
+
+For example, redirecting a single section:
 
 ```
-bundle exec rake redirect_hmrc_section_to_parent_manual[manual-slug,section-slug,section-slug]
+rake 'redirect_hmrc_section_to_parent_manual[manual-slug,section-slug]'
+```
+
+For example, redirecting multiple sections:
+
+```
+rake 'redirect_hmrc_section_to_parent_manual[manual-slug,section-slug-1,section-slug-2]'
 ```
 
 ### Remove a section
 
-Alternatively to remove the section (this makes it a 'gone' route):
+To completely remove a section, run the `remove_hmrc_sections` task with the slug(s) of the sections you wish to remove. Removal means replacing the published sections with 410 Gone responses. For example:
+
+For example, removing a single section:
 
 ```
-bundle exec rake remove_hmrc_sections[manual-slug,section-slug,section-slug]
+rake 'remove_hmrc_sections[manual-slug,section-slug]'
 ```
 
-### Remove a manual
-
-To completely remove a manual:
+For example,removing multiple sections:
 
 ```
-bundle exec rake remove_hmrc_manuals[manual-slug,manual-slug]
+rake 'remove_hmrc_sections[manual-slug,section-slug-1,section-slug-2]'
 ```
-
-This will remove the manuals provided as arguments and all sections within those manuals.
