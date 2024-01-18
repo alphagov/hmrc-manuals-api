@@ -47,7 +47,7 @@ See the [extended documentation](docs/extended_documentation.md) for details:
 - [Content Ids](docs/extended_documentation.md#content-ids)
 - [Markup](docs/extended_documentation.md#markup)
 - [Manual Tags](docs/extended_documentation.md#manual-tags)
-- [Removing published manuals](docs/extended_documentation.md#removing-published-manuals)
+- [Removing published manuals](docs/extended_documentation.md#managing-manuals-and-sections-with-rake)
 - [Testing publishing in GOV.UK Docker](docs/extended_documentation.md#testing-publishing-in-govuk-docker)
 - [Managing manuals and sections with rake](docs/extended_documentation.md#managing-manuals-and-sections-with-rake)
 - [Responses to PUT requests](docs/extended_documentation.md#possible-responses-to-put-requests)
