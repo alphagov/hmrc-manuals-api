@@ -80,7 +80,7 @@ GEM
     ast (2.4.2)
     base64 (0.2.0)
     bigdecimal (3.1.6)
-    brakeman (6.1.1)
+    brakeman (6.1.2)
       racc
     builder (3.2.4)
     byebug (11.1.3)
