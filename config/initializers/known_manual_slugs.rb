@@ -41,6 +41,7 @@ KNOWN_MANUAL_SLUGS = %w[
   corporate-finance-manual
   corporate-intangibles-research-and-development-manual
   cotax-manual
+  creative-industries-expenditure-credit-manual
   cryptoassets-manual
   customs-authorisation-and-approval
   customs-cds-volume-3-tariff-step-by-step-guide
