@@ -8,7 +8,7 @@ manual consists of two document types: the manual itself and manual sections.
 
 ## Nomenclature
 
-- **Manual**: HMRC manual with title and description, contains many Sections. See [Adding or updating a manual](docs/extended_documentation.md#adding-or-updating-a-manual) for more details. Before adding a manual through the api, a [new slug should be added](#adding-a-new-slug) to the list of known slugs.
+- **Manual**: HMRC manual with title and description, contains many Sections. See [Adding or updating a manual](docs/extended_documentation.md#adding-or-updating-a-manual) for more details.
 
 - **Section**: Sections can contain sub-sections and/or a content body. See [Adding or updating a section](docs/extended_documentation.md#adding-or-updating-a-manual-section) for more details.
 
@@ -25,15 +25,6 @@ You can use the [GOV.UK Docker environment](https://github.com/alphagov/govuk-do
 ```sh
 bundle exec rspec
 ```
-
-<a name="adding-a-new-slug"></a>
-### Adding a new slug
-
-Before adding a new manual through the API, the slug for the manual must be added to [/config/initializers/known_manual_slugs.rb](config/initializers/known_manual_slugs.rb) and the application re-deployed.
-
-The workflow for this is likely to be initiated by a Zendesk ticket raised by HMRC with
-the new slug. A developer can then add the slug and re-deploy the application and
-inform HMRC that the slug is ready to be published against.
 
 ## Manuals and decisions
 
