@@ -64,6 +64,11 @@ class PublishingAPISection
     File.join(PublishingAPIManual.base_path(manual_slug.to_s.downcase), section_slug.to_s.downcase)
   end
 
+  def self.find_title(base_path)
+    item = Services.content_store.content_item(base_path)
+    item.to_h["title"]
+  end
+
   def self.extract_slugs_from_path(path)
     slugs = {}
     slugs[:manual] = PublishingAPIManual.extract_slug_from_path(path)

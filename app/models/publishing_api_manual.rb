@@ -36,6 +36,7 @@ class PublishingAPIManual
       enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
       enriched_data = add_base_path_to_change_notes(enriched_data)
+      enriched_data = add_missing_titles_to_change_notes(enriched_data)
       enriched_data
     end
   end
@@ -108,6 +109,15 @@ private
   def add_base_path_to_change_notes(attributes)
     attributes["details"]["change_notes"] && attributes["details"]["change_notes"].each do |change_note_object|
       change_note_object["base_path"] = PublishingAPISection.base_path(@slug, change_note_object["section_id"])
+    end
+    attributes
+  end
+
+  def add_missing_titles_to_change_notes(attributes)
+    attributes["details"]["change_notes"] && attributes["details"]["change_notes"].each do |change_note_object|
+      if change_note_object["title"] == ""
+        change_note_object["title"] = PublishingAPISection.find_title(change_note_object["base_path"])
+      end
     end
     attributes
   end
