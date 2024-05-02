@@ -2,7 +2,7 @@ ARG ruby_version=3.3
 ARG base_image=ghcr.io/alphagov/govuk-ruby-base:$ruby_version
 ARG builder_image=ghcr.io/alphagov/govuk-ruby-builder:$ruby_version
 
-FROM $builder_image AS builder
+FROM --platform=$TARGETPLATFORM $builder_image AS builder
 
 WORKDIR $APP_HOME
 COPY Gemfile* .ruby-version /app/
@@ -11,7 +11,7 @@ RUN bundle install && chmod -R o+r "${BUNDLE_PATH}"
 COPY . ./
 
 
-FROM $base_image
+FROM --platform=$TARGETPLATFORM $base_image
 
 ENV GOVUK_APP_NAME=hmrc-manuals-api
 
