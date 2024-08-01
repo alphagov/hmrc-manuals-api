@@ -36,6 +36,6 @@ private
   end
 
   def wrong_schema_name_message(_record, content_item)
-    %{Exists in the content store, but is not a "#{schema_name}" schema (it's a "#{content_item['schema_name']}" schema)"}
+    %{Exists in the content store, but is not a "#{schema_name}" schema (it's a "#{content_item['schema_name']}" schema)}
   end
 end
