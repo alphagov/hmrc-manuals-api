@@ -7,11 +7,11 @@ describe InContentStoreValidator do
   subject do
     InContentStoreValidator.new(
       content_store:,
-      schema_name:,
+      schema_names:,
     )
   end
   let(:content_store) { Services.content_store }
-  let(:schema_name) { MANUAL_SCHEMA_NAME }
+  let(:schema_names) { [MANUAL_SCHEMA_NAME, "redirect"] }
 
   let(:manual) { PublishingAPIManual.new(slug, attributes) }
   let(:slug) { "some-slug" }
@@ -33,7 +33,7 @@ describe InContentStoreValidator do
     let(:content_item_schema_name) { "invalid-schema-name" }
     it "returns an error" do
       expect(subject.validate(manual).attribute).to eq(:base)
-      expect(subject.validate(manual).type).to eq("Exists in the content store, but is not a \"#{MANUAL_SCHEMA_NAME}\" schema (it's a \"invalid-schema-name\" schema)")
+      expect(subject.validate(manual).type).to eq("Exists in the content store, but is not a \"#{MANUAL_SCHEMA_NAME},redirect\" schema (it's a \"invalid-schema-name\" schema)")
     end
   end
 
@@ -60,10 +60,10 @@ describe InContentStoreValidator do
   end
 
   context "without a value for schema_name" do
-    let(:schema_name) { nil }
+    let(:schema_names) { nil }
 
     it "raises an error" do
-      expect { subject }.to raise_error(RuntimeError, "Must provide schema_name and content_store options to the validator")
+      expect { subject }.to raise_error(RuntimeError, "Must provide schema_names and content_store options to the validator")
     end
   end
 
@@ -71,15 +71,15 @@ describe InContentStoreValidator do
     let(:content_store) { nil }
 
     it "raises an error" do
-      expect { subject }.to raise_error(RuntimeError, "Must provide schema_name and content_store options to the validator")
+      expect { subject }.to raise_error(RuntimeError, "Must provide schema_names and content_store options to the validator")
     end
   end
 
-  context "with 'gone' as the schema_name" do
-    let(:schema_name) { "gone" }
+  context "with 'gone' as one of the schema_names" do
+    let(:schema_names) { %w[gone] }
 
     it "raises an error" do
-      expect { subject }.to raise_error(RuntimeError, "Can't provide \"gone\" as a schema_name to the validator")
+      expect { subject }.to raise_error(RuntimeError, "Can't provide \"gone\" as schema_names to the validator")
     end
   end
 end

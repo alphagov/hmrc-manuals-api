@@ -1,19 +1,19 @@
 class InContentStoreValidator < ActiveModel::Validator
-  attr_reader :schema_name, :content_store
+  attr_reader :schema_names, :content_store
 
   def initialize(options = {})
     super
-    raise "Must provide schema_name and content_store options to the validator" unless options[:schema_name] && options[:content_store]
-    raise 'Can\'t provide "gone" as a schema_name to the validator' if options[:schema_name] == "gone"
+    raise "Must provide schema_names and content_store options to the validator" unless options[:schema_names] && options[:content_store]
+    raise 'Can\'t provide "gone" as schema_names to the validator' if options[:schema_names].include?("gone")
 
-    @schema_name = options[:schema_name]
+    @schema_names = options[:schema_names]
     @content_store = options[:content_store]
   end
 
   def validate(record)
     content_item = fetch_content_item(record)
-    if content_item["schema_name"] != schema_name
-      record.errors.add(:base, wrong_schema_name_message(record, content_item))
+    unless schema_names.include?(content_item["schema_name"])
+      record.errors.add(:base, wrong_schema_names_message(record, content_item))
     end
   rescue GdsApi::HTTPNotFound
     record.errors.add(:base, missing_message(record, content_item))
@@ -35,7 +35,7 @@ private
     'Exists in the content store, but is already "gone"'
   end
 
-  def wrong_schema_name_message(_record, content_item)
-    %{Exists in the content store, but is not a "#{schema_name}" schema (it's a "#{content_item['schema_name']}" schema)}
+  def wrong_schema_names_message(_record, content_item)
+    %{Exists in the content store, but is not a "#{schema_names.join(',')}" schema (it's a "#{content_item['schema_name']}" schema)}
   end
 end
