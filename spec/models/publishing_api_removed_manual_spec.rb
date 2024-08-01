@@ -34,6 +34,12 @@ describe PublishingAPIRemovedManual do
         expect(subject).to be_valid
       end
 
+      it 'is valid when the slugs represent a "redirect" piece of content' do
+        content_item = hmrc_manual_content_item_for_base_path(manual_path).merge("schema_name" => "redirect")
+        stub_content_store_has_item(manual_path, content_item)
+        expect(subject).to be_valid
+      end
+
       it "is invalid when the slug represents a piece of content with any other schema_name" do
         stub_content_store_has_item(manual_path)
         expect(subject).not_to be_valid

@@ -59,6 +59,12 @@ describe PublishingAPIRemovedSection do
         expect(subject).to be_valid
       end
 
+      it 'is valid when the slugs represent a "redirect" piece of content' do
+        content_item = hmrc_manual_section_content_item_for_base_path(section_path).merge("schema_name" => "redirect")
+        stub_content_store_has_item(section_path, content_item)
+        expect(subject).to be_valid
+      end
+
       it "is invalid when the slugs represents a piece of content with any other schema_name" do
         stub_content_store_has_item(section_path)
         expect(subject).not_to be_valid
