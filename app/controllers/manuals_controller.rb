@@ -14,6 +14,8 @@ class ManualsController < ApplicationController
       end
     rescue ActionController::UnknownFormat
       render json: { status: "error", errors: "Invalid Accept header" }, status: :not_acceptable
+    rescue GdsApi::HTTPUnprocessableEntity => e
+      render json: { status: "error", errors: e }, status: :unprocessable_entity
     rescue ValidationError
       render json: { status: "error", errors: manual.errors.full_messages }, status: :unprocessable_entity
     end
