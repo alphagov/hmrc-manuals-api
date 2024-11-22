@@ -4,6 +4,7 @@ require "gds_api/test_helpers/publishing_api"
 describe "manual sections resource" do
   include GdsApi::TestHelpers::PublishingApi
   include LinksUpdateHelper
+  include PublishingApiHelper
 
   let(:maximal_section_endpoint) do
     "/hmrc-manuals/#{maximal_manual_slug}/sections/#{maximal_section_slug}"
@@ -65,12 +66,12 @@ describe "manual sections resource" do
     expect(response.status).to eq(503)
   end
 
-  it "handles some other error with the Publishing API" do
+  it "handles the Publishing API returning an unproccessable entity error" do
     publishing_api_validation_error
 
     put_json maximal_section_endpoint, maximal_section
 
-    expect(response.status).to eq(500)
+    expect(response.status).to eq(422)
   end
 
   it "returns the status code from the Publishing API response" do
@@ -102,9 +103,5 @@ private
 
   def publishing_api_times_out
     stub_request(:any, /#{GdsApi::TestHelpers::PublishingApi::PUBLISHING_API_V2_ENDPOINT}\/.*/).to_timeout
-  end
-
-  def publishing_api_validation_error
-    stub_request(:any, /#{GdsApi::TestHelpers::PublishingApi::PUBLISHING_API_V2_ENDPOINT}\/.*/).to_return(status: 422)
   end
 end
