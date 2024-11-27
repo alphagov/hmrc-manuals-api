@@ -4,6 +4,7 @@ require "gds_api/test_helpers/publishing_api"
 describe "manuals resource" do
   include GdsApi::TestHelpers::PublishingApi
   include LinksUpdateHelper
+  include PublishingApiHelper
 
   it "confirms update of the manual" do
     stub_any_publishing_api_call
@@ -35,6 +36,14 @@ describe "manuals resource" do
     put_json "/hmrc-manuals/#{maximal_manual_slug}", maximal_manual
 
     expect(response.status).to eq(500)
+  end
+
+  it "handles the Publishing API returning an unproccessable entity error" do
+    publishing_api_validation_error
+
+    put_json "/hmrc-manuals/#{maximal_manual_slug}", maximal_manual
+
+    expect(response.status).to eq(422)
   end
 
   it "returns the status code from the Publishing API response" do
