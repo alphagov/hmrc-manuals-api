@@ -77,7 +77,7 @@ GEM
     ast (2.4.2)
     base64 (0.2.0)
     benchmark (0.4.0)
-    bigdecimal (3.1.8)
+    bigdecimal (3.1.9)
     brakeman (6.2.2)
       racc
     builder (3.3.0)
@@ -145,7 +145,7 @@ GEM
       rake (>= 13)
     googleapis-common-protos-types (1.16.0)
       google-protobuf (>= 3.18, < 5.a)
-    govspeak (8.8.1)
+    govspeak (8.8.2)
       actionview (>= 6, < 7.2.3)
       addressable (>= 2.3.8, < 2.8.8)
       govuk_publishing_components (>= 35.1)
