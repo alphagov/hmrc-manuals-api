@@ -145,7 +145,7 @@ GEM
       rake (>= 13)
     googleapis-common-protos-types (1.20.0)
       google-protobuf (>= 3.18, < 5.a)
-    govspeak (10.2.5)
+    govspeak (10.3.0)
       actionview (>= 6, < 8.0.3)
       addressable (>= 2.3.8, < 2.8.8)
       govuk_publishing_components (>= 43)
@@ -170,7 +170,7 @@ GEM
     govuk_personalisation (1.1.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (56.2.2)
+    govuk_publishing_components (57.1.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -642,10 +642,10 @@ GEM
       crass (~> 1.0.2)
       nokogiri (>= 1.16.8)
     securerandom (0.4.1)
-    sentry-rails (5.24.0)
+    sentry-rails (5.25.0)
       railties (>= 5.0)
-      sentry-ruby (~> 5.24.0)
-    sentry-ruby (5.24.0)
+      sentry-ruby (~> 5.25.0)
+    sentry-ruby (5.25.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
     shoulda-matchers (6.5.0)
@@ -689,7 +689,7 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     webrick (1.9.1)
-    websocket-driver (0.7.7)
+    websocket-driver (0.8.0)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
