@@ -84,7 +84,6 @@
             "additionalProperties": false,
             "required": [
               "title",
-              "section_id",
               "change_note",
               "published_at"
             ],
