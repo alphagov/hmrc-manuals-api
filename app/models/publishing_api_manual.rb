@@ -49,6 +49,10 @@ class PublishingAPIManual
     @manual_attributes["content_id"]
   end
 
+  def title
+    @manual_attributes["title"]
+  end
+
   def update_type
     @manual_attributes["update_type"]
   end
@@ -119,9 +123,13 @@ private
 
   def add_missing_titles_to_change_notes(attributes)
     attributes["details"]["change_notes"]&.each do |change_note_object|
-      if change_note_object["title"] == ""
-        change_note_object["title"] = PublishingAPISection.find_title(change_note_object["base_path"])
-      end
+      next unless change_note_object["title"].empty?
+
+      change_note_object["title"] = if change_note_object["section_id"]
+                                      PublishingAPISection.find_title(change_note_object["base_path"])
+                                    else
+                                      title
+                                    end
     end
     attributes
   end

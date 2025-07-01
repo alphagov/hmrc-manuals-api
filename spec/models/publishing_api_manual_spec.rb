@@ -69,7 +69,6 @@ describe PublishingAPIManual do
     end
 
     context "valid_manual_without_change_note_titles" do
-      let(:attributes) { manual_without_change_note_titles }
       let(:path_1) { "/hmrc-internal-manuals/some-slug/abc567" }
       let(:path_2) { "/hmrc-internal-manuals/some-slug/abc555" }
 
@@ -78,9 +77,21 @@ describe PublishingAPIManual do
         stub_content_store_has_item(path_2, content_item_for_base_path(path_2))
       end
 
-      it "adds the section title to the title field of the change note" do
-        expect(subject.dig("details", "change_notes").first["title"]).to eq("Hmrc internal manuals some slug abc567")
-        expect(subject.dig("details", "change_notes").second["title"]).to eq("Hmrc internal manuals some slug abc555")
+      context "when a section_id is specified in a change note" do
+        let(:attributes) { manual_without_change_note_titles }
+
+        it "adds the section title to the title field of the change note" do
+          expect(subject.dig("details", "change_notes").first["title"]).to eq("Hmrc internal manuals some slug abc567")
+          expect(subject.dig("details", "change_notes").second["title"]).to eq("Hmrc internal manuals some slug abc555")
+        end
+      end
+
+      context "when a section_id is not specified in a change note" do
+        let(:attributes) { manual_with_top_level_change_note }
+
+        it "adds the manual title to the title field of the change note without a section_id" do
+          expect(subject.dig("details", "change_notes").first["title"]).to eq("Employment Income Manual")
+        end
       end
     end
 

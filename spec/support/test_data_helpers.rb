@@ -91,7 +91,7 @@ module TestDataHelpers
         child_section_groups: [],
         change_notes: [
           {
-            title: "Title of the manual that was changed",
+            title: "",
             section_id: nil,
             change_note: "Description of changes",
             published_at: "2014-01-23T00:00:00+01:00",
