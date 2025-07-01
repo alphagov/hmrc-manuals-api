@@ -80,6 +80,33 @@ module TestDataHelpers
     }.merge(options).deep_stringify_keys
   end
 
+  def manual_with_top_level_change_note
+    {
+      title: "Employment Income Manual",
+      content_id: maximal_manual_content_id,
+      description: "A manual about incoming employment",
+      public_updated_at: "2014-01-23T00:00:00+01:00",
+      update_type: "major",
+      details: {
+        child_section_groups: [],
+        change_notes: [
+          {
+            title: "Title of the manual that was changed",
+            section_id: nil,
+            change_note: "Description of changes",
+            published_at: "2014-01-23T00:00:00+01:00",
+          },
+          {
+            title: "Title of the section that was changed",
+            section_id: "ABC555",
+            change_note: "Description of changes",
+            published_at: "2013-12-23T00:00:00+01:00",
+          },
+        ],
+      },
+    }.deep_stringify_keys
+  end
+
   def manual_without_change_note_titles(options = {})
     {
       title: "Employment Income Manual",

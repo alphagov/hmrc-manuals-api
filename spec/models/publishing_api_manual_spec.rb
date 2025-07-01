@@ -83,6 +83,25 @@ describe PublishingAPIManual do
         expect(subject.dig("details", "change_notes").second["title"]).to eq("Hmrc internal manuals some slug abc555")
       end
     end
+
+    describe "section_id" do
+      context "when a section_id is specified in a change note" do
+        let(:attributes) { maximal_manual }
+
+        it "adds the base_path of the sections" do
+          expect(subject.dig("details", "change_notes", 0, "base_path")).to eq("/hmrc-internal-manuals/some-slug/abc567")
+          expect(subject.dig("details", "change_notes", 1, "base_path")).to eq("/hmrc-internal-manuals/some-slug/abc555")
+        end
+      end
+
+      context "when a section_id is not specified in a change note" do
+        let(:attributes) { manual_with_top_level_change_note }
+
+        it "adds the base_path of the manual to the change_note with the missing section_id" do
+          expect(subject.dig("details", "change_notes", 0, "base_path")).to eq("/hmrc-internal-manuals/some-slug")
+        end
+      end
+    end
   end
 
   describe "content_id" do
