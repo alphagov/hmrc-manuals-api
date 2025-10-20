@@ -31,7 +31,7 @@ class PublishingAPIManual
           { path: updates_path, type: :exact },
         ],
         locale: "en",
-        phase: "beta",
+        phase: "live",
       )
       enriched_data = StructWithRenderedMarkdown.new(enriched_data).to_h
       enriched_data = add_base_path_to_child_section_groups(enriched_data)
