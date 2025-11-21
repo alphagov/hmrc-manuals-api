@@ -19,14 +19,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: alphagov/hmrc-manuals-api
           ref: ${{ inputs.ref || github.ref }}
           show-progress: false
 
       - name: Checkout Publishing API (for Content Schemas)
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           repository: alphagov/publishing-api
           ref: ${{ inputs.publishingApiRef }}
