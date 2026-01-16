@@ -44,7 +44,6 @@ describe "validation" do
         stub_put_default_organisation(content_id)
 
         stub_publishing_api_publish(content_id, { update_type: nil, previous_version: 22 }.to_json)
-        stub_any_search_post
 
         manual = valid_manual
         manual["description"] = "![Manual](/path/to/image.png)"
