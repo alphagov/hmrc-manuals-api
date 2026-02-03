@@ -181,7 +181,7 @@ GEM
       rouge
       sprockets (>= 3)
       sprockets-rails
-    govuk_schemas (6.2.1)
+    govuk_schemas (6.2.2)
       json-schema (>= 2.8, < 6.2)
     hashdiff (1.2.1)
     hashie (5.0.0)
