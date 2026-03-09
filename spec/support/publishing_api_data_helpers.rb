@@ -42,7 +42,7 @@ module PublishingApiDataHelpers
         ],
       },
       "publishing_app" => "hmrc-manuals-api",
-      "rendering_app" => "government-frontend",
+      "rendering_app" => "frontend",
       "routes" => [
         {
           "path" => "/hmrc-internal-manuals/employment-income-manual",

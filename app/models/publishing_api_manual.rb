@@ -25,7 +25,7 @@ class PublishingAPIManual
         document_type: MANUAL_DOCUMENT_TYPE,
         schema_name: MANUAL_SCHEMA_NAME,
         publishing_app: "hmrc-manuals-api",
-        rendering_app: "government-frontend",
+        rendering_app: "frontend",
         routes: [
           { path: base_path, type: :exact },
           { path: updates_path, type: :exact },
