@@ -6,6 +6,16 @@ updates:
       interval: daily
     cooldown:
       default-days: 3
+    groups:
+      test:
+        patterns:
+        - "*rspec"
+        - "govuk_schemas"
+        - "rspec-*"
+        - "shoulda-*"
+        - "simplecov"
+        - "webmock"
+
   - package-ecosystem: github-actions
     directory: /
     schedule:
