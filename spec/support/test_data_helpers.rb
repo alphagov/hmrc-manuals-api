@@ -165,14 +165,16 @@ module TestDataHelpers
           },
         ],
         child_section_groups: [
-          title: "A group of sections",
-          child_sections: [
-            {
-              title: "About 123456",
-              section_id: "123456",
-              description: "A short description of the section",
-            },
-          ],
+          {
+            title: "A group of sections",
+            child_sections: [
+              {
+                title: "About 123456",
+                section_id: "123456",
+                description: "A short description of the section",
+              },
+            ],
+          },
         ],
       },
     }.merge(options).deep_stringify_keys

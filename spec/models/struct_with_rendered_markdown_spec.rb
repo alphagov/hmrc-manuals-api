@@ -14,21 +14,25 @@ describe StructWithRenderedMarkdown do
   it "recurses through arrays and hashes" do
     recursive_struct = {
       "a" => [
-        "b" => {
-          "body" => "**b**",
-        },
-        "c" => {
-          "body" => "**c**",
+        {
+          "b" => {
+            "body" => "**b**",
+          },
+          "c" => {
+            "body" => "**c**",
+          },
         },
       ],
     }
     expect(conversion_of(recursive_struct)).to eq(
       "a" => [
-        "b" => {
-          "body" => "<p><strong>b</strong></p>\n",
-        },
-        "c" => {
-          "body" => "<p><strong>c</strong></p>\n",
+        {
+          "b" => {
+            "body" => "<p><strong>b</strong></p>\n",
+          },
+          "c" => {
+            "body" => "<p><strong>c</strong></p>\n",
+          },
         },
       ],
     )
