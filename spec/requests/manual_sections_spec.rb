@@ -99,6 +99,23 @@ describe "manual sections resource" do
     expect(json_response["errors"].first).to eq("Section slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
   end
 
+  it "rejects self referencing breadcrumbs" do
+    payload = maximal_section
+    payload["details"]["breadcrumbs"] = [
+      {
+        "section_id" => "12345",
+      },
+      {
+        "section_id" => "67890",
+      },
+    ]
+
+    put_json maximal_section_endpoint, payload
+
+    expect(response.status).to eq(422)
+    expect(json_response["errors"].first).to eq("Breadcrumbs must not include the section they are added to")
+  end
+
 private
 
   def publishing_api_times_out

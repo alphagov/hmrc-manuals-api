@@ -128,5 +128,36 @@ describe PublishingAPISection do
       let(:attributes) { [] }
       it { should_not be_valid }
     end
+
+    context "without a breadcrumb that references itself" do
+      let(:attributes) { valid_section }
+
+      before do
+        attributes["details"]["breadcrumbs"] = [
+          {
+            "section_id" => "67890",
+          },
+        ]
+      end
+
+      it { should be_valid }
+    end
+
+    context "with a breadcrumb that references itself" do
+      let(:attributes) { valid_section }
+
+      before do
+        attributes["details"]["breadcrumbs"] = [
+          {
+            "section_id" => "12345",
+          },
+          {
+            "section_id" => "67890",
+          },
+        ]
+      end
+
+      it { should_not be_valid }
+    end
   end
 end
