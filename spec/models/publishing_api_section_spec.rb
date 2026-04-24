@@ -63,7 +63,7 @@ describe PublishingAPISection do
     PublishingAPISection.new(manual_slug, section_slug, attributes)
   end
   let(:manual_slug) { "some-slug" }
-  let(:section_slug) { "some_id" }
+  let(:section_slug) { "12345" }
 
   describe "#to_h" do
     let(:subject) { publishing_api_section.to_h }
