@@ -8,6 +8,7 @@ class PublishingAPISection
   validates :manual_slug, :section_slug, format: { with: ValidSlug::PATTERN, message: "should match the pattern: #{ValidSlug::PATTERN}" }
   validate :incoming_section_is_valid
   validate :section_slug_matches_section_id, if: -> { @section.valid? }
+  validate :breadcrumbs_do_not_self_reference, if: -> { @section.valid? }
 
   attr_accessor :manual_slug, :section_slug, :section_attributes
 
@@ -126,6 +127,17 @@ private
   def section_slug_matches_section_id
     unless section_slug.to_s.casecmp(section_attributes["details"]["section_id"].downcase).zero?
       errors.add(:base, "Slug in URL and Section ID must match, ignoring case")
+    end
+  end
+
+  def breadcrumbs_do_not_self_reference
+    details = section_attributes["details"]
+    return unless details["breadcrumbs"]
+
+    if details["breadcrumbs"].any? do |breadcrumb|
+      breadcrumb["section_id"] == details["section_id"]
+    end
+      errors.add(:base, "Breadcrumbs must not include the section they are added to")
     end
   end
 end

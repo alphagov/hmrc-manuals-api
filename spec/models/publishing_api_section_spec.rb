@@ -63,7 +63,7 @@ describe PublishingAPISection do
     PublishingAPISection.new(manual_slug, section_slug, attributes)
   end
   let(:manual_slug) { "some-slug" }
-  let(:section_slug) { "some_id" }
+  let(:section_slug) { "12345" }
 
   describe "#to_h" do
     let(:subject) { publishing_api_section.to_h }
@@ -126,6 +126,37 @@ describe PublishingAPISection do
 
     context "with an invalid payload" do
       let(:attributes) { [] }
+      it { should_not be_valid }
+    end
+
+    context "without a breadcrumb that references itself" do
+      let(:attributes) { valid_section }
+
+      before do
+        attributes["details"]["breadcrumbs"] = [
+          {
+            "section_id" => "67890",
+          },
+        ]
+      end
+
+      it { should be_valid }
+    end
+
+    context "with a breadcrumb that references itself" do
+      let(:attributes) { valid_section }
+
+      before do
+        attributes["details"]["breadcrumbs"] = [
+          {
+            "section_id" => "12345",
+          },
+          {
+            "section_id" => "67890",
+          },
+        ]
+      end
+
       it { should_not be_valid }
     end
   end
