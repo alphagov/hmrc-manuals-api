@@ -147,7 +147,7 @@ GEM
       rake (~> 13.3)
     googleapis-common-protos-types (1.23.0)
       google-protobuf (~> 4.26)
-    govspeak (10.10.0)
+    govspeak (10.11.0)
       actionview (>= 6, < 8.1.4)
       addressable (>= 2.3.8, < 2.9.1)
       govuk_publishing_components (>= 43)
@@ -173,7 +173,7 @@ GEM
     govuk_personalisation (1.1.0)
       plek (>= 1.9.0)
       rails (>= 6, < 9)
-    govuk_publishing_components (66.6.1)
+    govuk_publishing_components (66.7.0)
       govuk_app_config
       govuk_personalisation (>= 0.7.0)
       kramdown
@@ -222,7 +222,7 @@ GEM
     loofah (2.25.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
-    mail (2.9.0)
+    mail (2.9.1)
       logger
       mini_mime (>= 0.1.1)
       net-imap
