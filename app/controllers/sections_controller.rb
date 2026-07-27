@@ -1,4 +1,5 @@
 class SectionsController < ApplicationController
+  before_action :check_content_type_is_json
   before_action :parse_request_body, only: [:update]
 
   def update

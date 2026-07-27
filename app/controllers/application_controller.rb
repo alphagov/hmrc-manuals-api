@@ -7,7 +7,6 @@ class ApplicationController < ActionController::Base
   skip_forgery_protection
 
   before_action :authenticate_user!
-  before_action :check_content_type_header
 
   rescue_from GdsApi::BaseError do |exception|
     GovukError.notify(exception)
@@ -30,7 +29,7 @@ private
     render json: { status: "error", errors: [message] }, status: :bad_request
   end
 
-  def check_content_type_header
+  def check_content_type_is_json
     if request.headers["Content-Type"] != "application/json"
       render json: { status: "error", errors: "Invalid Content-Type header" }, status: :unsupported_media_type
     end
