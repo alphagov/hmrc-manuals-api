@@ -39,7 +39,7 @@ describe "manuals resource" do
   end
 
   it "handles the Publishing API returning an unproccessable entity error" do
-    publishing_api_validation_error
+    stub_publishing_api_returns_error(422)
 
     put_json "/hmrc-manuals/#{maximal_manual_slug}", maximal_manual
 
