@@ -1,7 +1,10 @@
 require "rails_helper"
 
 describe "assets resource" do
+  include ActiveSupport::Testing::TimeHelpers
+
   describe "POST /assets" do
+    let(:draft) { true }
     let(:asset_manager_response) do
       {
         _response_info: {
@@ -9,7 +12,7 @@ describe "assets resource" do
         },
         content_type: "text",
         deleted: "false",
-        draft: "false",
+        draft: draft.to_s,
         file_url: "http://asset-manager.dev.gov.uk/media/45678/asset.txt",
         id: "123",
         name: "asset.txt",
@@ -31,18 +34,72 @@ describe "assets resource" do
     end
 
     context "when Asset Manager responds with ok" do
-      it "responds with 201 Created" do
-        subject
+      context "when the asset is not draft" do
+        let(:draft) { false }
 
-        expect(response.status).to eq(201)
+        subject do
+          post_multipart "/assets", {
+            asset: {
+              file: fixture_file_upload("asset.txt", "text/plain"),
+              draft: false,
+            },
+          }
+        end
+        it "responds with 201 Created" do
+          subject
+
+          expect(response.status).to eq(201)
+        end
+
+        it "responds with data from asset manager" do
+          subject
+
+          parsed_response = JSON.parse(response.body).deep_symbolize_keys
+          expect(parsed_response).to include(asset_manager_response)
+          expect(parsed_response).to include(asset_id: "45678")
+        end
+
+        it "does not include a token in the file_url" do
+          subject
+
+          parsed_response = JSON.parse(response.body).deep_symbolize_keys
+          expect(parsed_response[:file_url]).not_to match(/token=/)
+        end
       end
 
-      it "responds with data from asset manager" do
-        subject
+      context "when the asset is draft" do
+        before do
+          allow(SecureRandom).to receive(:uuid).and_return("some-token")
+        end
 
-        parsed_response = JSON.parse(response.body).deep_symbolize_keys
-        expect(parsed_response).to include(asset_manager_response)
-        expect(parsed_response).to include(asset_id: "45678")
+        it "responds with 201 Created" do
+          subject
+
+          expect(response.status).to eq(201)
+        end
+
+        it "responds with data from asset manager" do
+          subject
+
+          parsed_response = JSON.parse(response.body).deep_symbolize_keys
+          expect(parsed_response).to include(asset_manager_response.except(:file_url))
+          expect(parsed_response).to include(asset_id: "45678")
+        end
+
+        it "generates and includes a token in the file_url" do
+          subject
+
+          parsed_response = JSON.parse(response.body).deep_symbolize_keys
+          expect(parsed_response).to include(file_url: "http://asset-manager.dev.gov.uk/media/45678/asset.txt?token=some-token")
+        end
+
+        it "includes a preview expiry date 30 days in the future" do
+          travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
+          subject
+
+          parsed_response = JSON.parse(response.body).deep_symbolize_keys
+          expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
+        end
       end
     end
 
