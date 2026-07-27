@@ -15,6 +15,8 @@ class SectionsController < ApplicationController
       end
     rescue ActionController::UnknownFormat
       render json: { status: "error", errors: "Invalid Accept header" }, status: :not_acceptable
+    rescue GdsApi::HTTPConflict => e
+      render json: { status: "error", errors: e }, status: :conflict
     rescue GdsApi::HTTPUnprocessableEntity => e
       render json: { status: "error", errors: e }, status: :unprocessable_entity
     rescue ValidationError

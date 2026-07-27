@@ -66,6 +66,14 @@ describe "manual sections resource" do
     expect(response.status).to eq(503)
   end
 
+  it "handles the Publishing API returning a conflict error" do
+    stub_publishing_api_returns_error(409)
+
+    put_json maximal_section_endpoint, maximal_section
+
+    expect(response.status).to eq(409)
+  end
+
   it "handles the Publishing API returning an unproccessable entity error" do
     stub_publishing_api_returns_error(422)
 
