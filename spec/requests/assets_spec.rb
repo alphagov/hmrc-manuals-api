@@ -29,11 +29,11 @@ describe "assets resource" do
       }
     end
 
-    before do
-      allow(Services.asset_manager).to receive(:create_asset).and_return(asset_manager_response.deep_stringify_keys)
-    end
-
     context "when Asset Manager responds with ok" do
+      before do
+        allow(Services.asset_manager).to receive(:create_asset).and_return(asset_manager_response.deep_stringify_keys)
+      end
+
       context "when the asset is not draft" do
         let(:draft) { false }
 
@@ -103,7 +103,22 @@ describe "assets resource" do
       end
     end
 
+    context "when Asset Manager responds with GdsApi::HTTPPayloadTooLarge" do
+      before do
+        allow(Services.asset_manager).to receive(:create_asset).and_raise(GdsApi::HTTPPayloadTooLarge.new(413))
+      end
+
+      it "returns a 413 response" do
+        subject
+
+        expect(response.status).to eq(413)
+        expect(response.body).to include("Content exceeds maximum permitted size")
+      end
+    end
+
     it "errors if the Accept header is not application/json" do
+      allow(Services.asset_manager).to receive(:create_asset).and_return(asset_manager_response.deep_stringify_keys)
+
       post_multipart "/assets", {
         asset: {
           file: fixture_file_upload("asset.txt", "text/plain"),
