@@ -17,7 +17,7 @@ module Services
       @asset_manager ||= GdsApi::AssetManager.new(
         Plek.find("asset-manager"),
         bearer_token: ENV["ASSET_MANAGER_BEARER_TOKEN"] || "example",
-        timeout: 10,
+        timeout: 60,
       )
     else
       Rails.logger.warn("Asset Manager requests are disabled in this environment")
