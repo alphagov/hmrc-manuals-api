@@ -13,10 +13,10 @@ class ApplicationController < ActionController::Base
     if (exception.is_a?(GdsApi::HTTPErrorResponse) && (500..599).cover?(exception.code)) ||
         exception.is_a?(GdsApi::TimedOutException)
       message = "Service unavailable"
-      render json: { status: "error", errors: [message] }, status: :service_unavailable
+      error :service_unavailable, [message]
     else
       message = "Server error"
-      render json: { status: "error", errors: [message] }, status: :internal_server_error
+      error :internal_server_error, [message]
     end
   end
 
@@ -26,12 +26,16 @@ private
     @parsed_request_body = JSON.parse(request.body.read)
   rescue JSON::ParserError => e
     message = "Request JSON could not be parsed: #{e.message}"
-    render json: { status: "error", errors: [message] }, status: :bad_request
+    error :bad_request, [message]
   end
 
   def check_content_type_is_json
     if request.headers["Content-Type"] != "application/json"
-      render json: { status: "error", errors: "Invalid Content-Type header" }, status: :unsupported_media_type
+      error :unsupported_media_type, "Invalid Content-Type header"
     end
+  end
+
+  def error(status, errors)
+    render json: { status: "error", errors: }, status:
   end
 end
