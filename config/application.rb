@@ -36,5 +36,7 @@ module HmrcManualsApi
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
     config.middleware.insert_after(Rack::Runtime, Rack::MethodOverride)
+
+    config.allow_asset_manager_requests = ENV.fetch("ALLOW_ASSET_MANAGER_REQUESTS", false)
   end
 end

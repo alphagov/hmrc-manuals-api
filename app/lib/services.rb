@@ -1,6 +1,7 @@
 require "gds_api/publishing_api"
 require "gds_api/search"
 require "gds_api/content_store"
+require "gds_api/asset_manager"
 
 module Services
   def self.publishing_api
@@ -9,6 +10,18 @@ module Services
       bearer_token: ENV["PUBLISHING_API_BEARER_TOKEN"] || "example",
       timeout: 10,
     )
+  end
+
+  def self.asset_manager
+    if Rails.configuration.allow_asset_manager_requests
+      @asset_manager ||= GdsApi::AssetManager.new(
+        Plek.find("asset-manager"),
+        bearer_token: ENV["ASSET_MANAGER_BEARER_TOKEN"] || "example",
+        timeout: 10,
+      )
+    else
+      Rails.logger.warn("Asset Manager requests are disabled in this environment")
+    end
   end
 
   def self.search_api
