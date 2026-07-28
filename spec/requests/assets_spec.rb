@@ -116,6 +116,19 @@ describe "assets resource" do
       end
     end
 
+    context "when Asset Manager responds with GdsApi::HTTPUnprocessableEntity" do
+      before do
+        allow(Services.asset_manager).to receive(:create_asset).and_raise(GdsApi::HTTPUnprocessableEntity.new(422, "Some error message"))
+      end
+
+      it "returns a 422 response" do
+        subject
+
+        expect(response.status).to eq(422)
+        expect(response.body).to include("Some error message")
+      end
+    end
+
     it "errors if the Accept header is not application/json" do
       allow(Services.asset_manager).to receive(:create_asset).and_return(asset_manager_response.deep_stringify_keys)
 
