@@ -30,16 +30,16 @@ describe "manuals resource" do
     expect(response.status).to eq(503)
   end
 
-  it "handles Publishing API put_content returning 409" do
-    stub_publishing_api_put_content(maximal_manual_content_id, {}, status: 409)
+  it "handles the Publishing API returning a conflict error" do
+    stub_publishing_api_returns_error(409)
 
     put_json "/hmrc-manuals/#{maximal_manual_slug}", maximal_manual
 
-    expect(response.status).to eq(500)
+    expect(response.status).to eq(409)
   end
 
   it "handles the Publishing API returning an unproccessable entity error" do
-    publishing_api_validation_error
+    stub_publishing_api_returns_error(422)
 
     put_json "/hmrc-manuals/#{maximal_manual_slug}", maximal_manual
 
