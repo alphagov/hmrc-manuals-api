@@ -1,7 +1,7 @@
+require "gds_api/asset_manager"
+require "gds_api/content_store"
 require "gds_api/publishing_api"
 require "gds_api/search"
-require "gds_api/content_store"
-require "gds_api/asset_manager"
 
 module Services
   def self.publishing_api
