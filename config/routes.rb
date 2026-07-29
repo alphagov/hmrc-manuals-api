@@ -9,5 +9,7 @@ Rails.application.routes.draw do
         resources :sections
       end
     end
+
+    resources :assets, only: [:create]
   end
 end

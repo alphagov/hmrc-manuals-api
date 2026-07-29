@@ -1,4 +1,5 @@
 class ManualsController < ApplicationController
+  before_action :check_content_type_is_json
   before_action :parse_request_body, only: [:update]
 
   def update
@@ -13,13 +14,13 @@ class ManualsController < ApplicationController
         end
       end
     rescue ActionController::UnknownFormat
-      render json: { status: "error", errors: "Invalid Accept header" }, status: :not_acceptable
+      error :not_acceptable, "Invalid Accept header"
     rescue GdsApi::HTTPConflict => e
-      render json: { status: "error", errors: e }, status: :conflict
+      error :conflict, e
     rescue GdsApi::HTTPUnprocessableEntity => e
-      render json: { status: "error", errors: e }, status: :unprocessable_entity
+      error :unprocessable_entity, e
     rescue ValidationError
-      render json: { status: "error", errors: manual.errors.full_messages }, status: :unprocessable_entity
+      error :unprocessable_entity, manual.errors.full_messages
     end
   end
 end
