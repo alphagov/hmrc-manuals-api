@@ -4,14 +4,71 @@ describe "assets resource" do
   include ActiveSupport::Testing::TimeHelpers
 
   describe "GET /assets/:id" do
-    subject do
-      get "/assets/123456"
+    let(:asset_manager_response) do
+      {
+        _response_info: {
+          status: "ok",
+        },
+        content_type: "text",
+        deleted: "false",
+        draft: "false",
+        file_url: "http://asset-manager.dev.gov.uk/media/123456789/asset.txt",
+        id: "http://asset-manager/assets/123456789",
+        name: "asset.txt",
+        size: "12",
+        state: "clean",
+      }
     end
 
-    it "responds with 200" do
-      subject
+    subject do
+      get "/assets/123456789"
+    end
 
-      expect(response.status).to eq(200)
+    context "when asset manager responds with ok" do
+      before do
+        allow(Services.asset_manager).to receive(:asset).and_return(asset_manager_response.deep_stringify_keys)
+      end
+
+      it "responds with 200" do
+        subject
+
+        expect(response.status).to eq(200)
+      end
+
+      it "responds with data from asset manager" do
+        subject
+
+        parsed_response = JSON.parse(response.body).deep_symbolize_keys
+
+        expect(parsed_response).to include(asset_manager_response)
+        expect(parsed_response).to include(asset_id: "123456789")
+      end
+    end
+
+    context "when asset manager responds with GdsApi::HTTPNotFound" do
+      before do
+        allow(Services.asset_manager).to receive(:asset).and_raise(GdsApi::HTTPNotFound.new(404))
+      end
+
+      it "responds with 404" do
+        subject
+
+        expect(response.status).to eq(404)
+        expect(response.body).to include("Asset not found")
+      end
+    end
+
+    context "when asset manager responds with GdsApi::HTTPForbidden" do
+      before do
+        allow(Services.asset_manager).to receive(:asset).and_raise(GdsApi::HTTPForbidden.new(403))
+      end
+
+      it "responds with 403" do
+        subject
+
+        expect(response.status).to eq(403)
+        expect(response.body).to include("Access to asset is forbidden")
+      end
     end
   end
 

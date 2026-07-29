@@ -48,7 +48,14 @@ class AssetsController < ApplicationController
   end
 
   def show
-    render json: {}
+    asset_manager_response = Services.asset_manager.asset(params[:id]).to_h
+    asset_manager_response.merge!({ asset_id: get_asset_id_from_url(asset_manager_response["file_url"]) })
+
+    render json: asset_manager_response
+  rescue GdsApi::HTTPNotFound
+    error :not_found, "Asset not found"
+  rescue GdsApi::HTTPForbidden
+    error :forbidden, "Access to asset is forbidden"
   end
 
 private
