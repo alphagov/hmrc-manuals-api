@@ -10,6 +10,6 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :assets, only: [:create]
+    resources :assets, only: %i[create show]
   end
 end

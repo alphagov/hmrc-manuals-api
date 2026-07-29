@@ -1,5 +1,5 @@
 class AssetsController < ApplicationController
-  before_action :check_content_type_is_multipart
+  before_action :check_content_type_is_multipart, only: [:create]
 
   def create
     asset = {
@@ -45,6 +45,10 @@ class AssetsController < ApplicationController
     rescue GdsApi::HTTPUnprocessableEntity => e
       error :unprocessable_entity, e.message
     end
+  end
+
+  def show
+    render json: {}
   end
 
 private

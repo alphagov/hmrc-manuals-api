@@ -3,6 +3,18 @@ require "rails_helper"
 describe "assets resource" do
   include ActiveSupport::Testing::TimeHelpers
 
+  describe "GET /assets/:id" do
+    subject do
+      get "/assets/123456"
+    end
+
+    it "responds with 200" do
+      subject
+
+      expect(response.status).to eq(200)
+    end
+  end
+
   describe "POST /assets" do
     let(:draft) { true }
     let(:asset_manager_response) do
