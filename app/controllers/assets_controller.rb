@@ -1,5 +1,5 @@
 class AssetsController < ApplicationController
-  before_action :check_content_type_is_multipart
+  before_action :check_content_type_is_multipart, only: [:create]
 
   def create
     asset = {
@@ -45,6 +45,17 @@ class AssetsController < ApplicationController
     rescue GdsApi::HTTPUnprocessableEntity => e
       error :unprocessable_entity, e.message
     end
+  end
+
+  def show
+    asset_manager_response = Services.asset_manager.asset(params[:id]).to_h
+    asset_manager_response.merge!({ asset_id: get_asset_id_from_url(asset_manager_response["file_url"]) })
+
+    render json: asset_manager_response
+  rescue GdsApi::HTTPNotFound
+    error :not_found, "Asset not found"
+  rescue GdsApi::HTTPForbidden
+    error :forbidden, "Access to asset is forbidden"
   end
 
 private
