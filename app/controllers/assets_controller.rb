@@ -7,16 +7,15 @@ class AssetsController < ApplicationController
       file: asset_params[:file].tempfile,
     }
 
-    if asset[:draft]
-      asset[:auth_bypass_ids] = [SecureRandom.uuid]
-      asset[:auth_bypass_ids_expiry] = Time.zone.now + 30.days
-    end
+    asset.merge!(asset_auth_params) if asset[:draft]
 
     begin
-      output = formatted_asset_manager_response(Services.asset_manager.create_asset(asset))
-
-      output[:file_url] = "#{output['file_url']}?token=#{asset[:auth_bypass_ids].first}" if asset[:auth_bypass_ids]
-      output[:preview_expiry] = asset[:auth_bypass_ids_expiry].iso8601 if asset[:auth_bypass_ids_expiry]
+      asset_manager_response = Services.asset_manager.create_asset(asset)
+      output = if asset[:draft]
+                 formatted_asset_manager_response_for_draft(asset_manager_response, asset)
+               else
+                 formatted_asset_manager_response(asset_manager_response)
+               end
 
       respond_to do |format|
         format.json do
@@ -63,7 +62,21 @@ private
     )
   end
 
+  def formatted_asset_manager_response_for_draft(asset_manager_response, asset_params)
+    formatted_asset_manager_response(asset_manager_response).merge(
+      file_url: "#{asset_manager_response['file_url']}?token=#{asset_params[:auth_bypass_ids].first}",
+      preview_expiry: asset_params[:auth_bypass_ids_expiry].iso8601,
+    )
+  end
+
   def get_asset_id_from_url(url)
     url[/\/media\/(.*)\//, 1]
+  end
+
+  def asset_auth_params
+    {
+      auth_bypass_ids: [SecureRandom.uuid],
+      auth_bypass_ids_expiry: Time.zone.now + 30.days,
+    }
   end
 end
