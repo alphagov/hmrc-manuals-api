@@ -219,4 +219,87 @@ describe "assets resource" do
       expect(response.status).to eq(415)
     end
   end
+
+  describe "POST /assets/:id/regenerate-access" do
+    let(:asset_manager_response) do
+      {
+        _response_info: {
+          status: "ok",
+        },
+        content_type: "text",
+        deleted: "false",
+        draft: "false",
+        file_url: "http://asset-manager.dev.gov.uk/media/123456789/asset.txt",
+        id: "http://asset-manager/assets/123456789",
+        name: "asset.txt",
+        size: "12",
+        state: "clean",
+      }
+    end
+
+    subject do
+      post "/assets/123456789/regenerate-access"
+    end
+
+    context "when asset manager responds with ok" do
+      before do
+        allow(Services.asset_manager).to receive(:update_asset).and_return(asset_manager_response.deep_stringify_keys)
+        allow(SecureRandom).to receive(:uuid).and_return("new-token")
+      end
+
+      it "responds with 201" do
+        subject
+
+        expect(response.status).to eq(201)
+      end
+
+      it "responds with data from asset manager" do
+        subject
+
+        parsed_response = JSON.parse(response.body).deep_symbolize_keys
+        expect(parsed_response).to include(asset_manager_response.except(:file_url))
+      end
+
+      it "generates and includes a token in the file_url" do
+        subject
+
+        parsed_response = JSON.parse(response.body).deep_symbolize_keys
+        expect(parsed_response).to include(file_url: "http://asset-manager.dev.gov.uk/media/123456789/asset.txt?token=new-token")
+      end
+
+      it "includes a preview expiry date 30 days in the future" do
+        travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
+        subject
+
+        parsed_response = JSON.parse(response.body).deep_symbolize_keys
+        expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
+      end
+    end
+
+    context "when asset manager responds with GdsApi::HTTPNotFound" do
+      before do
+        allow(Services.asset_manager).to receive(:update_asset).and_raise(GdsApi::HTTPNotFound.new(404))
+      end
+
+      it "responds with 404" do
+        subject
+
+        expect(response.status).to eq(404)
+        expect(response.body).to include("Asset not found")
+      end
+    end
+
+    context "when asset manager responds with GdsApi::HTTPForbidden" do
+      before do
+        allow(Services.asset_manager).to receive(:update_asset).and_raise(GdsApi::HTTPForbidden.new(403))
+      end
+
+      it "responds with 403" do
+        subject
+
+        expect(response.status).to eq(403)
+        expect(response.body).to include("Access to asset is forbidden")
+      end
+    end
+  end
 end

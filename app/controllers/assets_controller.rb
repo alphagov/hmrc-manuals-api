@@ -41,6 +41,17 @@ class AssetsController < ApplicationController
     error :forbidden, "Access to asset is forbidden"
   end
 
+  def regenerate_access
+    asset_manager_response = Services.asset_manager.update_asset(params[:asset_id], asset_auth_params)
+    output = formatted_asset_manager_response_for_draft(asset_manager_response, asset_auth_params)
+
+    render status: :created, json: output
+  rescue GdsApi::HTTPNotFound
+    error :not_found, "Asset not found"
+  rescue GdsApi::HTTPForbidden
+    error :forbidden, "Access to asset is forbidden"
+  end
+
 private
 
   def check_content_type_is_multipart
