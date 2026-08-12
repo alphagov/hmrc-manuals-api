@@ -44,6 +44,14 @@ class AssetsController < ApplicationController
     error :forbidden, "Access to asset is forbidden"
   end
 
+  def update
+    respond_to do |format|
+      format.json do
+        render json: {}
+      end
+    end
+  end
+
   def show
     output = formatted_asset_manager_response(Services.asset_manager.asset(params[:id]))
 

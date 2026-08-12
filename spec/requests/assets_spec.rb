@@ -358,6 +358,18 @@ describe "assets resource" do
     end
   end
 
+  describe "PUT /assets/:id" do
+    subject do
+      put_multipart "/assets/#{asset_id}", {}
+    end
+
+    it "responds with ok" do
+      subject
+
+      expect(response.status).to eq(200)
+    end
+  end
+
   describe "POST /assets/:id/regenerate-access" do
     let(:stub_asset_manager_request) { stub_asset_manager_update_asset(asset_id, asset_manager_response.deep_stringify_keys) }
 
