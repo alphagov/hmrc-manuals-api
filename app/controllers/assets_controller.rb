@@ -74,9 +74,12 @@ private
   end
 
   def formatted_asset_manager_response_for_draft(asset_manager_response, asset_params)
+    token_expiry = Time.zone.now + 30.days
+    token = generate_jwt_token(asset_params[:auth_bypass_ids].first, token_expiry)
+
     formatted_asset_manager_response(asset_manager_response).merge(
-      file_url: "#{asset_manager_response['file_url']}?token=#{asset_params[:auth_bypass_ids].first}",
-      preview_expiry: asset_params[:auth_bypass_ids_expiry].iso8601,
+      file_url: "#{asset_manager_response['file_url']}?token=#{token}",
+      preview_expiry: token_expiry.iso8601,
     )
   end
 
@@ -87,7 +90,15 @@ private
   def asset_auth_params
     {
       auth_bypass_ids: [SecureRandom.uuid],
-      auth_bypass_ids_expiry: Time.zone.now + 30.days,
     }
+  end
+
+  def generate_jwt_token(auth_bypass_id, token_expiry)
+    payload = {
+      exp: token_expiry.to_i,
+      iat: Time.zone.now.to_i,
+      sub: auth_bypass_id,
+    }
+    JWT.encode(payload, Rails.application.config.jwt_auth_secret, "HS256")
   end
 end
