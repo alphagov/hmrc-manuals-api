@@ -156,18 +156,19 @@ describe "assets resource" do
         end
 
         it "generates and includes a token in the file_url" do
-          subject
-
-          parsed_response = JSON.parse(response.body).deep_symbolize_keys
-          expect(parsed_response).to include(file_url: "http://asset-manager.dev.gov.uk/media/45678/asset.txt?token=some-token")
-        end
-
-        it "includes a preview expiry date 30 days in the future" do
           travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
+
           subject
 
           parsed_response = JSON.parse(response.body).deep_symbolize_keys
-          expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
+
+          expected_decoded_token = {
+            "exp" => Time.zone.local(2026, 1, 31, 0, 0, 1).to_i,
+            "iat" => Time.zone.now.to_i,
+            "sub" => "some-token",
+          }
+
+          expect(decoded_token_payload_from_url(parsed_response[:file_url])).to eq(expected_decoded_token)
         end
       end
     end
@@ -261,18 +262,19 @@ describe "assets resource" do
       end
 
       it "generates and includes a token in the file_url" do
-        subject
-
-        parsed_response = JSON.parse(response.body).deep_symbolize_keys
-        expect(parsed_response).to include(file_url: "http://asset-manager.dev.gov.uk/media/123456789/asset.txt?token=new-token")
-      end
-
-      it "includes a preview expiry date 30 days in the future" do
         travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
+
         subject
 
         parsed_response = JSON.parse(response.body).deep_symbolize_keys
-        expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
+
+        expected_decoded_token = {
+          "exp" => Time.zone.local(2026, 1, 31, 0, 0, 1).to_i,
+          "iat" => Time.zone.now.to_i,
+          "sub" => "new-token",
+        }
+
+        expect(decoded_token_payload_from_url(parsed_response[:file_url])).to eq(expected_decoded_token)
       end
     end
 
@@ -302,4 +304,17 @@ describe "assets resource" do
       end
     end
   end
+end
+
+def decoded_token_payload_from_url(url)
+  query_params = Rack::Utils.parse_query(URI(url).query)
+
+  payload, _header = JWT.decode(
+    query_params["token"],
+    Rails.application.config.jwt_auth_secret,
+    true,
+    { algorithm: "HS256" },
+  )
+
+  payload
 end

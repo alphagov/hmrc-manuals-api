@@ -38,5 +38,7 @@ module HmrcManualsApi
     config.middleware.insert_after(Rack::Runtime, Rack::MethodOverride)
 
     config.allow_asset_manager_requests = ENV.fetch("ALLOW_ASSET_MANAGER_REQUESTS", false)
+
+    config.jwt_auth_secret = ENV.fetch("JWT_AUTH_SECRET", "123")
   end
 end
