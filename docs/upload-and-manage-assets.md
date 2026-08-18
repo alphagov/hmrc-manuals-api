@@ -356,7 +356,7 @@ Replaced (superseded) assets will include `replacement_id`.
 
 | Status                     | Description               |
 | -------------------------- | ------------------------- |
-| `403 Forbidden`            | User does not have permission to manage this Asset |
+| `403 Forbidden`            | Access to asset is forbidden. |
 | `404 Not Found`            | Asset does not exist.     |
 | `413 Payload Too Large`    | Uploaded file exceeds permitted size. |
 | `422 Unprocessable Entity` | Asset update failed.      |
