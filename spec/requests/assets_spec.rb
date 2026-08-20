@@ -3,6 +3,8 @@ require "rails_helper"
 describe "assets resource" do
   include ActiveSupport::Testing::TimeHelpers
 
+  let(:parsed_response) { JSON.parse(response.body).deep_symbolize_keys }
+
   describe "GET /assets/:id" do
     let(:asset_manager_response) do
       {
@@ -37,8 +39,6 @@ describe "assets resource" do
 
       it "responds with data from asset manager" do
         subject
-
-        parsed_response = JSON.parse(response.body).deep_symbolize_keys
 
         expect(parsed_response).to include(asset_manager_response)
         expect(parsed_response).to include(asset_id: "123456789")
@@ -123,7 +123,6 @@ describe "assets resource" do
         it "responds with data from asset manager" do
           subject
 
-          parsed_response = JSON.parse(response.body).deep_symbolize_keys
           expect(parsed_response).to include(asset_manager_response)
           expect(parsed_response).to include(asset_id: "45678")
         end
@@ -131,7 +130,6 @@ describe "assets resource" do
         it "does not include a token in the file_url" do
           subject
 
-          parsed_response = JSON.parse(response.body).deep_symbolize_keys
           expect(parsed_response[:file_url]).not_to match(/token=/)
         end
       end
@@ -150,7 +148,6 @@ describe "assets resource" do
         it "responds with data from asset manager" do
           subject
 
-          parsed_response = JSON.parse(response.body).deep_symbolize_keys
           expect(parsed_response).to include(asset_manager_response.except(:file_url))
           expect(parsed_response).to include(asset_id: "45678")
         end
@@ -159,8 +156,6 @@ describe "assets resource" do
           travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
 
           subject
-
-          parsed_response = JSON.parse(response.body).deep_symbolize_keys
 
           expected_decoded_token = {
             "exp" => Time.zone.local(2026, 1, 31, 0, 0, 1).to_i,
@@ -176,7 +171,6 @@ describe "assets resource" do
 
           subject
 
-          parsed_response = JSON.parse(response.body).deep_symbolize_keys
           expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
         end
       end
@@ -266,7 +260,6 @@ describe "assets resource" do
       it "responds with data from asset manager" do
         subject
 
-        parsed_response = JSON.parse(response.body).deep_symbolize_keys
         expect(parsed_response).to include(asset_manager_response.except(:file_url))
       end
 
@@ -274,8 +267,6 @@ describe "assets resource" do
         travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
 
         subject
-
-        parsed_response = JSON.parse(response.body).deep_symbolize_keys
 
         expected_decoded_token = {
           "exp" => Time.zone.local(2026, 1, 31, 0, 0, 1).to_i,
@@ -291,7 +282,6 @@ describe "assets resource" do
 
         subject
 
-        parsed_response = JSON.parse(response.body).deep_symbolize_keys
         expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
       end
     end
