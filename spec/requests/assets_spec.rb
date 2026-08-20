@@ -103,7 +103,7 @@ describe "assets resource" do
         allow(Services.asset_manager).to receive(:create_asset).and_return(asset_manager_response.deep_stringify_keys)
       end
 
-      context "when the asset is not draft" do
+      context "when the request marks the asset as live" do
         let(:draft) { false }
 
         subject do
@@ -134,7 +134,7 @@ describe "assets resource" do
         end
       end
 
-      context "when the asset is draft" do
+      context "when the request marks the asset as draft" do
         before do
           allow(SecureRandom).to receive(:uuid).and_return("some-token")
           travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
