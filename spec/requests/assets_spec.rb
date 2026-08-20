@@ -170,6 +170,15 @@ describe "assets resource" do
 
           expect(decoded_token_payload_from_url(parsed_response[:file_url])).to eq(expected_decoded_token)
         end
+
+        it "includes a preview expiry date 30 days in the future" do
+          travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
+
+          subject
+
+          parsed_response = JSON.parse(response.body).deep_symbolize_keys
+          expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
+        end
       end
     end
 
@@ -275,6 +284,15 @@ describe "assets resource" do
         }
 
         expect(decoded_token_payload_from_url(parsed_response[:file_url])).to eq(expected_decoded_token)
+      end
+
+      it "includes a preview expiry date 30 days in the future" do
+        travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
+
+        subject
+
+        parsed_response = JSON.parse(response.body).deep_symbolize_keys
+        expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
       end
     end
 
