@@ -29,17 +29,15 @@ describe "assets resource" do
     context "when asset manager responds with ok" do
       before do
         allow(Services.asset_manager).to receive(:asset).and_return(asset_manager_response.deep_stringify_keys)
+
+        subject
       end
 
       it "responds with 200" do
-        subject
-
         expect(response.status).to eq(200)
       end
 
       it "responds with data from asset manager" do
-        subject
-
         expect(parsed_response).to include(asset_manager_response)
         expect(parsed_response).to include(asset_id: "123456789")
       end
@@ -48,11 +46,11 @@ describe "assets resource" do
     context "when asset manager responds with GdsApi::HTTPNotFound" do
       before do
         allow(Services.asset_manager).to receive(:asset).and_raise(GdsApi::HTTPNotFound.new(404))
+
+        subject
       end
 
       it "responds with 404" do
-        subject
-
         expect(response.status).to eq(404)
         expect(response.body).to include("Asset not found")
       end
@@ -61,11 +59,11 @@ describe "assets resource" do
     context "when asset manager responds with GdsApi::HTTPForbidden" do
       before do
         allow(Services.asset_manager).to receive(:asset).and_raise(GdsApi::HTTPForbidden.new(403))
+
+        subject
       end
 
       it "responds with 403" do
-        subject
-
         expect(response.status).to eq(403)
         expect(response.body).to include("Access to asset is forbidden")
       end
@@ -114,22 +112,21 @@ describe "assets resource" do
             },
           }
         end
-        it "responds with 201 Created" do
-          subject
 
+        before do
+          subject
+        end
+
+        it "responds with 201 Created" do
           expect(response.status).to eq(201)
         end
 
         it "responds with data from asset manager" do
-          subject
-
           expect(parsed_response).to include(asset_manager_response)
           expect(parsed_response).to include(asset_id: "45678")
         end
 
         it "does not include a token in the file_url" do
-          subject
-
           expect(parsed_response[:file_url]).not_to match(/token=/)
         end
       end
@@ -138,24 +135,20 @@ describe "assets resource" do
         before do
           allow(SecureRandom).to receive(:uuid).and_return("some-token")
           travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
+
+          subject
         end
 
         it "responds with 201 Created" do
-          subject
-
           expect(response.status).to eq(201)
         end
 
         it "responds with data from asset manager" do
-          subject
-
           expect(parsed_response).to include(asset_manager_response.except(:file_url))
           expect(parsed_response).to include(asset_id: "45678")
         end
 
         it "generates and includes a token in the file_url" do
-          subject
-
           expected_decoded_token = {
             "exp" => Time.zone.local(2026, 1, 31, 0, 0, 1).to_i,
             "iat" => Time.zone.now.to_i,
@@ -166,8 +159,6 @@ describe "assets resource" do
         end
 
         it "includes a preview expiry date 30 days in the future" do
-          subject
-
           expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
         end
       end
@@ -176,11 +167,11 @@ describe "assets resource" do
     context "when Asset Manager responds with GdsApi::HTTPPayloadTooLarge" do
       before do
         allow(Services.asset_manager).to receive(:create_asset).and_raise(GdsApi::HTTPPayloadTooLarge.new(413))
+
+        subject
       end
 
       it "returns a 413 response" do
-        subject
-
         expect(response.status).to eq(413)
         expect(response.body).to include("Content exceeds maximum permitted size")
       end
@@ -189,11 +180,11 @@ describe "assets resource" do
     context "when Asset Manager responds with GdsApi::HTTPUnprocessableEntity" do
       before do
         allow(Services.asset_manager).to receive(:create_asset).and_raise(GdsApi::HTTPUnprocessableEntity.new(422, "Some error message"))
+
+        subject
       end
 
       it "returns a 422 response" do
-        subject
-
         expect(response.status).to eq(422)
         expect(response.body).to include("Some error message")
       end
@@ -210,11 +201,11 @@ describe "assets resource" do
 
       before do
         allow(Services.asset_manager).to receive(:create_asset).and_return(asset_manager_response.deep_stringify_keys)
+
+        subject
       end
 
       it "returns a 406 response" do
-        subject
-
         expect(response.status).to eq(406)
       end
     end
@@ -228,9 +219,11 @@ describe "assets resource" do
         }
       end
 
-      it "returns a 415 response" do
+      before do
         subject
+      end
 
+      it "returns a 415 response" do
         expect(response.status).to eq(415)
       end
     end
@@ -262,23 +255,19 @@ describe "assets resource" do
         allow(Services.asset_manager).to receive(:update_asset).and_return(asset_manager_response.deep_stringify_keys)
         allow(SecureRandom).to receive(:uuid).and_return("new-token")
         travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
+
+        subject
       end
 
       it "responds with 201" do
-        subject
-
         expect(response.status).to eq(201)
       end
 
       it "responds with data from asset manager" do
-        subject
-
         expect(parsed_response).to include(asset_manager_response.except(:file_url))
       end
 
       it "generates and includes a token in the file_url" do
-        subject
-
         expected_decoded_token = {
           "exp" => Time.zone.local(2026, 1, 31, 0, 0, 1).to_i,
           "iat" => Time.zone.now.to_i,
@@ -289,8 +278,6 @@ describe "assets resource" do
       end
 
       it "includes a preview expiry date 30 days in the future" do
-        subject
-
         expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
       end
     end
@@ -298,11 +285,11 @@ describe "assets resource" do
     context "when asset manager responds with GdsApi::HTTPNotFound" do
       before do
         allow(Services.asset_manager).to receive(:update_asset).and_raise(GdsApi::HTTPNotFound.new(404))
+
+        subject
       end
 
       it "responds with 404" do
-        subject
-
         expect(response.status).to eq(404)
         expect(response.body).to include("Asset not found")
       end
@@ -311,11 +298,11 @@ describe "assets resource" do
     context "when asset manager responds with GdsApi::HTTPForbidden" do
       before do
         allow(Services.asset_manager).to receive(:update_asset).and_raise(GdsApi::HTTPForbidden.new(403))
+
+        subject
       end
 
       it "responds with 403" do
-        subject
-
         expect(response.status).to eq(403)
         expect(response.body).to include("Access to asset is forbidden")
       end
