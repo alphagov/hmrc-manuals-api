@@ -33,8 +33,8 @@ describe "assets resource" do
         subject
       end
 
-      it "responds with 200" do
-        expect(response.status).to eq(200)
+      it "responds with 200 OK" do
+        expect(response).to have_http_status(:ok)
       end
 
       it "responds with data from Asset Manager" do
@@ -50,8 +50,8 @@ describe "assets resource" do
         subject
       end
 
-      it "responds with 404" do
-        expect(response.status).to eq(404)
+      it "responds with 404 Not Found" do
+        expect(response).to have_http_status(:not_found)
         expect(response.body).to include("Asset not found")
       end
     end
@@ -63,8 +63,8 @@ describe "assets resource" do
         subject
       end
 
-      it "responds with 403" do
-        expect(response.status).to eq(403)
+      it "responds with 403 Forbidden" do
+        expect(response).to have_http_status(:forbidden)
         expect(response.body).to include("Access to asset is forbidden")
       end
     end
@@ -118,7 +118,7 @@ describe "assets resource" do
         end
 
         it "responds with 201 Created" do
-          expect(response.status).to eq(201)
+          expect(response).to have_http_status(:created)
         end
 
         it "responds with data from Asset Manager" do
@@ -140,7 +140,7 @@ describe "assets resource" do
         end
 
         it "responds with 201 Created" do
-          expect(response.status).to eq(201)
+          expect(response).to have_http_status(:created)
         end
 
         it "responds with data from Asset Manager" do
@@ -171,8 +171,8 @@ describe "assets resource" do
         subject
       end
 
-      it "returns a 413 response" do
-        expect(response.status).to eq(413)
+      it "responds with 413 Content Too Large" do
+        expect(response).to have_http_status(:content_too_large)
         expect(response.body).to include("Content exceeds maximum permitted size")
       end
     end
@@ -184,8 +184,8 @@ describe "assets resource" do
         subject
       end
 
-      it "returns a 422 response" do
-        expect(response.status).to eq(422)
+      it "responds with 422 Unprocessable Entity" do
+        expect(response).to have_http_status(:unprocessable_entity)
         expect(response.body).to include("Some error message")
       end
     end
@@ -205,8 +205,8 @@ describe "assets resource" do
         subject
       end
 
-      it "returns a 406 response" do
-        expect(response.status).to eq(406)
+      it "responds with a 406 Not Acceptable" do
+        expect(response).to have_http_status(:not_acceptable)
       end
     end
 
@@ -223,8 +223,8 @@ describe "assets resource" do
         subject
       end
 
-      it "returns a 415 response" do
-        expect(response.status).to eq(415)
+      it "responds with 415 Unsupported Media Type" do
+        expect(response).to have_http_status(:unsupported_media_type)
       end
     end
   end
@@ -259,8 +259,8 @@ describe "assets resource" do
         subject
       end
 
-      it "responds with 201" do
-        expect(response.status).to eq(201)
+      it "responds with 201 Created" do
+        expect(response).to have_http_status(:created)
       end
 
       it "responds with data from Asset Manager" do
@@ -289,8 +289,8 @@ describe "assets resource" do
         subject
       end
 
-      it "responds with 404" do
-        expect(response.status).to eq(404)
+      it "responds with 404 Not Found" do
+        expect(response).to have_http_status(:not_found)
         expect(response.body).to include("Asset not found")
       end
     end
@@ -302,8 +302,8 @@ describe "assets resource" do
         subject
       end
 
-      it "responds with 403" do
-        expect(response.status).to eq(403)
+      it "responds with 403 Forbidden" do
+        expect(response).to have_http_status(:forbidden)
         expect(response.body).to include("Access to asset is forbidden")
       end
     end
