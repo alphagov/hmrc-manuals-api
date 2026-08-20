@@ -199,25 +199,40 @@ describe "assets resource" do
       end
     end
 
-    it "errors if the Accept header is not application/json" do
-      allow(Services.asset_manager).to receive(:create_asset).and_return(asset_manager_response.deep_stringify_keys)
+    context "when the Accept header is not application/json" do
+      subject do
+        post_multipart "/assets", {
+          asset: {
+            file: fixture_file_upload("asset.txt", "text/plain"),
+          },
+        }, { "HTTP_ACCEPT" => "text/plain" }
+      end
 
-      post_multipart "/assets", {
-        asset: {
-          file: fixture_file_upload("asset.txt", "text/plain"),
-        },
-      }, { "HTTP_ACCEPT" => "text/plain" }
-      expect(response.status).to eq(406)
+      before do
+        allow(Services.asset_manager).to receive(:create_asset).and_return(asset_manager_response.deep_stringify_keys)
+      end
+
+      it "returns a 406 response" do
+        subject
+
+        expect(response.status).to eq(406)
+      end
     end
 
-    it "errors if the Content-Type header is not multipart/form-data" do
-      post "/assets", params: {}, headers: {
-        "CONTENT_TYPE" => "application/json",
-        "HTTP_ACCEPT" => "application/json",
-        "HTTP_AUTHORIZATION" => "Bearer 12345678",
-      }
+    context "when Content-Type header is not multipart/form-data" do
+      subject do
+        post "/assets", params: {}, headers: {
+          "CONTENT_TYPE" => "application/json",
+          "HTTP_ACCEPT" => "application/json",
+          "HTTP_AUTHORIZATION" => "Bearer 12345678",
+        }
+      end
 
-      expect(response.status).to eq(415)
+      it "returns a 415 response" do
+        subject
+
+        expect(response.status).to eq(415)
+      end
     end
   end
 
