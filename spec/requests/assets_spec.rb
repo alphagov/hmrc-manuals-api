@@ -26,7 +26,7 @@ describe "assets resource" do
       get "/assets/123456789"
     end
 
-    context "when asset manager responds with ok" do
+    context "when Asset Manager responds with ok" do
       before do
         allow(Services.asset_manager).to receive(:asset).and_return(asset_manager_response.deep_stringify_keys)
 
@@ -37,13 +37,13 @@ describe "assets resource" do
         expect(response.status).to eq(200)
       end
 
-      it "responds with data from asset manager" do
+      it "responds with data from Asset Manager" do
         expect(parsed_response).to include(asset_manager_response)
         expect(parsed_response).to include(asset_id: "123456789")
       end
     end
 
-    context "when asset manager responds with GdsApi::HTTPNotFound" do
+    context "when Asset Manager responds with GdsApi::HTTPNotFound" do
       before do
         allow(Services.asset_manager).to receive(:asset).and_raise(GdsApi::HTTPNotFound.new(404))
 
@@ -56,7 +56,7 @@ describe "assets resource" do
       end
     end
 
-    context "when asset manager responds with GdsApi::HTTPForbidden" do
+    context "when Asset Manager responds with GdsApi::HTTPForbidden" do
       before do
         allow(Services.asset_manager).to receive(:asset).and_raise(GdsApi::HTTPForbidden.new(403))
 
@@ -121,7 +121,7 @@ describe "assets resource" do
           expect(response.status).to eq(201)
         end
 
-        it "responds with data from asset manager" do
+        it "responds with data from Asset Manager" do
           expect(parsed_response).to include(asset_manager_response)
           expect(parsed_response).to include(asset_id: "45678")
         end
@@ -143,7 +143,7 @@ describe "assets resource" do
           expect(response.status).to eq(201)
         end
 
-        it "responds with data from asset manager" do
+        it "responds with data from Asset Manager" do
           expect(parsed_response).to include(asset_manager_response.except(:file_url))
           expect(parsed_response).to include(asset_id: "45678")
         end
@@ -250,7 +250,7 @@ describe "assets resource" do
       post "/assets/123456789/regenerate-access"
     end
 
-    context "when asset manager responds with ok" do
+    context "when Asset Manager responds with ok" do
       before do
         allow(Services.asset_manager).to receive(:update_asset).and_return(asset_manager_response.deep_stringify_keys)
         allow(SecureRandom).to receive(:uuid).and_return("new-token")
@@ -263,7 +263,7 @@ describe "assets resource" do
         expect(response.status).to eq(201)
       end
 
-      it "responds with data from asset manager" do
+      it "responds with data from Asset Manager" do
         expect(parsed_response).to include(asset_manager_response.except(:file_url))
       end
 
@@ -282,7 +282,7 @@ describe "assets resource" do
       end
     end
 
-    context "when asset manager responds with GdsApi::HTTPNotFound" do
+    context "when Asset Manager responds with GdsApi::HTTPNotFound" do
       before do
         allow(Services.asset_manager).to receive(:update_asset).and_raise(GdsApi::HTTPNotFound.new(404))
 
@@ -295,7 +295,7 @@ describe "assets resource" do
       end
     end
 
-    context "when asset manager responds with GdsApi::HTTPForbidden" do
+    context "when Asset Manager responds with GdsApi::HTTPForbidden" do
       before do
         allow(Services.asset_manager).to receive(:update_asset).and_raise(GdsApi::HTTPForbidden.new(403))
 
