@@ -137,6 +137,7 @@ describe "assets resource" do
       context "when the asset is draft" do
         before do
           allow(SecureRandom).to receive(:uuid).and_return("some-token")
+          travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
         end
 
         it "responds with 201 Created" do
@@ -153,8 +154,6 @@ describe "assets resource" do
         end
 
         it "generates and includes a token in the file_url" do
-          travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
-
           subject
 
           expected_decoded_token = {
@@ -167,8 +166,6 @@ describe "assets resource" do
         end
 
         it "includes a preview expiry date 30 days in the future" do
-          travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
-
           subject
 
           expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
@@ -249,6 +246,7 @@ describe "assets resource" do
       before do
         allow(Services.asset_manager).to receive(:update_asset).and_return(asset_manager_response.deep_stringify_keys)
         allow(SecureRandom).to receive(:uuid).and_return("new-token")
+        travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
       end
 
       it "responds with 201" do
@@ -264,8 +262,6 @@ describe "assets resource" do
       end
 
       it "generates and includes a token in the file_url" do
-        travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
-
         subject
 
         expected_decoded_token = {
@@ -278,8 +274,6 @@ describe "assets resource" do
       end
 
       it "includes a preview expiry date 30 days in the future" do
-        travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
-
         subject
 
         expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
