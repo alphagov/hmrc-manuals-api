@@ -43,7 +43,7 @@ class AssetsController < ApplicationController
   end
 
   def regenerate_access
-    asset_manager_response = Services.asset_manager.update_asset(params[:asset_id], asset_auth_params)
+    asset_manager_response = Services.asset_manager.update_asset(params[:id], asset_auth_params)
     output = formatted_asset_manager_response_for_draft(asset_manager_response, asset_auth_params)
 
     render status: :created, json: output
