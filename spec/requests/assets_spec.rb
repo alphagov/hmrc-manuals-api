@@ -75,7 +75,7 @@ describe "assets resource" do
 
       it "responds with 404 Not Found" do
         expect(response).to have_http_status(:not_found)
-        expect(response.body).to include("Asset not found")
+        expect(parsed_response).to eq({ errors: "Asset not found", status: "error" })
       end
     end
 
@@ -84,7 +84,7 @@ describe "assets resource" do
 
       it "responds with 403 Forbidden" do
         expect(response).to have_http_status(:forbidden)
-        expect(response.body).to include("Access to asset is forbidden")
+        expect(parsed_response).to eq({ errors: "Access to asset is forbidden", status: "error" })
       end
     end
   end
@@ -193,7 +193,7 @@ describe "assets resource" do
 
       it "responds with 413 Content Too Large" do
         expect(response).to have_http_status(:content_too_large)
-        expect(response.body).to include("Content exceeds maximum permitted size")
+        expect(parsed_response).to eq({ errors: "Content exceeds maximum permitted size", status: "error" })
       end
     end
 
@@ -295,7 +295,7 @@ describe "assets resource" do
 
       it "responds with 404 Not Found" do
         expect(response).to have_http_status(:not_found)
-        expect(response.body).to include("Asset not found")
+        expect(parsed_response).to eq({ errors: "Asset not found", status: "error" })
       end
     end
 
@@ -304,7 +304,7 @@ describe "assets resource" do
 
       it "responds with 403 Forbidden" do
         expect(response).to have_http_status(:forbidden)
-        expect(response.body).to include("Access to asset is forbidden")
+        expect(parsed_response).to eq({ errors: "Access to asset is forbidden", status: "error" })
       end
     end
   end
