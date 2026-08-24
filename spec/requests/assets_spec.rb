@@ -1,9 +1,31 @@
 require "rails_helper"
+require "gds_api/test_helpers/asset_manager"
 
 describe "assets resource" do
   include ActiveSupport::Testing::TimeHelpers
+  include GdsApi::TestHelpers::AssetManager
 
   let(:parsed_response) { JSON.parse(response.body).deep_symbolize_keys }
+
+  context "when the allow_asset_manager_requests feature flag is false" do
+    subject do
+      get "/assets/123456789"
+    end
+
+    before do
+      allow(Rails.application.config).to receive(:allow_asset_manager_requests).and_return(false)
+
+      subject
+    end
+
+    it "responds with 501 Not Implemented" do
+      expect(response).to have_http_status(:not_implemented)
+    end
+
+    it "makes no requests to Asset Manager" do
+      expect(stub_any_asset_manager_call).not_to have_been_requested
+    end
+  end
 
   describe "GET /assets/:id" do
     let(:asset_manager_response) do

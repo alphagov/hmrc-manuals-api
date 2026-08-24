@@ -1,4 +1,5 @@
 class AssetsController < ApplicationController
+  before_action :check_asset_manager_requests_allowed
   before_action :check_content_type_is_multipart, only: [:create]
 
   def create
@@ -53,6 +54,10 @@ class AssetsController < ApplicationController
   end
 
 private
+
+  def check_asset_manager_requests_allowed
+    head :not_implemented unless Rails.application.config.allow_asset_manager_requests
+  end
 
   def check_content_type_is_multipart
     unless request.headers["Content-Type"].match?(/^multipart\/form-data/)
