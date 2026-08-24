@@ -220,7 +220,7 @@ describe "assets resource" do
       end
 
       it "responds with 422 Unprocessable Entity" do
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(response.body).to include("Some error message")
       end
     end
