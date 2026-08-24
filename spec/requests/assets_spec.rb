@@ -6,6 +6,21 @@ describe "assets resource" do
   include GdsApi::TestHelpers::AssetManager
 
   let(:asset_id) { SecureRandom.hex }
+  let(:asset_manager_response) do
+    {
+      _response_info: {
+        status: "ok",
+      },
+      content_type: "text",
+      deleted: "false",
+      draft: "false",
+      file_url: "http://asset-manager.dev.gov.uk/media/#{asset_id}/asset.txt",
+      id: "http://asset-manager/assets/#{asset_id}",
+      name: "asset.txt",
+      size: "12",
+      state: "clean",
+    }
+  end
   let(:parsed_response) { JSON.parse(response.body).deep_symbolize_keys }
 
   context "when the allow_asset_manager_requests feature flag is false" do
@@ -29,21 +44,6 @@ describe "assets resource" do
   end
 
   describe "GET /assets/:id" do
-    let(:asset_manager_response) do
-      {
-        _response_info: {
-          status: "ok",
-        },
-        content_type: "text",
-        deleted: "false",
-        draft: "false",
-        file_url: "http://asset-manager.dev.gov.uk/media/#{asset_id}/asset.txt",
-        id: "http://asset-manager/assets/#{asset_id}",
-        name: "asset.txt",
-        size: "12",
-        state: "clean",
-      }
-    end
     let(:stub_asset_manager_request) { stub_asset_manager_request_to_get_asset(asset_id, asset_manager_response.deep_stringify_keys) }
 
     subject do
@@ -91,22 +91,7 @@ describe "assets resource" do
 
   describe "POST /assets" do
     let(:draft) { true }
-    let(:file_url) { "http://asset-manager.dev.gov.uk/media/#{asset_id}/asset.txt" }
-    let(:asset_manager_response) do
-      {
-        _response_info: {
-          status: "ok",
-        },
-        content_type: "text",
-        deleted: "false",
-        draft: draft.to_s,
-        file_url:,
-        id: "123",
-        name: "asset.txt",
-        size: "12",
-        state: "clean",
-      }
-    end
+    let(:file_url) { asset_manager_response[:file_url] }
     let(:stub_asset_manager_request) { stub_asset_manager_create_asset(file_url, asset_manager_response) }
 
     subject do
@@ -263,21 +248,6 @@ describe "assets resource" do
   end
 
   describe "POST /assets/:id/regenerate-access" do
-    let(:asset_manager_response) do
-      {
-        _response_info: {
-          status: "ok",
-        },
-        content_type: "text",
-        deleted: "false",
-        draft: "false",
-        file_url: "http://asset-manager.dev.gov.uk/media/#{asset_id}/asset.txt",
-        id: "http://asset-manager/assets/#{asset_id}",
-        name: "asset.txt",
-        size: "12",
-        state: "clean",
-      }
-    end
     let(:stub_asset_manager_request) { stub_asset_manager_update_asset(asset_id, asset_manager_response.deep_stringify_keys) }
 
     subject do
