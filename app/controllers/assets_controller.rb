@@ -11,15 +11,15 @@ class AssetsController < ApplicationController
     asset.merge!(asset_auth_params) if asset[:draft]
 
     begin
-      asset_manager_response = Services.asset_manager.create_asset(asset)
-      output = if asset[:draft]
-                 formatted_asset_manager_response_for_draft(asset_manager_response, asset)
-               else
-                 formatted_asset_manager_response(asset_manager_response)
-               end
-
       respond_to do |format|
         format.json do
+          asset_manager_response = Services.asset_manager.create_asset(asset)
+          output = if asset[:draft]
+                     formatted_asset_manager_response_for_draft(asset_manager_response, asset)
+                   else
+                     formatted_asset_manager_response(asset_manager_response)
+                   end
+
           render status: :created, json: output
         end
       end

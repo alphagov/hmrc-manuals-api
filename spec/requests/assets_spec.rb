@@ -219,8 +219,6 @@ describe "assets resource" do
       end
 
       before do
-        allow(Services.asset_manager).to receive(:create_asset).and_return(asset_manager_response.deep_stringify_keys)
-
         subject
       end
 
