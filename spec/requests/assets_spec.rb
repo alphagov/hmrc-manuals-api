@@ -5,6 +5,7 @@ describe "assets resource" do
   include ActiveSupport::Testing::TimeHelpers
   include GdsApi::TestHelpers::AssetManager
 
+  let(:asset_id) { SecureRandom.hex }
   let(:parsed_response) { JSON.parse(response.body).deep_symbolize_keys }
 
   context "when the allow_asset_manager_requests feature flag is false" do
@@ -28,7 +29,6 @@ describe "assets resource" do
   end
 
   describe "GET /assets/:id" do
-    let(:asset_id) { SecureRandom.hex }
     let(:asset_manager_response) do
       {
         _response_info: {
@@ -91,6 +91,7 @@ describe "assets resource" do
 
   describe "POST /assets" do
     let(:draft) { true }
+    let(:file_url) { "http://asset-manager.dev.gov.uk/media/#{asset_id}/asset.txt" }
     let(:asset_manager_response) do
       {
         _response_info: {
@@ -99,13 +100,14 @@ describe "assets resource" do
         content_type: "text",
         deleted: "false",
         draft: draft.to_s,
-        file_url: "http://asset-manager.dev.gov.uk/media/45678/asset.txt",
+        file_url:,
         id: "123",
         name: "asset.txt",
         size: "12",
         state: "clean",
       }
     end
+    let(:stub_asset_manager_request) { stub_asset_manager_create_asset(file_url, asset_manager_response) }
 
     subject do
       post_multipart "/assets", {
@@ -117,7 +119,7 @@ describe "assets resource" do
 
     context "when Asset Manager responds with ok" do
       before do
-        allow(Services.asset_manager).to receive(:create_asset).and_return(asset_manager_response.deep_stringify_keys)
+        stub_asset_manager_request
       end
 
       context "when the request marks the asset as live" do
@@ -140,9 +142,16 @@ describe "assets resource" do
           expect(response).to have_http_status(:created)
         end
 
+        it "makes a request to Asset Manager" do
+          expect(stub_asset_manager_request).to have_been_requested.once
+        end
+
         it "responds with data from Asset Manager" do
           expect(parsed_response).to include(asset_manager_response)
-          expect(parsed_response).to include(asset_id: "45678")
+        end
+
+        it "includes the asset_id" do
+          expect(parsed_response).to include(asset_id:)
         end
 
         it "does not include a token in the file_url" do
@@ -162,9 +171,16 @@ describe "assets resource" do
           expect(response).to have_http_status(:created)
         end
 
+        it "makes a request to Asset Manager" do
+          expect(stub_asset_manager_request).to have_been_requested.once
+        end
+
         it "responds with data from Asset Manager" do
           expect(parsed_response).to include(asset_manager_response.except(:file_url))
-          expect(parsed_response).to include(asset_id: "45678")
+        end
+
+        it "includes the file_url" do
+          expect(parsed_response[:file_url]).to match(/#{file_url}/)
         end
 
         it "generates and includes a token in the file_url" do
@@ -185,7 +201,7 @@ describe "assets resource" do
 
     context "when Asset Manager responds with GdsApi::HTTPPayloadTooLarge" do
       before do
-        allow(Services.asset_manager).to receive(:create_asset).and_raise(GdsApi::HTTPPayloadTooLarge.new(413))
+        stub_asset_manager_create_asset_too_large
 
         subject
       end
@@ -198,7 +214,7 @@ describe "assets resource" do
 
     context "when Asset Manager responds with GdsApi::HTTPUnprocessableEntity" do
       before do
-        allow(Services.asset_manager).to receive(:create_asset).and_raise(GdsApi::HTTPUnprocessableEntity.new(422, "Some error message"))
+        stub_asset_manager_create_asset_unprocessable("Some error message")
 
         subject
       end
