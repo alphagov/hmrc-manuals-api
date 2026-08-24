@@ -28,6 +28,7 @@ describe "assets resource" do
   end
 
   describe "GET /assets/:id" do
+    let(:asset_id) { SecureRandom.hex }
     let(:asset_manager_response) do
       {
         _response_info: {
@@ -36,41 +37,41 @@ describe "assets resource" do
         content_type: "text",
         deleted: "false",
         draft: "false",
-        file_url: "http://asset-manager.dev.gov.uk/media/123456789/asset.txt",
-        id: "http://asset-manager/assets/123456789",
+        file_url: "http://asset-manager.dev.gov.uk/media/#{asset_id}/asset.txt",
+        id: "http://asset-manager/assets/#{asset_id}",
         name: "asset.txt",
         size: "12",
         state: "clean",
       }
     end
+    let(:stub_asset_manager_request) { stub_asset_manager_request_to_get_asset(asset_id, asset_manager_response.deep_stringify_keys) }
 
     subject do
-      get "/assets/123456789"
+      get "/assets/#{asset_id}"
+    end
+
+    before do
+      stub_asset_manager_request
+      subject
     end
 
     context "when Asset Manager responds with ok" do
-      before do
-        allow(Services.asset_manager).to receive(:asset).and_return(asset_manager_response.deep_stringify_keys)
-
-        subject
-      end
-
       it "responds with 200 OK" do
         expect(response).to have_http_status(:ok)
       end
 
+      it "makes a request to Asset Manager" do
+        expect(stub_asset_manager_request).to have_been_requested.once
+      end
+
       it "responds with data from Asset Manager" do
         expect(parsed_response).to include(asset_manager_response)
-        expect(parsed_response).to include(asset_id: "123456789")
+        expect(parsed_response).to include(asset_id:)
       end
     end
 
     context "when Asset Manager responds with GdsApi::HTTPNotFound" do
-      before do
-        allow(Services.asset_manager).to receive(:asset).and_raise(GdsApi::HTTPNotFound.new(404))
-
-        subject
-      end
+      let(:stub_asset_manager_request) { stub_asset_manager_does_not_have_an_asset(asset_id) }
 
       it "responds with 404 Not Found" do
         expect(response).to have_http_status(:not_found)
@@ -79,11 +80,7 @@ describe "assets resource" do
     end
 
     context "when Asset Manager responds with GdsApi::HTTPForbidden" do
-      before do
-        allow(Services.asset_manager).to receive(:asset).and_raise(GdsApi::HTTPForbidden.new(403))
-
-        subject
-      end
+      let(:stub_asset_manager_request) { stub_asset_manager_get_asset_forbidden(asset_id) }
 
       it "responds with 403 Forbidden" do
         expect(response).to have_http_status(:forbidden)
