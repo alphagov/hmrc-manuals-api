@@ -32,6 +32,12 @@ class AssetsController < ApplicationController
     end
   end
 
+  def destroy
+    output = formatted_asset_manager_response(Services.asset_manager.delete_asset(params[:id]))
+
+    render json: output
+  end
+
   def show
     output = formatted_asset_manager_response(Services.asset_manager.asset(params[:id]))
 

@@ -247,6 +247,34 @@ describe "assets resource" do
     end
   end
 
+  describe "DELETE /assets/:id" do
+    let(:stub_asset_manager_request) { stub_asset_manager_delete_asset(asset_id, asset_manager_response.deep_stringify_keys) }
+
+    subject do
+      delete "/assets/#{asset_id}"
+    end
+
+    before do
+      stub_asset_manager_request
+      subject
+    end
+
+    context "when Asset Manager responds with ok" do
+      it "responds with 200 OK" do
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "makes a request to Asset Manager" do
+        expect(stub_asset_manager_request).to have_been_requested.once
+      end
+
+      it "responds with data from Asset Manager" do
+        expect(parsed_response).to include(asset_manager_response)
+        expect(parsed_response).to include(asset_id:)
+      end
+    end
+  end
+
   describe "POST /assets/:id/regenerate-access" do
     let(:stub_asset_manager_request) { stub_asset_manager_update_asset(asset_id, asset_manager_response.deep_stringify_keys) }
 

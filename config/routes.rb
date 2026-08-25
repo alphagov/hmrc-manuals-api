@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       end
     end
 
-    resources :assets, only: %i[create show] do
+    resources :assets, only: %i[create show destroy] do
       post "regenerate-access", action: :regenerate_access, on: :member
     end
   end
