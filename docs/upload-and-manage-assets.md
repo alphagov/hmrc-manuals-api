@@ -255,6 +255,7 @@ DELETE /assets/{asset-id}
 
 | Status          | Description                                   |
 | --------------- | --------------------------------------------- |
+| `403 Forbidden` | Access to asset is forbidden.                 |
 | `404 Not Found` | Asset does not exist.                         |
 
 
