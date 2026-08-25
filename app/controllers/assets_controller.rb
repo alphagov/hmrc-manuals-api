@@ -36,6 +36,8 @@ class AssetsController < ApplicationController
     output = formatted_asset_manager_response(Services.asset_manager.delete_asset(params[:id]))
 
     render json: output
+  rescue GdsApi::HTTPNotFound
+    error :not_found, "Asset not found"
   end
 
   def show

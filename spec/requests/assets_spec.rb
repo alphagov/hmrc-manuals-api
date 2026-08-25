@@ -273,6 +273,15 @@ describe "assets resource" do
         expect(parsed_response).to include(asset_id:)
       end
     end
+
+    context "when Asset Manager responds with GdsApi::HTTPNotFound" do
+      let(:stub_asset_manager_request) { stub_asset_manager_delete_asset_missing(asset_id) }
+
+      it "responds with 404 Not Found" do
+        expect(response).to have_http_status(:not_found)
+        expect(parsed_response).to eq({ errors: "Asset not found", status: "error" })
+      end
+    end
   end
 
   describe "POST /assets/:id/regenerate-access" do
