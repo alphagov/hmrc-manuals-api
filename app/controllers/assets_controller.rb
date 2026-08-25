@@ -72,6 +72,8 @@ class AssetsController < ApplicationController
     render json: output
   rescue GdsApi::HTTPForbidden
     error :forbidden, "Access to asset is forbidden"
+  rescue GdsApi::HTTPNotFound
+    error :not_found, "Asset not found"
   end
 
 private
