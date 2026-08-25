@@ -447,6 +447,15 @@ describe "assets resource" do
         expect(parsed_response).to include(asset_id:)
       end
     end
+
+    context "when Asset Manager responds with GdsApi::HTTPForbidden" do
+      let(:stub_asset_manager_request) { stub_asset_manager_restore_asset_forbidden(asset_id) }
+
+      it "responds with 403 Forbidden" do
+        expect(response).to have_http_status(:forbidden)
+        expect(parsed_response).to eq({ errors: "Access to asset is forbidden", status: "error" })
+      end
+    end
   end
 end
 

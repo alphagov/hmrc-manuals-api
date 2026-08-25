@@ -70,6 +70,8 @@ class AssetsController < ApplicationController
     output = formatted_asset_manager_response(asset_manager_response)
 
     render json: output
+  rescue GdsApi::HTTPForbidden
+    error :forbidden, "Access to asset is forbidden"
   end
 
 private

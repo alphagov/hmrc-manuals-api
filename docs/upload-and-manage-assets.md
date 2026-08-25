@@ -293,6 +293,7 @@ POST /assets/{asset-id}/restore
 
 | Status          | Description                      |
 | --------------- | -------------------------------- |
+| `403 Forbidden` | Access to asset is forbidden.    |
 | `404 Not Found` | Asset does not exist.            |
 | `409 Conflict`  | Asset is already published.      |
 
