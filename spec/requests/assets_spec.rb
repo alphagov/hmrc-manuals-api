@@ -5,6 +5,22 @@ describe "assets resource" do
   include ActiveSupport::Testing::TimeHelpers
   include GdsApi::TestHelpers::AssetManager
 
+  let(:asset_id) { SecureRandom.hex }
+  let(:asset_manager_response) do
+    {
+      _response_info: {
+        status: "ok",
+      },
+      content_type: "text",
+      deleted: "false",
+      draft: "false",
+      file_url: "http://asset-manager.dev.gov.uk/media/#{asset_id}/asset.txt",
+      id: "http://asset-manager/assets/#{asset_id}",
+      name: "asset.txt",
+      size: "12",
+      state: "clean",
+    }
+  end
   let(:parsed_response) { JSON.parse(response.body).deep_symbolize_keys }
 
   context "when the allow_asset_manager_requests feature flag is false" do
@@ -28,87 +44,55 @@ describe "assets resource" do
   end
 
   describe "GET /assets/:id" do
-    let(:asset_manager_response) do
-      {
-        _response_info: {
-          status: "ok",
-        },
-        content_type: "text",
-        deleted: "false",
-        draft: "false",
-        file_url: "http://asset-manager.dev.gov.uk/media/123456789/asset.txt",
-        id: "http://asset-manager/assets/123456789",
-        name: "asset.txt",
-        size: "12",
-        state: "clean",
-      }
-    end
+    let(:stub_asset_manager_request) { stub_asset_manager_request_to_get_asset(asset_id, asset_manager_response.deep_stringify_keys) }
 
     subject do
-      get "/assets/123456789"
+      get "/assets/#{asset_id}"
+    end
+
+    before do
+      stub_asset_manager_request
+      subject
     end
 
     context "when Asset Manager responds with ok" do
-      before do
-        allow(Services.asset_manager).to receive(:asset).and_return(asset_manager_response.deep_stringify_keys)
-
-        subject
-      end
-
       it "responds with 200 OK" do
         expect(response).to have_http_status(:ok)
       end
 
+      it "makes a request to Asset Manager" do
+        expect(stub_asset_manager_request).to have_been_requested.once
+      end
+
       it "responds with data from Asset Manager" do
         expect(parsed_response).to include(asset_manager_response)
-        expect(parsed_response).to include(asset_id: "123456789")
+        expect(parsed_response).to include(asset_id:)
       end
     end
 
     context "when Asset Manager responds with GdsApi::HTTPNotFound" do
-      before do
-        allow(Services.asset_manager).to receive(:asset).and_raise(GdsApi::HTTPNotFound.new(404))
-
-        subject
-      end
+      let(:stub_asset_manager_request) { stub_asset_manager_does_not_have_an_asset(asset_id) }
 
       it "responds with 404 Not Found" do
         expect(response).to have_http_status(:not_found)
-        expect(response.body).to include("Asset not found")
+        expect(parsed_response).to eq({ errors: "Asset not found", status: "error" })
       end
     end
 
     context "when Asset Manager responds with GdsApi::HTTPForbidden" do
-      before do
-        allow(Services.asset_manager).to receive(:asset).and_raise(GdsApi::HTTPForbidden.new(403))
-
-        subject
-      end
+      let(:stub_asset_manager_request) { stub_asset_manager_get_asset_forbidden(asset_id) }
 
       it "responds with 403 Forbidden" do
         expect(response).to have_http_status(:forbidden)
-        expect(response.body).to include("Access to asset is forbidden")
+        expect(parsed_response).to eq({ errors: "Access to asset is forbidden", status: "error" })
       end
     end
   end
 
   describe "POST /assets" do
     let(:draft) { true }
-    let(:asset_manager_response) do
-      {
-        _response_info: {
-          status: "ok",
-        },
-        content_type: "text",
-        deleted: "false",
-        draft: draft.to_s,
-        file_url: "http://asset-manager.dev.gov.uk/media/45678/asset.txt",
-        id: "123",
-        name: "asset.txt",
-        size: "12",
-        state: "clean",
-      }
-    end
+    let(:file_url) { asset_manager_response[:file_url] }
+    let(:stub_asset_manager_request) { stub_asset_manager_create_asset(file_url, asset_manager_response) }
 
     subject do
       post_multipart "/assets", {
@@ -120,7 +104,7 @@ describe "assets resource" do
 
     context "when Asset Manager responds with ok" do
       before do
-        allow(Services.asset_manager).to receive(:create_asset).and_return(asset_manager_response.deep_stringify_keys)
+        stub_asset_manager_request
       end
 
       context "when the request marks the asset as live" do
@@ -143,9 +127,16 @@ describe "assets resource" do
           expect(response).to have_http_status(:created)
         end
 
+        it "makes a request to Asset Manager" do
+          expect(stub_asset_manager_request).to have_been_requested.once
+        end
+
         it "responds with data from Asset Manager" do
           expect(parsed_response).to include(asset_manager_response)
-          expect(parsed_response).to include(asset_id: "45678")
+        end
+
+        it "includes the asset_id" do
+          expect(parsed_response).to include(asset_id:)
         end
 
         it "does not include a token in the file_url" do
@@ -165,9 +156,16 @@ describe "assets resource" do
           expect(response).to have_http_status(:created)
         end
 
+        it "makes a request to Asset Manager" do
+          expect(stub_asset_manager_request).to have_been_requested.once
+        end
+
         it "responds with data from Asset Manager" do
           expect(parsed_response).to include(asset_manager_response.except(:file_url))
-          expect(parsed_response).to include(asset_id: "45678")
+        end
+
+        it "includes the file_url" do
+          expect(parsed_response[:file_url]).to match(/#{file_url}/)
         end
 
         it "generates and includes a token in the file_url" do
@@ -188,26 +186,26 @@ describe "assets resource" do
 
     context "when Asset Manager responds with GdsApi::HTTPPayloadTooLarge" do
       before do
-        allow(Services.asset_manager).to receive(:create_asset).and_raise(GdsApi::HTTPPayloadTooLarge.new(413))
+        stub_asset_manager_create_asset_too_large
 
         subject
       end
 
       it "responds with 413 Content Too Large" do
         expect(response).to have_http_status(:content_too_large)
-        expect(response.body).to include("Content exceeds maximum permitted size")
+        expect(parsed_response).to eq({ errors: "Content exceeds maximum permitted size", status: "error" })
       end
     end
 
     context "when Asset Manager responds with GdsApi::HTTPUnprocessableEntity" do
       before do
-        allow(Services.asset_manager).to receive(:create_asset).and_raise(GdsApi::HTTPUnprocessableEntity.new(422, "Some error message"))
+        stub_asset_manager_create_asset_unprocessable("Some error message")
 
         subject
       end
 
       it "responds with 422 Unprocessable Entity" do
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(response.body).to include("Some error message")
       end
     end
@@ -222,8 +220,6 @@ describe "assets resource" do
       end
 
       before do
-        allow(Services.asset_manager).to receive(:create_asset).and_return(asset_manager_response.deep_stringify_keys)
-
         subject
       end
 
@@ -252,37 +248,27 @@ describe "assets resource" do
   end
 
   describe "POST /assets/:id/regenerate-access" do
-    let(:asset_manager_response) do
-      {
-        _response_info: {
-          status: "ok",
-        },
-        content_type: "text",
-        deleted: "false",
-        draft: "false",
-        file_url: "http://asset-manager.dev.gov.uk/media/123456789/asset.txt",
-        id: "http://asset-manager/assets/123456789",
-        name: "asset.txt",
-        size: "12",
-        state: "clean",
-      }
-    end
+    let(:stub_asset_manager_request) { stub_asset_manager_update_asset(asset_id, asset_manager_response.deep_stringify_keys) }
 
     subject do
-      post "/assets/123456789/regenerate-access"
+      post "/assets/#{asset_id}/regenerate-access"
+    end
+
+    before do
+      stub_asset_manager_request
+      allow(SecureRandom).to receive(:uuid).and_return("new-token")
+      travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
+
+      subject
     end
 
     context "when Asset Manager responds with ok" do
-      before do
-        allow(Services.asset_manager).to receive(:update_asset).and_return(asset_manager_response.deep_stringify_keys)
-        allow(SecureRandom).to receive(:uuid).and_return("new-token")
-        travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
-
-        subject
-      end
-
       it "responds with 201 Created" do
         expect(response).to have_http_status(:created)
+      end
+
+      it "makes a request to Asset Manager" do
+        expect(stub_asset_manager_request).to have_been_requested.once
       end
 
       it "responds with data from Asset Manager" do
@@ -305,28 +291,20 @@ describe "assets resource" do
     end
 
     context "when Asset Manager responds with GdsApi::HTTPNotFound" do
-      before do
-        allow(Services.asset_manager).to receive(:update_asset).and_raise(GdsApi::HTTPNotFound.new(404))
-
-        subject
-      end
+      let(:stub_asset_manager_request) { stub_asset_manager_update_asset_not_found(asset_id) }
 
       it "responds with 404 Not Found" do
         expect(response).to have_http_status(:not_found)
-        expect(response.body).to include("Asset not found")
+        expect(parsed_response).to eq({ errors: "Asset not found", status: "error" })
       end
     end
 
     context "when Asset Manager responds with GdsApi::HTTPForbidden" do
-      before do
-        allow(Services.asset_manager).to receive(:update_asset).and_raise(GdsApi::HTTPForbidden.new(403))
-
-        subject
-      end
+      let(:stub_asset_manager_request) { stub_asset_manager_update_asset_forbidden(asset_id) }
 
       it "responds with 403 Forbidden" do
         expect(response).to have_http_status(:forbidden)
-        expect(response.body).to include("Access to asset is forbidden")
+        expect(parsed_response).to eq({ errors: "Access to asset is forbidden", status: "error" })
       end
     end
   end

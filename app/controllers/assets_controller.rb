@@ -11,15 +11,15 @@ class AssetsController < ApplicationController
     asset.merge!(asset_auth_params) if asset[:draft]
 
     begin
-      asset_manager_response = Services.asset_manager.create_asset(asset)
-      output = if asset[:draft]
-                 formatted_asset_manager_response_for_draft(asset_manager_response, asset)
-               else
-                 formatted_asset_manager_response(asset_manager_response)
-               end
-
       respond_to do |format|
         format.json do
+          asset_manager_response = Services.asset_manager.create_asset(asset)
+          output = if asset[:draft]
+                     formatted_asset_manager_response_for_draft(asset_manager_response, asset)
+                   else
+                     formatted_asset_manager_response(asset_manager_response)
+                   end
+
           render status: :created, json: output
         end
       end
@@ -43,7 +43,7 @@ class AssetsController < ApplicationController
   end
 
   def regenerate_access
-    asset_manager_response = Services.asset_manager.update_asset(params[:asset_id], asset_auth_params)
+    asset_manager_response = Services.asset_manager.update_asset(params[:id], asset_auth_params)
     output = formatted_asset_manager_response_for_draft(asset_manager_response, asset_auth_params)
 
     render status: :created, json: output
