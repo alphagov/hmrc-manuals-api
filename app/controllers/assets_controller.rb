@@ -65,6 +65,13 @@ class AssetsController < ApplicationController
     error :forbidden, "Access to asset is forbidden"
   end
 
+  def restore
+    asset_manager_response = Services.asset_manager.restore_asset(params[:id])
+    output = formatted_asset_manager_response(asset_manager_response)
+
+    render json: output
+  end
+
 private
 
   def check_asset_manager_requests_allowed

@@ -267,7 +267,7 @@ Restores a previously deleted asset.
 ### Request
 
 ```http
-PATCH /assets/{asset-id}/restore
+POST /assets/{asset-id}/restore
 ```
 
 ### Success response
