@@ -279,6 +279,7 @@ POST /assets/{asset-id}/restore
 ```json
 {
   "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
+  "asset_id": "6a216e0509c4d5e2e98bd731",
   "name": "logo.png",
   "content_type": "image/png",
   "size": 82328,
