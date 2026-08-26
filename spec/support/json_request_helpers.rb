@@ -3,9 +3,10 @@ module JSONRequestHelper
     default_headers = {
       "HTTP_ACCEPT" => "application/json",
       "HTTP_AUTHORIZATION" => "Bearer 12345678",
+      "CONTENT_TYPE" => "multipart/form-data",
     }
 
-    post path, params: attrs, headers: default_headers.merge(headers), as: :multipart
+    post path, params: attrs, headers: default_headers.merge(headers)
   end
 
   def put_json(path, attrs, headers = {})
