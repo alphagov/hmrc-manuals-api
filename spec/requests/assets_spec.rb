@@ -107,44 +107,7 @@ describe "assets resource" do
         stub_asset_manager_request
       end
 
-      context "when the request marks the asset as live" do
-        let(:draft) { false }
-
-        subject do
-          post_multipart "/assets", {
-            asset: {
-              file: fixture_file_upload("asset.txt", "text/plain"),
-              draft: false,
-            },
-          }
-        end
-
-        before do
-          subject
-        end
-
-        it "responds with 201 Created" do
-          expect(response).to have_http_status(:created)
-        end
-
-        it "makes a request to Asset Manager" do
-          expect(stub_asset_manager_request).to have_been_requested.once
-        end
-
-        it "responds with data from Asset Manager" do
-          expect(parsed_response).to include(asset_manager_response)
-        end
-
-        it "includes the asset_id" do
-          expect(parsed_response).to include(asset_id:)
-        end
-
-        it "does not include a token in the file_url" do
-          expect(parsed_response[:file_url]).not_to match(/token=/)
-        end
-      end
-
-      context "when the request marks the asset as draft" do
+      context "when a value is not provided for draft" do
         before do
           allow(SecureRandom).to receive(:uuid).and_return("some-token")
           travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
@@ -180,6 +143,86 @@ describe "assets resource" do
 
         it "includes a preview expiry date 30 days in the future" do
           expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
+        end
+      end
+
+      context "when a value is provided for draft" do
+        subject do
+          post_multipart "/assets", {
+            asset: {
+              file: fixture_file_upload("asset.txt", "text/plain"),
+              draft:,
+            },
+          }
+        end
+
+        context "when the request marks the asset as live" do
+          let(:draft) { false }
+
+          before do
+            subject
+          end
+
+          it "responds with 201 Created" do
+            expect(response).to have_http_status(:created)
+          end
+
+          it "makes a request to Asset Manager" do
+            expect(stub_asset_manager_request).to have_been_requested.once
+          end
+
+          it "responds with data from Asset Manager" do
+            expect(parsed_response).to include(asset_manager_response)
+          end
+
+          it "includes the asset_id" do
+            expect(parsed_response).to include(asset_id:)
+          end
+
+          it "does not include a token in the file_url" do
+            expect(parsed_response[:file_url]).not_to match(/token=/)
+          end
+        end
+
+        context "when the request marks the asset as draft" do
+          let(:draft) { true }
+
+          before do
+            allow(SecureRandom).to receive(:uuid).and_return("some-token")
+            travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
+
+            subject
+          end
+
+          it "responds with 201 Created" do
+            expect(response).to have_http_status(:created)
+          end
+
+          it "makes a request to Asset Manager" do
+            expect(stub_asset_manager_request).to have_been_requested.once
+          end
+
+          it "responds with data from Asset Manager" do
+            expect(parsed_response).to include(asset_manager_response.except(:file_url))
+          end
+
+          it "includes the file_url" do
+            expect(parsed_response[:file_url]).to match(/#{file_url}/)
+          end
+
+          it "generates and includes a token in the file_url" do
+            expected_decoded_token = {
+              "exp" => Time.zone.local(2026, 1, 31, 0, 0, 1).to_i,
+              "iat" => Time.zone.now.to_i,
+              "sub" => "some-token",
+            }
+
+            expect(decoded_token_payload_from_url(parsed_response[:file_url])).to eq(expected_decoded_token)
+          end
+
+          it "includes a preview expiry date 30 days in the future" do
+            expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
+          end
         end
       end
     end
