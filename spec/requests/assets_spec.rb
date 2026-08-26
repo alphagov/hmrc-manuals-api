@@ -184,6 +184,28 @@ describe "assets resource" do
       end
     end
 
+    context "when the request does not include a file" do
+      subject do
+        post_multipart "/assets", {
+          asset: {
+            draft: false,
+          },
+        }
+      end
+
+      before do
+        subject
+      end
+
+      it "responds with 400 Bad Request" do
+        expect(response).to have_http_status(:bad_request)
+      end
+
+      it "does not make a request to Asset Manager" do
+        expect(stub_asset_manager_request).not_to have_been_requested
+      end
+    end
+
     context "when Asset Manager responds with GdsApi::HTTPPayloadTooLarge" do
       before do
         stub_asset_manager_create_asset_too_large

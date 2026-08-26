@@ -3,9 +3,11 @@ class AssetsController < ApplicationController
   before_action :check_content_type_is_multipart, only: [:create]
 
   def create
+    create_params = asset_params(required_params: [:file])
+
     asset = {
-      draft: asset_params[:draft].nil? || asset_params[:draft] != "false",
-      file: asset_params[:file].tempfile,
+      draft: create_params[:draft].nil? || create_params[:draft] != "false",
+      file: create_params[:file].tempfile,
     }
 
     asset.merge!(asset_auth_params) if asset[:draft]
@@ -65,11 +67,17 @@ private
     end
   end
 
-  def asset_params
-    params.require(:asset).permit(
+  def asset_params(required_params: [])
+    permitted_params = params.require(:asset).permit(
       :file,
       :draft,
     )
+
+    required_params.each do |param|
+      permitted_params.require(param)
+    end
+
+    permitted_params
   end
 
   def formatted_asset_manager_response(asset_manager_response)
