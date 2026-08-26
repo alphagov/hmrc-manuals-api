@@ -34,6 +34,16 @@ class AssetsController < ApplicationController
     end
   end
 
+  def destroy
+    output = formatted_asset_manager_response(Services.asset_manager.delete_asset(params[:id]))
+
+    render json: output
+  rescue GdsApi::HTTPNotFound
+    error :not_found, "Asset not found"
+  rescue GdsApi::HTTPForbidden
+    error :forbidden, "Access to asset is forbidden"
+  end
+
   def show
     output = formatted_asset_manager_response(Services.asset_manager.asset(params[:id]))
 
