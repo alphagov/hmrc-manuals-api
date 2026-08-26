@@ -267,7 +267,7 @@ Restores a previously deleted asset.
 ### Request
 
 ```http
-PATCH /assets/{asset-id}/restore
+POST /assets/{asset-id}/restore
 ```
 
 ### Success response
@@ -279,6 +279,7 @@ PATCH /assets/{asset-id}/restore
 ```json
 {
   "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
+  "asset_id": "6a216e0509c4d5e2e98bd731",
   "name": "logo.png",
   "content_type": "image/png",
   "size": 82328,
@@ -293,9 +294,8 @@ PATCH /assets/{asset-id}/restore
 
 | Status          | Description                      |
 | --------------- | -------------------------------- |
+| `403 Forbidden` | Access to asset is forbidden.    |
 | `404 Not Found` | Asset does not exist.            |
-| `409 Conflict`  | Asset is already published.      |
-
 
 ## Update asset
 
