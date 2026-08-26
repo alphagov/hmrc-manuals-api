@@ -91,6 +91,7 @@ Access tokens expire 30 days after they are issued or when asset is published, w
 
 | Status                     | Description                           |
 | -------------------------- | ------------------------------------- |
+| `400 Bad Request`.         | A required parameter was not provided.|
 | `401 Unauthorized`         | Authentication failed.                |
 | `413 Payload Too Large`    | Uploaded file exceeds permitted size. |
 | `422 Unprocessable Entity` | Asset could not be created.           |
