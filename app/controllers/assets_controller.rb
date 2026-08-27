@@ -74,6 +74,8 @@ class AssetsController < ApplicationController
       error :unprocessable_entity, "Asset update failed"
     rescue GdsApi::HTTPNotFound
       error :not_found, "Asset does not exist"
+    rescue GdsApi::HTTPForbidden
+      error :forbidden, "Access to asset is forbidden"
     end
   end
 
