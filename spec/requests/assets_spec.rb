@@ -359,14 +359,30 @@ describe "assets resource" do
   end
 
   describe "PUT /assets/:id" do
+    let(:request_params) { { asset: { file: fixture_file_upload("asset.txt", "text/plain") } } }
+    let(:stub_asset_manager_request) { stub_asset_manager_update_asset(asset_id, asset_manager_response.deep_stringify_keys) }
     subject do
-      put_multipart "/assets/#{asset_id}", {}
+      put_multipart "/assets/#{asset_id}", request_params
     end
 
-    it "responds with ok" do
-      subject
+    context "when Asset Manager responds with ok" do
+      before do
+        stub_asset_manager_request
+      end
 
-      expect(response.status).to eq(200)
+      context "when the request includes a new file" do
+        before do
+          subject
+        end
+
+        it "responds with 200 OK" do
+          expect(response).to have_http_status(:ok)
+        end
+
+        it "responds with data from Asset Manager" do
+          expect(parsed_response).to include(asset_id:)
+        end
+      end
     end
   end
 

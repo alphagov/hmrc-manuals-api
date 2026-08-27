@@ -1,6 +1,6 @@
 class AssetsController < ApplicationController
   before_action :check_asset_manager_requests_allowed
-  before_action :check_content_type_is_multipart, only: [:create]
+  before_action :check_content_type_is_multipart, only: %i[create update]
 
   def create
     create_params = asset_params(required_params: [:file])
@@ -45,9 +45,16 @@ class AssetsController < ApplicationController
   end
 
   def update
+    asset = {
+      file: asset_params[:file]&.tempfile,
+    }.compact
+
+    asset_manager_response = Services.asset_manager.update_asset(params[:id], asset)
+    output = formatted_asset_manager_response(asset_manager_response)
+
     respond_to do |format|
       format.json do
-        render json: {}
+        render status: :ok, json: output
       end
     end
   end
