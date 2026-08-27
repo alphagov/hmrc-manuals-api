@@ -70,6 +70,8 @@ class AssetsController < ApplicationController
       error :not_acceptable, "Invalid Accept header"
     rescue GdsApi::HTTPPayloadTooLarge
       error :content_too_large, "Content exceeds maximum permitted size"
+    rescue GdsApi::HTTPUnprocessableEntity
+      error :unprocessable_entity, "Asset update failed"
     end
   end
 

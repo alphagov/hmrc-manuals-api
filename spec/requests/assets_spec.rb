@@ -475,6 +475,19 @@ describe "assets resource" do
       end
     end
 
+    context "when Asset Manager responds with GdsApi::HTTPUnprocessableEntity" do
+      before do
+        stub_asset_manager_update_asset_unprocessable(asset_id)
+
+        subject
+      end
+
+      it "responds with 422 Unprocessable Entity" do
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(parsed_response).to eq({ errors: "Asset update failed", status: "error" })
+      end
+    end
+
     context "when the Accept header is not application/json" do
       subject do
         put_multipart "/assets/12345", request_params, { "HTTP_ACCEPT" => "text/plain" }
