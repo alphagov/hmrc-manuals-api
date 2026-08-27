@@ -383,6 +383,65 @@ describe "assets resource" do
           expect(parsed_response).to include(asset_id:)
         end
       end
+
+      context "when the client provides a value for draft" do
+        let(:request_params) { { asset: { draft: draft } } }
+
+        context "when the asset is not draft" do
+          let(:draft) { false }
+
+          before do
+            subject
+          end
+
+          it "responds with 200 OK" do
+            expect(response).to have_http_status(:ok)
+          end
+
+          it "responds with data from Asset Manager" do
+            expect(parsed_response).to include(asset_manager_response)
+            expect(parsed_response).to include(asset_id:)
+          end
+
+          it "does not include a token in the file_url" do
+            expect(parsed_response[:file_url]).not_to match(/token=/)
+          end
+        end
+
+        context "when the asset is draft" do
+          let(:draft) { true }
+
+          before do
+            allow(SecureRandom).to receive(:uuid).and_return("some-token")
+            travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
+
+            subject
+          end
+
+          it "responds with 200 OK" do
+            expect(response).to have_http_status(:ok)
+          end
+
+          it "responds with data from Asset Manager" do
+            expect(parsed_response).to include(asset_manager_response.except(:file_url))
+            expect(parsed_response).to include(asset_id:)
+          end
+
+          it "generates and includes a token in the file_url" do
+            expected_decoded_token = {
+              "exp" => Time.zone.local(2026, 1, 31, 0, 0, 1).to_i,
+              "iat" => Time.zone.now.to_i,
+              "sub" => "some-token",
+            }
+
+            expect(decoded_token_payload_from_url(parsed_response[:file_url])).to eq(expected_decoded_token)
+          end
+
+          it "includes a preview expiry date 30 days in the future" do
+            expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
+          end
+        end
+      end
     end
   end
 

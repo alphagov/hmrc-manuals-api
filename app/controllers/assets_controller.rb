@@ -46,11 +46,18 @@ class AssetsController < ApplicationController
 
   def update
     asset = {
+      draft: cast_boolean(asset_params[:draft]),
       file: asset_params[:file]&.tempfile,
     }.compact
 
+    asset.merge!(asset_auth_params) if asset[:draft]
+
     asset_manager_response = Services.asset_manager.update_asset(params[:id], asset)
-    output = formatted_asset_manager_response(asset_manager_response)
+    output = if asset[:draft]
+               formatted_asset_manager_response_for_draft(asset_manager_response, asset)
+             else
+               formatted_asset_manager_response(asset_manager_response)
+             end
 
     respond_to do |format|
       format.json do
@@ -101,6 +108,10 @@ private
     unless request.headers["Content-Type"].match?(/^multipart\/form-data/)
       error :unsupported_media_type, "Invalid Content-Type header"
     end
+  end
+
+  def cast_boolean(value)
+    ActiveModel::Type::Boolean.new.cast(value)
   end
 
   def asset_params(required_params: [])
