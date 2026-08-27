@@ -461,6 +461,24 @@ describe "assets resource" do
         end
       end
     end
+
+    context "when the content type header is not multipart/form-data" do
+      subject do
+        put "/assets/12345", params: {}, headers: {
+          "CONTENT_TYPE" => "application/json",
+          "HTTP_ACCEPT" => "application/json",
+          "HTTP_AUTHORIZATION" => "Bearer 12345678",
+        }
+      end
+
+      before do
+        subject
+      end
+
+      it "responds with 415 Unsupported Media Type" do
+        expect(response).to have_http_status(:unsupported_media_type)
+      end
+    end
   end
 
   describe "POST /assets/:id/regenerate-access" do
