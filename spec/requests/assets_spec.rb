@@ -462,6 +462,20 @@ describe "assets resource" do
       end
     end
 
+    context "when the Accept header is not application/json" do
+      subject do
+        put_multipart "/assets/12345", request_params, { "HTTP_ACCEPT" => "text/plain" }
+      end
+
+      before do
+        subject
+      end
+
+      it "responds with 406 Not Acceptable" do
+        expect(response).to have_http_status(:not_acceptable)
+      end
+    end
+
     context "when the content type header is not multipart/form-data" do
       subject do
         put "/assets/12345", params: {}, headers: {

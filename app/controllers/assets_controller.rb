@@ -53,17 +53,21 @@ class AssetsController < ApplicationController
 
     asset.merge!(asset_auth_params) if asset[:draft]
 
-    asset_manager_response = Services.asset_manager.update_asset(params[:id], asset)
-    output = if asset[:draft]
-               formatted_asset_manager_response_for_draft(asset_manager_response, asset)
-             else
-               formatted_asset_manager_response(asset_manager_response)
-             end
+    begin
+      respond_to do |format|
+        format.json do
+          asset_manager_response = Services.asset_manager.update_asset(params[:id], asset)
+          output = if asset[:draft]
+                     formatted_asset_manager_response_for_draft(asset_manager_response, asset)
+                   else
+                     formatted_asset_manager_response(asset_manager_response)
+                   end
 
-    respond_to do |format|
-      format.json do
-        render status: :ok, json: output
+          render status: :ok, json: output
+        end
       end
+    rescue ActionController::UnknownFormat
+      error :not_acceptable, "Invalid Accept header"
     end
   end
 
