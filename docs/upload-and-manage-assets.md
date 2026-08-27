@@ -41,7 +41,7 @@ Content-Type: multipart/form-data
 | Parameter               | Required | Description                                                                                          |
 | ----------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
 | `asset[file]`           | Yes      | File to upload.                                                                                      |
-| `asset[draft]`.         | No       | Whether the asset is uploaded as a draft. Defaults to `true`. Set to `false` to make the asset publicly available immediately after upload.|
+| `asset[draft]`          | No       | Whether the asset is uploaded as a draft. Defaults to `true`. Set to `false` to make the asset publicly available immediately after upload.|
 
 ### Example request
 
@@ -91,7 +91,7 @@ Access tokens expire 30 days after they are issued or when asset is published, w
 
 | Status                     | Description                           |
 | -------------------------- | ------------------------------------- |
-| `400 Bad Request`.         | A required parameter was not provided.|
+| `400 Bad Request`          | A required parameter was not provided.|
 | `401 Unauthorized`         | Authentication failed.                |
 | `413 Payload Too Large`    | Uploaded file exceeds permitted size. |
 | `422 Unprocessable Entity` | Asset could not be created.           |
