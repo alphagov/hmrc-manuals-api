@@ -475,6 +475,19 @@ describe "assets resource" do
       end
     end
 
+    context "when Asset Manager responds with GdsApi::HTTPNotFound" do
+      before do
+        stub_asset_manager_update_asset_not_found(asset_id)
+
+        subject
+      end
+
+      it "responds with 404 Not Found" do
+        expect(response).to have_http_status(:not_found)
+        expect(parsed_response).to eq({ errors: "Asset does not exist", status: "error" })
+      end
+    end
+
     context "when Asset Manager responds with GdsApi::HTTPUnprocessableEntity" do
       before do
         stub_asset_manager_update_asset_unprocessable(asset_id)

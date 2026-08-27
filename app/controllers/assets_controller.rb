@@ -72,6 +72,8 @@ class AssetsController < ApplicationController
       error :content_too_large, "Content exceeds maximum permitted size"
     rescue GdsApi::HTTPUnprocessableEntity
       error :unprocessable_entity, "Asset update failed"
+    rescue GdsApi::HTTPNotFound
+      error :not_found, "Asset does not exist"
     end
   end
 
