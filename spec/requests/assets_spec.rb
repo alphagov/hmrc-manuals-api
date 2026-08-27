@@ -24,6 +24,15 @@ describe "assets resource" do
   end
   let(:parsed_response) { JSON.parse(response.body).deep_symbolize_keys }
 
+  shared_examples "passes the correct params to Asset Manager" do
+    it "passes forward params" do
+      expected_params = request_params.fetch(:asset).dup
+      expected_params[:file] = an_instance_of(Tempfile) if expected_params.key?(:file)
+
+      expect(Services.asset_manager).to have_received(:update_asset).with(asset_id, hash_including(expected_params))
+    end
+  end
+
   context "when the allow_asset_manager_requests feature flag is false" do
     subject do
       get "/assets/123456789"
@@ -368,6 +377,7 @@ describe "assets resource" do
 
     context "when Asset Manager responds with ok" do
       before do
+        allow(Services.asset_manager).to receive(:update_asset).and_call_original
         stub_asset_manager_request
       end
 
@@ -383,6 +393,8 @@ describe "assets resource" do
         it "responds with data from Asset Manager" do
           expect(parsed_response).to include(asset_id:)
         end
+
+        it_behaves_like "passes the correct params to Asset Manager"
       end
 
       context "when the client provides a value for draft" do
@@ -407,6 +419,8 @@ describe "assets resource" do
           it "does not include a token in the file_url" do
             expect(parsed_response[:file_url]).not_to match(/token=/)
           end
+
+          it_behaves_like "passes the correct params to Asset Manager"
         end
 
         context "when the asset is draft" do
@@ -441,6 +455,8 @@ describe "assets resource" do
           it "includes a preview expiry date 30 days in the future" do
             expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
           end
+
+          it_behaves_like "passes the correct params to Asset Manager"
         end
       end
 
@@ -459,6 +475,8 @@ describe "assets resource" do
         it "responds with data from Asset Manager" do
           expect(parsed_response).to include(asset_id:)
         end
+
+        it_behaves_like "passes the correct params to Asset Manager"
       end
     end
 
