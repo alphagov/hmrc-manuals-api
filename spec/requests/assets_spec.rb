@@ -6,6 +6,7 @@ describe "assets resource" do
   include GdsApi::TestHelpers::AssetManager
 
   let(:asset_id) { SecureRandom.hex }
+  let(:additional_attributes) { {} }
   let(:asset_manager_response) do
     {
       _response_info: {
@@ -19,7 +20,7 @@ describe "assets resource" do
       name: "asset.txt",
       size: "12",
       state: "clean",
-    }
+    }.merge(additional_attributes)
   end
   let(:parsed_response) { JSON.parse(response.body).deep_symbolize_keys }
 
@@ -440,6 +441,23 @@ describe "assets resource" do
           it "includes a preview expiry date 30 days in the future" do
             expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
           end
+        end
+      end
+
+      context "when request params includes a replacement_id" do
+        let(:additional_attributes) { { replacement_id: "987654321" } }
+        let(:request_params) { { asset: additional_attributes } }
+
+        before do
+          subject
+        end
+
+        it "responds with 200 OK" do
+          expect(response).to have_http_status(:ok)
+        end
+
+        it "responds with data from Asset Manager" do
+          expect(parsed_response).to include(asset_id:)
         end
       end
     end

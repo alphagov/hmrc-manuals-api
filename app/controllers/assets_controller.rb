@@ -48,6 +48,7 @@ class AssetsController < ApplicationController
     asset = {
       draft: cast_boolean(asset_params[:draft]),
       file: asset_params[:file]&.tempfile,
+      replacement_id: asset_params[:replacement_id],
     }.compact
 
     asset.merge!(asset_auth_params) if asset[:draft]
@@ -118,6 +119,7 @@ private
     permitted_params = params.require(:asset).permit(
       :file,
       :draft,
+      :replacement_id,
     )
 
     required_params.each do |param|
