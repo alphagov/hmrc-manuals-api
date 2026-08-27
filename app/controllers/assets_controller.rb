@@ -68,6 +68,8 @@ class AssetsController < ApplicationController
       end
     rescue ActionController::UnknownFormat
       error :not_acceptable, "Invalid Accept header"
+    rescue GdsApi::HTTPPayloadTooLarge
+      error :content_too_large, "Content exceeds maximum permitted size"
     end
   end
 

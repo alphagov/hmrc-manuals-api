@@ -462,6 +462,19 @@ describe "assets resource" do
       end
     end
 
+    context "when Asset Manager responds with GdsApi::HTTPPayloadTooLarge" do
+      before do
+        stub_asset_manager_update_asset_too_large(asset_id)
+
+        subject
+      end
+
+      it "responds with 413 Content Too Large" do
+        expect(response).to have_http_status(:content_too_large)
+        expect(parsed_response).to eq({ errors: "Content exceeds maximum permitted size", status: "error" })
+      end
+    end
+
     context "when the Accept header is not application/json" do
       subject do
         put_multipart "/assets/12345", request_params, { "HTTP_ACCEPT" => "text/plain" }
