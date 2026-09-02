@@ -32,7 +32,7 @@ All endpoints return a JSON body describing the asset, always including these fi
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | `_response_info` | Status of the request: `"created"` for uploads, `"ok"` for reads, and `"success"` for updates, deletes, restores and access regeneration. |
 | `id`             | Canonical URL identifying the asset. Its final path segment is the `asset_id`.                                                            |
-| `asset_id`       | Identifier for the asset, used in this API's asset paths (e.g. `/assets/{asset_id}`).                                                     |
+| `asset_id`       | Identifier for the asset, used in this API's asset paths (e.g. `/assets/:asset_id`).                                                      |
 | `name`           | File name.                                                                                                                                |
 | `content_type`   | MIME type of the file.                                                                                                                    |
 | `size`           | File size in bytes.                                                                                                                       |
@@ -108,7 +108,7 @@ curl -X POST \
 ## Get asset information
 
 ```http
-GET /assets/{asset-id}
+GET /assets/:asset_id
 ```
 
 Returns metadata for an asset.
@@ -117,7 +117,7 @@ Returns metadata for an asset.
 
 | Parameter  | Description                     |
 | ---------- | ------------------------------- |
-| `asset-id` | Unique identifier of the asset. |
+| `asset_id` | Unique identifier of the asset. |
 
 ### Response codes
 
@@ -156,7 +156,7 @@ curl https://hmrc-manuals-api.publishing.service.gov.uk/assets/6a216e0509c4d5e2e
 ## Regenerate draft asset access
 
 ```http
-POST /assets/{asset-id}/regenerate-access
+POST /assets/:asset_id/regenerate-access
 ```
 
 Resets and generates a new preview link for a draft asset and returns an updated preview URL.
@@ -170,7 +170,7 @@ This operation will disable the previous preview link.
 
 | Parameter  | Description                     |
 | ---------- | ------------------------------- |
-| `asset-id` | Unique identifier of the asset. |
+| `asset_id` | Unique identifier of the asset. |
 
 ### Response codes
 
@@ -212,7 +212,7 @@ curl -X POST \
 ## Delete asset
 
 ```http
-DELETE /assets/{asset-id}
+DELETE /assets/:asset_id
 ```
 
 Marks an asset as deleted.
@@ -221,7 +221,7 @@ Marks an asset as deleted.
 
 | Parameter  | Description                     |
 | ---------- | ------------------------------- |
-| `asset-id` | Unique identifier of the asset. |
+| `asset_id` | Unique identifier of the asset. |
 
 ### Response codes
 
@@ -261,7 +261,7 @@ curl -X DELETE \
 ## Restore deleted asset
 
 ```http
-POST /assets/{asset-id}/restore
+POST /assets/:asset_id/restore
 ```
 
 Restores a previously deleted asset.
@@ -270,7 +270,7 @@ Restores a previously deleted asset.
 
 | Parameter  | Description                     |
 | ---------- | ------------------------------- |
-| `asset-id` | Unique identifier of the asset. |
+| `asset_id` | Unique identifier of the asset. |
 
 ### Response codes
 
@@ -310,7 +310,7 @@ curl -X POST \
 ## Update asset
 
 ```http
-PUT /assets/{asset-id}
+PUT /assets/:asset_id
 Content-Type: multipart/form-data
 ```
 
@@ -328,7 +328,7 @@ This is a partial update operation so only the attributes included in the reques
 
 | Parameter  | Description                     |
 | ---------- | ------------------------------- |
-| `asset-id` | Unique identifier of the asset. |
+| `asset_id` | Unique identifier of the asset. |
 
 ### Request parameters
 
@@ -396,7 +396,7 @@ GET https://draft-assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd73
 ```
 
 If the access token is valid, the draft asset will be served. Otherwise, access will be denied.
-Access tokens expire 30 days after they are issued or when asset is published, whichever occurs first. A new token can be regenerated using the `POST /assets/:id/regenerate-access` endpoint.
+Access tokens expire 30 days after they are issued or when asset is published, whichever occurs first. A new token can be regenerated using the `POST /assets/:asset_id/regenerate-access` endpoint.
 
 ## Replacing asset workflow guide
 
@@ -415,7 +415,7 @@ Use this when you want to update an asset without creating a new record.
 #### Request
 
 ```http
-PUT /assets/{asset-id}
+PUT /assets/:asset_id
 Content-Type: multipart/form-data
 ```
 
@@ -443,7 +443,7 @@ Content-Type: multipart/form-data
 #### Step 2: Link replacement to original asset
 
 ```http
-PUT /assets/{old-asset-id}
+PUT /assets/:old_asset_id
 Content-Type: multipart/form-data
 ```
 
