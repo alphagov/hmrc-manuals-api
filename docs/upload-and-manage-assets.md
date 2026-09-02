@@ -167,24 +167,6 @@ curl https://hmrc-manuals-api.publishing.service.gov.uk/assets/6a216e0509c4d5e2e
 }
 ```
 
-Replaced (superseded) assets will include `replacement_id`:
-
-```json
-{
-  "_response_info": { "status": "ok" },
-  "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
-  "asset_id": "6a216e0509c4d5e2e98bd731",
-  "name": "logo.png",
-  "content_type": "image/png",
-  "size": 82328,
-  "file_url": "https://assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png",
-  "state": "uploaded",
-  "draft": false,
-  "deleted": false,
-  "replacement_id": "7a216e0509c4d5e2e98bd842"
-}
-```
-
 ## Regenerate draft asset access
 
 ```http
@@ -410,9 +392,6 @@ curl -X PUT \
 }
 ```
 
-Replaced (superseded) assets will include `replacement_id`.
-
-
 ### Use cases
 
 - Publishing
@@ -478,3 +457,21 @@ Content-Type: multipart/form-data
 * Original asset remains unchanged
 * A `replacement_id` is stored on the original asset
 * Clients can detect that the asset has been superseded
+
+Fetching the original asset then returns its `replacement_id`:
+
+```json
+{
+  "_response_info": { "status": "ok" },
+  "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
+  "asset_id": "6a216e0509c4d5e2e98bd731",
+  "name": "logo.png",
+  "content_type": "image/png",
+  "size": 82328,
+  "file_url": "https://assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png",
+  "state": "uploaded",
+  "draft": false,
+  "deleted": false,
+  "replacement_id": "7a216e0509c4d5e2e98bd842"
+}
+```
