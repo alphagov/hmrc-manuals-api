@@ -183,7 +183,12 @@ POST /assets/{asset-id}/regenerate-access
   "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
   "asset_id": "6a216e0509c4d5e2e98bd731",
   "name": "logo.png",
+  "content_type": "image/png",
+  "size": 82328,
   "file_url": "https://draft-assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png?token=eyJhbGciOiAIUzI1PiJ9.eyJzdWIiOiJkYmU3NmNiZC1kNmUjLTQzODItODA4OC01NDdkZGZiMzcwMWUiLCJjb250ZW50X2lkIjoiMmU0MDU3NTQtNTI1ZS00MjQ2LWJmZjgtYmI4ZjkwNzBiNTM4IiwiaWF0IjoxNzgxMDgxMjEwLCJleHAiOjE3ODM2NzMyMHB9.Uvqe1aHgGp_wxCTIyXMNB8COwBo9frs2l2SskZTBJ_Q",
+  "state": "uploaded",
+  "draft": true,
+  "deleted": false,
   "preview_expiry": "2026-08-10T08:31:14Z"
 }
 ```
