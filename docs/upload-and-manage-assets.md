@@ -60,7 +60,7 @@ curl -X POST \
 
 ```json
 {
-  "_response_info": { "status": "success" },
+  "_response_info": { "status": "created" },
   "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
   "asset_id": "6a216e0509c4d5e2e98bd731",
   "name": "logo.png",
@@ -111,6 +111,7 @@ GET /assets/{asset-id}
 
 ```json
 {
+  "_response_info": { "status": "ok" },
   "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
   "asset_id": "6a216e0509c4d5e2e98bd731",
   "name": "logo.png",
@@ -127,6 +128,7 @@ Replaced (superseded) assets will include `replacement_id`:
 
 ```json
 {
+  "_response_info": { "status": "ok" },
   "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
   "asset_id": "6a216e0509c4d5e2e98bd731",
   "name": "logo.png",
@@ -215,6 +217,7 @@ DELETE /assets/{asset-id}
 {
   "_response_info": { "status": "success" },
   "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
+  "asset_id": "6a216e0509c4d5e2e98bd731",
   "name": "updated-logo.png",
   "content_type": "image/png",
   "size": 82328,
@@ -251,6 +254,7 @@ POST /assets/{asset-id}/restore
 
 ```json
 {
+  "_response_info": { "status": "success" },
   "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
   "asset_id": "6a216e0509c4d5e2e98bd731",
   "name": "logo.png",
@@ -313,6 +317,7 @@ You must provide at least one parameter.
 
 ```json
 {
+  "_response_info": { "status": "success" },
   "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
   "asset_id": "6a216e0509c4d5e2e98bd731",
   "name": "logo.png",
