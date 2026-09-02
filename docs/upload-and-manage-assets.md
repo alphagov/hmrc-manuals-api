@@ -81,7 +81,7 @@ Draft assets are not publicly accessible and are hosted on the https://draft-ass
 The `file_url` returned in the asset response includes a time-limited access token and can be used directly to retrieve the asset:
 
 ```http
-GET https://draft-assets.publishing.service.gov.uk/media/659bee95614fa20014f3a9f7/logo.png?token=<jwt-token>
+GET https://draft-assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png?token=<jwt-token>
 ```
 
 If the access token is valid, the draft asset will be served. Otherwise, access will be denied.
@@ -117,7 +117,7 @@ GET /assets/{asset-id}
   "name": "logo.png",
   "content_type": "image/png",
   "size": 82328,
-  "file_url": "https://assets.publishing.service.gov.uk/media/659bee95614fa20014f3a9f7/logo.png",
+  "file_url": "https://assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png",
   "state": "uploaded",
   "draft": false,
   "deleted": false
@@ -134,7 +134,7 @@ Replaced (superseded) assets will include `replacement_id`:
   "name": "logo.png",
   "content_type": "image/png",
   "size": 82328,
-  "file_url": "https://assets.publishing.service.gov.uk/media/659bee95614fa20014f3a9f7/logo.png",
+  "file_url": "https://assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png",
   "state": "uploaded",
   "draft": false,
   "deleted": false,
@@ -226,7 +226,7 @@ DELETE /assets/{asset-id}
   "name": "updated-logo.png",
   "content_type": "image/png",
   "size": 82328,
-  "file_url": "https://assets.publishing.service.gov.uk/media/659bee95614fa20014f3a9f7/updated-logo.png",
+  "file_url": "https://assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/updated-logo.png",
   "state": "uploaded",
   "draft": false,
   "deleted": true
@@ -265,7 +265,7 @@ POST /assets/{asset-id}/restore
   "name": "logo.png",
   "content_type": "image/png",
   "size": 82328,
-  "file_url": "https://assets.publishing.service.gov.uk/media/659bee95614fa20014f3a9f7/logo.png",
+  "file_url": "https://assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png",
   "state": "uploaded",
   "draft": false,
   "deleted": false
@@ -328,7 +328,7 @@ You must provide at least one parameter.
   "name": "logo.png",
   "content_type": "image/png",
   "size": 82328,
-  "file_url": "https://assets.publishing.service.gov.uk/media/659bee95614fa20014f3a9f7/logo.png",
+  "file_url": "https://assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png",
   "state": "uploaded",
   "draft": false,
   "deleted": false
