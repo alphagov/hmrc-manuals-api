@@ -418,11 +418,7 @@ Replaced (superseded) assets will include `replacement_id`.
 - Publishing
   If `asset[draft]` is set to `false`, a draft asset becomes publicly available. This also invalidates any existing draft access tokens. The domain in asset URL will change from `draft-assets.publishing.service.gov.uk` to `assets.publishing.service.gov.uk`.
 
-- File replacement
-  If `asset[file]` is provided, the existing file is replaced and the asset retains its `asset_id`. The `file_url` will change if the file name is different to the original.
-
-- Replacement linking
-  If `asset[replacement_id]` is provided, the asset is marked as replaced by another asset. The original asset remains accessible but is considered superseded.
+- [Replacing an asset](#replacing-asset-workflow-guide)
 
 ## Replacing asset workflow guide
 
