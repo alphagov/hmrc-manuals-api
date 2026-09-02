@@ -105,20 +105,6 @@ curl -X POST \
 }
 ```
 
-#### Accessing draft assets
-
-Draft assets are not publicly accessible and are hosted on the https://draft-assets.publishing.service.gov.uk/ domain.
-
-The `file_url` returned in the asset response includes a time-limited access token and can be used directly to retrieve the asset:
-
-```http
-GET https://draft-assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png?token=<jwt-token>
-```
-
-If the access token is valid, the draft asset will be served. Otherwise, access will be denied.
-Access tokens expire 30 days after they are issued or when asset is published, whichever occurs first. A new token can be regenerated using the `POST /assets/:id/regenerate-access` endpoint.
-
-
 ## Get asset information
 
 ```http
@@ -398,6 +384,19 @@ curl -X PUT \
   If `asset[draft]` is set to `false`, a draft asset becomes publicly available. This also invalidates any existing draft access tokens. The domain in asset URL will change from `draft-assets.publishing.service.gov.uk` to `assets.publishing.service.gov.uk`.
 
 - [Replacing an asset](#replacing-asset-workflow-guide)
+
+## Accessing draft assets
+
+Draft assets are not publicly accessible and are hosted on the https://draft-assets.publishing.service.gov.uk/ domain.
+
+The `file_url` returned in the asset response includes a time-limited access token and can be used directly to retrieve the asset:
+
+```http
+GET https://draft-assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png?token=<jwt-token>
+```
+
+If the access token is valid, the draft asset will be served. Otherwise, access will be denied.
+Access tokens expire 30 days after they are issued or when asset is published, whichever occurs first. A new token can be regenerated using the `POST /assets/:id/regenerate-access` endpoint.
 
 ## Replacing asset workflow guide
 
