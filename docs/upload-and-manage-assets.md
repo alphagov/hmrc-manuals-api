@@ -50,16 +50,14 @@ These fields appear only in certain responses:
 | `preview_expiry` | Draft assets      | Timestamp representing when the access token in `file_url` expires. |
 | `replacement_id` | Superseded assets | ID of the asset that supersedes this one.                           |
 
-## Upload new asset
-
-Uploads a new asset after a clean virus scan result and creates a draft or publicly available asset record.
-
-### Request
+## Upload a new asset
 
 ```http
 POST /assets
 Content-Type: multipart/form-data
 ```
+
+Uploads the asset, optionally making it publicly available. The asset will be scanned for viruses and other potentially malicious content before upload.
 
 ### Request parameters
 
@@ -68,7 +66,19 @@ Content-Type: multipart/form-data
 | `asset[file]`           | Yes      | File to upload.                                                                                      |
 | `asset[draft]`          | No       | Whether the asset is uploaded as a draft. Defaults to `true`. Set to `false` to make the asset publicly available immediately after upload.|
 
-### Example request
+### Response codes
+
+| Status                     | Description                            |
+| -------------------------- | -------------------------------------- |
+| `201 Created`              | Asset successfully uploaded.           |
+| `400 Bad Request`          | A required parameter was not provided. |
+| `401 Unauthorized`         | Authentication failed.                 |
+| `413 Payload Too Large`    | Uploaded file exceeds permitted size.  |
+| `422 Unprocessable Entity` | Asset could not be created.            |
+
+### Example
+
+#### Request
 
 ```bash
 curl -X POST \
@@ -77,11 +87,7 @@ curl -X POST \
   -F "asset[file]=@logo.png"
 ```
 
-### Success response
-
-```http
-201 Created
-```
+#### Response
 
 ```json
 {
@@ -112,25 +118,14 @@ GET https://draft-assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd73
 If the access token is valid, the draft asset will be served. Otherwise, access will be denied.
 Access tokens expire 30 days after they are issued or when asset is published, whichever occurs first. A new token can be regenerated using the `POST /assets/:id/regenerate-access` endpoint.
 
-### Error responses
-
-| Status                     | Description                           |
-| -------------------------- | ------------------------------------- |
-| `400 Bad Request`          | A required parameter was not provided.|
-| `401 Unauthorized`         | Authentication failed.                |
-| `413 Payload Too Large`    | Uploaded file exceeds permitted size. |
-| `422 Unprocessable Entity` | Asset could not be created.           |
-
 
 ## Get asset information
-
-Returns metadata for an asset.
-
-### Request
 
 ```http
 GET /assets/{asset-id}
 ```
+
+Returns metadata for an asset.
 
 ### Path parameters
 
@@ -138,7 +133,24 @@ GET /assets/{asset-id}
 | ---------- | ------------------------------- |
 | `asset-id` | Unique identifier of the asset. |
 
-### Success response
+### Response codes
+
+| Status          | Description                                        |
+| --------------- | -------------------------------------------------- |
+| `200 OK`        | Asset metadata returned.                           |
+| `403 Forbidden` | You don't have permission to access this resource. |
+| `404 Not Found` | Asset does not exist.                              |
+
+### Example
+
+#### Request
+
+```bash
+curl https://hmrc-manuals-api.publishing.service.gov.uk/assets/6a216e0509c4d5e2e98bd731 \
+  -H "Authorization: Bearer <token>"
+```
+
+#### Response
 
 ```json
 {
@@ -173,15 +185,11 @@ Replaced (superseded) assets will include `replacement_id`:
 }
 ```
 
-### Error responses
-
-| Status          | Description                                        |
-| --------------- | -------------------------------------------------- |
-| `403 Forbidden` | You don't have permission to access this resource. |
-| `404 Not Found` | Asset does not exist.                              |
-
-
 ## Regenerate draft asset access
+
+```http
+POST /assets/{asset-id}/regenerate-access
+```
 
 Resets and generates a new preview link for a draft asset and returns an updated preview URL.
 
@@ -190,23 +198,32 @@ Draft asset access tokens expire 30 days after they are issued. Use this endpoin
 The response includes a refreshed `file_url` containing the new token and an updated `preview_expiry` timestamp.
 This operation will disable the previous preview link.
 
-### Request
-
-```http
-POST /assets/{asset-id}/regenerate-access
-```
-
 ### Path parameters
 
 | Parameter  | Description                     |
 | ---------- | ------------------------------- |
 | `asset-id` | Unique identifier of the asset. |
 
-### Success response
+### Response codes
 
-```http
-201 Created
+| Status                     | Description                     |
+| -------------------------- | ------------------------------- |
+| `201 Created`              | New preview link generated.     |
+| `401 Unauthorized`         | Authentication failed.          |
+| `404 Not Found`            | Asset does not exist.           |
+| `422 Unprocessable Entity` | Access couldn't be regenerated. |
+
+### Example
+
+#### Request
+
+```bash
+curl -X POST \
+  https://hmrc-manuals-api.publishing.service.gov.uk/assets/6a216e0509c4d5e2e98bd731/regenerate-access \
+  -H "Authorization: Bearer <token>"
 ```
+
+#### Response
 
 ```json
 {
@@ -224,24 +241,13 @@ POST /assets/{asset-id}/regenerate-access
 }
 ```
 
-### Error responses
-
-| Status                     | Description                           |
-| -------------------------- | ------------------------------------- |
-| `401 Unauthorized`         | Authentication failed.                |
-| `404 Not Found`            | Asset does not exist.                 |
-| `422 Unprocessable Entity` | Access couldn't be regenerated        |
-
-
 ## Delete asset
-
-Marks an asset as deleted.
-
-### Request
 
 ```http
 DELETE /assets/{asset-id}
 ```
+
+Marks an asset as deleted.
 
 ### Path parameters
 
@@ -249,11 +255,25 @@ DELETE /assets/{asset-id}
 | ---------- | ------------------------------- |
 | `asset-id` | Unique identifier of the asset. |
 
-### Success response
+### Response codes
 
-```http
-200 OK
+| Status          | Description                   |
+| --------------- | ----------------------------- |
+| `200 OK`        | Asset marked as deleted.      |
+| `403 Forbidden` | Access to asset is forbidden. |
+| `404 Not Found` | Asset does not exist.         |
+
+### Example
+
+#### Request
+
+```bash
+curl -X DELETE \
+  https://hmrc-manuals-api.publishing.service.gov.uk/assets/6a216e0509c4d5e2e98bd731 \
+  -H "Authorization: Bearer <token>"
 ```
+
+#### Response
 
 ```json
 {
@@ -270,23 +290,13 @@ DELETE /assets/{asset-id}
 }
 ```
 
-### Error responses
-
-| Status          | Description                                   |
-| --------------- | --------------------------------------------- |
-| `403 Forbidden` | Access to asset is forbidden.                 |
-| `404 Not Found` | Asset does not exist.                         |
-
-
 ## Restore deleted asset
-
-Restores a previously deleted asset.
-
-### Request
 
 ```http
 POST /assets/{asset-id}/restore
 ```
+
+Restores a previously deleted asset.
 
 ### Path parameters
 
@@ -294,11 +304,25 @@ POST /assets/{asset-id}/restore
 | ---------- | ------------------------------- |
 | `asset-id` | Unique identifier of the asset. |
 
-### Success response
+### Response codes
 
-```http
-200 OK
+| Status          | Description                   |
+| --------------- | ----------------------------- |
+| `200 OK`        | Asset restored.               |
+| `403 Forbidden` | Access to asset is forbidden. |
+| `404 Not Found` | Asset does not exist.         |
+
+### Example
+
+#### Request
+
+```bash
+curl -X POST \
+  https://hmrc-manuals-api.publishing.service.gov.uk/assets/6a216e0509c4d5e2e98bd731/restore \
+  -H "Authorization: Bearer <token>"
 ```
+
+#### Response
 
 ```json
 {
@@ -315,14 +339,12 @@ POST /assets/{asset-id}/restore
 }
 ```
 
-### Error responses
-
-| Status          | Description                      |
-| --------------- | -------------------------------- |
-| `403 Forbidden` | Access to asset is forbidden.    |
-| `404 Not Found` | Asset does not exist.            |
-
 ## Update asset
+
+```http
+PUT /assets/{asset-id}
+Content-Type: multipart/form-data
+```
 
 Updates an existing asset. This endpoint supports multiple update operations including:
 
@@ -333,13 +355,6 @@ Updates an existing asset. This endpoint supports multiple update operations inc
 All fields are optional, but at least one must be provided.
 
 This is a partial update operation so only the attributes included in the request will be changed.
-
-### Request
-
-```http
-PUT /assets/{asset-id}
-Content-Type: multipart/form-data
-```
 
 ### Path parameters
 
@@ -357,11 +372,28 @@ Content-Type: multipart/form-data
 
 You must provide at least one parameter.
 
-### Success response
+### Response codes
 
-```http
-200 OK
+| Status                     | Description                           |
+| -------------------------- | ------------------------------------- |
+| `200 OK`                   | Asset updated.                        |
+| `403 Forbidden`            | Access to asset is forbidden.         |
+| `404 Not Found`            | Asset does not exist.                 |
+| `413 Payload Too Large`    | Uploaded file exceeds permitted size. |
+| `422 Unprocessable Entity` | Asset update failed.                  |
+
+### Example
+
+#### Request
+
+```bash
+curl -X PUT \
+  https://hmrc-manuals-api.publishing.service.gov.uk/assets/6a216e0509c4d5e2e98bd731 \
+  -H "Authorization: Bearer <token>" \
+  -F "asset[draft]=false"
 ```
+
+#### Response
 
 ```json
 {
@@ -379,15 +411,6 @@ You must provide at least one parameter.
 ```
 
 Replaced (superseded) assets will include `replacement_id`.
-
-### Error responses
-
-| Status                     | Description               |
-| -------------------------- | ------------------------- |
-| `403 Forbidden`            | Access to asset is forbidden. |
-| `404 Not Found`            | Asset does not exist.     |
-| `413 Payload Too Large`    | Uploaded file exceeds permitted size. |
-| `422 Unprocessable Entity` | Asset update failed.      |
 
 
 ### Use cases
