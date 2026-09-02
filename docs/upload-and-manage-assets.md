@@ -148,33 +148,6 @@ Replaced (superseded) assets will include `replacement_id`:
 | `404 Not Found` | Asset does not exist.                              |
 
 
-## Download asset
-
-Returns the binary contents of an asset.
-
-### Request
-
-```http
-GET /assets/{asset-id}/download
-```
-
-### Success response
-
-```http
-200 OK
-```
-
-Binary file content.
-
-### Error responses
-
-| Status          | Description             |
-| --------------- | ----------------------- |
-| `403 Forbidden` | You don't have permission to access this resource. |
-| `404 Not Found` | Asset does not exist.   |
-| `410 Gone`      | Asset has been deleted. |
-
-
 ## Regenerate draft asset access
 
 Resets and generates a new preview link for a draft asset and returns an updated preview URL.
