@@ -107,6 +107,12 @@ Returns metadata for an asset.
 GET /assets/{asset-id}
 ```
 
+### Path parameters
+
+| Parameter  | Description                     |
+| ---------- | ------------------------------- |
+| `asset-id` | Unique identifier of the asset. |
+
 ### Success response
 
 ```json
@@ -212,6 +218,12 @@ Marks an asset as deleted.
 DELETE /assets/{asset-id}
 ```
 
+### Path parameters
+
+| Parameter  | Description                     |
+| ---------- | ------------------------------- |
+| `asset-id` | Unique identifier of the asset. |
+
 ### Success response
 
 ```http
@@ -250,6 +262,12 @@ Restores a previously deleted asset.
 ```http
 POST /assets/{asset-id}/restore
 ```
+
+### Path parameters
+
+| Parameter  | Description                     |
+| ---------- | ------------------------------- |
+| `asset-id` | Unique identifier of the asset. |
 
 ### Success response
 
