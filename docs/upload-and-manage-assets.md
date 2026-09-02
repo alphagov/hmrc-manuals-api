@@ -24,6 +24,31 @@ Request headers marked as required must be included with all requests.
 | -------------- | ----------------------------------------------------------- |
 | `Content-Type` | `application/json`                                          |
 
+## Response fields
+
+All endpoints return a JSON body describing the asset, always including these fields:
+
+| Field            | Description                                                                                                            |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `_response_info` | Status of the request: `"created"` for uploads, `"ok"` for reads, and `"success"` for updates, deletes, restores and access regeneration. |
+| `id`             | Canonical URL identifying the asset. Its final path segment is the `asset_id`.                                       |
+| `asset_id`       | Identifier for the asset, used in this API's asset paths (e.g. `/assets/{asset_id}`).                                |
+| `name`           | File name.                                                                                                           |
+| `content_type`   | MIME type of the file.                                                                                               |
+| `size`           | File size in bytes.                                                                                                  |
+| `file_url`       | URL the asset file is served from. For draft assets this includes a time-limited access token.                       |
+| `state`          | Processing state of the asset: `"unscanned"`, `"clean"`, `"infected"` or `"uploaded"`.                               |
+| `draft`          | Whether the asset is a draft: `true` or `false`.                                                                     |
+| `deleted`        | Whether the asset is marked as deleted: `true` or `false`.                                                           |
+
+### Conditional fields
+
+These fields appear only in certain responses:
+
+| Field            | Condition         | Description                                                          |
+| ---------------- | ----------------- | ------------------------------------------------------------------- |
+| `preview_expiry` | Draft assets      | Timestamp representing when the access token in `file_url` expires. |
+| `replacement_id` | Superseded assets | ID of the asset that supersedes this one.                           |
 
 ## Upload new asset
 
