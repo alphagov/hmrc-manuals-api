@@ -17,7 +17,7 @@ class AssetsController < ApplicationController
         format.json do
           asset_manager_response = Services.asset_manager.create_asset(asset)
           output = if asset[:draft]
-                     formatted_asset_manager_response_for_draft(asset_manager_response, asset)
+                     formatted_asset_manager_response_with_draft_access(asset_manager_response, asset)
                    else
                      formatted_asset_manager_response(asset_manager_response)
                    end
@@ -58,7 +58,7 @@ class AssetsController < ApplicationController
         format.json do
           asset_manager_response = Services.asset_manager.update_asset(params[:id], asset)
           output = if asset[:draft]
-                     formatted_asset_manager_response_for_draft(asset_manager_response, asset)
+                     formatted_asset_manager_response_with_draft_access(asset_manager_response, asset)
                    else
                      formatted_asset_manager_response(asset_manager_response)
                    end
@@ -91,7 +91,7 @@ class AssetsController < ApplicationController
 
   def regenerate_access
     asset_manager_response = Services.asset_manager.update_asset(params[:id], asset_auth_params)
-    output = formatted_asset_manager_response_for_draft(asset_manager_response, asset_auth_params)
+    output = formatted_asset_manager_response_with_draft_access(asset_manager_response, asset_auth_params)
 
     render status: :created, json: output
   rescue GdsApi::HTTPNotFound
@@ -147,7 +147,7 @@ private
     )
   end
 
-  def formatted_asset_manager_response_for_draft(asset_manager_response, asset_params)
+  def formatted_asset_manager_response_with_draft_access(asset_manager_response, asset_params)
     token_expiry = Time.zone.now + 30.days
     token = generate_jwt_token(asset_params[:auth_bypass_ids].first, token_expiry)
 

@@ -1,5 +1,5 @@
 # [DRAFT]
-Last updated: 02/09/2026
+Last updated: 03/09/2026
 
 # Managing assets
 
@@ -36,7 +36,7 @@ All endpoints return a JSON body describing the asset, always including these fi
 | `name`           | File name.                                                                                                                                |
 | `content_type`   | MIME type of the file.                                                                                                                    |
 | `size`           | File size in bytes.                                                                                                                       |
-| `file_url`       | URL the asset file is served from. For draft assets this includes a time-limited access token.                                            |
+| `file_url`       | URL the asset file is served from. Includes an access token on certain endpoints (see [Accessing draft assets](#accessing-draft-assets)). |
 | `state`          | Processing state of the asset: `"unscanned"`, `"clean"`, `"infected"` or `"uploaded"`.                                                    |
 | `draft`          | Whether the asset is a draft: `true` or `false`.                                                                                          |
 | `deleted`        | Whether the asset is marked as deleted: `true` or `false`.                                                                                |
@@ -47,7 +47,7 @@ These fields appear only in certain responses:
 
 | Field            | Condition         | Description                                                         |
 | ---------------- | ----------------- | ------------------------------------------------------------------- |
-| `preview_expiry` | Draft assets      | Timestamp representing when the access token in `file_url` expires. |
+| `preview_expiry` | With access token | Timestamp representing when the access token in `file_url` expires. |
 | `replacement_id` | Superseded assets | ID of the asset that supersedes this one.                           |
 
 ## Upload a new asset
@@ -389,7 +389,9 @@ curl -X PUT \
 
 Draft assets are not publicly accessible and are hosted on the https://draft-assets.publishing.service.gov.uk/ domain.
 
-The `file_url` returned in the asset response includes a time-limited access token and can be used directly to retrieve the asset:
+The returned `file_url` includes a time-limited access token when uploading a new asset, updating a draft with the `asset[draft]` param set to `true`, or regenerating the access token. The access token is not included in the `file_url` when getting asset information.
+
+The token-including `file_url` can then be used to retrieve the draft asset:
 
 ```http
 GET https://draft-assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png?token=<jwt-token>
