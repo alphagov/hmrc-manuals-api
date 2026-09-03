@@ -573,8 +573,8 @@ describe "assets resource" do
     end
 
     context "when Asset Manager responds with ok" do
-      it "responds with 201 Created" do
-        expect(response).to have_http_status(:created)
+      it "responds with 200 OK" do
+        expect(response).to have_http_status(:ok)
       end
 
       it "makes a request to Asset Manager" do

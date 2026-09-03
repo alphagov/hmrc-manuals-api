@@ -93,7 +93,7 @@ class AssetsController < ApplicationController
     asset_manager_response = Services.asset_manager.update_asset(params[:id], asset_auth_params)
     output = formatted_asset_manager_response_with_draft_access(asset_manager_response, asset_auth_params)
 
-    render status: :created, json: output
+    render json: output
   rescue GdsApi::HTTPNotFound
     error :not_found, "Asset not found"
   rescue GdsApi::HTTPForbidden
