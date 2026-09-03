@@ -39,13 +39,18 @@ describe "assets resource" do
     end
   end
 
-  shared_examples "passes the correct params to Asset Manager" do
-    it "passes forward params" do
+  shared_examples "passes the correct params to Asset Manager" do |method_name:|
+    it "calls #{method_name} with the correct params" do
       expected_params = request_params.fetch(:asset).dup
-      expected_params.merge!({ auth_bypass_ids: %w[token] }) if request_params.fetch(:asset)[:draft]
+      if method_name == :create_asset && !expected_params.key?(:draft)
+        expected_params[:draft] = true
+      end
+      expected_arguments = method_name == :create_asset ? [expected_params] : [asset_id, expected_params]
+
+      expected_params.merge!({ auth_bypass_ids: %w[token] }) if expected_params[:draft]
       expected_params[:file] = an_instance_of(Tempfile) if expected_params.key?(:file)
 
-      expect(Services.asset_manager).to have_received(:update_asset).with(asset_id, expected_params)
+      expect(Services.asset_manager).to have_received(method_name).with(*expected_arguments)
     end
   end
 
@@ -398,7 +403,8 @@ describe "assets resource" do
           expect(parsed_response).to include(asset_id:)
         end
 
-        it_behaves_like "passes the correct params to Asset Manager"
+        it_behaves_like "passes the correct params to Asset Manager",
+                        method_name: :update_asset
       end
 
       context "when the client provides a value for draft" do
@@ -424,7 +430,8 @@ describe "assets resource" do
             expect(parsed_response[:file_url]).not_to match(/token=/)
           end
 
-          it_behaves_like "passes the correct params to Asset Manager"
+          it_behaves_like "passes the correct params to Asset Manager",
+                          method_name: :update_asset
         end
 
         context "when the asset is draft" do
@@ -446,7 +453,8 @@ describe "assets resource" do
             expect(parsed_response).to include(asset_id:)
           end
 
-          it_behaves_like "passes the correct params to Asset Manager"
+          it_behaves_like "passes the correct params to Asset Manager",
+                          method_name: :update_asset
 
           it_behaves_like "includes a draft response token"
         end
@@ -468,7 +476,8 @@ describe "assets resource" do
           expect(parsed_response).to include(asset_id:)
         end
 
-        it_behaves_like "passes the correct params to Asset Manager"
+        it_behaves_like "passes the correct params to Asset Manager",
+                        method_name: :update_asset
       end
     end
 
