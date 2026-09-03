@@ -1,5 +1,5 @@
 # [DRAFT]
-Last updated: 21/07/2026
+Last updated: 02/09/2026
 
 # Managing assets
 
@@ -60,7 +60,7 @@ curl -X POST \
 
 ```json
 {
-  "_response_info": { "status": "success" },
+  "_response_info": { "status": "created" },
   "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
   "asset_id": "6a216e0509c4d5e2e98bd731",
   "name": "logo.png",
@@ -81,7 +81,7 @@ Draft assets are not publicly accessible and are hosted on the https://draft-ass
 The `file_url` returned in the asset response includes a time-limited access token and can be used directly to retrieve the asset:
 
 ```http
-GET https://draft-assets.publishing.service.gov.uk/media/659bee95614fa20014f3a9f7/logo.png?token=<jwt-token>
+GET https://draft-assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png?token=<jwt-token>
 ```
 
 If the access token is valid, the draft asset will be served. Otherwise, access will be denied.
@@ -107,16 +107,23 @@ Returns metadata for an asset.
 GET /assets/{asset-id}
 ```
 
+### Path parameters
+
+| Parameter  | Description                     |
+| ---------- | ------------------------------- |
+| `asset-id` | Unique identifier of the asset. |
+
 ### Success response
 
 ```json
 {
+  "_response_info": { "status": "ok" },
   "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
   "asset_id": "6a216e0509c4d5e2e98bd731",
   "name": "logo.png",
   "content_type": "image/png",
   "size": 82328,
-  "file_url": "https://assets.publishing.service.gov.uk/media/659bee95614fa20014f3a9f7/logo.png",
+  "file_url": "https://assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png",
   "state": "uploaded",
   "draft": false,
   "deleted": false
@@ -127,12 +134,13 @@ Replaced (superseded) assets will include `replacement_id`:
 
 ```json
 {
+  "_response_info": { "status": "ok" },
   "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
   "asset_id": "6a216e0509c4d5e2e98bd731",
   "name": "logo.png",
   "content_type": "image/png",
   "size": 82328,
-  "file_url": "https://assets.publishing.service.gov.uk/media/659bee95614fa20014f3a9f7/logo.png",
+  "file_url": "https://assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png",
   "state": "uploaded",
   "draft": false,
   "deleted": false,
@@ -146,33 +154,6 @@ Replaced (superseded) assets will include `replacement_id`:
 | --------------- | -------------------------------------------------- |
 | `403 Forbidden` | You don't have permission to access this resource. |
 | `404 Not Found` | Asset does not exist.                              |
-
-
-## Download asset
-
-Returns the binary contents of an asset.
-
-### Request
-
-```http
-GET /assets/{asset-id}/download
-```
-
-### Success response
-
-```http
-200 OK
-```
-
-Binary file content.
-
-### Error responses
-
-| Status          | Description             |
-| --------------- | ----------------------- |
-| `403 Forbidden` | You don't have permission to access this resource. |
-| `404 Not Found` | Asset does not exist.   |
-| `410 Gone`      | Asset has been deleted. |
 
 
 ## Regenerate draft asset access
@@ -208,7 +189,12 @@ POST /assets/{asset-id}/regenerate-access
   "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
   "asset_id": "6a216e0509c4d5e2e98bd731",
   "name": "logo.png",
+  "content_type": "image/png",
+  "size": 82328,
   "file_url": "https://draft-assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png?token=eyJhbGciOiAIUzI1PiJ9.eyJzdWIiOiJkYmU3NmNiZC1kNmUjLTQzODItODA4OC01NDdkZGZiMzcwMWUiLCJjb250ZW50X2lkIjoiMmU0MDU3NTQtNTI1ZS00MjQ2LWJmZjgtYmI4ZjkwNzBiNTM4IiwiaWF0IjoxNzgxMDgxMjEwLCJleHAiOjE3ODM2NzMyMHB9.Uvqe1aHgGp_wxCTIyXMNB8COwBo9frs2l2SskZTBJ_Q",
+  "state": "uploaded",
+  "draft": true,
+  "deleted": false,
   "preview_expiry": "2026-08-10T08:31:14Z"
 }
 ```
@@ -232,6 +218,12 @@ Marks an asset as deleted.
 DELETE /assets/{asset-id}
 ```
 
+### Path parameters
+
+| Parameter  | Description                     |
+| ---------- | ------------------------------- |
+| `asset-id` | Unique identifier of the asset. |
+
 ### Success response
 
 ```http
@@ -242,10 +234,11 @@ DELETE /assets/{asset-id}
 {
   "_response_info": { "status": "success" },
   "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
+  "asset_id": "6a216e0509c4d5e2e98bd731",
   "name": "updated-logo.png",
   "content_type": "image/png",
   "size": 82328,
-  "file_url": "https://assets.publishing.service.gov.uk/media/659bee95614fa20014f3a9f7/updated-logo.png",
+  "file_url": "https://assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/updated-logo.png",
   "state": "uploaded",
   "draft": false,
   "deleted": true
@@ -270,6 +263,12 @@ Restores a previously deleted asset.
 POST /assets/{asset-id}/restore
 ```
 
+### Path parameters
+
+| Parameter  | Description                     |
+| ---------- | ------------------------------- |
+| `asset-id` | Unique identifier of the asset. |
+
 ### Success response
 
 ```http
@@ -278,12 +277,13 @@ POST /assets/{asset-id}/restore
 
 ```json
 {
+  "_response_info": { "status": "success" },
   "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
   "asset_id": "6a216e0509c4d5e2e98bd731",
   "name": "logo.png",
   "content_type": "image/png",
   "size": 82328,
-  "file_url": "https://assets.publishing.service.gov.uk/media/659bee95614fa20014f3a9f7/logo.png",
+  "file_url": "https://assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png",
   "state": "uploaded",
   "draft": false,
   "deleted": false
@@ -340,12 +340,13 @@ You must provide at least one parameter.
 
 ```json
 {
+  "_response_info": { "status": "success" },
   "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
   "asset_id": "6a216e0509c4d5e2e98bd731",
   "name": "logo.png",
   "content_type": "image/png",
   "size": 82328,
-  "file_url": "https://assets.publishing.service.gov.uk/media/659bee95614fa20014f3a9f7/logo.png",
+  "file_url": "https://assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png",
   "state": "uploaded",
   "draft": false,
   "deleted": false
