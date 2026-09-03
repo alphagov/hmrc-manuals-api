@@ -13,37 +13,72 @@ These headers apply to all endpoints.
 
 Request headers marked as required must be included with all requests.
 
-| Header          | Required | Description                                                  |
-| --------------- | -------- | ------------------------------------------------------------ |
-| `Authorization` | Yes      | Bearer token used to authenticate the request.               |
-| `Accept`        | No       | Defaults to `application/json`.                              |
+| Header          | Required | Description                                    |
+| --------------- | -------- | ---------------------------------------------- |
+| `Authorization` | Yes      | Bearer token used to authenticate the request. |
+| `Accept`        | No       | Defaults to `application/json`.                |
 
 ### Response headers
 
-| Header         | Description                                                 |
-| -------------- | ----------------------------------------------------------- |
-| `Content-Type` | `application/json`                                          |
+| Header         | Description        |
+| -------------- | ------------------ |
+| `Content-Type` | `application/json` |
 
+## Response fields
 
-## Upload new asset
+All endpoints return a JSON body describing the asset, always including these fields:
 
-Uploads a new asset after a clean virus scan result and creates a draft or publicly available asset record.
+| Field            | Description                                                                                                                               |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `_response_info` | Status of the request: `"created"` for uploads, `"ok"` for reads, and `"success"` for updates, deletes, restores and access regeneration. |
+| `id`             | Canonical URL identifying the asset. Its final path segment is the `asset_id`.                                                            |
+| `asset_id`       | Identifier for the asset, used in this API's asset paths (e.g. `/assets/:asset_id`).                                                      |
+| `name`           | File name.                                                                                                                                |
+| `content_type`   | MIME type of the file.                                                                                                                    |
+| `size`           | File size in bytes.                                                                                                                       |
+| `file_url`       | URL the asset file is served from. For draft assets this includes a time-limited access token.                                            |
+| `state`          | Processing state of the asset: `"unscanned"`, `"clean"`, `"infected"` or `"uploaded"`.                                                    |
+| `draft`          | Whether the asset is a draft: `true` or `false`.                                                                                          |
+| `deleted`        | Whether the asset is marked as deleted: `true` or `false`.                                                                                |
 
-### Request
+### Conditional fields
+
+These fields appear only in certain responses:
+
+| Field            | Condition         | Description                                                         |
+| ---------------- | ----------------- | ------------------------------------------------------------------- |
+| `preview_expiry` | Draft assets      | Timestamp representing when the access token in `file_url` expires. |
+| `replacement_id` | Superseded assets | ID of the asset that supersedes this one.                           |
+
+## Upload a new asset
 
 ```http
 POST /assets
 Content-Type: multipart/form-data
 ```
 
+Uploads the asset, optionally making it publicly available. The asset will be scanned for viruses and other potentially malicious content before upload.
+
 ### Request parameters
 
-| Parameter               | Required | Description                                                                                          |
-| ----------------------- | -------- | ---------------------------------------------------------------------------------------------------- |
-| `asset[file]`           | Yes      | File to upload.                                                                                      |
-| `asset[draft]`          | No       | Whether the asset is uploaded as a draft. Defaults to `true`. Set to `false` to make the asset publicly available immediately after upload.|
+| Parameter      | Required | Description                                                                                                                                 |
+| -------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| `asset[file]`  | Yes      | File to upload.                                                                                                                             |
+| `asset[draft]` | No       | Whether the asset is uploaded as a draft. Defaults to `true`. Set to `false` to make the asset publicly available immediately after upload. |
 
-### Example request
+### Response codes
+
+| Status                     | Description                            |
+| -------------------------- | -------------------------------------- |
+| `201 Created`              | Asset successfully uploaded.           |
+| `400 Bad Request`          | A required parameter was not provided. |
+| `401 Unauthorized`         | Authentication failed.                 |
+| `413 Payload Too Large`    | Uploaded file exceeds permitted size.  |
+| `422 Unprocessable Entity` | Asset could not be created.            |
+
+### Example
+
+#### Request
 
 ```bash
 curl -X POST \
@@ -52,11 +87,7 @@ curl -X POST \
   -F "asset[file]=@logo.png"
 ```
 
-### Success response
-
-```http
-201 Created
-```
+#### Response
 
 ```json
 {
@@ -74,46 +105,38 @@ curl -X POST \
 }
 ```
 
-#### Accessing draft assets
-
-Draft assets are not publicly accessible and are hosted on the https://draft-assets.publishing.service.gov.uk/ domain.
-
-The `file_url` returned in the asset response includes a time-limited access token and can be used directly to retrieve the asset:
-
-```http
-GET https://draft-assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png?token=<jwt-token>
-```
-
-If the access token is valid, the draft asset will be served. Otherwise, access will be denied.
-Access tokens expire 30 days after they are issued or when asset is published, whichever occurs first. A new token can be regenerated using the `POST /assets/:id/regenerate-access` endpoint.
-
-### Error responses
-
-| Status                     | Description                           |
-| -------------------------- | ------------------------------------- |
-| `400 Bad Request`          | A required parameter was not provided.|
-| `401 Unauthorized`         | Authentication failed.                |
-| `413 Payload Too Large`    | Uploaded file exceeds permitted size. |
-| `422 Unprocessable Entity` | Asset could not be created.           |
-
-
 ## Get asset information
 
-Returns metadata for an asset.
-
-### Request
-
 ```http
-GET /assets/{asset-id}
+GET /assets/:asset_id
 ```
+
+Returns metadata for an asset.
 
 ### Path parameters
 
 | Parameter  | Description                     |
 | ---------- | ------------------------------- |
-| `asset-id` | Unique identifier of the asset. |
+| `asset_id` | Unique identifier of the asset. |
 
-### Success response
+### Response codes
+
+| Status          | Description                                        |
+| --------------- | -------------------------------------------------- |
+| `200 OK`        | Asset metadata returned.                           |
+| `403 Forbidden` | You don't have permission to access this resource. |
+| `404 Not Found` | Asset does not exist.                              |
+
+### Example
+
+#### Request
+
+```bash
+curl https://hmrc-manuals-api.publishing.service.gov.uk/assets/6a216e0509c4d5e2e98bd731 \
+  -H "Authorization: Bearer <token>"
+```
+
+#### Response
 
 ```json
 {
@@ -130,33 +153,11 @@ GET /assets/{asset-id}
 }
 ```
 
-Replaced (superseded) assets will include `replacement_id`:
-
-```json
-{
-  "_response_info": { "status": "ok" },
-  "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
-  "asset_id": "6a216e0509c4d5e2e98bd731",
-  "name": "logo.png",
-  "content_type": "image/png",
-  "size": 82328,
-  "file_url": "https://assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png",
-  "state": "uploaded",
-  "draft": false,
-  "deleted": false,
-  "replacement_id": "7a216e0509c4d5e2e98bd842"
-}
-```
-
-### Error responses
-
-| Status          | Description                                        |
-| --------------- | -------------------------------------------------- |
-| `403 Forbidden` | You don't have permission to access this resource. |
-| `404 Not Found` | Asset does not exist.                              |
-
-
 ## Regenerate draft asset access
+
+```http
+POST /assets/:asset_id/regenerate-access
+```
 
 Resets and generates a new preview link for a draft asset and returns an updated preview URL.
 
@@ -165,23 +166,32 @@ Draft asset access tokens expire 30 days after they are issued. Use this endpoin
 The response includes a refreshed `file_url` containing the new token and an updated `preview_expiry` timestamp.
 This operation will disable the previous preview link.
 
-### Request
-
-```http
-POST /assets/{asset-id}/regenerate-access
-```
-
 ### Path parameters
 
 | Parameter  | Description                     |
 | ---------- | ------------------------------- |
-| `asset-id` | Unique identifier of the asset. |
+| `asset_id` | Unique identifier of the asset. |
 
-### Success response
+### Response codes
 
-```http
-201 Created
+| Status                     | Description                     |
+| -------------------------- | ------------------------------- |
+| `201 Created`              | New preview link generated.     |
+| `401 Unauthorized`         | Authentication failed.          |
+| `404 Not Found`            | Asset does not exist.           |
+| `422 Unprocessable Entity` | Access couldn't be regenerated. |
+
+### Example
+
+#### Request
+
+```bash
+curl -X POST \
+  https://hmrc-manuals-api.publishing.service.gov.uk/assets/6a216e0509c4d5e2e98bd731/regenerate-access \
+  -H "Authorization: Bearer <token>"
 ```
+
+#### Response
 
 ```json
 {
@@ -199,36 +209,39 @@ POST /assets/{asset-id}/regenerate-access
 }
 ```
 
-### Error responses
-
-| Status                     | Description                           |
-| -------------------------- | ------------------------------------- |
-| `401 Unauthorized`         | Authentication failed.                |
-| `404 Not Found`            | Asset does not exist.                 |
-| `422 Unprocessable Entity` | Access couldn't be regenerated        |
-
-
 ## Delete asset
 
-Marks an asset as deleted.
-
-### Request
-
 ```http
-DELETE /assets/{asset-id}
+DELETE /assets/:asset_id
 ```
+
+Marks an asset as deleted.
 
 ### Path parameters
 
 | Parameter  | Description                     |
 | ---------- | ------------------------------- |
-| `asset-id` | Unique identifier of the asset. |
+| `asset_id` | Unique identifier of the asset. |
 
-### Success response
+### Response codes
 
-```http
-200 OK
+| Status          | Description                   |
+| --------------- | ----------------------------- |
+| `200 OK`        | Asset marked as deleted.      |
+| `403 Forbidden` | Access to asset is forbidden. |
+| `404 Not Found` | Asset does not exist.         |
+
+### Example
+
+#### Request
+
+```bash
+curl -X DELETE \
+  https://hmrc-manuals-api.publishing.service.gov.uk/assets/6a216e0509c4d5e2e98bd731 \
+  -H "Authorization: Bearer <token>"
 ```
+
+#### Response
 
 ```json
 {
@@ -245,35 +258,39 @@ DELETE /assets/{asset-id}
 }
 ```
 
-### Error responses
-
-| Status          | Description                                   |
-| --------------- | --------------------------------------------- |
-| `403 Forbidden` | Access to asset is forbidden.                 |
-| `404 Not Found` | Asset does not exist.                         |
-
-
 ## Restore deleted asset
 
-Restores a previously deleted asset.
-
-### Request
-
 ```http
-POST /assets/{asset-id}/restore
+POST /assets/:asset_id/restore
 ```
+
+Restores a previously deleted asset.
 
 ### Path parameters
 
 | Parameter  | Description                     |
 | ---------- | ------------------------------- |
-| `asset-id` | Unique identifier of the asset. |
+| `asset_id` | Unique identifier of the asset. |
 
-### Success response
+### Response codes
 
-```http
-200 OK
+| Status          | Description                   |
+| --------------- | ----------------------------- |
+| `200 OK`        | Asset restored.               |
+| `403 Forbidden` | Access to asset is forbidden. |
+| `404 Not Found` | Asset does not exist.         |
+
+### Example
+
+#### Request
+
+```bash
+curl -X POST \
+  https://hmrc-manuals-api.publishing.service.gov.uk/assets/6a216e0509c4d5e2e98bd731/restore \
+  -H "Authorization: Bearer <token>"
 ```
+
+#### Response
 
 ```json
 {
@@ -290,14 +307,12 @@ POST /assets/{asset-id}/restore
 }
 ```
 
-### Error responses
-
-| Status          | Description                      |
-| --------------- | -------------------------------- |
-| `403 Forbidden` | Access to asset is forbidden.    |
-| `404 Not Found` | Asset does not exist.            |
-
 ## Update asset
+
+```http
+PUT /assets/:asset_id
+Content-Type: multipart/form-data
+```
 
 Updates an existing asset. This endpoint supports multiple update operations including:
 
@@ -309,18 +324,11 @@ All fields are optional, but at least one must be provided.
 
 This is a partial update operation so only the attributes included in the request will be changed.
 
-### Request
-
-```http
-PUT /assets/{asset-id}
-Content-Type: multipart/form-data
-```
-
 ### Path parameters
 
 | Parameter  | Description                     |
 | ---------- | ------------------------------- |
-| `asset-id` | Unique identifier of the asset. |
+| `asset_id` | Unique identifier of the asset. |
 
 ### Request parameters
 
@@ -332,11 +340,28 @@ Content-Type: multipart/form-data
 
 You must provide at least one parameter.
 
-### Success response
+### Response codes
 
-```http
-200 OK
+| Status                     | Description                           |
+| -------------------------- | ------------------------------------- |
+| `200 OK`                   | Asset updated.                        |
+| `403 Forbidden`            | Access to asset is forbidden.         |
+| `404 Not Found`            | Asset does not exist.                 |
+| `413 Payload Too Large`    | Uploaded file exceeds permitted size. |
+| `422 Unprocessable Entity` | Asset update failed.                  |
+
+### Example
+
+#### Request
+
+```bash
+curl -X PUT \
+  https://hmrc-manuals-api.publishing.service.gov.uk/assets/6a216e0509c4d5e2e98bd731 \
+  -H "Authorization: Bearer <token>" \
+  -F "asset[draft]=false"
 ```
+
+#### Response
 
 ```json
 {
@@ -353,28 +378,25 @@ You must provide at least one parameter.
 }
 ```
 
-Replaced (superseded) assets will include `replacement_id`.
-
-### Error responses
-
-| Status                     | Description               |
-| -------------------------- | ------------------------- |
-| `403 Forbidden`            | Access to asset is forbidden. |
-| `404 Not Found`            | Asset does not exist.     |
-| `413 Payload Too Large`    | Uploaded file exceeds permitted size. |
-| `422 Unprocessable Entity` | Asset update failed.      |
-
-
 ### Use cases
 
 - Publishing
   If `asset[draft]` is set to `false`, a draft asset becomes publicly available. This also invalidates any existing draft access tokens. The domain in asset URL will change from `draft-assets.publishing.service.gov.uk` to `assets.publishing.service.gov.uk`.
 
-- File replacement
-  If `asset[file]` is provided, the existing file is replaced and the asset retains its `asset_id`. The `file_url` will change if the file name is different to the original.
+- [Replacing an asset](#replacing-asset-workflow-guide)
 
-- Replacement linking
-  If `asset[replacement_id]` is provided, the asset is marked as replaced by another asset. The original asset remains accessible but is considered superseded.
+## Accessing draft assets
+
+Draft assets are not publicly accessible and are hosted on the https://draft-assets.publishing.service.gov.uk/ domain.
+
+The `file_url` returned in the asset response includes a time-limited access token and can be used directly to retrieve the asset:
+
+```http
+GET https://draft-assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png?token=<jwt-token>
+```
+
+If the access token is valid, the draft asset will be served. Otherwise, access will be denied.
+Access tokens expire 30 days after they are issued or when asset is published, whichever occurs first. A new token can be regenerated using the `POST /assets/:asset_id/regenerate-access` endpoint.
 
 ## Replacing asset workflow guide
 
@@ -393,7 +415,7 @@ Use this when you want to update an asset without creating a new record.
 #### Request
 
 ```http
-PUT /assets/{asset-id}
+PUT /assets/:asset_id
 Content-Type: multipart/form-data
 ```
 
@@ -421,7 +443,7 @@ Content-Type: multipart/form-data
 #### Step 2: Link replacement to original asset
 
 ```http
-PUT /assets/{old-asset-id}
+PUT /assets/:old_asset_id
 Content-Type: multipart/form-data
 ```
 
@@ -434,3 +456,21 @@ Content-Type: multipart/form-data
 * Original asset remains unchanged
 * A `replacement_id` is stored on the original asset
 * Clients can detect that the asset has been superseded
+
+Fetching the original asset then returns its `replacement_id`:
+
+```json
+{
+  "_response_info": { "status": "ok" },
+  "id": "http://www.example.com/assets/6a216e0509c4d5e2e98bd731",
+  "asset_id": "6a216e0509c4d5e2e98bd731",
+  "name": "logo.png",
+  "content_type": "image/png",
+  "size": 82328,
+  "file_url": "https://assets.publishing.service.gov.uk/media/6a216e0509c4d5e2e98bd731/logo.png",
+  "state": "uploaded",
+  "draft": false,
+  "deleted": false,
+  "replacement_id": "7a216e0509c4d5e2e98bd842"
+}
+```
