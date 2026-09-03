@@ -12,13 +12,13 @@ describe "assets resource" do
       _response_info: {
         status: "ok",
       },
-      content_type: "text",
-      deleted: "false",
-      draft: "false",
+      content_type: "text/plain",
+      deleted: false,
+      draft: false,
       file_url: "http://asset-manager.dev.gov.uk/media/#{asset_id}/asset.txt",
       id: "http://asset-manager/assets/#{asset_id}",
       name: "asset.txt",
-      size: "12",
+      size: 12,
       state: "clean",
     }.merge(additional_attributes)
   end
