@@ -63,7 +63,7 @@ class AssetsController < ApplicationController
                      formatted_asset_manager_response(asset_manager_response)
                    end
 
-          render status: :ok, json: output
+          render json: output
         end
       end
     rescue ActionController::UnknownFormat
