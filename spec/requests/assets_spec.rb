@@ -39,21 +39,6 @@ describe "assets resource" do
     end
   end
 
-  shared_examples "passes the correct params to Asset Manager" do |method_name:|
-    it "calls #{method_name} with the correct params" do
-      expected_params = request_params.fetch(:asset).dup
-      if method_name == :create_asset && !expected_params.key?(:draft)
-        expected_params[:draft] = true
-      end
-      expected_arguments = method_name == :create_asset ? [expected_params] : [asset_id, expected_params]
-
-      expected_params.merge!({ auth_bypass_ids: %w[token] }) if expected_params[:draft]
-      expected_params[:file] = an_instance_of(Tempfile) if expected_params.key?(:file)
-
-      expect(Services.asset_manager).to have_received(method_name).with(*expected_arguments)
-    end
-  end
-
   context "when the allow_asset_manager_requests feature flag is false" do
     subject do
       get "/assets/123456789"
@@ -160,8 +145,13 @@ describe "assets resource" do
           expect(parsed_response[:file_url]).to match(/#{file_url}/)
         end
 
-        it_behaves_like "passes the correct params to Asset Manager",
-                        method_name: :create_asset
+        it "passes the correct params to Asset Manager" do
+          expected = [{
+            draft:, auth_bypass_ids: %w[token], file: an_instance_of(Tempfile)
+          }]
+
+          expect(Services.asset_manager).to have_received(:create_asset).with(*expected)
+        end
 
         it_behaves_like "includes a draft response token"
       end
@@ -199,8 +189,11 @@ describe "assets resource" do
             expect(parsed_response[:file_url]).not_to match(/token=/)
           end
 
-          it_behaves_like "passes the correct params to Asset Manager",
-                          method_name: :create_asset
+          it "passes the correct params to Asset Manager" do
+            expected = [{ draft:, file: an_instance_of(Tempfile) }]
+
+            expect(Services.asset_manager).to have_received(:create_asset).with(*expected)
+          end
         end
 
         context "when the request marks the asset as draft" do
@@ -229,8 +222,13 @@ describe "assets resource" do
             expect(parsed_response[:file_url]).to match(/#{file_url}/)
           end
 
-          it_behaves_like "passes the correct params to Asset Manager",
-                          method_name: :create_asset
+          it "passes the correct params to Asset Manager" do
+            expected = [{
+              draft:, auth_bypass_ids: %w[token], file: an_instance_of(Tempfile)
+            }]
+
+            expect(Services.asset_manager).to have_received(:create_asset).with(*expected)
+          end
 
           it_behaves_like "includes a draft response token"
         end
@@ -390,8 +388,11 @@ describe "assets resource" do
           expect(parsed_response).to include(asset_id:)
         end
 
-        it_behaves_like "passes the correct params to Asset Manager",
-                        method_name: :update_asset
+        it "passes the correct params to Asset Manager" do
+          expected = [asset_id, { file: an_instance_of(Tempfile) }]
+
+          expect(Services.asset_manager).to have_received(:update_asset).with(*expected)
+        end
       end
 
       context "when the client provides a value for draft" do
@@ -417,8 +418,11 @@ describe "assets resource" do
             expect(parsed_response[:file_url]).not_to match(/token=/)
           end
 
-          it_behaves_like "passes the correct params to Asset Manager",
-                          method_name: :update_asset
+          it "passes the correct params to Asset Manager" do
+            expected = [asset_id, { draft: }]
+
+            expect(Services.asset_manager).to have_received(:update_asset).with(*expected)
+          end
         end
 
         context "when the asset is draft" do
@@ -440,8 +444,11 @@ describe "assets resource" do
             expect(parsed_response).to include(asset_id:)
           end
 
-          it_behaves_like "passes the correct params to Asset Manager",
-                          method_name: :update_asset
+          it "passes the correct params to Asset Manager" do
+            expected = [asset_id, { draft:, auth_bypass_ids: %w[token] }]
+
+            expect(Services.asset_manager).to have_received(:update_asset).with(*expected)
+          end
 
           it_behaves_like "includes a draft response token"
         end
@@ -463,8 +470,11 @@ describe "assets resource" do
           expect(parsed_response).to include(asset_id:)
         end
 
-        it_behaves_like "passes the correct params to Asset Manager",
-                        method_name: :update_asset
+        it "passes the correct params to Asset Manager" do
+          expected = [asset_id, additional_attributes]
+
+          expect(Services.asset_manager).to have_received(:update_asset).with(*expected)
+        end
       end
     end
 
