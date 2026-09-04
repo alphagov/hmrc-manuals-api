@@ -158,9 +158,6 @@ describe "assets resource" do
 
       context "when a value is provided for draft" do
         let(:request_params) { { asset: { file: fixture_file_upload("asset.txt", "text/plain"), draft: } } }
-        subject do
-          post_multipart "/assets", request_params
-        end
 
         context "when the request marks the asset as live" do
           let(:draft) { false }
@@ -236,13 +233,7 @@ describe "assets resource" do
     end
 
     context "when the request does not include a file" do
-      subject do
-        post_multipart "/assets", {
-          asset: {
-            draft: false,
-          },
-        }
-      end
+      let(:request_params) { { asset: { draft: false } } }
 
       before do
         subject
@@ -396,7 +387,7 @@ describe "assets resource" do
       end
 
       context "when the client provides a value for draft" do
-        let(:request_params) { { asset: { draft: draft } } }
+        let(:request_params) { { asset: { draft: } } }
 
         context "when the asset is not draft" do
           let(:draft) { false }
