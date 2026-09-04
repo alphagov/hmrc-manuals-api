@@ -176,7 +176,7 @@ This operation will disable the previous preview link.
 
 | Status                     | Description                     |
 | -------------------------- | ------------------------------- |
-| `201 Created`              | New preview link generated.     |
+| `200 OK`                   | New preview link generated.     |
 | `401 Unauthorized`         | Authentication failed.          |
 | `404 Not Found`            | Asset does not exist.           |
 | `422 Unprocessable Entity` | Access couldn't be regenerated. |
