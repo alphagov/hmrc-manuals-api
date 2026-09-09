@@ -107,15 +107,12 @@ describe "assets resource" do
 
   describe "POST /assets" do
     let(:draft) { true }
+    let(:request_params) { { asset: { file: fixture_file_upload("asset.txt", "text/plain") } } }
     let(:file_url) { asset_manager_response[:file_url] }
     let(:stub_asset_manager_request) { stub_asset_manager_create_asset(file_url, asset_manager_response) }
 
     subject do
-      post_multipart "/assets", {
-        asset: {
-          file: fixture_file_upload("asset.txt", "text/plain"),
-        },
-      }
+      post_multipart "/assets", request_params
     end
 
     context "when Asset Manager responds with ok" do
@@ -160,13 +157,10 @@ describe "assets resource" do
       end
 
       context "when a value is provided for draft" do
+        let(:request_params) { { asset: { file: fixture_file_upload("asset.txt", "text/plain"), draft: } } }
+
         subject do
-          post_multipart "/assets", {
-            asset: {
-              file: fixture_file_upload("asset.txt", "text/plain"),
-              draft:,
-            },
-          }
+          post_multipart "/assets", request_params
         end
 
         context "when the request marks the asset as live" do
@@ -243,13 +237,7 @@ describe "assets resource" do
     end
 
     context "when the request does not include a file" do
-      subject do
-        post_multipart "/assets", {
-          asset: {
-            draft: false,
-          },
-        }
-      end
+      let(:request_params) { { asset: { draft: false } } }
 
       before do
         subject
@@ -292,11 +280,7 @@ describe "assets resource" do
 
     context "when the Accept header is not application/json" do
       subject do
-        post_multipart "/assets", {
-          asset: {
-            file: fixture_file_upload("asset.txt", "text/plain"),
-          },
-        }, { "HTTP_ACCEPT" => "text/plain" }
+        post_multipart "/assets", request_params, { "HTTP_ACCEPT" => "text/plain" }
       end
 
       before do
@@ -407,7 +391,7 @@ describe "assets resource" do
       end
 
       context "when the client provides a value for draft" do
-        let(:request_params) { { asset: { draft: draft } } }
+        let(:request_params) { { asset: { draft: } } }
 
         context "when the asset is not draft" do
           let(:draft) { false }
