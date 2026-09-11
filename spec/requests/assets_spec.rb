@@ -43,7 +43,7 @@ describe "assets resource" do
     it "passes forward params" do
       expected_params = request_params.fetch(:asset).dup
       expected_params.merge!({ auth_bypass_ids: %w[token] }) if request_params.fetch(:asset)[:draft]
-      expected_params[:file] = an_instance_of(Tempfile) if expected_params.key?(:file)
+      expected_params[:file] = an_instance_of(ActionDispatch::Http::UploadedFile) if expected_params.key?(:file)
 
       expect(Services.asset_manager).to have_received(:update_asset).with(asset_id, expected_params)
     end

@@ -7,7 +7,7 @@ class AssetsController < ApplicationController
 
     asset = {
       draft: create_params[:draft].nil? || create_params[:draft] != "false",
-      file: create_params[:file].tempfile,
+      file: create_params[:file],
     }
 
     asset.merge!(asset_auth_params) if asset[:draft]
@@ -47,7 +47,7 @@ class AssetsController < ApplicationController
   def update
     asset = {
       draft: cast_boolean(asset_params[:draft]),
-      file: asset_params[:file]&.tempfile,
+      file: asset_params[:file],
       replacement_id: asset_params[:replacement_id],
     }.compact
 
