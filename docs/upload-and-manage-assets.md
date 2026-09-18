@@ -59,6 +59,10 @@ Content-Type: multipart/form-data
 
 Uploads the asset, optionally making it publicly available. The asset will be scanned for viruses and other potentially malicious content before upload.
 
+### Request headers
+
+Requests must include the following header: `Content-Type: multipart/form-data`.
+
 ### Request parameters
 
 | Parameter      | Required | Description                                                                                                                                 |
@@ -323,6 +327,10 @@ Updates an existing asset. This endpoint supports multiple update operations inc
 All fields are optional, but at least one must be provided.
 
 This is a partial update operation so only the attributes included in the request will be changed.
+
+### Request headers
+
+Requests must include the following header: `Content-Type: multipart/form-data`.
 
 ### Path parameters
 
