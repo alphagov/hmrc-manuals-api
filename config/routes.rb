@@ -10,6 +10,8 @@ Rails.application.routes.draw do
       end
     end
 
+    get "/test_timeout", to: "assets#test_timeout"
+
     resources :assets, only: %i[create show destroy update] do
       post "regenerate-access", action: :regenerate_access, on: :member
       post "restore", action: :restore, on: :member

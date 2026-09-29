@@ -2,6 +2,10 @@ class AssetsController < ApplicationController
   before_action :check_asset_manager_requests_allowed
   before_action :check_content_type_is_multipart, only: %i[create update]
 
+  def test_timeout
+    sleep 300
+  end
+
   def create
     create_params = asset_params(required_params: [:file])
 
