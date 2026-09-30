@@ -163,6 +163,15 @@ describe "assets resource" do
           post_multipart "/assets", request_params
         end
 
+        context "when it's neither `true` nor `false`" do
+          let(:draft) { "invalid" }
+
+          it "responds with 400 Bad Request" do
+            subject
+            expect(response).to have_http_status(:bad_request)
+          end
+        end
+
         context "when the request marks the asset as live" do
           let(:draft) { false }
 
@@ -392,6 +401,15 @@ describe "assets resource" do
 
       context "when the client provides a value for draft" do
         let(:request_params) { { asset: { draft: } } }
+
+        context "when it's neither `true` nor `false`" do
+          let(:draft) { "invalid" }
+
+          it "responds with 400 Bad Request" do
+            subject
+            expect(response).to have_http_status(:bad_request)
+          end
+        end
 
         context "when the asset is not draft" do
           let(:draft) { false }

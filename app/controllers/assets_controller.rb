@@ -1,12 +1,13 @@
 class AssetsController < ApplicationController
   before_action :check_asset_manager_requests_allowed
   before_action :check_content_type_is_multipart, only: %i[create update]
+  before_action :check_draft_param_is_valid, only: %i[create update]
 
   def create
     create_params = asset_params(required_params: [:file])
 
     asset = {
-      draft: create_params[:draft].nil? || create_params[:draft] != "false",
+      draft: cast_boolean(create_params[:draft], cast_nil_to: true),
       file: create_params[:file],
     }
 
@@ -123,8 +124,15 @@ private
     end
   end
 
-  def cast_boolean(value)
-    ActiveModel::Type::Boolean.new.cast(value)
+  def check_draft_param_is_valid
+    return if asset_params[:draft].nil?
+    return if %w[true false].include?(asset_params[:draft].to_s.downcase)
+
+    error :bad_request, "'draft' needs to be either 'true' or 'false'"
+  end
+
+  def cast_boolean(value, cast_nil_to: nil)
+    value.nil? ? cast_nil_to : ActiveModel::Type::Boolean.new.cast(value)
   end
 
   def asset_params(required_params: [])
