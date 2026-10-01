@@ -204,6 +204,16 @@ describe "assets resource" do
 
             expect(Services.asset_manager).to have_received(:create_asset).with(*expected)
           end
+
+          context "with mixed-case spelling" do
+            let(:draft) { "False" }
+
+            it "passes the correct params to Asset Manager" do
+              expected = [{ draft: false, file: an_instance_of(ActionDispatch::Http::UploadedFile) }]
+
+              expect(Services.asset_manager).to have_received(:create_asset).with(*expected)
+            end
+          end
         end
 
         context "when the request marks the asset as draft" do
@@ -241,6 +251,18 @@ describe "assets resource" do
           end
 
           it_behaves_like "includes a draft response token"
+
+          context "with mixed-case spelling" do
+            let(:draft) { "True" }
+
+            it "passes the correct params to Asset Manager" do
+              expected = [{
+                draft: true, auth_bypass_ids: %w[token], file: an_instance_of(ActionDispatch::Http::UploadedFile)
+              }]
+
+              expect(Services.asset_manager).to have_received(:create_asset).with(*expected)
+            end
+          end
         end
       end
     end
