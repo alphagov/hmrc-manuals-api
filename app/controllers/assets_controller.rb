@@ -132,7 +132,9 @@ private
   end
 
   def cast_boolean(value, cast_nil_to: nil)
-    value.nil? ? cast_nil_to : ActiveModel::Type::Boolean.new.cast(value)
+    return cast_nil_to if value.nil?
+
+    ActiveModel::Type::Boolean.new.cast(value.to_s.downcase)
   end
 
   def asset_params(required_params: [])
