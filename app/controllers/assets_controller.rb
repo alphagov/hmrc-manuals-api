@@ -26,8 +26,6 @@ class AssetsController < ApplicationController
           render status: :created, json: output
         end
       end
-    rescue ActionController::UnknownFormat
-      error :not_acceptable, "Invalid Accept header"
     rescue GdsApi::HTTPPayloadTooLarge
       error :content_too_large, "Content exceeds maximum permitted size"
     rescue GdsApi::HTTPUnprocessableEntity => e
@@ -67,8 +65,6 @@ class AssetsController < ApplicationController
           render json: output
         end
       end
-    rescue ActionController::UnknownFormat
-      error :not_acceptable, "Invalid Accept header"
     rescue GdsApi::HTTPPayloadTooLarge
       error :content_too_large, "Content exceeds maximum permitted size"
     rescue GdsApi::HTTPUnprocessableEntity
