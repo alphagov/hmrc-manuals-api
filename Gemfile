@@ -8,7 +8,6 @@ gem "govspeak"
 gem "govuk_app_config"
 gem "json-schema"
 gem "plek"
-gem "responders"
 gem "uuidtools"
 
 group :development do
