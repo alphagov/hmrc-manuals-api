@@ -13,8 +13,6 @@ class ManualsController < ApplicationController
                  location: manual.govuk_url
         end
       end
-    rescue ActionController::UnknownFormat
-      error :not_acceptable, "Invalid Accept header"
     rescue GdsApi::HTTPConflict => e
       error :conflict, e
     rescue GdsApi::HTTPUnprocessableEntity => e
