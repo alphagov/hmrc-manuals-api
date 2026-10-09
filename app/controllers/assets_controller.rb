@@ -115,7 +115,7 @@ private
   end
 
   def check_content_type_is_multipart
-    unless request.headers["Content-Type"].match?(/^multipart\/form-data/)
+    unless request.headers["Content-Type"].to_s.match?(/^multipart\/form-data/)
       error :unsupported_media_type, "Invalid Content-Type header"
     end
   end
