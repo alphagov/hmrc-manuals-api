@@ -115,6 +115,19 @@ describe "assets resource" do
       post_multipart "/assets", request_params
     end
 
+    context "without a Content-Type header" do
+      it "returns 415 Unsupported Media Type" do
+        # post() has a Content-Type of application/x-www-form-urlencoded by default
+        response = Rack::MockRequest.new(Rails.application).post(
+          "/assets",
+          "HTTP_AUTHORIZATION" => "Bearer 12345678",
+          "HTTP_ACCEPT" => "application/json",
+        )
+
+        expect(response).to have_http_status(:unsupported_media_type)
+      end
+    end
+
     context "when Asset Manager responds with ok" do
       before do
         allow(Services.asset_manager).to receive(:create_asset).and_call_original

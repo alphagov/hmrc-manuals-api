@@ -2,7 +2,6 @@ require "gds_api/exceptions"
 
 class ApplicationController < ActionController::Base
   include GDS::SSO::ControllerMethods
-  respond_to :json
 
   skip_forgery_protection
 

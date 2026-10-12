@@ -26,8 +26,6 @@ class AssetsController < ApplicationController
           render status: :created, json: output
         end
       end
-    rescue ActionController::UnknownFormat
-      error :not_acceptable, "Invalid Accept header"
     rescue GdsApi::HTTPPayloadTooLarge
       error :content_too_large, "Content exceeds maximum permitted size"
     rescue GdsApi::HTTPUnprocessableEntity => e
@@ -67,8 +65,6 @@ class AssetsController < ApplicationController
           render json: output
         end
       end
-    rescue ActionController::UnknownFormat
-      error :not_acceptable, "Invalid Accept header"
     rescue GdsApi::HTTPPayloadTooLarge
       error :content_too_large, "Content exceeds maximum permitted size"
     rescue GdsApi::HTTPUnprocessableEntity
@@ -119,7 +115,7 @@ private
   end
 
   def check_content_type_is_multipart
-    unless request.headers["Content-Type"].match?(/^multipart\/form-data/)
+    unless request.headers["Content-Type"].to_s.match?(/^multipart\/form-data/)
       error :unsupported_media_type, "Invalid Content-Type header"
     end
   end
