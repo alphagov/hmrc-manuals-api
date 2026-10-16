@@ -60,6 +60,58 @@ describe "assets resource" do
     end
   end
 
+  describe "JSON error output" do
+    # Emulate production environment
+    around do |example|
+      env_config = Rails.application.env_config
+      prev_val = env_config["action_dispatch.show_detailed_exceptions"]
+      env_config["action_dispatch.show_detailed_exceptions"] = false
+      example.run
+    ensure
+      env_config["action_dispatch.show_detailed_exceptions"] = prev_val
+    end
+
+    context "when the request does not match any route" do
+      it "responds with 404 Not Found and JSON output" do
+        get "/assets/#{asset_id}/non-existent"
+
+        expect(response).to have_http_status(:not_found)
+        expect(parsed_response).to eq(
+          { errors: [%(No route matches [GET] "/assets/#{asset_id}/non-existent")], status: "error" },
+        )
+      end
+    end
+
+    context "when a required parameter is missing" do
+      it "responds with 400 Bad Request and JSON output" do
+        post_multipart "/assets", { asset: { draft: "true" } }
+
+        expect(response).to have_http_status(:bad_request)
+        expect(parsed_response).to eq({ errors: ["param is missing or the value is empty or invalid: file"], status: "error" })
+      end
+    end
+
+    context "when an unexpected error occurs" do
+      around do |example|
+        env_config = Rails.application.env_config
+        prev_val = env_config["action_dispatch.show_exceptions"]
+        env_config["action_dispatch.show_exceptions"] = :all
+        example.run
+      ensure
+        env_config["action_dispatch.show_exceptions"] = prev_val
+      end
+
+      it "responds with 500 Internal Server Error and JSON output" do
+        allow(Services.asset_manager).to receive(:asset).and_raise(RuntimeError, "boom")
+
+        get "/assets/#{asset_id}"
+
+        expect(response).to have_http_status(:internal_server_error)
+        expect(parsed_response).to eq({ errors: ["Server error"], status: "error" })
+      end
+    end
+  end
+
   describe "GET /assets/:id" do
     let(:stub_asset_manager_request) { stub_asset_manager_request_to_get_asset(asset_id, asset_manager_response.deep_stringify_keys) }
 
