@@ -24,6 +24,26 @@ Request headers marked as required must be included with all requests.
 | -------------- | ------------------ |
 | `Content-Type` | `application/json` |
 
+## Error responses
+
+All error responses under `/assets` return a JSON body with a consistent shape:
+
+```json
+{
+  "status": "error",
+  "errors": ["Asset not found"]
+}
+```
+
+| Field | Description |
+| --- | --- |
+| `status` | Always `"error"` |
+| `errors` | Array of one or more strings describing what went wrong |
+
+This applies to every error, including authentication failures (missing or
+invalid bearer token, which additionally return a `WWW-Authenticate` header),
+validation failures, missing parameters, unknown routes and server errors.
+
 ## Response fields
 
 All endpoints return a JSON body describing the asset, always including these fields:

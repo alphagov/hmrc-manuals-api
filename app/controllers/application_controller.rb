@@ -35,6 +35,6 @@ private
   end
 
   def error(status, errors)
-    render json: { status: "error", errors: }, status:
+    render json: { status: "error", errors: Array(errors) }, status:
   end
 end
