@@ -73,6 +73,9 @@ The `<manual-slug>` and `<section_slug>` will be used as part of the GOV.UK URL 
           }
 
 * `400`: the request JSON isn't well-formed.
+* `401`: the bearer token is missing or invalid. The response includes a
+  `WWW-Authenticate` header and the error envelope described below.
+* `404`: the request didn't match a route.
 * `409`: the slug is taken by content that is managed by another publishing tool.
 * `422`: there's a validation error. A response body would detail the errors:
 
@@ -85,7 +88,17 @@ The `<manual-slug>` and `<section_slug>` will be used as part of the GOV.UK URL 
           ]
         }
 
+* `500`: an unexpected error occurred.
 * `503`: the request could not be completed because the API or the Publishing API is unavailable.
+
+Every error response uses the same envelope shape as the `422` example above:
+
+```json
+{
+  "status": "error",
+  "errors": ["error_message_1"]
+}
+```
 
 ## Slugs, section IDs and URLs
 
