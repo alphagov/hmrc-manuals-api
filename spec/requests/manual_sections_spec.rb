@@ -97,14 +97,14 @@ describe "manual sections resource" do
     put_json "/hmrc-manuals/BREAK_THE_RULEZ/sections/some-section", valid_section
 
     expect(response.status).to eq(422)
-    expect(json_response["errors"].first).to eq("Manual slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
+    expect(json_response.dig("_response_info", "errors").first).to eq("Manual slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
   end
 
   it "rejects invalid section slugs" do
     put_json "/hmrc-manuals/some-manual/sections/BREAK_THE_RULEZ", valid_section
 
     expect(response.status).to eq(422)
-    expect(json_response["errors"].first).to eq("Section slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
+    expect(json_response.dig("_response_info", "errors").first).to eq("Section slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
   end
 
   it "rejects self referencing breadcrumbs" do
@@ -121,7 +121,7 @@ describe "manual sections resource" do
     put_json maximal_section_endpoint, payload
 
     expect(response.status).to eq(422)
-    expect(json_response["errors"].first).to eq("Breadcrumbs must not include the section they are added to")
+    expect(json_response.dig("_response_info", "errors").first).to eq("Breadcrumbs must not include the section they are added to")
   end
 
 private

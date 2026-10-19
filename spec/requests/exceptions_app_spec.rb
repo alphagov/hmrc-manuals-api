@@ -20,7 +20,7 @@ describe ExceptionsApp do
 
         expect(response).to have_http_status(:not_found)
         expect(parsed_response).to eq(
-          { errors: [%(No route matches [PUT] "/hmrc-manuals/anything/non-existent")], status: "error" },
+          { _response_info: { errors: [%(No route matches [PUT] "/hmrc-manuals/anything/non-existent")], status: "error" } },
         )
       end
     end
@@ -41,7 +41,7 @@ describe ExceptionsApp do
         put_json "/hmrc-manuals/anything", valid_manual
 
         expect(response).to have_http_status(:internal_server_error)
-        expect(parsed_response).to eq({ errors: ["Server error"], status: "error" })
+        expect(parsed_response).to eq({ _response_info: { errors: ["Server error"], status: "error" } })
       end
     end
   end

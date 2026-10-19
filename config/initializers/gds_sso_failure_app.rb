@@ -8,7 +8,7 @@ module AssetsErrorEnvelopeFailureApp
     return super unless ApiPaths.include?(attempted_path)
 
     headers["WWW-Authenticate"] = %(Bearer error="#{bearer_error}")
-    render json: { status: "error", errors: [message] }, status: :unauthorized
+    render json: { _response_info: { status: "error", errors: [message] } }, status: :unauthorized
   end
 end
 

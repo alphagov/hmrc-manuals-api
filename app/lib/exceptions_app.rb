@@ -36,7 +36,7 @@ private
 
   def envelope
     errors = status < 500 ? [exception.message] : ["Server error"]
-    { status: "error", errors: }
+    { _response_info: { status: "error", errors: } }
   end
 
   def exception

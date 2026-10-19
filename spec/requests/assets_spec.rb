@@ -52,7 +52,7 @@ describe "assets resource" do
 
     it "responds with 501 Not Implemented" do
       expect(response).to have_http_status(:not_implemented)
-      expect(parsed_response).to eq({ errors: ["Asset manager requests are not allowed"], status: "error" })
+      expect(parsed_response).to eq({ _response_info: { errors: ["Asset manager requests are not allowed"], status: "error" } })
     end
 
     it "makes no requests to Asset Manager" do
@@ -77,7 +77,7 @@ describe "assets resource" do
 
         expect(response).to have_http_status(:not_found)
         expect(parsed_response).to eq(
-          { errors: [%(No route matches [GET] "/assets/#{asset_id}/non-existent")], status: "error" },
+          { _response_info: { errors: [%(No route matches [GET] "/assets/#{asset_id}/non-existent")], status: "error" } },
         )
       end
     end
@@ -87,7 +87,7 @@ describe "assets resource" do
         post_multipart "/assets", { asset: { draft: "true" } }
 
         expect(response).to have_http_status(:bad_request)
-        expect(parsed_response).to eq({ errors: ["param is missing or the value is empty or invalid: file"], status: "error" })
+        expect(parsed_response).to eq({ _response_info: { errors: ["param is missing or the value is empty or invalid: file"], status: "error" } })
       end
     end
 
@@ -107,7 +107,7 @@ describe "assets resource" do
         get "/assets/#{asset_id}"
 
         expect(response).to have_http_status(:internal_server_error)
-        expect(parsed_response).to eq({ errors: ["Server error"], status: "error" })
+        expect(parsed_response).to eq({ _response_info: { errors: ["Server error"], status: "error" } })
       end
     end
   end
@@ -144,7 +144,7 @@ describe "assets resource" do
 
       it "responds with 404 Not Found" do
         expect(response).to have_http_status(:not_found)
-        expect(parsed_response).to eq({ errors: ["Asset not found"], status: "error" })
+        expect(parsed_response).to eq({ _response_info: { errors: ["Asset not found"], status: "error" } })
       end
     end
 
@@ -153,7 +153,7 @@ describe "assets resource" do
 
       it "responds with 403 Forbidden" do
         expect(response).to have_http_status(:forbidden)
-        expect(parsed_response).to eq({ errors: ["Access to asset is forbidden"], status: "error" })
+        expect(parsed_response).to eq({ _response_info: { errors: ["Access to asset is forbidden"], status: "error" } })
       end
     end
   end
@@ -358,7 +358,7 @@ describe "assets resource" do
 
       it "responds with 413 Content Too Large" do
         expect(response).to have_http_status(:content_too_large)
-        expect(parsed_response).to eq({ errors: ["Content exceeds maximum permitted size"], status: "error" })
+        expect(parsed_response).to eq({ _response_info: { errors: ["Content exceeds maximum permitted size"], status: "error" } })
       end
     end
 
@@ -440,7 +440,7 @@ describe "assets resource" do
 
       it "responds with 404 Not Found" do
         expect(response).to have_http_status(:not_found)
-        expect(parsed_response).to eq({ errors: ["Asset not found"], status: "error" })
+        expect(parsed_response).to eq({ _response_info: { errors: ["Asset not found"], status: "error" } })
       end
     end
 
@@ -449,7 +449,7 @@ describe "assets resource" do
 
       it "responds with 403 Forbidden" do
         expect(response).to have_http_status(:forbidden)
-        expect(parsed_response).to eq({ errors: ["Access to asset is forbidden"], status: "error" })
+        expect(parsed_response).to eq({ _response_info: { errors: ["Access to asset is forbidden"], status: "error" } })
       end
     end
   end
@@ -588,7 +588,7 @@ describe "assets resource" do
 
       it "responds with 413 Content Too Large" do
         expect(response).to have_http_status(:content_too_large)
-        expect(parsed_response).to eq({ errors: ["Content exceeds maximum permitted size"], status: "error" })
+        expect(parsed_response).to eq({ _response_info: { errors: ["Content exceeds maximum permitted size"], status: "error" } })
       end
     end
 
@@ -601,7 +601,7 @@ describe "assets resource" do
 
       it "responds with 404 Not Found" do
         expect(response).to have_http_status(:not_found)
-        expect(parsed_response).to eq({ errors: ["Asset does not exist"], status: "error" })
+        expect(parsed_response).to eq({ _response_info: { errors: ["Asset does not exist"], status: "error" } })
       end
     end
 
@@ -614,7 +614,7 @@ describe "assets resource" do
 
       it "responds with 403 Forbidden" do
         expect(response).to have_http_status(:forbidden)
-        expect(parsed_response).to eq({ errors: ["Access to asset is forbidden"], status: "error" })
+        expect(parsed_response).to eq({ _response_info: { errors: ["Access to asset is forbidden"], status: "error" } })
       end
     end
 
@@ -627,7 +627,7 @@ describe "assets resource" do
 
       it "responds with 422 Unprocessable Entity" do
         expect(response).to have_http_status(:unprocessable_entity)
-        expect(parsed_response).to eq({ errors: ["Asset update failed"], status: "error" })
+        expect(parsed_response).to eq({ _response_info: { errors: ["Asset update failed"], status: "error" } })
       end
     end
 
@@ -700,7 +700,7 @@ describe "assets resource" do
 
       it "responds with 404 Not Found" do
         expect(response).to have_http_status(:not_found)
-        expect(parsed_response).to eq({ errors: ["Asset not found"], status: "error" })
+        expect(parsed_response).to eq({ _response_info: { errors: ["Asset not found"], status: "error" } })
       end
     end
 
@@ -709,7 +709,7 @@ describe "assets resource" do
 
       it "responds with 403 Forbidden" do
         expect(response).to have_http_status(:forbidden)
-        expect(parsed_response).to eq({ errors: ["Access to asset is forbidden"], status: "error" })
+        expect(parsed_response).to eq({ _response_info: { errors: ["Access to asset is forbidden"], status: "error" } })
       end
     end
   end
@@ -747,7 +747,7 @@ describe "assets resource" do
 
       it "responds with 403 Forbidden" do
         expect(response).to have_http_status(:forbidden)
-        expect(parsed_response).to eq({ errors: ["Access to asset is forbidden"], status: "error" })
+        expect(parsed_response).to eq({ _response_info: { errors: ["Access to asset is forbidden"], status: "error" } })
       end
     end
 
@@ -756,7 +756,7 @@ describe "assets resource" do
 
       it "responds with 404 Not Found" do
         expect(response).to have_http_status(:not_found)
-        expect(parsed_response).to eq({ errors: ["Asset not found"], status: "error" })
+        expect(parsed_response).to eq({ _response_info: { errors: ["Asset not found"], status: "error" } })
       end
     end
   end

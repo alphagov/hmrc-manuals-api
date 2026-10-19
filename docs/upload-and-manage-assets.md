@@ -26,19 +26,23 @@ Request headers marked as required must be included with all requests.
 
 ## Error responses
 
-All error responses under `/assets` return a JSON body with a consistent shape:
+All error responses under `/assets` return a JSON body with a consistent shape.
+Errors use the same `_response_info` envelope as successful responses, so the
+status is always in the same place:
 
 ```json
 {
-  "status": "error",
-  "errors": ["Asset not found"]
+  "_response_info": {
+    "status": "error",
+    "errors": ["Asset not found"]
+  }
 }
 ```
 
 | Field | Description |
 | --- | --- |
-| `status` | Always `"error"` |
-| `errors` | Array of one or more strings describing what went wrong |
+| `_response_info.status` | Always `"error"` |
+| `_response_info.errors` | Array of one or more strings describing what went wrong |
 
 This applies to every error, including authentication failures (missing or
 invalid bearer token, which additionally return a `WWW-Authenticate` header),
@@ -50,7 +54,7 @@ All endpoints return a JSON body describing the asset, always including these fi
 
 | Field            | Description                                                                                                                               |
 | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| `_response_info` | Status of the request: `"created"` for uploads, `"ok"` for reads, and `"success"` for updates, deletes, restores and access regeneration. |
+| `_response_info` | Status of the request: `"created"` for uploads, `"ok"` for reads, `"success"` for updates, deletes, restores and access regeneration, and `"error"` for failed requests (with an `errors` array; see [Error resonses](#error-responses)). |
 | `id`             | Canonical URL identifying the asset. Its final path segment is the `asset_id`.                                                            |
 | `asset_id`       | Identifier for the asset, used in this API's asset paths (e.g. `/assets/:asset_id`).                                                      |
 | `name`           | File name.                                                                                                                                |

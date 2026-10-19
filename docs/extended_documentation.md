@@ -79,24 +79,30 @@ The `<manual-slug>` and `<section_slug>` will be used as part of the GOV.UK URL 
 * `409`: the slug is taken by content that is managed by another publishing tool.
 * `422`: there's a validation error. A response body would detail the errors:
 
-        {
-          "status": "error",
-          "errors": [
-            "error_message_1",
-            "error_message_2",
-            ...
-          ]
-        }
+```json
+{
+  "_response_info": {
+    "status": "error",
+    "errors": [
+      "error_message_1",
+      "error_message_2",
+      ...
+    ]
+  }
+}
+```
 
 * `500`: an unexpected error occurred.
 * `503`: the request could not be completed because the API or the Publishing API is unavailable.
 
-Every error response uses the same envelope shape as the `422` example above:
+Every error response uses the same `response_info` envelope as the `422` example above:
 
 ```json
 {
-  "status": "error",
-  "errors": ["error_message_1"]
+  "_response_info": {
+    "status": "error",
+    "errors": ["error_message_1"]
+  }
 }
 ```
 
