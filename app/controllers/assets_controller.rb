@@ -111,7 +111,9 @@ class AssetsController < ApplicationController
 private
 
   def check_asset_manager_requests_allowed
-    head :not_implemented unless Rails.application.config.allow_asset_manager_requests
+    return if Rails.application.config.allow_asset_manager_requests
+
+    error :not_implemented, "Asset manager requests are not allowed"
   end
 
   def check_content_type_is_multipart

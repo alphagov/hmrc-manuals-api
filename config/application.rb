@@ -40,5 +40,7 @@ module HmrcManualsApi
     config.allow_asset_manager_requests = ENV.fetch("ALLOW_ASSET_MANAGER_REQUESTS", false)
 
     config.jwt_auth_secret = ENV.fetch("JWT_AUTH_SECRET", "123")
+
+    config.exceptions_app = ->(env) { ExceptionsApp.call(env) }
   end
 end

@@ -11,7 +11,7 @@ describe "authentication" do
     put_json "/hmrc-manuals/imaginary-slug", valid_manual, "HTTP_AUTHORIZATION" => ""
 
     expect(response).to have_http_status(:unauthorized)
-    expect(json_response).to eq("message" => "No bearer token was provided")
+    expect(json_response).to eq({ "errors" => ["No bearer token was provided"], "status" => "error" })
   end
 
   it "returns 401 JSON for unauthenticated GET requests" do
@@ -19,7 +19,7 @@ describe "authentication" do
 
     expect(response).to have_http_status(:unauthorized)
     expect(response.headers["WWW-Authenticate"]).to eq('Bearer error="invalid_request"')
-    expect(json_response).to eq("message" => "No bearer token was provided")
+    expect(json_response).to eq({ "errors" => ["No bearer token was provided"], "status" => "error" })
   end
 
   it "returns 401 JSON if the bearer token is invalid" do
@@ -28,6 +28,6 @@ describe "authentication" do
 
     expect(response).to have_http_status(:unauthorized)
     expect(response.headers["WWW-Authenticate"]).to eq('Bearer error="invalid_token"')
-    expect(json_response).to eq("message" => "Bearer token does not appear to be valid")
+    expect(json_response).to eq({ "errors" => ["Bearer token does not appear to be valid"], "status" => "error" })
   end
 end
