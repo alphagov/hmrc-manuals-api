@@ -15,9 +15,8 @@ describe "validation" do
     it "validates for the presence of the title" do
       put_json "/hmrc-manuals/imaginary-slug", manual_without_title
 
-      expect(response.status).to eq(422)
-      expect(json_response.dig("_response_info", "status")).to eq("error")
-      expect(json_response.dig("_response_info", "errors").first).to match(%r{The property '#/' did not contain a required property of 'title' in schema})
+      errors = expect_error_response(code: 422)
+      expect(errors.first).to match(%r{The property '#/' did not contain a required property of 'title' in schema})
     end
 
     context "manuals with images" do

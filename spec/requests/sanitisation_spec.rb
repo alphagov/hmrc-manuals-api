@@ -8,9 +8,8 @@ describe "Dangerous markup" do
       it "invalidates free-text fields" do
         put_json "/hmrc-manuals/imaginary-slug", manual_with_script_tag_in_title
 
-        expect(response.status).to eq(422)
-        expect(json_response.dig("_response_info", "status")).to eq("error")
-        expect(json_response.dig("_response_info", "errors").first).to match(%r{'#/title' contains disallowed HTML})
+        errors = expect_error_response(code: 422)
+        expect(errors.first).to match(%r{'#/title' contains disallowed HTML})
       end
     end
 
@@ -20,9 +19,8 @@ describe "Dangerous markup" do
       it "is invalid in descriptions" do
         put_json "/hmrc-manuals/imaginary-slug", manual_with_dangerous_markdown_in_description
 
-        expect(response.status).to eq(422)
-        expect(json_response.dig("_response_info", "status")).to eq("error")
-        expect(json_response.dig("_response_info", "errors").first).to match(%r{'#/description' contains disallowed HTML})
+        errors = expect_error_response(code: 422)
+        expect(errors.first).to match(%r{'#/description' contains disallowed HTML})
       end
     end
   end
@@ -34,9 +32,8 @@ describe "Dangerous markup" do
       it "is invalid in free-text fields" do
         put_json "/hmrc-manuals/imaginary-slug/sections/ABC", section_with_disallowed_html_tag_in_title
 
-        expect(response.status).to eq(422)
-        expect(json_response.dig("_response_info", "status")).to eq("error")
-        expect(json_response.dig("_response_info", "errors").first).to match(%r{'#/title' contains disallowed HTML})
+        errors = expect_error_response(code: 422)
+        expect(errors.first).to match(%r{'#/title' contains disallowed HTML})
       end
     end
   end

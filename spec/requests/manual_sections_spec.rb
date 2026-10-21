@@ -47,7 +47,8 @@ describe "manual sections resource" do
         headers: { "CONTENT_TYPE" => "text/plain",
                    "HTTP_ACCEPT" => "application/json",
                    "HTTP_AUTHORIZATION" => "Bearer 12345" }
-    expect(response.status).to eq(415)
+    errors = expect_error_response(code: 415)
+    expect(errors.first).to eq("Invalid Content-Type header")
   end
 
   it "handles the Publishing API being unavailable" do
@@ -55,7 +56,8 @@ describe "manual sections resource" do
 
     put_json maximal_section_endpoint, maximal_section
 
-    expect(response.status).to eq(503)
+    errors = expect_error_response(code: 503)
+    expect(errors.first).to eq("Service unavailable")
   end
 
   it "handles the Publishing API request timing out" do
@@ -63,7 +65,8 @@ describe "manual sections resource" do
 
     put_json maximal_section_endpoint, maximal_section
 
-    expect(response.status).to eq(503)
+    errors = expect_error_response(code: 503)
+    expect(errors.first).to eq("Service unavailable")
   end
 
   it "handles the Publishing API returning a conflict error" do
@@ -96,15 +99,15 @@ describe "manual sections resource" do
   it "rejects invalid manual slugs" do
     put_json "/hmrc-manuals/BREAK_THE_RULEZ/sections/some-section", valid_section
 
-    expect(response.status).to eq(422)
-    expect(json_response.dig("_response_info", "errors").first).to eq("Manual slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
+    errors = expect_error_response(code: 422)
+    expect(errors.first).to eq("Manual slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
   end
 
   it "rejects invalid section slugs" do
     put_json "/hmrc-manuals/some-manual/sections/BREAK_THE_RULEZ", valid_section
 
-    expect(response.status).to eq(422)
-    expect(json_response.dig("_response_info", "errors").first).to eq("Section slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
+    errors = expect_error_response(code: 422)
+    expect(errors.first).to eq("Section slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
   end
 
   it "rejects self referencing breadcrumbs" do
@@ -120,8 +123,8 @@ describe "manual sections resource" do
 
     put_json maximal_section_endpoint, payload
 
-    expect(response.status).to eq(422)
-    expect(json_response.dig("_response_info", "errors").first).to eq("Breadcrumbs must not include the section they are added to")
+    errors = expect_error_response(code: 422)
+    expect(errors.first).to eq("Breadcrumbs must not include the section they are added to")
   end
 
 private
