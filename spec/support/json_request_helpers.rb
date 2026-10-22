@@ -32,6 +32,13 @@ module JSONRequestHelper
   def json_response
     JSON.parse(response.body)
   end
+
+  def expect_error_response(code:)
+    expect(response.status).to eq(code)
+    info = json_response["_response_info"]
+    expect(info["status"]).to eq("error")
+    info["errors"]
+  end
 end
 
 RSpec.configuration.include JSONRequestHelper, type: :request

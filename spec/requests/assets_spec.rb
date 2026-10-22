@@ -51,8 +51,8 @@ describe "assets resource" do
     end
 
     it "responds with 501 Not Implemented" do
-      expect(response).to have_http_status(:not_implemented)
-      expect(parsed_response).to eq({ errors: ["Asset manager requests are not allowed"], status: "error" })
+      errors = expect_error_response(code: 501)
+      expect(errors.first).to eq("Asset manager requests are not allowed")
     end
 
     it "makes no requests to Asset Manager" do
@@ -75,10 +75,8 @@ describe "assets resource" do
       it "responds with 404 Not Found and JSON output" do
         get "/assets/#{asset_id}/non-existent"
 
-        expect(response).to have_http_status(:not_found)
-        expect(parsed_response).to eq(
-          { errors: [%(No route matches [GET] "/assets/#{asset_id}/non-existent")], status: "error" },
-        )
+        errors = expect_error_response(code: 404)
+        expect(errors.first).to eq(%(No route matches [GET] "/assets/#{asset_id}/non-existent"))
       end
     end
 
@@ -86,8 +84,8 @@ describe "assets resource" do
       it "responds with 400 Bad Request and JSON output" do
         post_multipart "/assets", { asset: { draft: "true" } }
 
-        expect(response).to have_http_status(:bad_request)
-        expect(parsed_response).to eq({ errors: ["param is missing or the value is empty or invalid: file"], status: "error" })
+        errors = expect_error_response(code: 400)
+        expect(errors.first).to eq("param is missing or the value is empty or invalid: file")
       end
     end
 
@@ -106,8 +104,8 @@ describe "assets resource" do
 
         get "/assets/#{asset_id}"
 
-        expect(response).to have_http_status(:internal_server_error)
-        expect(parsed_response).to eq({ errors: ["Server error"], status: "error" })
+        errors = expect_error_response(code: 500)
+        expect(errors.first).to eq("Server error")
       end
     end
   end
@@ -143,8 +141,8 @@ describe "assets resource" do
       let(:stub_asset_manager_request) { stub_asset_manager_does_not_have_an_asset(asset_id) }
 
       it "responds with 404 Not Found" do
-        expect(response).to have_http_status(:not_found)
-        expect(parsed_response).to eq({ errors: ["Asset not found"], status: "error" })
+        errors = expect_error_response(code: 404)
+        expect(errors.first).to eq("Asset not found")
       end
     end
 
@@ -152,8 +150,8 @@ describe "assets resource" do
       let(:stub_asset_manager_request) { stub_asset_manager_get_asset_forbidden(asset_id) }
 
       it "responds with 403 Forbidden" do
-        expect(response).to have_http_status(:forbidden)
-        expect(parsed_response).to eq({ errors: ["Access to asset is forbidden"], status: "error" })
+        errors = expect_error_response(code: 403)
+        expect(errors.first).to eq("Access to asset is forbidden")
       end
     end
   end
@@ -234,7 +232,8 @@ describe "assets resource" do
 
           it "responds with 400 Bad Request" do
             subject
-            expect(response).to have_http_status(:bad_request)
+            errors = expect_error_response(code: 400)
+            expect(errors.first).to eq("'draft' needs to be either 'true' or 'false'")
           end
         end
 
@@ -340,11 +339,8 @@ describe "assets resource" do
         subject
       end
 
-      it "responds with 400 Bad Request" do
-        expect(response).to have_http_status(:bad_request)
-      end
-
       it "does not make a request to Asset Manager" do
+        expect(response).to have_http_status(:bad_request)
         expect(stub_asset_manager_request).not_to have_been_requested
       end
     end
@@ -357,8 +353,8 @@ describe "assets resource" do
       end
 
       it "responds with 413 Content Too Large" do
-        expect(response).to have_http_status(:content_too_large)
-        expect(parsed_response).to eq({ errors: ["Content exceeds maximum permitted size"], status: "error" })
+        errors = expect_error_response(code: 413)
+        expect(errors.first).to eq("Content exceeds maximum permitted size")
       end
     end
 
@@ -370,8 +366,8 @@ describe "assets resource" do
       end
 
       it "responds with 422 Unprocessable Entity" do
-        expect(response).to have_http_status(:unprocessable_content)
-        expect(response.body).to include("Some error message")
+        errors = expect_error_response(code: 422)
+        expect(errors.first).to include("Some error message")
       end
     end
 
@@ -403,7 +399,8 @@ describe "assets resource" do
       end
 
       it "responds with 415 Unsupported Media Type" do
-        expect(response).to have_http_status(:unsupported_media_type)
+        errors = expect_error_response(code: 415)
+        expect(errors.first).to eq("Invalid Content-Type header")
       end
     end
   end
@@ -439,8 +436,8 @@ describe "assets resource" do
       let(:stub_asset_manager_request) { stub_asset_manager_delete_asset_missing(asset_id) }
 
       it "responds with 404 Not Found" do
-        expect(response).to have_http_status(:not_found)
-        expect(parsed_response).to eq({ errors: ["Asset not found"], status: "error" })
+        errors = expect_error_response(code: 404)
+        expect(errors.first).to eq("Asset not found")
       end
     end
 
@@ -448,8 +445,8 @@ describe "assets resource" do
       let(:stub_asset_manager_request) { stub_asset_manager_delete_asset_forbidden(asset_id) }
 
       it "responds with 403 Forbidden" do
-        expect(response).to have_http_status(:forbidden)
-        expect(parsed_response).to eq({ errors: ["Access to asset is forbidden"], status: "error" })
+        errors = expect_error_response(code: 403)
+        expect(errors.first).to eq("Access to asset is forbidden")
       end
     end
   end
@@ -495,7 +492,8 @@ describe "assets resource" do
 
           it "responds with 400 Bad Request" do
             subject
-            expect(response).to have_http_status(:bad_request)
+            errors = expect_error_response(code: 400)
+            expect(errors.first).to eq("'draft' needs to be either 'true' or 'false'")
           end
         end
 
@@ -587,8 +585,8 @@ describe "assets resource" do
       end
 
       it "responds with 413 Content Too Large" do
-        expect(response).to have_http_status(:content_too_large)
-        expect(parsed_response).to eq({ errors: ["Content exceeds maximum permitted size"], status: "error" })
+        errors = expect_error_response(code: 413)
+        expect(errors.first).to eq("Content exceeds maximum permitted size")
       end
     end
 
@@ -600,8 +598,8 @@ describe "assets resource" do
       end
 
       it "responds with 404 Not Found" do
-        expect(response).to have_http_status(:not_found)
-        expect(parsed_response).to eq({ errors: ["Asset does not exist"], status: "error" })
+        errors = expect_error_response(code: 404)
+        expect(errors.first).to eq("Asset does not exist")
       end
     end
 
@@ -613,8 +611,8 @@ describe "assets resource" do
       end
 
       it "responds with 403 Forbidden" do
-        expect(response).to have_http_status(:forbidden)
-        expect(parsed_response).to eq({ errors: ["Access to asset is forbidden"], status: "error" })
+        errors = expect_error_response(code: 403)
+        expect(errors.first).to eq("Access to asset is forbidden")
       end
     end
 
@@ -626,8 +624,8 @@ describe "assets resource" do
       end
 
       it "responds with 422 Unprocessable Entity" do
-        expect(response).to have_http_status(:unprocessable_entity)
-        expect(parsed_response).to eq({ errors: ["Asset update failed"], status: "error" })
+        errors = expect_error_response(code: 422)
+        expect(errors.first).to eq("Asset update failed")
       end
     end
 
@@ -659,7 +657,8 @@ describe "assets resource" do
       end
 
       it "responds with 415 Unsupported Media Type" do
-        expect(response).to have_http_status(:unsupported_media_type)
+        errors = expect_error_response(code: 415)
+        expect(errors.first).to eq("Invalid Content-Type header")
       end
     end
   end
@@ -699,8 +698,8 @@ describe "assets resource" do
       let(:stub_asset_manager_request) { stub_asset_manager_update_asset_not_found(asset_id) }
 
       it "responds with 404 Not Found" do
-        expect(response).to have_http_status(:not_found)
-        expect(parsed_response).to eq({ errors: ["Asset not found"], status: "error" })
+        errors = expect_error_response(code: 404)
+        expect(errors.first).to eq("Asset not found")
       end
     end
 
@@ -708,8 +707,8 @@ describe "assets resource" do
       let(:stub_asset_manager_request) { stub_asset_manager_update_asset_forbidden(asset_id) }
 
       it "responds with 403 Forbidden" do
-        expect(response).to have_http_status(:forbidden)
-        expect(parsed_response).to eq({ errors: ["Access to asset is forbidden"], status: "error" })
+        errors = expect_error_response(code: 403)
+        expect(errors.first).to eq("Access to asset is forbidden")
       end
     end
   end
@@ -746,8 +745,8 @@ describe "assets resource" do
       let(:stub_asset_manager_request) { stub_asset_manager_restore_asset_forbidden(asset_id) }
 
       it "responds with 403 Forbidden" do
-        expect(response).to have_http_status(:forbidden)
-        expect(parsed_response).to eq({ errors: ["Access to asset is forbidden"], status: "error" })
+        errors = expect_error_response(code: 403)
+        expect(errors.first).to eq("Access to asset is forbidden")
       end
     end
 
@@ -755,8 +754,8 @@ describe "assets resource" do
       let(:stub_asset_manager_request) { stub_asset_manager_restore_asset_not_found(asset_id) }
 
       it "responds with 404 Not Found" do
-        expect(response).to have_http_status(:not_found)
-        expect(parsed_response).to eq({ errors: ["Asset not found"], status: "error" })
+        errors = expect_error_response(code: 404)
+        expect(errors.first).to eq("Asset not found")
       end
     end
   end

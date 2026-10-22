@@ -18,10 +18,8 @@ describe ExceptionsApp do
       it "responds with 404 Not Found and JSON output for /hmrc-manuals" do
         put "/hmrc-manuals/anything/non-existent"
 
-        expect(response).to have_http_status(:not_found)
-        expect(parsed_response).to eq(
-          { errors: [%(No route matches [PUT] "/hmrc-manuals/anything/non-existent")], status: "error" },
-        )
+        errors = expect_error_response(code: 404)
+        expect(errors.first).to eq(%(No route matches [PUT] "/hmrc-manuals/anything/non-existent"))
       end
     end
 
@@ -40,8 +38,8 @@ describe ExceptionsApp do
 
         put_json "/hmrc-manuals/anything", valid_manual
 
-        expect(response).to have_http_status(:internal_server_error)
-        expect(parsed_response).to eq({ errors: ["Server error"], status: "error" })
+        errors = expect_error_response(code: 500)
+        expect(errors.first).to eq("Server error")
       end
     end
   end

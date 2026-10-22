@@ -10,24 +10,24 @@ describe "authentication" do
   it "returns 401 JSON if no bearer token is present" do
     put_json "/hmrc-manuals/imaginary-slug", valid_manual, "HTTP_AUTHORIZATION" => ""
 
-    expect(response).to have_http_status(:unauthorized)
-    expect(json_response).to eq({ "errors" => ["No bearer token was provided"], "status" => "error" })
+    errors = expect_error_response(code: 401)
+    expect(errors.first).to eq("No bearer token was provided")
   end
 
   it "returns 401 JSON for unauthenticated GET requests" do
     get "/assets/0ebc9800-94c4-013f-fb0a-72f4e816b13f"
 
-    expect(response).to have_http_status(:unauthorized)
+    errors = expect_error_response(code: 401)
     expect(response.headers["WWW-Authenticate"]).to eq('Bearer error="invalid_request"')
-    expect(json_response).to eq({ "errors" => ["No bearer token was provided"], "status" => "error" })
+    expect(errors.first).to eq("No bearer token was provided")
   end
 
   it "returns 401 JSON if the bearer token is invalid" do
     get "/assets/0ebc9800-94c4-013f-fb0a-72f4e816b13f",
         headers: { "HTTP_AUTHORIZATION" => "Bearer invalid-token" }
 
-    expect(response).to have_http_status(:unauthorized)
+    errors = expect_error_response(code: 401)
     expect(response.headers["WWW-Authenticate"]).to eq('Bearer error="invalid_token"')
-    expect(json_response).to eq({ "errors" => ["Bearer token does not appear to be valid"], "status" => "error" })
+    expect(errors.first).to eq("Bearer token does not appear to be valid")
   end
 end

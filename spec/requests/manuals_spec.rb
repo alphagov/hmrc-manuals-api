@@ -27,7 +27,8 @@ describe "manuals resource" do
 
     put_json "/hmrc-manuals/#{maximal_manual_slug}", maximal_manual
 
-    expect(response.status).to eq(503)
+    errors = expect_error_response(code: 503)
+    expect(errors.first).to eq("Service unavailable")
   end
 
   it "handles the Publishing API returning a conflict error" do
@@ -35,7 +36,8 @@ describe "manuals resource" do
 
     put_json "/hmrc-manuals/#{maximal_manual_slug}", maximal_manual
 
-    expect(response.status).to eq(409)
+    errors = expect_error_response(code: 409)
+    expect(errors.first).to eq("URL: http://publishing-api.dev.gov.uk/v2/content/913fd52f-072c-409e-88b2-ea0b7a8b6d9c\nResponse body:\n")
   end
 
   it "handles the Publishing API returning an unproccessable entity error" do
@@ -43,7 +45,8 @@ describe "manuals resource" do
 
     put_json "/hmrc-manuals/#{maximal_manual_slug}", maximal_manual
 
-    expect(response.status).to eq(422)
+    errors = expect_error_response(code: 422)
+    expect(errors.first).to eq("URL: http://publishing-api.dev.gov.uk/v2/content/913fd52f-072c-409e-88b2-ea0b7a8b6d9c\nResponse body:\n")
   end
 
   it "returns the status code from the Publishing API response" do
@@ -60,8 +63,8 @@ describe "manuals resource" do
   it "rejects invalid manual slugs" do
     put_json "/hmrc-manuals/BREAK_THE_RULEZ", valid_manual
 
-    expect(response.status).to eq(422)
-    expect(json_response["errors"].first).to eq("Slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
+    errors = expect_error_response(code: 422)
+    expect(errors.first).to eq("Slug should match the pattern: (?-mix:\\A[a-z\\d]+(?:-[a-z\\d]+)*\\z)")
   end
 
   it "errors if the Accept header is not application/json" do
@@ -86,6 +89,7 @@ describe "manuals resource" do
         headers: { "CONTENT_TYPE" => "text/plain",
                    "HTTP_ACCEPT" => "application/json",
                    "HTTP_AUTHORIZATION" => "Bearer 12345" }
-    expect(response.status).to eq(415)
+    errors = expect_error_response(code: 415)
+    expect(errors.first).to eq("Invalid Content-Type header")
   end
 end
