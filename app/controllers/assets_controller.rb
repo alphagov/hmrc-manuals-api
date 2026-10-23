@@ -26,6 +26,8 @@ class AssetsController < ApplicationController
           render status: :created, json: output
         end
       end
+    # This can never be triggered, because the nginx proxy limits payloads to 2MB,
+    # while asset-manager allows 750MB and its proxy 500MB, respectively (see PP-8069).
     rescue GdsApi::HTTPPayloadTooLarge
       error :content_too_large, "Content exceeds maximum permitted size"
     rescue GdsApi::HTTPUnprocessableEntity => e
