@@ -352,6 +352,8 @@ All fields are optional, but at least one must be provided.
 
 This is a partial update operation so only the attributes included in the request will be changed.
 
+If an asset is draft, updating the asset will always regenerate the access token.
+
 ### Request headers
 
 Requests must include the following header: `Content-Type: multipart/form-data`.

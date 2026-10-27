@@ -52,9 +52,14 @@ class AssetsController < ApplicationController
       replacement_id: asset_params[:replacement_id],
     }.compact
 
-    asset.merge!(asset_auth_params) if asset[:draft]
-
     begin
+      if asset[:draft].nil?
+        existing_asset = Services.asset_manager.asset(params[:id]).to_h
+        asset[:draft] = true if cast_boolean(existing_asset["draft"])
+      end
+
+      asset.merge!(asset_auth_params) if asset[:draft]
+
       respond_to do |format|
         format.json do
           asset_manager_response = Services.asset_manager.update_asset(params[:id], asset)
