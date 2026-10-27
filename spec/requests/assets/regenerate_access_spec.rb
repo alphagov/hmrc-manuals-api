@@ -9,10 +9,15 @@ describe "POST /assets/:id/regenerate-access" do
     post "/assets/#{asset_id}/regenerate-access"
   end
 
+  around do |test|
+    travel_to Time.zone.local(2026, 1, 1, 0, 0, 1) do
+      test.run
+    end
+  end
+
   before do
-    stub_asset_manager_request
     allow(SecureRandom).to receive(:uuid).and_return("token")
-    travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
+    stub_asset_manager_request
 
     subject
   end
