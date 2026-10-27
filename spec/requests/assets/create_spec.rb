@@ -12,31 +12,35 @@ describe "POST /assets" do
     post_multipart "/assets", request_params
   end
 
+  before do
+    allow(SecureRandom).to receive(:uuid).and_return("token")
+    allow(Services.asset_manager).to receive(:create_asset).and_call_original
+    stub_asset_manager_request
+
+    subject
+  end
+
   context "without a Content-Type header" do
-    it "returns 415 Unsupported Media Type" do
-      # post() has a Content-Type of application/x-www-form-urlencoded by default
-      response = Rack::MockRequest.new(Rails.application).post(
+    # post() has a Content-Type of application/x-www-form-urlencoded by default
+    subject do
+      Rack::MockRequest.new(Rails.application).post(
         "/assets",
         "HTTP_AUTHORIZATION" => "Bearer 12345678",
         "HTTP_ACCEPT" => "application/json",
       )
+    end
 
-      expect(response).to have_http_status(:unsupported_media_type)
+    it "returns 415 Unsupported Media Type" do
+      expect(subject).to have_http_status(:unsupported_media_type)
     end
   end
 
   context "when Asset Manager responds with ok" do
-    before do
-      allow(Services.asset_manager).to receive(:create_asset).and_call_original
-      stub_asset_manager_request
-    end
-
     context "when a value is not provided for draft" do
-      before do
-        allow(SecureRandom).to receive(:uuid).and_return("token")
-        travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
-
-        subject
+      around do |test|
+        travel_to Time.zone.local(2026, 1, 1, 0, 0, 1) do
+          test.run
+        end
       end
 
       it "responds with 201 Created" do
@@ -69,15 +73,10 @@ describe "POST /assets" do
     context "when a value is provided for draft" do
       let(:request_params) { { asset: { file: fixture_file_upload("asset.txt", "text/plain"), draft: } } }
 
-      subject do
-        post_multipart "/assets", request_params
-      end
-
       context "when it's neither `true` nor `false`" do
         let(:draft) { "invalid" }
 
         it "responds with 400 Bad Request" do
-          subject
           errors = expect_error_response(code: 400)
           expect(errors.first).to eq("'draft' needs to be either 'true' or 'false'")
         end
@@ -85,10 +84,6 @@ describe "POST /assets" do
 
       context "when the request marks the asset as live" do
         let(:draft) { false }
-
-        before do
-          subject
-        end
 
         it "responds with 201 Created" do
           expect(response).to have_http_status(:created)
@@ -130,11 +125,10 @@ describe "POST /assets" do
       context "when the request marks the asset as draft" do
         let(:draft) { true }
 
-        before do
-          allow(SecureRandom).to receive(:uuid).and_return("token")
-          travel_to Time.zone.local(2026, 1, 1, 0, 0, 1)
-
-          subject
+        around do |test|
+          travel_to Time.zone.local(2026, 1, 1, 0, 0, 1) do
+            test.run
+          end
         end
 
         it "responds with 201 Created" do
@@ -178,20 +172,10 @@ describe "POST /assets" do
     end
   end
 
-  context "when the request includes unknown parameters" do
-    before do
-      subject
-    end
-
-    it_behaves_like "rejects unknown parameters"
-  end
+  it_behaves_like "rejects unknown parameters"
 
   context "when the request does not include a file" do
     let(:request_params) { { asset: { draft: false } } }
-
-    before do
-      subject
-    end
 
     it "does not make a request to Asset Manager" do
       expect(response).to have_http_status(:bad_request)
@@ -200,11 +184,7 @@ describe "POST /assets" do
   end
 
   context "when Asset Manager responds with GdsApi::HTTPPayloadTooLarge" do
-    before do
-      stub_asset_manager_create_asset_too_large
-
-      subject
-    end
+    let(:stub_asset_manager_request) { stub_asset_manager_create_asset_too_large }
 
     it "responds with 413 Content Too Large" do
       errors = expect_error_response(code: 413)
@@ -213,11 +193,7 @@ describe "POST /assets" do
   end
 
   context "when Asset Manager responds with GdsApi::HTTPUnprocessableEntity" do
-    before do
-      stub_asset_manager_create_asset_unprocessable("Some error message")
-
-      subject
-    end
+    let(:stub_asset_manager_request) { stub_asset_manager_create_asset_unprocessable("Some error message") }
 
     it "responds with 422 Unprocessable Entity" do
       errors = expect_error_response(code: 422)
@@ -228,10 +204,6 @@ describe "POST /assets" do
   context "when the Accept header is not application/json" do
     subject do
       post_multipart "/assets", request_params, { "HTTP_ACCEPT" => "text/plain" }
-    end
-
-    before do
-      subject
     end
 
     it "responds with a 406 Not Acceptable" do
@@ -246,10 +218,6 @@ describe "POST /assets" do
         "HTTP_ACCEPT" => "application/json",
         "HTTP_AUTHORIZATION" => "Bearer 12345678",
       }
-    end
-
-    before do
-      subject
     end
 
     it "responds with 415 Unsupported Media Type" do
