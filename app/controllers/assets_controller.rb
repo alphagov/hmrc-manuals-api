@@ -157,8 +157,8 @@ private
   end
 
   def formatted_asset_manager_response(asset_manager_response)
-    asset_manager_response.to_h.merge(
-      { asset_id: get_asset_id_from_url(asset_manager_response["file_url"]) },
+    asset_manager_response.to_h.deep_symbolize_keys.merge(
+      asset_id: get_asset_id_from_url(asset_manager_response["file_url"]),
     )
   end
 

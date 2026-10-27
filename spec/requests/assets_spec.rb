@@ -37,6 +37,10 @@ describe "assets resource" do
     it "includes a preview expiry date 30 days in the future" do
       expect(parsed_response).to include(preview_expiry: Time.zone.local(2026, 1, 31, 0, 0, 1).iso8601)
     end
+
+    it "does not include duplicate file_url keys" do
+      expect(response.body.scan(/"file_url":/).count).to eq(1)
+    end
   end
 
   context "when the allow_asset_manager_requests feature flag is false" do
