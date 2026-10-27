@@ -94,15 +94,17 @@ Requests must include the following header: `Content-Type: multipart/form-data`.
 | `asset[file]`  | Yes      | File to upload.                                                                                                                             |
 | `asset[draft]` | No       | Whether the asset is uploaded as a draft. Defaults to `true`. Set to `false` to make the asset publicly available immediately after upload. |
 
+Requests including any other parameters are rejected with `400 Bad Request`.
+
 ### Response codes
 
-| Status                     | Description                            |
-| -------------------------- | -------------------------------------- |
-| `201 Created`              | Asset successfully uploaded.           |
-| `400 Bad Request`          | A required parameter was not provided. |
-| `401 Unauthorized`         | Authentication failed.                 |
-| `413 Payload Too Large`    | Uploaded file exceeds permitted size.  |
-| `422 Unprocessable Entity` | Asset could not be created.            |
+| Status                     | Description                                                                |
+| -------------------------- | ---------------------------------------------------------------------------|
+| `201 Created`              | Asset successfully uploaded.                                               |
+| `400 Bad Request`          | A required parameter was not provided or a provided parameter was unknown. |
+| `401 Unauthorized`         | Authentication failed.                                                     |
+| `413 Payload Too Large`    | Uploaded file exceeds permitted size.                                      |
+| `422 Unprocessable Entity` | Asset could not be created.                                                |
 
 ### Example
 
@@ -372,13 +374,14 @@ Requests must include the following header: `Content-Type: multipart/form-data`.
 | `asset[file]`           | No       | Replaces the file associated with the asset.                                              |
 | `asset[replacement_id]` | No       | ID of another asset that replaces this one. Used to mark the current asset as superseded. |
 
-You must provide at least one parameter.
+You must provide at least one parameter. Requests including any other parameters are rejected with `400 Bad Request`.
 
 ### Response codes
 
 | Status                     | Description                           |
 | -------------------------- | ------------------------------------- |
 | `200 OK`                   | Asset updated.                        |
+| `400 Bad Request`          | A provided parameter was unknown.     |
 | `403 Forbidden`            | Access to asset is forbidden.         |
 | `404 Not Found`            | Asset does not exist.                 |
 | `413 Payload Too Large`    | Uploaded file exceeds permitted size. |
