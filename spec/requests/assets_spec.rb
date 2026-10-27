@@ -23,7 +23,7 @@ describe "assets resource" do
     }.merge(additional_attributes)
   end
   let(:parsed_response) { JSON.parse(response.body).deep_symbolize_keys }
-  shared_examples "includes a draft response token" do
+  shared_examples "includes draft specific parameters" do
     it "generates and includes a token in the file_url" do
       expected_decoded_token = {
         "exp" => Time.zone.local(2026, 1, 31, 0, 0, 1).to_i,
@@ -217,7 +217,7 @@ describe "assets resource" do
           expect(Services.asset_manager).to have_received(:create_asset).with(*expected)
         end
 
-        it_behaves_like "includes a draft response token"
+        it_behaves_like "includes draft specific parameters"
       end
 
       context "when a value is provided for draft" do
@@ -315,7 +315,7 @@ describe "assets resource" do
             expect(Services.asset_manager).to have_received(:create_asset).with(*expected)
           end
 
-          it_behaves_like "includes a draft response token"
+          it_behaves_like "includes draft specific parameters"
 
           context "with mixed-case spelling" do
             let(:draft) { "True" }
@@ -546,7 +546,7 @@ describe "assets resource" do
             expect(Services.asset_manager).to have_received(:update_asset).with(*expected)
           end
 
-          it_behaves_like "includes a draft response token"
+          it_behaves_like "includes draft specific parameters"
         end
       end
 
@@ -578,7 +578,7 @@ describe "assets resource" do
             expect(Services.asset_manager).to have_received(:update_asset).with(*expected)
           end
 
-          it_behaves_like "includes a draft response token"
+          it_behaves_like "includes draft specific parameters"
         end
 
         context "when the existing asset is not draft" do
@@ -724,7 +724,7 @@ describe "assets resource" do
         expect(parsed_response).to include(asset_manager_response.except(:file_url))
       end
 
-      it_behaves_like "includes a draft response token"
+      it_behaves_like "includes draft specific parameters"
     end
 
     context "when Asset Manager responds with GdsApi::HTTPNotFound" do
