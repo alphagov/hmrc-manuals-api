@@ -6,7 +6,7 @@ RSpec.shared_context "asset manager" do
 
   let(:asset_id) { SecureRandom.hex }
   let(:additional_attributes) { {} }
-  let(:asset_manager_response) do
+  let(:stubbed_asset_manager_response) do
     {
       _response_info: {
         status: "ok",

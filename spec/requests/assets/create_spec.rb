@@ -5,8 +5,8 @@ describe "POST /assets" do
 
   let(:draft) { true }
   let(:request_params) { { asset: { file: fixture_file_upload("asset.txt", "text/plain") } } }
-  let(:file_url) { asset_manager_response[:file_url] }
-  let(:stub_asset_manager_request) { stub_asset_manager_create_asset(file_url, asset_manager_response.deep_stringify_keys) }
+  let(:file_url) { stubbed_asset_manager_response[:file_url] }
+  let(:stub_asset_manager_request) { stub_asset_manager_create_asset(file_url, stubbed_asset_manager_response.deep_stringify_keys) }
 
   subject do
     post_multipart "/assets", request_params
@@ -48,7 +48,7 @@ describe "POST /assets" do
       end
 
       it "responds with data from Asset Manager" do
-        expect(parsed_response).to include(asset_manager_response.except(:file_url))
+        expect(parsed_response).to include(stubbed_asset_manager_response.except(:file_url))
       end
 
       it "includes the file_url" do
@@ -99,7 +99,7 @@ describe "POST /assets" do
         end
 
         it "responds with data from Asset Manager" do
-          expect(parsed_response).to include(asset_manager_response)
+          expect(parsed_response).to include(stubbed_asset_manager_response)
         end
 
         it "includes the asset_id" do
@@ -146,7 +146,7 @@ describe "POST /assets" do
         end
 
         it "responds with data from Asset Manager" do
-          expect(parsed_response).to include(asset_manager_response.except(:file_url))
+          expect(parsed_response).to include(stubbed_asset_manager_response.except(:file_url))
         end
 
         it "includes the file_url" do

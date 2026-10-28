@@ -4,7 +4,7 @@ describe "PUT /assets/:id" do
   include_context "asset manager"
 
   let(:request_params) { { asset: { file: fixture_file_upload("asset.txt", "text/plain") } } }
-  let(:stub_asset_manager_request) { stub_asset_manager_update_asset(asset_id, asset_manager_response.deep_stringify_keys) }
+  let(:stub_asset_manager_request) { stub_asset_manager_update_asset(asset_id, stubbed_asset_manager_response.deep_stringify_keys) }
   let(:stub_asset_manager_get_request) { stub_asset_manager_request_to_get_asset(asset_id, { "draft": "false" }) }
 
   subject do
@@ -58,7 +58,7 @@ describe "PUT /assets/:id" do
         end
 
         it "responds with data from Asset Manager" do
-          expect(parsed_response).to include(asset_manager_response)
+          expect(parsed_response).to include(stubbed_asset_manager_response)
           expect(parsed_response).to include(asset_id:)
         end
 
@@ -87,7 +87,7 @@ describe "PUT /assets/:id" do
         end
 
         it "responds with data from Asset Manager" do
-          expect(parsed_response).to include(asset_manager_response.except(:file_url))
+          expect(parsed_response).to include(stubbed_asset_manager_response.except(:file_url))
           expect(parsed_response).to include(asset_id:)
         end
 
@@ -116,7 +116,7 @@ describe "PUT /assets/:id" do
         end
 
         it "responds with data from Asset Manager" do
-          expect(parsed_response).to include(asset_manager_response.except(:file_url))
+          expect(parsed_response).to include(stubbed_asset_manager_response.except(:file_url))
           expect(parsed_response).to include(asset_id:)
         end
 
@@ -138,7 +138,7 @@ describe "PUT /assets/:id" do
         end
 
         it "responds with data from Asset Manager" do
-          expect(parsed_response).to include(asset_manager_response)
+          expect(parsed_response).to include(stubbed_asset_manager_response)
           expect(parsed_response).to include(asset_id:)
         end
 

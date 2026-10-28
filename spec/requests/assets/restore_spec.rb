@@ -3,7 +3,7 @@ require "rails_helper"
 describe "POST /assets/:id/restore" do
   include_context "asset manager"
 
-  let(:stub_asset_manager_request) { stub_asset_manager_restore_asset(asset_id, asset_manager_response.deep_stringify_keys) }
+  let(:stub_asset_manager_request) { stub_asset_manager_restore_asset(asset_id, stubbed_asset_manager_response.deep_stringify_keys) }
 
   subject do
     post "/assets/#{asset_id}/restore"
@@ -25,7 +25,7 @@ describe "POST /assets/:id/restore" do
     end
 
     it "responds with data from Asset Manager" do
-      expect(parsed_response).to include(asset_manager_response)
+      expect(parsed_response).to include(stubbed_asset_manager_response)
       expect(parsed_response).to include(asset_id:)
     end
   end
