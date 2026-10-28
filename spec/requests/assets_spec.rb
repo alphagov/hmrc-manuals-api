@@ -39,6 +39,21 @@ describe "assets resource" do
     end
   end
 
+  shared_examples "rejects unknown parameters" do
+    let(:request_params) do
+      { asset: { non_existent: "value" } }
+    end
+
+    it "responds with 400 Bad Request" do
+      errors = expect_error_response(code: 400)
+      expect(errors.first).to eq("Unknown parameters: non_existent")
+    end
+
+    it "makes no requests to Asset Manager" do
+      expect(stub_any_asset_manager_call).not_to have_been_requested
+    end
+  end
+
   context "when the allow_asset_manager_requests feature flag is false" do
     subject do
       get "/assets/123456789"
@@ -330,6 +345,14 @@ describe "assets resource" do
           end
         end
       end
+    end
+
+    context "when the request includes unknown parameters" do
+      before do
+        subject
+      end
+
+      it_behaves_like "rejects unknown parameters"
     end
 
     context "when the request does not include a file" do
@@ -631,6 +654,8 @@ describe "assets resource" do
         end
       end
     end
+
+    it_behaves_like "rejects unknown parameters"
 
     context "when Asset Manager responds with GdsApi::HTTPPayloadTooLarge" do
       let(:stub_asset_manager_request) { stub_asset_manager_update_asset_too_large(asset_id) }

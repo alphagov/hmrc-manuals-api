@@ -37,6 +37,8 @@ module HmrcManualsApi
     # config.eager_load_paths << Rails.root.join("extras")
     config.middleware.insert_after(Rack::Runtime, Rack::MethodOverride)
 
+    config.action_controller.action_on_unpermitted_parameters = :raise
+
     config.allow_asset_manager_requests = ENV.fetch("ALLOW_ASSET_MANAGER_REQUESTS", false)
 
     config.jwt_auth_secret = ENV.fetch("JWT_AUTH_SECRET", "123")

@@ -3,6 +3,10 @@ class AssetsController < ApplicationController
   before_action :check_content_type_is_multipart, only: %i[create update]
   before_action :check_draft_param_is_valid, only: %i[create update]
 
+  rescue_from ActionController::UnpermittedParameters do |e|
+    error :bad_request, "Unknown parameters: #{e.params.join(', ')}"
+  end
+
   def create
     create_params = asset_params(required_params: [:file])
 
