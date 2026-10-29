@@ -173,6 +173,12 @@ describe "POST /assets" do
   end
 
   it_behaves_like "rejects unknown parameters"
+  it_behaves_like "rejects malformed asset params", request_params: { asset: { file: ["a.png", "b.png"] } }
+  it_behaves_like "rejects malformed asset params", request_params: { asset: { "0" => { "file" => "a.png" } } }
+  it_behaves_like "rejects malformed asset params", request_params: { asset: { draft: %w[true] } }
+  it_behaves_like "rejects malformed asset params", request_params: { asset: "not-a-hash" }
+  it_behaves_like "rejects malformed asset params", request_params: { asset: [{ "file" => "a.png" }, { "file" => "b.png" }] }
+  it_behaves_like "rejects missing asset root"
 
   context "when the request does not include a file" do
     let(:request_params) { { asset: { draft: false } } }

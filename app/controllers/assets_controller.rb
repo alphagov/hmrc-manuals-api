@@ -1,6 +1,7 @@
 class AssetsController < ApplicationController
   before_action :check_asset_manager_requests_allowed
   before_action :check_content_type_is_multipart, only: %i[create update]
+  before_action :check_asset_param_is_valid, only: %i[create update]
   before_action :check_draft_param_is_valid, only: %i[create update]
 
   rescue_from ActionController::UnpermittedParameters do |e|
@@ -131,6 +132,12 @@ private
     unless request.headers["Content-Type"].to_s.match?(/^multipart\/form-data/)
       error :unsupported_media_type, "Invalid Content-Type header"
     end
+  end
+
+  def check_asset_param_is_valid
+    return if params[:asset].is_a?(ActionController::Parameters)
+
+    error :bad_request, "'asset' must be a hash of attributes"
   end
 
   def check_draft_param_is_valid

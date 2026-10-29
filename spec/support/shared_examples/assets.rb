@@ -32,3 +32,27 @@ RSpec.shared_examples "rejects unknown parameters" do
     expect(stub_any_asset_manager_call).not_to have_been_requested
   end
 end
+
+RSpec.shared_examples "rejects malformed asset params" do |request_params:|
+  let(:request_params) { request_params }
+
+  it "responds with 400 Bad Reqest" do
+    expect_error_response(code: 400)
+  end
+
+  it "make no requests to Asset Manager" do
+    expect(stub_any_asset_manager_call).not_to have_been_requested
+  end
+end
+
+RSpec.shared_examples "rejects missing asset root" do
+  let(:request_params) { { "other" => "value" } }
+
+  it "responds with 400 Bad Reqest" do
+    expect(response).to have_http_status(:bad_request)
+  end
+
+  it "make no requests to Asset Manager" do
+    expect(stub_any_asset_manager_call).not_to have_been_requested
+  end
+end

@@ -184,6 +184,12 @@ describe "PUT /assets/:id" do
   end
 
   it_behaves_like "rejects unknown parameters"
+  it_behaves_like "rejects malformed asset params", request_params: { asset: { file: ["a.png", "b.png"] } }
+  it_behaves_like "rejects malformed asset params", request_params: { asset: { "0" => { "file" => "a.png" } } }
+  it_behaves_like "rejects malformed asset params", request_params: { asset: { draft: %w[true] } }
+  it_behaves_like "rejects malformed asset params", request_params: { asset: "not-a-hash" }
+  it_behaves_like "rejects malformed asset params", request_params: { asset: [{ "file" => "a.png" }, { "file" => "b.png" }] }
+  it_behaves_like "rejects missing asset root"
 
   context "when Asset Manager responds with GdsApi::HTTPPayloadTooLarge" do
     let(:stub_asset_manager_request) { stub_asset_manager_update_asset_too_large(asset_id) }
