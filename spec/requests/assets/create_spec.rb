@@ -193,11 +193,16 @@ describe "POST /assets" do
   end
 
   context "when Asset Manager responds with GdsApi::HTTPUnprocessableEntity" do
-    let(:stub_asset_manager_request) { stub_asset_manager_create_asset_unprocessable("Some error message") }
+    let(:asset_manager_errors) { ["File can't be blank", "Replacement not found"] }
+    let(:stub_asset_manager_request) do
+      stub_asset_manager_create_asset_unprocessable(
+        { _response_info: { status: asset_manager_errors } }.to_json,
+      )
+    end
 
-    it "responds with 422 Unprocessable Entity" do
+    it "responds with 422 Unprocessable Entity and the errors from Asset Manager" do
       errors = expect_error_response(code: 422)
-      expect(errors.first).to include("Some error message")
+      expect(errors).to eq(asset_manager_errors)
     end
   end
 
