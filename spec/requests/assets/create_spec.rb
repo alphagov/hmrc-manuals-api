@@ -82,6 +82,12 @@ describe "POST /assets" do
         end
       end
 
+      context "when it's an array" do
+        let(:draft) { %w[true] }
+
+        it_behaves_like "rejects malformed asset params", error_message: "Unknown parameters: draft"
+      end
+
       context "when the request marks the asset as live" do
         let(:draft) { false }
 
@@ -173,6 +179,36 @@ describe "POST /assets" do
   end
 
   it_behaves_like "rejects unknown parameters"
+
+  context "when asset is a string" do
+    let(:request_params) { { asset: "not-a-hash" } }
+
+    it_behaves_like "rejects malformed asset params", error_message: "'asset' must be a hash of attributes"
+  end
+
+  context "when asset is an array" do
+    let(:request_params) { { asset: [{ "file" => "a.png" }, { "file" => "b.png" }] } }
+
+    it_behaves_like "rejects malformed asset params", error_message: "'asset' must be a hash of attributes"
+  end
+
+  context "when the asset param is missing" do
+    let(:request_params) { { "other" => "value" } }
+
+    it_behaves_like "rejects malformed asset params", error_message: "'asset' must be a hash of attributes"
+  end
+
+  context "when file is an array" do
+    let(:request_params) { { asset: { file: ["a.png", "b.png"] } } }
+
+    it_behaves_like "rejects malformed asset params", error_message: "Unknown parameters: file"
+  end
+
+  context "when asset is sent with indexed keys (asset[0][file])" do
+    let(:request_params) { { asset: { "0" => { "file" => "a.png" } } } }
+
+    it_behaves_like "rejects malformed asset params", error_message: "Unknown parameters: 0"
+  end
 
   context "when the request does not include a file" do
     let(:request_params) { { asset: { draft: false } } }

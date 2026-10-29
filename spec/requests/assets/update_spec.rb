@@ -50,6 +50,12 @@ describe "PUT /assets/:id" do
         end
       end
 
+      context "when it's an array" do
+        let(:draft) { %w[true] }
+
+        it_behaves_like "rejects malformed asset params", error_message: "Unknown parameters: draft"
+      end
+
       context "when the asset is updated to not be draft" do
         let(:draft) { false }
 
@@ -184,6 +190,36 @@ describe "PUT /assets/:id" do
   end
 
   it_behaves_like "rejects unknown parameters"
+
+  context "when asset is a string" do
+    let(:request_params) { { asset: "not-a-hash" } }
+
+    it_behaves_like "rejects malformed asset params", error_message: "'asset' must be a hash of attributes"
+  end
+
+  context "when asset is an array" do
+    let(:request_params) { { asset: [{ "file" => "a.png" }, { "file" => "b.png" }] } }
+
+    it_behaves_like "rejects malformed asset params", error_message: "'asset' must be a hash of attributes"
+  end
+
+  context "when the asset param is missing" do
+    let(:request_params) { { "other" => "value" } }
+
+    it_behaves_like "rejects malformed asset params", error_message: "'asset' must be a hash of attributes"
+  end
+
+  context "when file is an array" do
+    let(:request_params) { { asset: { file: ["a.png", "b.png"] } } }
+
+    it_behaves_like "rejects malformed asset params", error_message: "Unknown parameters: file"
+  end
+
+  context "when asset is sent with indexed keys (asset[0][file])" do
+    let(:request_params) { { asset: { "0" => { "file" => "a.png" } } } }
+
+    it_behaves_like "rejects malformed asset params", error_message: "Unknown parameters: 0"
+  end
 
   context "when Asset Manager responds with GdsApi::HTTPPayloadTooLarge" do
     let(:stub_asset_manager_request) { stub_asset_manager_update_asset_too_large(asset_id) }
