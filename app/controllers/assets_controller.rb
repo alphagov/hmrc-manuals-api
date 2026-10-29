@@ -35,7 +35,7 @@ class AssetsController < ApplicationController
     rescue GdsApi::HTTPPayloadTooLarge
       error :content_too_large, "Content exceeds maximum permitted size"
     rescue GdsApi::HTTPUnprocessableEntity => e
-      error :unprocessable_entity, e.message
+      error :unprocessable_entity, asset_manager_errors(e, fallback: "Asset creation failed")
     end
   end
 
@@ -120,6 +120,17 @@ class AssetsController < ApplicationController
   end
 
 private
+
+  def asset_manager_errors(exception, fallback:)
+    return fallback if exception.http_body.blank?
+
+    body = JSON.parse(exception.http_body)
+    return fallback unless body.is_a?(Hash)
+
+    body.dig("_response_info", "status") || fallback
+  rescue JSON::ParserError
+    fallback
+  end
 
   def check_asset_manager_requests_allowed
     return if Rails.application.config.allow_asset_manager_requests
