@@ -215,11 +215,17 @@ describe "PUT /assets/:id" do
   end
 
   context "when Asset Manager responds with GdsApi::HTTPUnprocessableEntity" do
-    let(:stub_asset_manager_request) { stub_asset_manager_update_asset_unprocessable(asset_id) }
+    let(:asset_manager_errors) { ["Replacement not found"] }
+    let(:stub_asset_manager_request) do
+      stub_asset_manager_update_asset_unprocessable(
+        asset_id,
+        { _response_info: { status: asset_manager_errors } }.to_json,
+      )
+    end
 
-    it "responds with 422 Unprocessable Entity" do
+    it "responds with 422 Unprocessable Entity and the errors from Asset Manager" do
       errors = expect_error_response(code: 422)
-      expect(errors.first).to eq("Asset update failed")
+      expect(errors).to eq(asset_manager_errors)
     end
   end
 
