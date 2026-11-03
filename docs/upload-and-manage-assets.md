@@ -247,6 +247,8 @@ DELETE /assets/:asset_id
 
 Marks an asset as deleted.
 
+Deleting an asset that's already marked as deleted succeeds and returns the asset unchanged, rather than returning an error.
+
 ### Path parameters
 
 | Parameter  | Description                     |
@@ -295,6 +297,8 @@ POST /assets/:asset_id/restore
 ```
 
 Restores a previously deleted asset.
+
+Restoring an asset that isn't marked as deleted succeeds and returns the asset unchanged, rather than returning an error.
 
 ### Path parameters
 
