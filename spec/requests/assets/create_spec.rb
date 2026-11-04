@@ -193,11 +193,58 @@ describe "POST /assets" do
   end
 
   context "when Asset Manager responds with GdsApi::HTTPUnprocessableEntity" do
-    let(:stub_asset_manager_request) { stub_asset_manager_create_asset_unprocessable("Some error message") }
+    let(:asset_manager_errors) { ["File can't be blank", "Replacement not found"] }
+    let(:stub_asset_manager_request) do
+      stub_asset_manager_create_asset_unprocessable(
+        { _response_info: { status: asset_manager_errors } }.to_json,
+      )
+    end
 
-    it "responds with 422 Unprocessable Entity" do
+    it "responds with 422 Unprocessable Entity and the errors from Asset Manager" do
       errors = expect_error_response(code: 422)
-      expect(errors.first).to include("Some error message")
+      expect(errors).to eq(asset_manager_errors)
+    end
+  end
+
+  context "when a 422 response has no body" do
+    let(:stub_asset_manager_request) { stub_asset_manager_create_asset_unprocessable }
+
+    it "responds with 422 Unprocessable Entity and a generic message" do
+      errors = expect_error_response(code: 422)
+      expect(errors).to eq(["Asset creation failed"])
+    end
+  end
+
+  context "when a 422 response body is not JSON" do
+    let(:stub_asset_manager_request) do
+      stub_asset_manager_create_asset_unprocessable("<html>Bad gateway</html>")
+    end
+
+    it "responds with 422 Unprocessable Entity and a generic message" do
+      errors = expect_error_response(code: 422)
+      expect(errors).to eq(["Asset creation failed"])
+    end
+  end
+
+  context "when a 422 response body is not a JSON object" do
+    let(:stub_asset_manager_request) do
+      stub_asset_manager_create_asset_unprocessable([1, 2].to_json)
+    end
+
+    it "responds with 422 Unprocessable Entity and a generic message" do
+      errors = expect_error_response(code: 422)
+      expect(errors).to eq(["Asset creation failed"])
+    end
+  end
+
+  context "when a 422 response body contains no errors" do
+    let(:stub_asset_manager_request) do
+      stub_asset_manager_create_asset_unprocessable({ _response_info: {} }.to_json)
+    end
+
+    it "responds with 422 Unprocessable Entity and a generic message" do
+      errors = expect_error_response(code: 422)
+      expect(errors).to eq(["Asset creation failed"])
     end
   end
 
