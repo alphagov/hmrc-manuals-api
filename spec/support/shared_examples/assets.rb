@@ -32,3 +32,14 @@ RSpec.shared_examples "rejects unknown parameters" do
     expect(stub_any_asset_manager_call).not_to have_been_requested
   end
 end
+
+RSpec.shared_examples "rejects malformed asset params" do |error_message:|
+  it "responds with 400 Bad Request" do
+    errors = expect_error_response(code: 400)
+    expect(errors.first).to eq(error_message)
+  end
+
+  it "makes no requests to Asset Manager" do
+    expect(stub_any_asset_manager_call).not_to have_been_requested
+  end
+end
