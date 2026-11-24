@@ -84,7 +84,7 @@ GEM
       version_gem (~> 1.1, >= 1.1.16)
     base64 (0.3.0)
     bigdecimal (4.1.3)
-    brakeman (8.1.0)
+    brakeman (8.1.1)
       racc
     builder (3.3.0)
     byebug (13.0.0)
