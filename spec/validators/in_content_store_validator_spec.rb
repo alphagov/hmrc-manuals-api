@@ -20,7 +20,7 @@ describe InContentStoreValidator do
 
   before do
     stub_content_store_has_item("/hmrc-internal-manuals/#{slug}",
-                                content_item_for_base_path("/hmrc-internal-manuals/#{slug}").merge(schema_name: content_item_schema_name))
+                                content_item_for_base_path("/hmrc-internal-manuals/#{slug}").merge("schema_name" => content_item_schema_name))
   end
 
   context "with a matching schema name" do
